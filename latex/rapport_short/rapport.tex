@@ -1,0 +1,245 @@
+\documentclass[a4paper, 12pt]{article}
+%\documentclass[a4paper, 12pt, draft]{article} % don't include images, leave a border of same size...great
+
+% Variable de compilation
+\newif\ifbeamer
+\beamerfalse
+\newcommand{\beamer}[2]{\ifbeamer #1 \else #2 \fi}
+%%%
+
+%\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc} % manage utf8 encodage 
+\usepackage[french]{babel} % for french document ! dirty enumerate style,+ bad change rectangle colors for section linking.
+\usepackage{fancyhdr} % for heading
+\usepackage{listings}
+\usepackage[colorlinks=true, urlcolor=blue]{hyperref} % url, link
+\usepackage{graphicx}
+\usepackage{geometry}
+
+\usepackage[cmex10]{amsmath, mathtools}
+\usepackage{multirow}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{enumerate}
+\usepackage{url}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{fancyvrb}
+\usepackage{yfonts}
+
+\usepackage{wrapfig}
+\usepackage{tikz}
+    \input{../tikz.conf}
+
+\geometry{
+      a4paper,
+	    body={160mm,260mm},
+	    left=25mm,top=20mm,
+	    headheight=4mm,headsep=8mm,
+        footskip=10mm,
+        }
+                                              
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% => Internal
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% itemize item def
+%% \begin{itemize}\itemsep2pt % example space betwew item
+%\renewcommand{\FrenchLabelItem}{\textbullet}
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\cdot$}
+\renewcommand{\labelitemiii}{$\diamond$}
+\renewcommand{\labelitemiv}{$\ast$}
+
+% equation reference
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% => Alias
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% write code
+\lstnewenvironment{C}[1]
+{\lstset{language=C,
+      frame=tBRl,
+      basicstyle=\scriptsize,stringstyle=\emph,showstringspaces=false,
+      numbers=left,numberstyle=\tiny,
+      breaklines=true, columns=flexible, title={#1}}
+}{}
+      
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% => Preambles Pages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{fancy}
+\fancyhf{} % remove default headers
+\fancyfoot[R]{\thepage}
+\renewcommand{\footrulewidth}{0.3pt}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\author{
+  Smith
+}
+
+\title{
+      %\vspace{2cm}
+      \Large{Infinite Latent Features Relational Model}\\
+            --\\ }
+
+\date{avril 2015}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% => BEGIN DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\fancypagestyle{plain}{
+      \fancyhf{}
+      %\fancyhead[L]{\includegraphics[scale=0.4]{ipb.eps}}
+      \renewcommand{\footrulewidth}{0pt}
+      \renewcommand{\headrulewidth}{0pt}
+}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% => end PREAMBLES pages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+Let $\mathcal{Y}$ be the set of all relational observations or links, we assume that the links are drawn from independant Bernoulli densities given $\pi_{ij}$:
+
+
+
+\bibliographystyle{unsrt}
+\bibliography{rapport-model}
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%                   %%%%%%%%%%%%
+%%%%%%%%%%                   %%%%%%%%%%%%
+%%%%%%%%%%                   %%%%%%%%%%%%
+%%%%%%%%%%                   %%%%%%%%%%%%
+%%%%%%%%%%      examples     %%%%%%%%%%%%
+%%%%%%%%%%                   %%%%%%%%%%%%
+%%%%%%%%%%                   %%%%%%%%%%%%
+%%%%%%%%%%                   %%%%%%%%%%%%
+%%%%%%%%%%                   %%%%%%%%%%%%
+%%%%%%%%%%                   %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{Verbatim}[fontsize=\small]
+(:action move
+  :parameters (?thing ?from ?to)
+  :precondition (and (road ?from ?to)
+     (at ?thing ?from) (mobile ?thing)
+     (not (= ?from ?to)))
+  :effect (and (at ?thing ?to)
+     (not (at ?thing ?from))))
+\end{Verbatim}
+\begin{algorithm}
+
+%\dontprintsemicolon
+\KwIn{Two actions $a_1$ and $a_2$ to merge}
+\KwOut{The macro-action $m$}
+\Begin{
+$m \gets a_1$\;
+\ForEach{precondition $p \in \mathrm{Pre}(a_2)$}{
+\If{$ p \notin \mathrm{Add}(m) \cup \mathrm{Pre}(m)$}{
+	$\mathrm{Pre}(m) \gets \mathrm{Pre}(m) \cup \{p\}$\;
+	}
+}
+\ForEach{delete effects $d \in \mathrm{Del}(a_2)$}{
+\eIf{$ d \in \mathrm{Add}(m)$}{
+	$\mathrm{Add}(m) \gets \mathrm{Add}(m) \backslash \{d\}$\;
+	}
+	{$\mathrm{Del}(m) \gets \mathrm{Del}(m) \cup \{d\}$\;}
+}
+\Return{$m$}\;}
+\caption{merge$(a_1, a_2)$}
+\label{algo:merge}
+\end{algorithm}
+
+% Vertical Split with line
+\begin{minipage}[t]{0.35\linewidth}
+    \flushleft{
+        \begin{align*}
+           Y | \Pi &\sim Bernoulli(\pi_{ij}) \\
+            F | \alpha &\sim \mathrm{IPB}(\alpha) \\
+            w_{kl} | \sigma_w &\sim \mathcal{N}(0, \sigma_w^2) 
+        \end{align*}
+}
+\end{minipage}
+\qquad{\color{black}\vrule}\qquad
+\begin{minipage}[t]{0.45\linewidth}
+    \begin{align*}
+    P(Y | \Pi ) = \prod_{(i,j)\in \mathcal{Y}} \pi_{ij}^{y_{ij}} (1-\pi_{ij})^{1-y_{ij}} \\
+    \pi_{ij} = p(y_{ij} = 1 | F, W ) = \sigma(F_i^\top WF_j)
+    \end{align*}
+\end{minipage}
+
+% equation and box
+\[bits \longrightarrow \fbox{emetteur} \xrightarrow{e(t)} \parbox[b]{15ex}{$propagation$ \newline \framebox[15ex]{$H(t)$}} \longrightarrow \parbox[t]{4mm}{$\oplus$\\$\uparrow$\\$n(t)$} \xrightarrow{s(t)} \fbox{recepteur} \longrightarrow \hat{bits}\]
+$e(t)$: signal emis.\\
+$s(t)$: signal reçus.\\
+$n(t)$: bruit banc gaussien.\\
+
+
+% figure flottante, title, label (ref)
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.4]{tv-map.eps}
+\caption{\textbf{Standard de broadcast video}}
+\label{fig:tv-map}
+\end{figure}
+
+% figure a coté du texte
+\begin{wrapfigure}{r}{0.35\linewidth}
+\includegraphics[scale=0.3]{couloir.eps}
+\end{wrapfigure}
+
+% two figure by side
+\begin{figure}[h]
+\begin{minipage}{0.45\linewidth}
+\includegraphics[scale=0.39]{noise.eps}
+\end{minipage}
+\begin{minipage}{0.45\linewidth}
+\includegraphics[scale=0.39]{noise_p.eps}
+\end{minipage}
+\caption{un echantillons de bruit et sa densité de probabilité gaussienne}
+\end{figure}
+
+% tableau resised (box)
+% with title and flottant ([h)
+\begin{table}[h]
+\caption{Caractéristique de différentes version de l'USRP}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+Model& RF channels&  Host Intf& Host BW(MHz)&    DAC&                 ADC&              MIMO&  CPU&       Cost\\ 
+\hline
+N200&  1TX/1RX&      GigE&           50&      16-bit, 400 MSPS&    14-bit, 100 MSPS&    Yes**& n/a&       \$1,500\\
+N210&  1TX/1RX&      GigE&           50&      16-bit, 400 MSPS&    14-bit, 100 MSPS&    Yes**& n/a&       \$1,700\\
+E100*& 1TX/1RX&      Embedded&       4-8&     14-bit, 128 MSPS&    12-bit, 64 MSPS &    No&    OMAP 3730& \$1,300\\
+E110*& 1TX/1RX&      Embedded&       4-8&     14-bit, 128 MSPS&    12-bit, 64 MSPS &    No&    OMAP 3730& \$1,500\\
+USRP1& 2TX/2RX&      USB 2.0&         16&     14-bit, 128 MSPS&   12-bit, 64 MSPS  &    Yes&   n/a&       \$700\\
+B100&  1TX/1RX&      USB 2.0&         16&     14-bit, 128 MSPS&   12-bit, 64 MSPS  &   No&    n/a&       \$650\\
+\hline
+\end{tabular}}
+\end{table}
+
+% note de marge
+\marginpar{test \\ test2}
+
+% itemize option
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\cdot$}
+\renewcommand{\labelitemiii}{$\diamond$}
+\renewcommand{\labelitemiv}{$\ast$}
