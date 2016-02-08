@@ -1,0 +1,112 @@
+# Debian-Conky
+# A comprehensive conky script, configured for use on
+# Ubuntu / Debian Gnome, without the need for any external scripts.
+#
+# Based on conky-jc and the default .conkyrc.
+# INCLUDES:
+# - tail of /var/log/messages
+# - netstat shows number of connections from your computer and application/PID making it. Kill spyware!
+#
+# -- Pengo / dTracked
+# 
+
+# Check
+cpu_avg_samples 2
+update_interval 2.1
+background no
+alignment top_right
+default_color grey # Default colors and also border colors, grey90 == #e5e5e5
+color1 0077ff # Indicator
+color2 ffffff # Evidence
+
+# Use Xft?
+use_xft yes
+xftalpha 0.8
+text_buffer_size 2048
+#xftfont DejaVu Sans:size=9
+xftfont Bitstream Vera Sans Mono:size=12 # it's aligned !!
+
+# Create own window instead of using desktop (required in nautilus)
+own_window yes
+own_window_type override
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_colour brown
+ 
+# Use double buffering (reduces flicker, may not work for everyone)
+double_buffer yes
+ 
+# fiddle with window
+use_spacer right
+ 
+# Draw shades?
+draw_shades no
+ 
+# Text stuff
+draw_outline no # amplifies text if yes
+draw_borders no
+uppercase no # set to yes if you want all text to be in uppercase
+ 
+stippled_borders 2
+border_width 10
+#maximum_width 330
+#minimum_size 250 5
+gap_x 10
+gap_y 10
+
+# stuff after 'TEXT' will be formatted on screen
+TEXT
+$color
+#${color orange}SYSTEM ${hr 2}$color
+#$nodename $sysname $kernel on $machine
+ 
+${color orange}CPU ${hr 2}$color
+${color1}Uptime:$color $uptime ${color1} Load:$color $loadavg
+${color1}CPU:$color ${color2}${cpu}%$color ${color1}${cpubar 5,85}   ${color1}Disk I/O: $color${diskio}
+${cpugraph 0 27,155 000000 ffffff} $alignr${diskiograph 27,155 000000 ffffff 750}
+${color1}Procs:$color ${color2}$processes$color ${color1}Run:$color $running_processes ${color1}CPU:$color ${i2c 0-002d temp 2}${color1} MB:$color ${i2c 0-002d temp 1} ${color1}HD:$color ${hddtemp /dev/hda}
+
+${color1}Name              PID     CPU%   MEM%
+$color ${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}
+$color ${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
+$color ${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3}
+$color ${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4}
+$color ${top name 5} ${top pid 5} ${top cpu 5} ${top mem 5}
+ 
+${color orange}MEMORY ${hr 2}$color
+#RAM:   $memperc%   ${membar 6}$color
+#Swap:  $swapperc%   ${swapbar 6}$color
+${color1}RAM Usage:$color $mem${color1}/${color}$memmax - ${color2}$memperc%$color ${color1}$membar
+${color1}Swap Usage:$color $swap${color1}/${color}$swapmax - $swapperc% ${color1}${swapbar}
+
+${color1}File systems:
+ ${color1}/          $color${fs_used /} / ${fs_size /}${alignr}${color1}${fs_bar 5,120 /}
+ ${color1}/home      $color${fs_used /home} / ${fs_size /home}${alignr}${color1}${fs_bar 5,120 /home}
+ ${color1}/over       $color${fs_used /over} / ${fs_size /over}${alignr}${color1}${fs_bar 5,120 /over}
+ 
+${color orange}NETWORK (${addr eth0}) ${hr 2}$color
+Net Down: $color${downspeed eth0} k/s ${alignr}Net Up: ${upspeed eth0} k/s
+${downspeedgraph eth0 25,155 000000 00ff00} ${alignr}${upspeedgraph eth0 25,155 000000 ff0000}$color
+Total: ${totaldown eth0} ${alignr}Total: ${totalup eth0}
+${execi 30 netstat -ept | grep ESTAB | awk '{print $9}' | cut -d: -f1 | sort | uniq -c | sort -nr}
+${color orange}LOGGING ${hr 2}$color
+${execi 30 tail -n3 /var/log/messages | awk '{print " ",$5,$6,$7,$8,$9,$10}' | fold -w50}
+ 
+#${color orange}FORTUNE ${hr 2}$color
+#${execi 120 fortune -s | fold -w50}
+
+#$color ${audacious_title}
+# ${color1}${audacious_bar} $color
+# ${texeci 60 imap_status.sh inbox UNSEEN} ${tab 15} Inbox
+# ${texeci 60 imap_status.sh conky-commits UNSEEN} ${tab 15} conky-commits
+# ${texeci 60 imap_status.sh conky-development UNSEEN} ${tab 15} conky-development
+# ${texeci 60 imap_status.sh gtk-app-devel-list UNSEEN} ${tab 15} gtk-app-devel-list
+# ${texeci 60 imap_status.sh gtk-doc-list UNSEEN} ${tab 15} gtk-doc-list
+# ${texeci 60 imap_status.sh libdexter-commits UNSEEN} ${tab 15} libdexter-commits
+# ${texeci 60 imap_status.sh libdexter-development UNSEEN} ${tab 15} libdexter-development
+
+#${color1}${font :bold}Music${font}${color2} (${xmms2_status})
+#    $xmms2_title
+#    $xmms2_artist / $alignr$xmms2_album
+#    ${xmms2_bar 5}
+#    $xmms2_percent%$alignr$xmms2_elapsed/$xmms2_duration 

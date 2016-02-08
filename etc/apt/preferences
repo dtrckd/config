@@ -1,0 +1,7 @@
+Package: *
+Pin: release a=testing
+Pin-priority: 200
+
+Package: *
+Pin: release a=unstable
+Pin-priority: 100

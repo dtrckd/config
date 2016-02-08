@@ -1,0 +1,83 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% => Flow Graph Environnement (TIKZ)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usetikzlibrary{trees}
+%\usetikzlibrary{graphs}
+\usetikzlibrary{automata}
+\usetikzlibrary{positioning}
+\usetikzlibrary{petri}
+\usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{fit}
+\usetikzlibrary{snakes}
+\usetikzlibrary{matrix}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{shapes.symbols}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% => Initialisation.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Constant, dimensions.
+\newcommand{\scale}{1}
+\newcommand{\mfont}{\large}
+\newlength{\unit} \setlength{\unit}{\scale cm} 
+\newlength{\lbloc} \setlength{\lbloc}{2cm} \newlength{\hbloc} \setlength{\hbloc}{1cm} % blocs size
+\newlength{\ebloc} \setlength{\ebloc}{3cm} % space between blocs
+\newlength{\ltext} \setlength{\ltext}{2 cm} % longeur de text max (breakline)
+\beamer{\newcommand{\ymove}{2.5*\unit}} {\newcommand{\ymove}{2.5cm}}
+
+% Text
+\tikzstyle{textc}=  [text centered, text width=\ltext, font=\mfont] % \tikzstyle{text}=[align=center] % for "up to date"version
+\tikzstyle{textj}=[text justified,text width=\ltext, font=\mfont] 
+\tikzstyle{textit}=[font=\itshape\small] 
+
+% default style
+\tikzstyle{css}=[rounded corners=3pt, textc, minimum size=\lbloc, minimum height=\hbloc] %node distance=\ebloc/2,
+
+% Bloc
+\tikzstyle{bloc}=[draw=black,rectangle,rounded corners=3pt]
+\tikzstyle{wbloc}=[draw=white,rectangle,rounded corners=3pt]
+\tikzstyle{sbloc}=[draw,rectangle,rounded corners=3pt, textc ]
+% Carre
+\tikzstyle{carre}=[draw=black, rectangle, css]
+% Losange
+\tikzstyle{losange}=[draw=black, diamond, css]
+% Rond
+\tikzstyle{rond}=[draw=black, ellipse, css]	
+% Cloud
+\tikzstyle{cloud}=[rond, dashed]	
+% Double Carre
+\tikzstyle{ccarre}=[bloct, thick, double] 
+
+% CSS
+\newlength{\dline} \setlength{\dline}{2pt} % double line distance
+
+% Line
+\tikzstyle{line}=[-, thick]
+\tikzstyle{arrow}=[->, thick]
+\tikzstyle{rarrow}=[<-, thick]
+\tikzstyle{waves}=[decorate, decoration={snake, amplitude=.5mm,segment length=2mm,post length=3pt}]
+\tikzstyle{brace}=[decorate, decoration={brace, mirror}]
+\tikzstyle{flux}=[->, double distance=\dline]
+\tikzstyle{rflux}=[<-, double distance=\dline]
+\tikzstyle{dflux}=[<->, double distance=\dline]
+\tikzstyle{ffflux} = [thick, decoration={markings,mark=at position
+   1 with {\arrow[semithick]{open triangle 60}}},
+   double distance=1.4pt, shorten >= 5.5pt,
+   preaction = {decorate},
+   postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
+\tikzstyle{innerWhite} = [semithick, white,line width=1.4pt, shorten <= 4.5pt]
+
+% build a antenna
+\newcommand{\antensize}{0.4}
+\newcommand{\antena}[1]
+{\draw  (#1) -- ++(50:\antensize)
+        (#1) -- ++(90:\antensize)
+        (#1) -- ++(130:\antensize);
+}
+
