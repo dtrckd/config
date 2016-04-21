@@ -71,6 +71,15 @@ function gitdiff() {
     git diff  HEAD~$1..HEAD -- $2
 }
 
+# Git init
+function gitinit() {
+    git init
+    git config user.name "dtrckd"
+    git config user.email "ddtracked@gmail.com"
+    git add .gitignore
+    git commit -a -m 'init'
+}
+
 ### VIM
 alias vcal='vim -c "Calendar -view=month"' # get calendar
 #alias vcal='vim -c Calendar -c on' # Matsumoto calendar
@@ -79,6 +88,7 @@ alias vims='vim -c "source .session.vim" -S ~/.vimrc'
 alias cim='vim'
 alias ci='vim'
 alias cu='vim'
+alias vitodo='vim -p $(find -iname todo -type f)'
 ### Octave
 alias octave='octave --silent'
 
@@ -99,7 +109,8 @@ webApp="webuser"
 alias iu="cd $PX"
 alias ius="cd $PX/networkofgraphs/process/PyNPB/src"
 alias iup="cd $PX/networkofgraphs/process"
-alias iuw="cd ${PX}/PX/www/web2py/applications/$webApp"
+alias iupp="cd $PX/networkofgraphs/papers/personal/relational_models"
+alias iuw="cd ${PX}/PX/web/"
 alias iut="cd ${MAGMAHR}/code/tools"
 alias iupython="cd /usr/local/lib/python2.7/dist-packages/"
 alias iuscrapy="cd /usr/local/lib/python2.7/dist-packages/scrapy/"
@@ -191,8 +202,8 @@ export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/sbin:/usr/
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
 Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
-export PYTHONPATH="/usr/lib/python${Python_version}/dist-package:/usr/lib/python${Python_version}/site-package:/usr/local/lib/python${Python_version}/dist-package:/usr/local/lib/python${Python_version}/site-package:/opt/lib/pythy:/home/${USER}/dev/lib/python2.7/site-packages/"
-export PYTHONPATH="$PYTHONPATH:/home/$USER/Documents/workInProgress/networkofgraphs/process/PyNPB/src"
+export PYTHONPATH="/opt/lib/pythy:/$HOME/lib/pythy:/$HOME/Documents/workInProgress/networkofgraphs/process/PyNPB/src"
+export OMP_NUM_THREADS=1  # Number of thread used by numpy
 
 #### Man Pages
 # Less Colors for Man Pages
