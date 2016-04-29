@@ -3,6 +3,7 @@
 ###########################
 ### Prompt
 #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ ' # root
+#PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ ' # remote
 PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
 PROMPT2='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 alias prompt_short="PS1='$PROMPT1'"
@@ -30,6 +31,7 @@ alias ipython="ipython --colors linux"
 alias pynotebook="jupyter --ip 127.0.0.1"
 alias xback='xbacklight'
 alias bb="byobu"
+alias cc="cat"
 # Enable mouse scroll
 # ctrl-s : <set -g mouse on>
 alias psg="ps -ef | grep -i"
@@ -51,6 +53,25 @@ alias netl='netstat -taupen'
 #alias dodo='s2disk'
 alias locks='systemctl suspend'
 alias dodo='systemctl hibernate'
+
+> ### VIM
+> alias vcal='vim -c "Calendar -view=month"' # get calendar
+> #alias vcal='vim -c Calendar -c on' # Matsumoto calendar
+> #alias vcal='vim -c "Calendar -view=year" -c tabe -c "Calendar -view=month"' # get calendar
+> alias vims='vim -c "source .session.vim" -S ~/.vimrc'
+> alias ci='vim'
+> alias vitodo='vim -p $(find -iname todo -type f)'
+> ### Octave
+> alias octave='octave --silent'
+> 
+> ### ls alias
+> alias l='ls'
+> alias lq='ls'
+> alias sls='ls'
+> alias sl='ls'
+> alias ll='ls -l'
+> alias la='ls -A'
+> alias lr='ls -R'
 
 ### GIT
 alias gitupdate="git remote update"
@@ -77,29 +98,8 @@ function gitinit() {
     git config user.name "dtrckd"
     git config user.email "ddtracked@gmail.com"
     git add .gitignore
-    git commit -a -m 'init'
+    git commit -m 'init'
 }
-
-### VIM
-alias vcal='vim -c "Calendar -view=month"' # get calendar
-#alias vcal='vim -c Calendar -c on' # Matsumoto calendar
-#alias vcal='vim -c "Calendar -view=year" -c tabe -c "Calendar -view=month"' # get calendar
-alias vims='vim -c "source .session.vim" -S ~/.vimrc'
-alias cim='vim'
-alias ci='vim'
-alias cu='vim'
-alias vitodo='vim -p $(find -iname todo -type f)'
-### Octave
-alias octave='octave --silent'
-
-### ls alias
-alias l='ls'
-alias lq='ls'
-alias sls='ls'
-alias sl='ls'
-alias ll='ls -l'
-alias la='ls -A'
-alias lr='ls -R'
 
 ### cd alias
 alias xs='cd'
