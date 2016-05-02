@@ -54,24 +54,24 @@ alias netl='netstat -taupen'
 alias locks='systemctl suspend'
 alias dodo='systemctl hibernate'
 
-> ### VIM
-> alias vcal='vim -c "Calendar -view=month"' # get calendar
-> #alias vcal='vim -c Calendar -c on' # Matsumoto calendar
-> #alias vcal='vim -c "Calendar -view=year" -c tabe -c "Calendar -view=month"' # get calendar
-> alias vims='vim -c "source .session.vim" -S ~/.vimrc'
-> alias ci='vim'
-> alias vitodo='vim -p $(find -iname todo -type f)'
-> ### Octave
-> alias octave='octave --silent'
-> 
-> ### ls alias
-> alias l='ls'
-> alias lq='ls'
-> alias sls='ls'
-> alias sl='ls'
-> alias ll='ls -l'
-> alias la='ls -A'
-> alias lr='ls -R'
+### VIM
+alias vcal='vim -c "Calendar -view=month"' # get calendar
+#alias vcal='vim -c Calendar -c on' # Matsumoto calendar
+#alias vcal='vim -c "Calendar -view=year" -c tabe -c "Calendar -view=month"' # get calendar
+alias vims='vim -c "source .session.vim" -S ~/.vimrc'
+alias ci='vim'
+alias vitodo='vim -p $(find -iname todo -type f)'
+### Octave
+alias octave='octave --silent'
+
+### ls alias
+alias l='ls'
+alias lq='ls'
+alias sls='ls'
+alias sl='ls'
+alias ll='ls -l'
+alias la='ls -A'
+alias lr='ls -R'
 
 ### GIT
 alias gitupdate="git remote update"
