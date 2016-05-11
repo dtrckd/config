@@ -73,6 +73,7 @@ set nostartofline       "try keep the column with line moves
 set whichwrap=<,>,[,]   "enable line return with pad
 "set ff=unix             "remove ^M
 "set termencoding=UTF-8
+set encoding=utf-8
 hi TabLineSel  ctermbg=Green
 hi TabLine ctermfg=0 ctermbg=7
 " Don't use Ex mode, use Q for formatting
@@ -87,7 +88,6 @@ set shiftwidth=4
 set tabstop=4
 "set preserveindent      "don't realy know but seems soo good (pythyon)
 set smarttab " trivial
-set expandtab
 
 set autoindent "keep indentation over line
 set smartindent 
@@ -144,6 +144,8 @@ imap <C-UP> <ESC>:tabn<CR>
 imap <C-DOWN> <ESC>:tabN<CR>
 noremap <C-DOWN> gt
 "" WINDOW
+"nnoremap <S-PageUp> <C-W>k
+"nnoremap <S-PageDown> <C-W>j
 nnoremap <S-UP> <C-W>k
 nnoremap <S-DOWN> <C-W>j
 nnoremap <S-LEFT> <C-W>h
@@ -297,8 +299,8 @@ map <Leader>ht <ESC>:AT<CR>
 """" => Python section
 """"""""""""""""""""""""""""""
 "let python_highlight_all = 0
-au filetype python  set ts=4 sts=4 sw=4
-set expandtab
+"au filetype python  set ts=4 sts=4 sw=4
+au BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
 " for tab invisible bug; try :%retab
 
 "au FileType python syn keyword pythonDecorator True None False self
@@ -323,6 +325,7 @@ func! DeleteTrailingWS()
   exe "normal `z"
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
+"au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 " manage indentation error...
 " set list (list!) " see the tabulation ^I
@@ -415,21 +418,6 @@ autocmd FileType calendar if !has('gui_running') | set t_Co=256 | endif
 if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
 endif
-
-""""""""""""""""""""""""""""""
-""" Fonts
-""""""""""""""""""""""""""""""
-"set encoding=utf8
-"try
-"    lang en_US
-"catch
-"endtry
-
-"if MySys() == "linux"
-"
-"  set gfn=Monospace\ 10
-"  set shell=/bin/bash
-"endif
 
 
 " " =================================================================="
