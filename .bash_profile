@@ -37,7 +37,7 @@ alias cc="cat"
 alias psg="ps -ef | grep -i"
 alias pstree='pstree -h'
 alias rmf='shred -zu'
-alias xagrep='find -type f -print0 | xargs -0  grep'
+alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias dicten='dict enfr'
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
@@ -53,6 +53,7 @@ alias netl='netstat -taupen'
 #alias dodo='s2disk'
 alias locks='systemctl suspend'
 alias dodo='systemctl hibernate'
+alias grepp='find -iname "*.py" | xargs grep --color -ni'
 
 ### VIM
 alias vcal='vim -c "Calendar -view=month"' # get calendar
@@ -93,7 +94,7 @@ function gitdiff() {
 }
 
 # Git init
-function gitinit() {
+function gitinit_dd() {
     git init
     git config user.name "dtrckd"
     git config user.email "ddtracked@gmail.com"
@@ -112,6 +113,7 @@ alias iup="cd $PX/networkofgraphs/process"
 alias iupp="cd $PX/networkofgraphs/papers/personal/relational_models"
 alias iuw="cd ${PX}/PX/web/"
 alias iut="cd ${MAGMAHR}/code/tools"
+alias iub="cd $PX/CREA/PP"
 alias iupython="cd /usr/local/lib/python2.7/dist-packages/"
 alias iuscrapy="cd /usr/local/lib/python2.7/dist-packages/scrapy/"
 alias cdoc="cd ~/Projets/hack-dir/doc-lib"
