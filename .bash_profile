@@ -53,7 +53,7 @@ alias netl='netstat -taupen'
 #alias dodo='s2disk'
 alias locks='systemctl suspend'
 alias dodo='systemctl hibernate'
-alias grepp='find -iname "*.py" | xargs grep --color -ni'
+alias grepi='find -iname "*.py" | xargs grep --color -ni'
 
 ### VIM
 alias vcal='vim -c "Calendar -view=month"' # get calendar
@@ -79,6 +79,7 @@ alias gitupdate="git remote update"
 alias gitg='gitg --all 1>/dev/null &'
 alias gitb='git branch -av'
 alias gits='git status -sb'
+alias gitr='git remote -v'
 alias lsgit='for d in $(find -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" status -svb; echo; done'
 alias gitamend='git commit -a --amend'
 alias gitl="git log --format='%Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset: %s' --graph --date=short"
