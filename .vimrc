@@ -303,6 +303,8 @@ map <Leader>ht <ESC>:AT<CR>
 au BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
 " for tab invisible bug; try :%retab
 
+"au BufNewFile,BufRead *.py syn region Comment start=/"""/ end=/"""/
+
 "au FileType python syn keyword pythonDecorator True None False self
 "
 "au BufNewFile,BufRead *.html set syntax=web2py
