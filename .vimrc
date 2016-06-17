@@ -454,5 +454,6 @@ endif
 map <Esc>[B <Down>
 
 noh
+au BufNewFile,BufRead *.py set formatoptions-=tc " prevent inserting \n. Where does it come from ????
 
 
