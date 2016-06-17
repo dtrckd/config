@@ -83,6 +83,7 @@ alias gitr='git remote -v'
 alias lsgit='for d in $(find -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" status -svb; echo; done'
 alias gitamend='git commit -a --amend'
 alias gitl="git log --format='%Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset: %s' --graph --date=short"
+alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
 # Output current git branch, echo $(curbr)
@@ -218,6 +219,9 @@ export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
 #export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
+
+### IF XFCE4
+printf "\e[?2004l" # to avoid Copy-Paste in xfce4-terminal adds 0~ and 1~
 
 
 # To work with opencv and cam
