@@ -34,7 +34,7 @@ alias bb="byobu"
 alias cc="cat"
 # Enable mouse scroll
 # ctrl-s : <set -g mouse on>
-alias psg="ps -ef | grep -i"
+alias psg="ps -ef | grep -i --color"
 alias pstree='pstree -h'
 alias rmf='shred -zu'
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
@@ -113,10 +113,10 @@ alias iu="cd $PX"
 alias ius="cd $PX/networkofgraphs/process/PyNPB/src"
 alias iud="cd $PX/networkofgraphs/process/PyNPB/data"
 alias iup="cd $PX/networkofgraphs/process"
-alias iupp="cd $PX/networkofgraphs/papers/personal/relational_models"
+alias iug="cd $PX/networkofgraphs/papers/personal/relational_models"
 alias iuw="cd ${PX}/PX/web/"
 alias iut="cd ${MAGMAHR}/code/tools"
-alias iub="cd $PX/CREA/PP"
+alias iupp="cd $PX/CREA/PP"
 alias iupython="cd /usr/local/lib/python2.7/dist-packages/"
 alias iuscrapy="cd /usr/local/lib/python2.7/dist-packages/scrapy/"
 alias cdoc="cd ~/Projets/hack-dir/doc-lib"

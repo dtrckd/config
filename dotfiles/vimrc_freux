@@ -1,0 +1,524 @@
+"VimPlug plugin management.
+call plug#begin('~/.vim/plugged')
+Plug 'tpope/vim-fugitive'
+Plug 'godlygeek/tabular'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug '~/.opam/4.03.0/share/ocp-indent', { 'rtp': 'vim' }
+Plug '~/.opam/4.03.0/share/merlin', { 'rtp': 'vim' }
+Plug 'takac/vim-commandcaps'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-scripts/genutils'
+Plug 'bitc/vim-hdevtools'
+Plug 'eagletmt/ghcmod-vim'
+Plug 'junegunn/goyo.vim'
+Plug 'travitch/hasksyn'
+Plug 'PotatoesMaster/i3-vim-syntax'
+Plug 'junegunn/limelight.vim'
+Plug 'embear/vim-localvimrc'
+Plug 'scrooloose/nerdcommenter'
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'tpope/vim-repeat'
+Plug 'dahu/SearchParty'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/syntastic'
+Plug 'majutsushi/tagbar'
+Plug 'SirVer/ultisnips'
+Plug 'atweiden/vim-uzbl'
+Plug 'Chiel92/vim-autoformat'
+Plug 'tommcdo/vim-exchange'
+Plug 'bitc/vim-hdevtools'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'justinmk/vim-sneak'
+Plug 'honza/vim-snippets'
+Plug 'mhinz/vim-startify'
+Plug 'jpalardy/vim-slime'
+Plug 'sk1418/HowMuch'
+Plug 'ntpeters/vim-better-whitespace'
+"Plug '~/.dot/vimplugins/highlight'
+Plug 'taku-o/vim-toggle'
+"Plug 'vimwiki/vimwiki'
+Plug 'matze/vim-move'
+call plug#end()
+
+"
+" activate ftplugs"
+filetype plugin on
+filetype plugin indent on
+filetype indent on
+"execute pathogen#infect('bundle-essential/{}','bundle/{}')
+
+set grepprg=grep\ -nH\ $*
+syntax on
+let maplocalleader=","
+set smartindent
+
+"utf8
+set encoding=utf-8
+"set fileencoding=utf-8
+
+"numbering
+set nu
+
+"highlight the search
+set hlsearch
+
+"backspace through lines
+set bs=indent,eol,start
+
+"regenerate help
+"Helptags
+
+"sudo w!!
+cmap w!! w !sudo tee> /dev/null %
+
+"make
+noremap <Leader>Space :w<CR>:VimProcBang make<CR>
+
+" Press Space to turn off highlighting and clear any message already displayed.
+nnoremap m :nohlsearch<Bar>:echo<CR>
+
+"coloration
+"set term=rxvt-unicode-256color
+"set term=xterm-256color
+set term=screen-256color
+"set t_Co=256
+"colo zazen
+"colo vividchalk
+"colo distinguished
+"colo zazen2
+colo hipster
+"colo grey
+"colo Spink
+"colorscheme maroloccio3
+"colo grey
+"colo Tomorrow-Night-Bright
+"colo railscasts
+set background=dark
+
+" X clipboard
+set clipboard=unnamedplus
+
+"mouse active
+set mouse=a
+
+"update window title for X and tmux
+set title
+
+"activate file specific whitespace and tab settings with /*blabla*/
+set modeline
+
+"statusline always on
+set ls=2
+
+
+"trailing whitespace
+function! <SID>StripTrailingWhitespaces()
+  " Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  %s/\s\+$//e
+  " Clean up: restore previous search history, and cursor position
+  let @/=_s
+  call cursor(l, c)
+endfunction
+nnoremap <Leader>w :call <SID>StripTrailingWhitespaces()<CR>
+
+" utilsnips
+let g:UltiSnipsExpandTrigger = "<Tab>"
+let g:UltiSnipsJumpForwardTrigger = "<Tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<S-Tab>"
+
+"old wiki things. vim is not a wiki thing...
+" // --- vimwiki --- //
+"let g:vimwiki_list = [{'path': '~/vimwiki',
+"\ 'template_path': '~/vimwiki/templates/',
+"\ 'template_default': 'def_template',
+"\ 'template_ext': '.html',
+"\ 'path_html': '~/vimwiki/html'},
+"\ {'path': '/var/www/vimwiki',
+"\ 'template_path': '/var/www/vimwiki/templates/',
+"\ 'template_default': 'def_template',
+"\ 'template_ext': '.html',
+"\ 'path_html': '/var/www/wiki/'}]
+"map <F4> :VimwikiAll2HTML<cr>
+"map <F3> :Vimwiki2HTMLBrowse<cr>
+
+"vimproc
+nnoremap <Leader>: :VimProcBang<Space>
+nnoremap ! :VimProcBang<Space>
+nnoremap <Leader>e :VimProcRead<Space>
+
+"unnbind an ennemy:
+noremap K <Nop>
+
+
+"gitgutter
+highlight clear SignColumn
+set scrolloff=4
+
+" removed. lets learn to use "0p
+" delete without yanking:
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+nnoremap <leader>dd "_dd
+vnoremap <leader>dd "_dd
+"vnoremap p "_dp
+vnoremap <leader>d "_d
+nnoremap <leader>dd "_dd
+vnoremap <leader>dd "_dd
+" replace currently selected text with default register
+" without yanking it
+"vnoremap <leader>p "_dP
+"nnoremap <leader>p "_ddP
+
+
+"file preference
+autocmd BufNewFile,BufRead *.c set formatprg=astyle\ -T4pbs
+autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ -T4pbs
+autocmd BufNewFile,BufRead *.java set formatprg=astyle\ -T4pbs
+au BufNewFile,BufRead *.clp setlocal ft=clips
+"au BufNewFile,BufRead *.tex setlocal ft=plaintex
+augroup SetCMS
+  autocmd FileType clips let &l:commentstring=';%s'
+augroup END
+
+" global search and replace"
+" " Search and replace word under cursor using F4
+"nnoremap <Leader>r :%s/<c-r><c-w>/<c-r><c-w>/gc<c-f>$F/i"
+
+
+
+"airline
+let g:airline#extensions#tabline#enabled = 0
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#ctrlp#color_template = 'insert'
+let g:airline#extensions#ctrlp#color_template = 'normal'
+let g:airline#extensions#ctrlp#color_template = 'visual'
+let g:airline#extensions#ctrlp#color_template = 'replace'
+let g:airline#extensions#ctrlp#show_adjacent_modes = 1
+let g:airline#extensions#whitespace#enabled = 1
+let g:airline#extensions#whitespace#symbol = '!'
+let g:airline#extensions#whitespace#checks = [ 'indent', 'trailing' ]
+"* enable/disable showing a summary of changed hunks under source control. >
+let g:airline#extensions#hunks#enabled = 1
+"* enable/disable showing only non-zero hunks. >
+let g:airline#extensions#hunks#non_zero_only = 0
+"* set hunk count symbols. >
+let g:airline#extensions#hunks#hunk_symbols = ['+', '~', '-']
+let g:airline_theme='monochrome'
+
+
+
+"Tagbar
+let g:airline#extensions#tagbar#enabled = 1
+nmap <F8> :TagbarToggle<CR>
+"Nerdtree
+nmap <F7> :NERDTreeToggle<CR>
+
+"cscope
+if has('cscope')
+  set cscopetag cscopeverbose
+
+  if has('quickfix')
+    set cscopequickfix=s-,c-,d-,i-,t-,e-
+  endif
+
+  cnoreabbrev csa cs add
+  cnoreabbrev csf cs find
+  cnoreabbrev csk cs kill
+  cnoreabbrev csr cs reset
+  cnoreabbrev css cs show
+  cnoreabbrev csh cs help
+
+  command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
+endif
+
+"ctrlp
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_custom_ignore = {
+      \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+      \ 'file': '\v\.(exe|so|dll)$',
+      \ 'link': 'some_bad_symbolic_links',
+      \ }
+
+"rainbowparentheses
+"let g:rbpt_colorpairs = [
+      "\ ['darkblue',    'DarkOrchid3'],
+      "\ ['darkred',   'firebrick3'],
+      "\ ['darkgreen', 'DarkOrchid3'],
+      "\ ['darkcyan',     'SeaGreen3'],
+      "\ ['Darkblue',    'firebrick3'],
+      "\ ['black',       'SeaGreen3'],
+      "\ ['gray',        'RoyalBlue3'],
+      "\ ['brown',       'firebrick3'],
+      "\ ['darkmagenta', 'DarkOrchid3'],
+      "\ ['red',         'firebrick3'],
+      "\ ['darkred',     'DarkOrchid3'],
+      "\ ['darkcyan',    'SeaGreen3'],
+      "\ ['darkgreen',   'SeaGreen3'],
+      "\ ['darkred',     'firebrick3'],
+      "\ ['darkblue',    'RoyalBlue3'],
+      "\ ]
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+"au VimEnter * RainbowParenthesesToggle
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare
+let blacklist = ['hs','omlet','ml','mli']
+au Syntax * if index(blacklist, &ft) < 0 | RainbowParenthesesLoadBraces
+au VimEnter * if index(blacklist, &ft) < 0 |  RainbowParenthesesToggle
+au Syntax * if index(blacklist, &ft) < 0 | RainbowParenthesesLoadRound
+au Syntax * if index(blacklist, &ft) < 0 | RainbowParenthesesLoadSquare
+
+"calculate on the fly
+vmap <space>b <Plug>AutoCalcReplace
+
+"autoformat
+noremap <Leader>f :Autoformat<CR><CR>
+
+nmap <F11> :!find . -iname '*.c' -o -iname '*.cpp' -o -iname '*.h' -o -iname '*.hpp' > cscope.files<CR>
+      \:!cscope -b -i cscope.files -f cscope.out<CR>
+      \:cs reset<CR>
+
+" fugitive git bindings
+nnoremap <space>ga :Git add %:p<CR><CR>
+nnoremap <space>gs :Gstatus<CR>
+nnoremap <space>gc :Gcommit -v -q<CR>
+nnoremap <space>gt :Gcommit -v -q %:p<CR>
+nnoremap <space>gd :Gdiff<CR>
+nnoremap <space>ge :Gedit<CR>
+nnoremap <space>gr :Gread<CR>
+nnoremap <space>gw :Gwrite<CR><CR>
+nnoremap <space>gl :silent! Glog<CR>:bot copen<CR>
+nnoremap <space>gp :Ggrep<Space>
+nnoremap <space>gm :Gmove<Space>
+nnoremap <space>gb :Git branch<Space>
+nnoremap <space>go :Git checkout<Space>
+nnoremap <space>gps :VimProcBang git push<CR>
+nnoremap <space>gpl :VimProcBang git pull<CR>
+
+"augroup FastEscape
+"autocmd!
+"au InsertEnter * set timeoutlen=0
+"au InsertLeave * set timeoutlen=1000
+"augroup END
+set timeoutlen=1000
+set ttimeoutlen=0
+
+let g:move_key_modifier = 'C'
+
+"spellcheck
+nnoremap <Leader>s :set spell!<CR>
+"autocmd BufNewFile,BufRead * colo railscasts
+"
+let g:slime_target="tmux"
+let g:slime_paste_file = "$HOME/.slime_paste"
+
+
+"vim-multiple-cursors
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+let g:multi_cursor_exit_from_visual_mode=0
+let g:multi_cursor_exit_from_insert_mode=0
+
+"Copy paragraph
+noremap cp yap<S-}>p
+
+"Q apply macro
+nnoremap Q @q
+vnoremap Q :norm @q<cr>
+
+
+"
+"inoremap <C-p> <C-k>
+"inoremap <C-n> <C-j>
+nnoremap <A-a> <C-a>
+nnoremap <A-x> <C-x>
+
+
+"set regexpengine=2
+
+"markdown
+let g:vim_markdown_folding_disabled=1
+
+
+vnoremap L <Esc>`<<C-v>`>odp`<<C-v>`>lol
+vnoremap H <Esc>`<<C-v>`>odhP`<<C-v>`>hoh
+
+set t_ZH=[3m
+set t_ZR=[23m
+
+"no conceal
+set cole=0
+
+"rainbow paren
+let g:rainbow_active = 1
+let g:tex_fold_enabled = 0
+
+"calendar
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
+let g:calendar_updatetime = 100
+
+"color column
+"set colorcolumn=80
+:highlight ColorColumn ctermbg=237
+
+"Distractions
+nnoremap dt <Esc>:Goyo<CR>
+function! s:goyo_enter()
+  silent !tmux set status off
+  set noshowmode
+  set noshowcmd
+  set scrolloff=10
+  Limelight
+  " ...
+endfunction
+
+function! s:goyo_leave()
+  silent !tmux set status on
+  set showmode
+  set showcmd
+  set scrolloff=5
+  Limelight!
+  " ...
+endfunction
+
+let g:limelight_conceal_ctermfg = 'darkgray'
+let g:goyo_width = 100
+"g:goyo_margin_top (default: 4)
+"g:goyo_margin_bottom (default: 4)
+"g:goyo_linenr (default: 0)
+
+autocmd! User GoyoEnter
+autocmd! User GoyoLeave
+autocmd  User GoyoEnter nested call <SID>goyo_enter()
+autocmd  User GoyoLeave nested call <SID>goyo_leave()
+
+function! s:get_visual_selection()
+  " Why is this not a built-in Vim script function?!
+  let [lnum1, col1] = getpos("'<")[1:2]
+  let [lnum2, col2] = getpos("'>")[1:2]
+  let lines = getline(lnum1, lnum2)
+  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][col1 - 1:]
+  return join(lines, "\n")
+endfunction
+
+" sections (a, b, c, x, y, z, warn) are optional
+"let g:promptline_preset = {
+"\'c' : [ promptline#slices#cwd({'dir_limit':1}) ],
+"\'z' : [ promptline#slices#vcs_branch() ],
+"\'warn' : [promptline#slices#battery({ 'threshold': 15 }), promptline#slices#last_exit_code() ]}
+
+" available slices:
+"
+"promptline#slices#cwd() - current dir, truncated to 3 dirs. To configure: promptline#slices#cwd({ 'dir_limit': 4 })
+" promptline#slices#vcs_branch() - branch name only. By default, only git branch is enabled. Use promptline#slices#vcs_branch({ 'hg': 1, 'svn': 1, 'fossil': 1}) to enable check for svn, mercurial and fossil branches. Note that always checking if inside a branch slows down the prompt
+" promptline#slices#last_exit_code() - display exit code of last command if not zero
+" promptline#slices#jobs() - display number of shell jobs if more than zero
+" promptline#slices#battery() - display battery percentage (on OSX and linux) only if below 10%. Configure the threshold with promptline#slices#battery({ 'threshold': 25 })
+" promptline#slices#host() - current hostname.  To hide the hostname unless connected via SSH, use promptline#slices#host({ 'only_if_ssh': 1 })
+" promptline#slices#user()
+" promptline#slices#python_virtualenv() - display which virtual env is active (empty is none)
+" promptline#slices#git_status() - count of commits ahead/behind upstream, count of modified/added/unmerged files, symbol for clean branch and symbol for existing untraced files
+"
+" any command can be used in a slice, for example to print the output of whoami in section 'b':
+"       \'b' : [ '$(whoami)'],
+"
+" more than one slice can be placed in a section, e.g. print both host and user in section 'a':
+"       \'a': [ promptline#slices#host(), promptline#slices#user() ],
+"
+" to disable powerline symbols
+"let g:promptline_powerline_symbols = 0
+"let g:promptline_symbols = {
+"\ 'left'       : '',
+"\ 'left_alt'   : '>',
+"\ 'dir_sep'    : '',
+"\ 'truncation' : '⋯',
+"\ 'vcs_branch' : '',
+"\ 'space'      : ' '}
+
+
+"let g:tmuxline_preset = {
+"\'a'    : ['#H','#S'],
+"\'win'  : '#I #W',
+"\'cwin' : '#I #W',
+"\'z'    : ['%R %a %Y','#($HOME/.scripts/tmuxline_mailcheck.py)','#($HOME/.scripts/tmuxline_todo.py)']}
+
+"tmux name
+"
+"au Syntax * if index(blacklist, &ft) < 0 | RainbowParenthesesLoadBraces
+"au BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window \'#[fg=colour105]" . expand("%:t") . "\'")
+"
+
+
+"no show
+let s:hidden_all = 1
+set noshowmode
+set noruler
+set noshowcmd
+set laststatus=2
+set showtabline=1
+set guioptions-=e
+
+function Myvpb(cmd,type)
+  execute "VimProcBang " .  a:cmd
+endfunction
+
+"formatting
+nnoremap <Leader>p gwip
+
+set nocursorline
+set nocursorcolumn
+set scrolljump=5
+set lazyredraw
+set synmaxcol=180
+
+"no tabs
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+
+"let g:bufferline_echo = 0
+"autocmd VimEnter *
+  "\ let &statusline='%{bufferline#refresh_status()}'
+    "\ .bufferline#get_status_string()
+
+
+let g:vimwiki_use_calendar = 1
+let g:vimwiki_folding = 'syntax'
+"let g:bufferline_echo = 0
+"
+"
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
+
+" Automatically open, but do not go to (if there are errors) the quickfix /
+" location list window, or close it when is has become empty.
+"
+" Note: Must allow nesting of autocmds to enable any customizations for quickfix
+" buffers.
+" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+" (but not if it's already open). However, as part of the autocmd, this doesn't
+" seem to happen.
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+
+"faster split movement
+map  <Space>k ;wincmd k<CR>
+map  <Space>j ;wincmd j<CR>
+map  <Space>h ;wincmd h<CR>
+map  <Space>l ;wincmd l<CR>
