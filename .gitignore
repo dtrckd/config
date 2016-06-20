@@ -10,4 +10,10 @@ tags
 *.byobu
 
 vocabulary.md
+
+mixtures/
 mixtures/html/*
+.ssh/*
+!.ssh/config
+
+!*/
