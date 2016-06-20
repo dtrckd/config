@@ -11,8 +11,8 @@ tags
 
 vocabulary.md
 
-mixtures/
-mixtures/html/*
+mixtures/**
+mixtures/html/**
 .ssh/*
 !.ssh/config
 
