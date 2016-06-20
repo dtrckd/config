@@ -22,11 +22,13 @@ Plugin 'majutsushi/tagbar'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
 Plugin 'ervandew/supertab'
 "Plugin 'sirver/ultisnips' ' py >=2.7
 Plugin 'gotcha/vimpdb'
 Plugin 'itchyny/calendar.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 "Plugin 'valloric/youcompleteme' 'no compiling
 "Plugin 'klen/python-mode'
 "Plugin 'cecutil'
@@ -40,6 +42,9 @@ Plugin 'jnurmine/zenburn'
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 let g:easytags_updatetime_min = 180000
 let g:easytags_auto_update = 0
+map <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 function! GitBranch()
     let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
@@ -120,6 +125,7 @@ set nofen               " open all folds. see z[mn] command
 """"""""""""""""""""""""""""""
 "" Mapping
 """"""""""""""""""""""""""""""
+imap <C-L> <Esc>
 nnoremap ; : 
 let mapleader = ','
 """ Saving
@@ -233,11 +239,14 @@ func! CurrentFileDir(cmd)
   return a:cmd . " " . expand("%:p:h") . "/"
 endfunc
 
+
+
+
 """"""""""""""""""""""""""""""
+""" Makefile
 """"""""""""""""""""""""""""""
-"""" => Filetype Custom and hilight
-""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""
+au Filetype tex map <leader>m :!make<cr>
+au Filetype make map <leader>m :!make<cr>
 
 
 """"""""""""""""""""""""""""""
@@ -268,7 +277,6 @@ autocmd BufNewFile,BufRead *.nse set filetype=lua
 """"""""""""""""""""""""""""""
 set mouse=a
 au Filetype tex set wrap
-au Filetype tex map <leader>m :!make<cr>
 au BufRead,BufNewFile *.md set filetype=markdown 
 au BufRead,BufNewFile *.md set mouse=
 au BufRead,BufNewFile *.md set wrap
@@ -335,11 +343,7 @@ au Filetype html nmap # :s/\([^ ].*\)$/<!--\1-->/<CR>:noh<CR>
 au Filetype html nmap ~ :s/<!--\(.*\)-->/\1/<CR>:noh<CR>
 au BufNewFile,BufRead *.css nmap # :s/\([^ ].*\)$/\/\*\1\*\//<CR>:noh<CR>
 au BufNewFile,BufRead *.css nmap ~ :s/\/\*\(.*\)\*\//\1/<CR>:noh<CR>
-au BufNewFile,BufRead  *.html, *.css
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
-
+au BufNewFile,BufRead  *.html,*.css set tabstop=2 softtabstop=2 shiftwidth=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ => Spell checking

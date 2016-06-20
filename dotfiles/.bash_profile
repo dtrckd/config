@@ -122,6 +122,7 @@ alias iug="cd $PX/networkofgraphs/papers/personal/relational_models"
 alias iuw="cd ${PX}/PX/web/"
 alias iut="cd ${MAGMAHR}/code/tools"
 alias iupp="cd $PX/CREA/PP"
+alias iumd="cd ${HOME}/src/config/mixtures/md"
 alias iupython="cd /usr/local/lib/python2.7/dist-packages/"
 alias iuscrapy="cd /usr/local/lib/python2.7/dist-packages/scrapy/"
 alias cdoc="cd ~/Projets/hack-dir/doc-lib"
@@ -235,11 +236,16 @@ else
 fi
 export TERM='xterm-256color'
 
+export PATH="$HOME/.linuxbrew/bin:$PATH"
+export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+
 
 # To work with opencv and cam
 #LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so
 
 #shopt -s extglob
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 ### How to setup
 # end of .bashrc
