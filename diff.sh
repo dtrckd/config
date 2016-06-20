@@ -1,4 +1,4 @@
 #!/bin/bash
 
-diff .bash_profile ~/.bash_profile
-diff .vimrc ~/.vimrc
+diff dotfiles/.bash_profile ~/.bash_profile
+diff dotfiles/.vimrc ~/.vimrc

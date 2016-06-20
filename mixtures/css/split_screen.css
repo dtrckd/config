@@ -1,0 +1,30 @@
+html {height:100%}
+
+body {
+    padding:0;
+    margin:0 0 0 20%;
+    background: #fcfcff;
+    font-size: 14px;
+    color: #444444;
+    font-family: verdana, sans-serif;
+    width:80%; 
+    min-height:100%;
+    float:right;
+}
+
+#c_menu {
+    border-left: thick solid #ff0000;
+    float:left;
+    margin-left:-25%;
+
+}
+
+#c_menu ol {
+  margin-bottom: 10px;
+}
+
+#c_content {
+    border-left: thick solid #6c91e3;
+    max-width: 900px;
+    padding-left: 20px;
+}

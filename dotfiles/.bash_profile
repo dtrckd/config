@@ -103,6 +103,11 @@ function gitinit_dd() {
     git add .gitignore
     git commit -m 'init'
 }
+# Git init
+function gitinit_dd_config() {
+    git config user.name "dtrckd"
+    git config user.email "ddtracked@gmail.com"
+}
 
 ### cd alias
 alias xs='cd'
@@ -222,6 +227,13 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
 ### IF XFCE4
 printf "\e[?2004l" # to avoid Copy-Paste in xfce4-terminal adds 0~ and 1~
+
+if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+    export TERM='xterm-256color'
+else
+    export TERM='xterm-color'
+fi
+export TERM='xterm-256color'
 
 
 # To work with opencv and cam
