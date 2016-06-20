@@ -1,3 +1,3 @@
 config
 ======
-Various GNU/Linux configuration files.
+GNU/Linux settings.
