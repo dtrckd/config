@@ -8,3 +8,6 @@ tags
 *~
 .session.vim
 *.byobu
+
+vocabulary.md
+mixtures/html/*
