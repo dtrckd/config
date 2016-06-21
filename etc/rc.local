@@ -11,6 +11,6 @@
 #
 # By default this script does nothing.
 
-/home/joker/bin/firewall-r-strict
+/home/dtrckd/bin/firewall-r-strict
 
 exit 0

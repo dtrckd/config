@@ -9,10 +9,15 @@ tags
 .session.vim
 *.byobu
 
+# Private
 vocabulary.md
 
+# Project
+mixtures/
 mixtures/**
 mixtures/html/**
+
+# Security
 .ssh/*
 !.ssh/config
 
