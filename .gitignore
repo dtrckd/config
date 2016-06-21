@@ -18,7 +18,7 @@ mixtures/**
 mixtures/html/**
 
 # Security
-.ssh/*
+*/.ssh/*
 !.ssh/config
 
 !*/
