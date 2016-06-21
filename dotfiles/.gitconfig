@@ -1,0 +1,10 @@
+[user]
+	name = dtrckd
+	email = ddtracked@gmail.com
+[push]
+	default = simple
+[branch]
+	autosetupmerge = 
+[credential]
+    helper = cache --timeout=3600000
+
