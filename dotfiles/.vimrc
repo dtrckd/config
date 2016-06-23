@@ -17,6 +17,7 @@ Plugin 'luochen1990/rainbow'
 Plugin 'a.vim'
 Plugin 'Align'
 Plugin 'taglist.vim'
+Plugin 'mileszs/ack.vim'
 "Plugin 'rargo/vim-line-jump'
 Plugin 'majutsushi/tagbar'
 Plugin 'xolox/vim-misc'
@@ -45,6 +46,7 @@ let g:easytags_auto_update = 0
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let g:ackprg = 'ag --vimgrep'
 
 function! GitBranch()
     let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
