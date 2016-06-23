@@ -355,8 +355,8 @@ map <leader>ss :setlocal spell!<cr>
 map <leader>ssfr :setlocal spell! spelllang=fr<cr>
 
 "Shortcuts using <leader>
-nmap z] ]s
-nmap z[ [s
+"nmap z] ]s
+"nmap z[ [s
 map <leader>sa zg
 map <leader>s? z=
 
