@@ -37,7 +37,6 @@ alias cc="cat"
 alias psg="ps -ef | grep -i --color"
 alias pstree='pstree -h'
 alias rmf='shred -zu'
-alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias dicten='dict enfr'
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
@@ -48,12 +47,15 @@ alias myip='nmap -sC -p80 -n -Pn --script=http-title www.KissMyIp.com whatismyip
 alias nmapw='nmap -sT -P0 -sV -p80,443 --script=http-headers'
 alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
 alias netl='netstat -taupen'
+# Fuzz
+alias xagrep='find -type f -print0 | xargs -0  grep --color'
+alias grepi='find -iname "*.py" | xargs grep --color -ni'
+alias agpy='ag --py'
 ### XFCE
 #alias locks='s2ram -f -m'
 #alias dodo='s2disk'
 alias locks='systemctl suspend'
 alias dodo='systemctl hibernate'
-alias grepi='find -iname "*.py" | xargs grep --color -ni'
 
 ### VIM
 alias vcal='vim -c "Calendar -view=month"' # get calendar
@@ -84,6 +86,7 @@ alias lsgit='for d in $(find -type d -name ".git" | sed "s/\.git$//" );do  echo 
 alias gitamend='git commit -a --amend'
 alias gitl="git log --format='%Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset: %s' --graph --date=short"
 alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias gitls='git ls-tree -r master --name-only'
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
 # Output current git branch, echo $(curbr)
@@ -204,6 +207,7 @@ xrand () {
 }
 
 # Shell Global Variable
+#shopt -s extglob
 #setterm -blength 0 # Disable console beep
 HISTSIZE=1000
 HISTFILESIZE=2000
@@ -244,7 +248,7 @@ export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 # To work with opencv and cam
 #LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so
 
-#shopt -s extglob
+### Fuzzy
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 ### How to setup
