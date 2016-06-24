@@ -47,6 +47,7 @@ map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:ackprg = 'ag --vimgrep'
+" wget the dict at http://ftp.vim.org/vim/runtime/spell/
 
 function! GitBranch()
     let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
@@ -461,6 +462,8 @@ endif
 "colo zenburn
 "colo darkburn 
 colo dracula
+"colo hipster
+hi Search guifg=#000000 guibg=#8dabcd guisp=#8dabcd gui=NONE ctermfg=NONE ctermbg=110 cterm=NONE
 
 "set background=dark
 "  =================================================================="
