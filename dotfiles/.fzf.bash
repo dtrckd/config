@@ -48,4 +48,5 @@ fh() {
 
 # fzg - ag to a code match
 alias fag='ag --nobreak --nonumbers --noheading . | fzf -e +i'
+alias vif='vim $(fzf)'
 
