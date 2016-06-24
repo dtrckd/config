@@ -245,7 +245,6 @@ export PATH="$HOME/.linuxbrew/bin:$PATH"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
-
 # To work with opencv and cam
 #LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so
 
