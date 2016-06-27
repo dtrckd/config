@@ -12,7 +12,7 @@ if [ "$Verbose" == "-v" ]; then
 elif [ "$Verbose" == "-e" ]; then
     files=$(find dotfiles/ -maxdepth 1 -type f -exec \
         sh -c 'diff -q {} ${HOME}/$(basename {})' \; | sed 's/ /\n/g' |  grep  '\.')
-    if [ ! -z $files ]; then
+    if [ ! -z "$files" ]; then
         vimdiff $files
     fi
 elif [ -z $Verbose ]; then
