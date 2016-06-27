@@ -11,6 +11,9 @@ tags
 
 # Private
 vocabulary.md
+etc/wpa_supplicant/**
+etc/grub/**
+.free
 
 # Project
 webmain
