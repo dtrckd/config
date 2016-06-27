@@ -13,10 +13,11 @@ tags
 vocabulary.md
 
 # Project
+webmain
+webmain/
+mixtures/
 mixtures
 mixtures/
-mixtures/**
-mixtures/html/**
 
 # Security
 */.ssh/*
