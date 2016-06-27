@@ -1,22 +1,24 @@
 # Setup fzf
 # ---------
-if [[ ! "$PATH" == */home/dulac/src/fzf/bin* ]]; then
-  export PATH="$PATH:/home/dulac/src/fzf/bin"
-fi
+INSTALL_DIR="${HOME}/.linuxbrew/Cellar/fzf/0.12.0"
 
-# Man path
-# --------
-if [[ ! "$MANPATH" == */home/dulac/src/fzf/man* && -d "/home/dulac/src/fzf/man" ]]; then
-  export MANPATH="$MANPATH:/home/dulac/src/fzf/man"
-fi
+#if [[ ! "$PATH" == */home/dulac/src/fzf/bin* ]]; then
+#  export PATH="$PATH:/home/dulac/src/fzf/bin"
+#fi
+
+## Man path
+## --------
+#if [[ ! "$MANPATH" == */home/dulac/src/fzf/man* && -d "/home/dulac/src/fzf/man" ]]; then
+#  export MANPATH="$MANPATH:/home/dulac/src/fzf/man"
+#fi
 
 # Auto-completion
 # ---------------
-[[ $- == *i* ]] && source "/home/dulac/src/fzf/shell/completion.bash" 2> /dev/null
+[[ $- == *i* ]] && source "${INSTALL_DIR}/shell/completion.bash" 2> /dev/null
 
 # Key bindings
 # ------------
-source "/home/dulac/src/fzf/shell/key-bindings.bash"
+source "${INSTALL_DIR}/shell/key-bindings.bash"
 
 # fd - cd to selected directory
 fd() {
@@ -46,4 +48,5 @@ fh() {
 
 # fzg - ag to a code match
 alias fag='ag --nobreak --nonumbers --noheading . | fzf -e +i'
+alias vif='vim $(fzf)'
 

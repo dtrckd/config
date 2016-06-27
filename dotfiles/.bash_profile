@@ -61,11 +61,18 @@ alias dodo='systemctl hibernate'
 alias vcal='vim -c "Calendar -view=month"' # get calendar
 #alias vcal='vim -c Calendar -c on' # Matsumoto calendar
 #alias vcal='vim -c "Calendar -view=year" -c tabe -c "Calendar -view=month"' # get calendar
-alias vims='vim -c "source .session.vim" -S ~/.vimrc'
 alias ci='vim'
 alias vitodo='vim -p $(find -iname todo -type f)'
 ### Octave
 alias octave='octave --silent'
+#alias vims='vim -c "source .session.vim" -S ~/.vimrc'
+function vims() {
+    file=".session.vim"
+    if [ -n "$1" ]; then
+        file=.$1${file}
+    fi
+    vim -c "source $file" -S ~/.vimrc
+}
 
 ### ls alias
 alias l='ls'
@@ -244,7 +251,6 @@ export TERM='xterm-256color'
 export PATH="$HOME/.linuxbrew/bin:$PATH"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-
 
 # To work with opencv and cam
 #LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so
