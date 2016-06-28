@@ -12,8 +12,10 @@ htop
 psmisc
 
 # Misc
-mc
 rsync
+mc
+ranger
+transmission-show caca-utils pdftotext mediainfo elinks atool highlight
 
 # Compilation
 gcc
@@ -148,6 +150,7 @@ vorbis-tools
 
 # to reading japanese caractere
 ttf-sazanami-gothic ttf-sazanami-mincho
+fonts-font-awesome
 
 # codecs ?
 #w32codecs libdvdcss2 (dvdrip?) ||? ffmepg libavcode51 libav* 
