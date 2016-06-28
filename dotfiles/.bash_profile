@@ -130,9 +130,9 @@ alias ius="cd $PX/networkofgraphs/process/PyNPB/src"
 alias iud="cd $PX/networkofgraphs/process/PyNPB/data"
 alias iup="cd $PX/networkofgraphs/process"
 alias iug="cd $PX/networkofgraphs/papers/personal/relational_models"
-alias iuw="cd ${PX}/PX/webmain/"
 alias iut="cd ${MAGMAHR}/code/tools"
 alias iupp="cd $PX/CREA/PP"
+alias iuw="cd ${PXX}//webmain/"
 alias iumd="cd ${PXX}/webmain/mixtures/md"
 alias iupython="cd /usr/local/lib/python2.7/dist-packages/"
 alias iuscrapy="cd /usr/local/lib/python2.7/dist-packages/scrapy/"
@@ -220,12 +220,12 @@ xrand () {
 HISTSIZE=1000
 HISTFILESIZE=2000
 export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S "
-export EDITOR=/usr/bin/vim
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/sbin:/usr/sbin:/home/${USER}/bin:/opt/bin
+export EDITOR="/usr/bin/vim"
+export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/opt/bin"
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
 Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
-export PYTHONPATH="/opt/lib/pythy:/$HOME/lib/pythy:/$HOME/Documents/workInProgress/networkofgraphs/process/PyNPB/src"
+export PYTHONPATH="/opt/lib/pythy:$HOME/lib/pythy:$HOME/Documents/workInProgress/networkofgraphs/process/PyNPB/src" #:$HOME/.local/lib/:/usr/local/lib:/usr/lib"
 export OMP_NUM_THREADS=1  # Number of thread used by numpy
 
 #### Man Pages
@@ -248,7 +248,11 @@ else
 fi
 export TERM='xterm-256color'
 
-export PATH="$HOME/.linuxbrew/bin:$PATH"
+### Intall Vundle
+#git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+### Install Brew
+# git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
+export PATH="$PATH:$HOME/.linuxbrew/bin"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
