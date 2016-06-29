@@ -278,7 +278,7 @@ autocmd BufNewFile,BufRead *.nse set filetype=lua
 """"""""""""""""""""""""""""""
 """" => Latex section
 """"""""""""""""""""""""""""""
-set mouse=a
+au Filetype tex set mouse=a
 au Filetype tex set wrap
 au BufRead,BufNewFile *.md set filetype=markdown 
 au BufRead,BufNewFile *.md set mouse=

@@ -32,7 +32,7 @@ tez: $(TEZ)
 	$(info Building tez...)
 	$(foreach tez,$(TEZ),$(PANDOC) $(tez) -o $(tez:.md=.html) ;)
 
-web_local: mixtures
+web_local:
 	$(info Web Local in $(WEB_LOCAL)) 
 	@mkdir -p $(WEB_LOCAL)/$(BD_MIXT)
 	@mkdir -p $(WEB_LOCAL)/$(BD_TEZ)
