@@ -82,6 +82,7 @@ alias sl='ls'
 alias ll='ls -l'
 alias la='ls -A'
 alias lr='ls -R'
+alias lmd='ls *.md'
 
 ### GIT
 alias gitupdate="git remote update"
@@ -132,7 +133,7 @@ alias iup="cd $PX/networkofgraphs/process"
 alias iug="cd $PX/networkofgraphs/papers/personal/relational_models"
 alias iut="cd ${MAGMAHR}/code/tools"
 alias iupp="cd $PX/CREA/PP"
-alias iuw="cd ${PXX}//webmain/"
+alias iuw="cd ${PXX}/webmain/"
 alias iumd="cd ${PXX}/webmain/mixtures/md"
 alias iupython="cd /usr/local/lib/python2.7/dist-packages/"
 alias iuscrapy="cd /usr/local/lib/python2.7/dist-packages/scrapy/"

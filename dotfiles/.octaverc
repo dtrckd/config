@@ -1,0 +1,2 @@
+#addpath( "/home/ad233381/Cosmos_gr_stg/code/octave")
+PS1 ("\\[\\033[01;31m\\]\\s:\\#> \\[\\033[0m\\]")
