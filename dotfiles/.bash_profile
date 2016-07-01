@@ -93,6 +93,7 @@ alias gits='git status -sb'
 alias gitr='git remote -v'
 alias lsgit='for d in $(find -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" status -svb; echo; done'
 alias gitamend='git commit -a --amend'
+alias gitcommit='git commit -am'
 alias gitl="git log --format='%Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset: %s' --graph --date=short"
 alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gitls='git ls-tree -r master --name-only'

@@ -20,6 +20,11 @@ INSTALL_DIR="${HOME}/.linuxbrew/Cellar/fzf/0.12.0"
 # ------------
 source "${INSTALL_DIR}/shell/key-bindings.bash"
 
+# utility function used to write the command in the shell
+writecmd() {
+    perl -e '$TIOCSTI = 0x5412; $l = <STDIN>; $lc = $ARGV[0] eq "-run" ? "\n" : ""; $l =~ s/\s*$/$lc/; map { ioctl STDOUT, $TIOCSTI, $_; } split "", $l;' -- $1
+}
+
 # fd - cd to selected directory
 fd() {
     local dir
@@ -35,10 +40,6 @@ gg() {
         vim "$(echo $file | cut -d: -f1)"
 }
 
-# utility function used to write the command in the shell
-writecmd() {
-    perl -e '$TIOCSTI = 0x5412; $l = <STDIN>; $lc = $ARGV[0] eq "-run" ? "\n" : ""; $l =~ s/\s*$/$lc/; map { ioctl STDOUT, $TIOCSTI, $_; } split "", $l;' -- $1
-}
 
 # fhe - repeat history edit
 fh() {
@@ -48,5 +49,6 @@ fh() {
 
 # fzg - ag to a code match
 alias fag='ag --nobreak --nonumbers --noheading . | fzf -e +i'
+alias fagy='ag --nobreak --nonumbers --noheading --python . | fzf -e +i'
 alias vif='vim $(fzf)'
 
