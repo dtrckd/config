@@ -32,6 +32,7 @@ alias pynotebook="jupyter --ip 127.0.0.1"
 alias xback='xbacklight'
 alias bb="byobu"
 alias cc="cat"
+alias vdiff='vimdiff'
 # Enable mouse scroll
 # ctrl-s : <set -g mouse on>
 alias psg="ps -ef | grep -i --color"
