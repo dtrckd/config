@@ -40,13 +40,15 @@ web_local:
 	@cp -rv $(addprefix $(BD_WEB)/tez/, $(HTML_FILES_TEZ)) $(WEB_LOCAL)/$(BD_TEZ)
 	@cp -rv $(addprefix $(BD_WEB)/, $(HTML_FILES_MAIN)) $(WEB_LOCAL)
 
-web_ama: mixtures
+web_ama:
 	$(info Web Local in $(WEB_AMA)) 
 	@mkdir -p $(WEB_AMA)/$(BD_MIXT)
 	@mkdir -p $(WEB_AMA)/$(BD_TEZ)
 	@cp -rv $(addprefix $(BD_WEB)/mixtures/, $(HTML_FILES_MIXT)) $(WEB_AMA)/$(BD_MIXT)
 	@cp -rv $(addprefix $(BD_WEB)/tez/, $(HTML_FILES_TEZ)) $(WEB_AMA)/$(BD_TEZ)
 	@cp -rv $(addprefix $(BD_WEB)/, $(HTML_FILES_MAIN)) $(WEB_AMA)
+
+web: web_ama web_local
 
 clean:
 	@rm -vf $(CLEAN_FILES)
