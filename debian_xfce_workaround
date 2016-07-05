@@ -63,3 +63,6 @@ ln -s /usr/share/icons/hicolor/48x48/actions/xfpm-hibernate.png ${icontheme}/48x
 
 # Windows buttons stop working and just blinking:
 xfwm4 --replace &
+
+# Panel with windows and worspace don't respond:
+xfce4-panel -r

@@ -32,7 +32,7 @@ PAPERS := $(foreach file,$(PAPERS_NAME), $(BD_PAPER)/$(file))
 # Web files to copy
 HTML_FILES_MIXT := html/ index.php menu.php css 
 HTML_FILES_TEZ := *.html papers/ mlss2015/
-HTML_FILES_MAIN := css/ js/ *.html *.php *.py
+HTML_FILES_MAIN := css/ js/ images/ *.html *.php *.py
 
 # Timestamp of files no used !
 all: mixtures tez
