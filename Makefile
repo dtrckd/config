@@ -16,7 +16,7 @@ CLEAN_FILES = webmain/mixtures/html/*.html webmain/tez/*.html
 
 # Bin
 PANDOC = /usr/bin/pandoc
-MDOWNPY = /usr/bin/markdown_py
+MDOWNPY = markdown_py
 MD2WEB = webmain/mixtures/md2web.py
 
 #.PHONY: mixtures main
