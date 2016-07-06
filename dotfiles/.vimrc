@@ -367,9 +367,9 @@ map <leader>s? z=
 
 " Setup
 """ Itchyny Calendar
-let pp = '~/Desktop/workInProgress/.diary/'
-let g:calendar_diary = expand(pp)
-let g:calendar_cache_directory = expand(pp)
+"let pp = '~/Desktop/workInProgress/.diary/'
+"let g:calendar_diary = expand(pp)
+"let g:calendar_cache_directory = expand(pp)
 let g:calendar_first_day = 'monday'
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
