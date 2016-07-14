@@ -146,7 +146,8 @@ ffmpeg
 mplayer
 vorbis-tools
 # flash in firefox/iceweasel
-#adobe-flashplugin (+) or flashplayer-mozilla(-)(fullscreen) (or ?(non tested) flashplugin-nonfree (backport)
+browser-plugin-freshplayer-pepperflash 
+pepperflashplugin-nonfree
 
 # to reading japanese caractere
 ttf-sazanami-gothic ttf-sazanami-mincho
