@@ -74,6 +74,13 @@ function vims() {
     fi
     vim -c "source $file" -S ~/.vimrc
 }
+function upgrademe() {
+    aptitude update && aptitude upgrade
+    brew update && brew upgrade
+    freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+    npm update
+    vim -c "UpdatePlugin"
+}
 
 ### ls alias
 alias l='ls'
