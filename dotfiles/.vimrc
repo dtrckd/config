@@ -339,14 +339,14 @@ endfunction
 """"""""""""""""""""""""""""""
 """" => HTML section
 """"""""""""""""""""""""""""""
-autocmd BufNewFile,BufRead *.load set filetype=html    
+autocmd BufNewFile,BufRead *.load set filetype=html
 au Filetype html :call TextEnableCodeSnip('python', '{{#py', '}}', 'SpecialComment')
 " Comment 
 au Filetype html nmap # :s/\([^ ].*\)$/<!--\1-->/<CR>:noh<CR>
 au Filetype html nmap ~ :s/<!--\(.*\)-->/\1/<CR>:noh<CR>
 au BufNewFile,BufRead *.css nmap # :s/\([^ ].*\)$/\/\*\1\*\//<CR>:noh<CR>
 au BufNewFile,BufRead *.css nmap ~ :s/\/\*\(.*\)\*\//\1/<CR>:noh<CR>
-au BufNewFile,BufRead  *.html,*.css set tabstop=2 softtabstop=2 shiftwidth=2
+au BufNewFile,BufRead  *.html,*.css set tabstop=2 softtabstop=2 shiftwidth=2 nowrap
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ => Spell checking
