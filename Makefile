@@ -30,7 +30,7 @@ TEZ := $(foreach dir,$(BD_WEB)/$(BD_TEZ),$(wildcard $(dir)/*.md))
 PAPERS := $(foreach file,$(PAPERS_NAME), $(BD_PAPER)/$(file))
 
 # Web files to copy
-HTML_FILES_MIXT := html/ index.php menu.php css 
+HTML_FILES_MIXT := html/ index.php menu.php css/ images
 HTML_FILES_TEZ := *.html papers/ mlss2015/
 HTML_FILES_MAIN := css/ js/ images/ *.html *.php *.py
 

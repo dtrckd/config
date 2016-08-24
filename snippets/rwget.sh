@@ -1,3 +1,5 @@
+#!bin/bash
+#
 # wget -r -k -np -p -nc --wait=0.1 
 wget --recursive \
          --convert-links \
@@ -5,7 +7,7 @@ wget --recursive \
          --page-requisites \
          --no-clobber \
          --wait=0.1 \
-         www
+         $1
 
 
 #(see -m /mirror)
