@@ -20,7 +20,7 @@ MDOWNPY = markdown_py
 MD2WEB = webmain/mixtures/md2web.py
 
 #.PHONY: mixtures main
-.PHONY: papers
+.PHONY: papers bin
 
 # Files to compile
 ### Make a rule to downlad the content instead
@@ -68,6 +68,10 @@ web_ama:
 	@cp -ruv $(addprefix $(BD_WEB)/, $(HTML_FILES_MAIN)) $(WEB_AMA)
 
 web: web_ama web_local
+
+BIN_FILES = $(shell cat bin.txt)
+bin:
+	$(foreach f,$(BIN_FILES), /bin/ln -fs $(f) $(HOME)/bin/$(notdir $(f)) ;)
 
 clean:
 	@rm -vf $(CLEAN_FILES)
