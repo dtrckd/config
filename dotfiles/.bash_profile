@@ -74,6 +74,13 @@ function vims() {
     fi
     vim -c "source $file" -S ~/.vimrc
 }
+function upgrademe() {
+    aptitude update && aptitude upgrade
+    brew update && brew upgrade
+    freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+    npm update
+    vim -c "UpdatePlugin"
+}
 
 ### ls alias
 alias l='ls'
@@ -167,8 +174,9 @@ function pdffusion() {
 }
 
 # Music player
-alias mute='amixer set Master toggle'
-alias unmute='amixer set Master unmute'
+#alias mute='amixer set Master mute'
+#alias unmute='amixer set Master unmute'
+#alias mute_toggle='amixer set Master toggle'
 alias x='xmms2'
 alias xx='xmms2'
 alias xl='xmms2 list'
