@@ -141,6 +141,9 @@ wget
 ####################
 #deb-multimedia-keyring
 
+# USB jack
+paprefs # pulseaudio -k
+
 vlc
 ffmpeg
 mplayer
