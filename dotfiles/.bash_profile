@@ -174,34 +174,9 @@ function pdffusion() {
 }
 
 # Music player
-#alias mute='amixer set Master toggle'
+#alias mute='amixer set Master mute'
 #alias unmute='amixer set Master unmute'
-function mute() {
-    Sinks=$(pactl list sinks short | grep -o  ^[0-9])
-    for s in $Sinks; do
-        pactl set-sink-mute $s true
-    done
-}
-function unmute() {
-    Sinks=$(pactl list sinks short | grep -o  ^[0-9])
-    for s in $Sinks; do
-        pactl set-sink-mute $s false
-    done
-}
-function vol_inc() {
-    Sinks=$(pactl list sinks short | grep -o  ^[0-9])
-    for s in $Sinks; do
-        pactl set-sink-mute $s false ; pactl set-sink-volume $s +2%
-    done
-}
-
-function vol_dec() {
-    Sinks=$(pactl list sinks short | grep -o  ^[0-9])
-    for s in $Sinks; do
-        pactl set-sink-volume $s -2%
-    done
-}
-
+#alias mute_toggle='amixer set Master toggle'
 alias x='xmms2'
 alias xx='xmms2'
 alias xl='xmms2 list'
