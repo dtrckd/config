@@ -77,7 +77,7 @@ function vims() {
 function upgrademe() {
     aptitude update && aptitude upgrade
     brew update && brew upgrade
-    freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+    pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
     npm update
     vim -c "UpdatePlugin"
 }
@@ -143,8 +143,8 @@ alias iug="cd $PX/networkofgraphs/papers/personal/relational_models"
 alias iut="cd ${MAGMAHR}/code/tools"
 alias iupx="cd $PX/PX"
 alias iupp="cd $PX/CREA/PP"
-alias iuw="cd ${PXX}/webmain/"
-alias iumd="cd ${PXX}/webmain/mixtures/md"
+alias iuw="cd ${PX}/webmain/"
+alias iumd="cd ${PX}/webmain/mixtures/md"
 alias iupython="cd /usr/local/lib/python2.7/dist-packages/"
 alias iuscrapy="cd /usr/local/lib/python2.7/dist-packages/scrapy/"
 alias cdoc="cd ~/Projets/hack-dir/doc-lib"
