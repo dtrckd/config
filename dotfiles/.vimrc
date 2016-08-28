@@ -475,3 +475,16 @@ map <Esc>[B <Down>
 noh
 au BufNewFile,BufRead *.py set formatoptions-=tc " prevent inserting \n. Where does it come from ????
 
+"set ttimeoutlen=100
+set ttyfast
+set lazyredraw
+
+"hack for the refresh problem !
+":au CursorMoved
+"autocmd BufReadPost quickfix map <buffer> <leader>qq :cclose<cr>|map
+"<buffer> <c-p> <up>|map <buffer> <c-n> <down>
+"set synmaxcol=120
+"set nocursorline
+"set re=1
+":redraw
+
