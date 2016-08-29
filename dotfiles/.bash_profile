@@ -260,6 +260,8 @@ else
 fi
 export TERM='xterm-256color'
 
+IGNOREEOF=3   # Shell only exists after the 3th consecutive Ctrl-d
+
 ### Intall Vundle
 #git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 ### Install Brew
