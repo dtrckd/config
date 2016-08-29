@@ -1,4 +1,4 @@
-# Arch Wiki is good: https://wiki.archlinux.org/index.php/Xfce
+A lot of issue resolve in the Arch Wiki:  https://wiki.archlinux.org/index.php/Xfce
 
 ### Major
 
@@ -66,3 +66,7 @@ xfwm4 --replace &
 
 # Panel with windows and worspace don't respond:
 xfce4-panel -r
+
+# SIOCSIFFLAGS: Operation not possible due to RF-kil
+rfkill unblock wifi 
+rfkill unblock all
