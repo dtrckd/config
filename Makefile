@@ -35,7 +35,8 @@ HTML_FILES_TEZ := *.html papers/ mlss2015/
 HTML_FILES_MAIN := css/ js/ images/ *.html *.php *.py
 
 # Timestamp of files no used !
-all: mixtures tez
+all: mixtures tez papers web
+#rest: bin
 
 # @Debug: nnot up to date !
 mixtures:  $(TAG)
