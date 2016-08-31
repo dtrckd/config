@@ -360,6 +360,7 @@ map <leader>ssfr :setlocal spell! spelllang=fr<cr>
 "nmap z[ [s
 map <leader>sa zg
 map <leader>s? z=
+map <leader>w z=  " correct the previous word @TODO
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ => Calendar
