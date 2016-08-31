@@ -33,6 +33,7 @@ alias xback='xbacklight'
 alias bb="byobu"
 alias cc="cat"
 alias vdiff='vimdiff'
+alias evc="evince"
 # Enable mouse scroll
 # ctrl-s : <set -g mouse on>
 alias psg="ps -ef | grep -i --color"
@@ -138,7 +139,7 @@ webApp="webuser"
 alias iu="cd $PX"
 alias ius="cd $PX/networkofgraphs/process/PyNPB/src"
 alias iud="cd $PX/networkofgraphs/process/PyNPB/data"
-alias iup="cd $PX/networkofgraphs/process"
+alias iup="cd $PX/networkofgraphs/papers"
 alias iug="cd $PX/networkofgraphs/papers/personal/relational_models"
 alias iut="cd ${MAGMAHR}/code/tools"
 alias iupx="cd $PX/PX"
