@@ -12,12 +12,13 @@ BD_PAPER = $(HOME)/Desktop/workInProgress/networkofgraphs/papers/personal/relati
 PAPERS_NAME = hdp_dynamics.pdf  hdp.pdf  ibp.pdf  lfc_model.pdf  poisson_binomial.pdf  rm_tab.pdf
 
 # Stuff to clean
-CLEAN_FILES = webmain/mixtures/html/*.html webmain/tez/*.html
+CLEAN_FILES = webmain/mixtures/html/*.html webmain/tez/html/*.html
 
 # Bin
 PANDOC = /usr/bin/pandoc
 MDOWNPY = markdown_py
-MD2WEB = webmain/mixtures/md2web.py
+MD2BLOG = webmain/mixtures/md2blog.py
+MD2WIKI = webmain/tez/md2wiki.py
 
 #.PHONY: mixtures main
 .PHONY: papers bin
@@ -26,12 +27,12 @@ MD2WEB = webmain/mixtures/md2web.py
 ### Make a rule to downlad the content instead
 # Dowload the content
 TAG := $(wildcard $(BD_WEB)/$(BD_MIXT)/md/*.md) 
-TEZ := $(foreach dir,$(BD_WEB)/$(BD_TEZ),$(wildcard $(dir)/*.md))
+TEZ := $(wildcard $(BD_WEB)/$(BD_TEZ)/md/*.md) 
 PAPERS := $(foreach file,$(PAPERS_NAME), $(BD_PAPER)/$(file))
 
 # Web files to copy
-HTML_FILES_MIXT := html/ index.php menu.php css/ images
-HTML_FILES_TEZ := *.html papers/ mlss2015/
+HTML_FILES_MIXT := css/ js/ images/ html/ index.php menu.php 
+HTML_FILES_TEZ  := css/ js/ images/ html/ a.php menu.php papers/ mlss2015/  
 HTML_FILES_MAIN := css/ js/ images/ *.html *.php *.py
 
 # Timestamp of files no used !
@@ -41,12 +42,12 @@ all: mixtures tez papers web
 # @Debug: nnot up to date !
 mixtures:  $(TAG)
 	$(info Building Mixtures...)
-	$(MD2WEB)
+	$(MD2BLOG)
 
-tez: $(TEZ)
+tez: $(TEZ) papers
 	$(info Building tez...)
-	#$(foreach tez,$(TEZ),$(PANDOC) $(tez) -o $(tez:.md=.html) ;)
-	$(foreach tez,$(TEZ), $(MDOWNPY) $(tez) > $(tez:.md=.html) ;)
+#$(foreach tez,$(TEZ), $(MDOWNPY) $(tez) > $(tez:.md=.html) ;)
+	$(MD2WIKI)
 
 papers:
 	$(info copying papers...)
