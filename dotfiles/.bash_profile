@@ -137,8 +137,8 @@ PX="~/Desktop/workInProgress/"
 PXX="~/Desktop/workInProgress/networkofgraphs/"
 webApp="webuser"
 alias iu="cd $PX"
-alias ius="cd $PX/networkofgraphs/process/PyNPB/src"
-alias iud="cd $PX/networkofgraphs/process/PyNPB/data"
+alias ius="cd $PX/networkofgraphs/process/pymake/src"
+alias iud="cd $PX/networkofgraphs/process/pymake/data"
 alias iup="cd $PX/networkofgraphs/papers"
 alias iug="cd $PX/networkofgraphs/papers/personal/relational_models"
 alias iuc="cd $HOME/src/config"
@@ -239,7 +239,7 @@ export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/opt/bin"
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
 Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
-export PYTHONPATH="/opt/lib/pythy:$HOME/lib/pythy:$HOME/Documents/workInProgress/networkofgraphs/process/PyNPB/src" #:$HOME/.local/lib/:/usr/local/lib:/usr/lib"
+export PYTHONPATH="/opt/lib/pythy:$HOME/lib/pythy:$HOME/Documents/workInProgress/networkofgraphs/process/pymake/src" #:$HOME/.local/lib/:/usr/local/lib:/usr/lib"
 export OMP_NUM_THREADS=1  # Number of thread used by numpy
 
 #### Man Pages
