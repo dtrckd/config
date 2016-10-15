@@ -21,8 +21,7 @@ webmain/
 mixtures/
 mixtures
 mixtures/
-app
-app/
+app/***
 
 # Security
 */.ssh/*

@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 #
 # wget -r -k -np -p -nc --wait=0.1 
 wget --recursive \
