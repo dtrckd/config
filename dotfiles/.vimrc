@@ -334,7 +334,23 @@ endfunction
 "call TextEnableCodeSnip(  'c',   '@begin=c@',   '@end=c@', 'SpecialComment')
 "call TextEnableCodeSnip('cpp', '@begin=cpp@', '@end=cpp@', 'SpecialComment')
 "call TextEnableCodeSnip('sql', '@begin=sql@', '@end=sql@', 'SpecialComment')
+"
+"
+"Reset Session
 
+fu! ResetSession()
+if filereadable(getcwd() . '/.session.vim')
+    execute 'so ' . getcwd() . '/.session.vim'
+    if bufexists(1)
+        for l in range(1, bufnr('$'))
+            if bufwinnr(l) == -1
+                exec 'sbuffer ' . l
+            endif
+        endfor
+    endif
+endif
+syntax on
+endfunction
  
 """"""""""""""""""""""""""""""
 """" => HTML section
@@ -463,7 +479,10 @@ endif
 "colo darkburn 
 colo dracula
 "colo hipster
+
+" Custom Colors
 hi Search guifg=#000000 guibg=#8dabcd guisp=#8dabcd gui=NONE ctermfg=NONE ctermbg=110 cterm=NONE
+hi Comment ctermfg=blue
 
 "set background=dark
 "  =================================================================="
@@ -478,7 +497,7 @@ au BufNewFile,BufRead *.py set formatoptions-=tc " prevent inserting \n. Where d
 
 "set ttimeoutlen=100
 set ttyfast
-set lazyredraw
+"set lazyredraw
 
 "hack for the refresh problem !
 ":au CursorMoved
