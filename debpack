@@ -58,13 +58,19 @@ firmware-iwlifi
 
 # debian packaging tool
 apt-file
+apt-show-version
+apt-mark
+
+# packaging and VCS
+pip, npm, brew, mercurial
 
 ####################
 ### Edition
 ####################
 
 exuberant-ctags
-vim
+#vim
+vim-nox # scripting compilation options
 vim-addon-manager
 texlive
 tikz
