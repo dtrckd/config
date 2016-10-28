@@ -38,6 +38,7 @@ Plugin 'uguu-org/vim-matrix-screensaver'
 Plugin 'darkburn'
 Plugin 'dracula/vim'
 Plugin 'jnurmine/zenburn'
+"Plugin 'yhat/vim-docstring'
 "Plugin 'mozilla/doctorjs' " for javascript
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
@@ -48,6 +49,9 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:ackprg = 'ag --vimgrep'
 " wget the dict at http://ftp.vim.org/vim/runtime/spell/
+
+""" Activate vim-docstring
+"autocmd FileType python PyDocHide
 
 function! GitBranch()
     let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
@@ -70,7 +74,7 @@ syntax on
 "set title "update window title for X and tmux
 set ruler		"show current position 
 set laststatus=2
-set statusline=%{LastDir()}/%f%m\ %r\ %h\ %w\%{GitBranch()}\ %=%l/%L:%c\ %015(%p%%%)
+set statusline=%{LastDir()}/%f%m\ %r\ %h\ %w\%{GitBranch()}\ %=%l/%L:%c\ %015(%p%%%)%<
 "set statusline=%<%f%m\ %r\ %h\ %w\%{GitBranch()}\ %=%l/%L:%c\ %015(%p%%%)
 set mat=1 "How many tenths of a second to blink
 set vb                                  " no beep, visualbell
@@ -392,8 +396,9 @@ let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
 
 " Week's day colors
-autocmd FileType calendar call calendar#color#syntax('Saturday', has('gui') ? '#ff0000' : 'blue', 'black', '')
-autocmd FileType calendar call calendar#color#syntax('Sunday', has('gui') ? '#ff0000' : 196, 'black', '')
+"autocmd FileType calendar call calendar#color#syntax('Saturday', has('gui') ? '#ff0000' : 'blue', 'black', '')
+"autocmd FileType calendar call calendar#color#syntax('Sunday', has('gui') ? '#ff0000' : 196, 'black', '')
+"
 "autocmd FileType calendar hi! link CalendarSunday Normal
 "autocmd FileType calendar hi! link CalendarTodaySunday Normal
 
