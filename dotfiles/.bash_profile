@@ -34,7 +34,7 @@ alias bb="byobu"
 alias cc="cat"
 alias vdiff='vimdiff'
 alias evc="evince"
-# Enable mouse scroll
+# Enable mouse scroll in tmux
 # ctrl-s : <set -g mouse on>
 alias psg="ps -ef | grep -i --color"
 alias pstree='pstree -h'
