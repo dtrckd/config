@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DDD='home/joker'
+DDD='home/dtrckd'
 
 # Opera
 OperaBack="opera6.adr operaprefs.ini bookmarks.adr notes.adr search.ini speeddial.ini wand.dat\

@@ -11,7 +11,7 @@
 #
 # By default this script does nothing.
 
-/home/joker/bin/firewall-r-strict
+/home/dtrckd/bin/firewall-r-strict
 syndaemon -t -k -i 0.2 -d
 
 
