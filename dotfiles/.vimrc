@@ -221,7 +221,8 @@ noremap <Tab>= <S-v>)=''
 """ Info Tag
 nnoremap tf :TlistShowTag<CR>
 nnoremap tc :TagbarShowTag<CR>
-"nmap m :windo set wrap!<CR> " toggle wrap line
+" toggle wrap line
+nmap <leader>m :windo set wrap!<CR> 
 
 "" Compilation & Taglist ! Great
 let g:easytags_cmd = '/usr/bin/ctags'
