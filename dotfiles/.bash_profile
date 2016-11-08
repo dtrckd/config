@@ -133,6 +133,11 @@ function gitinit_dd_config() {
     git config user.email "ddtracked@gmail.com"
 }
 
+function init_ssh() {
+    eval `ssh-agent`
+    ssh-add
+}
+
 ### cd alias
 alias xs='cd'
 MAGMAHR="~/Desktop/workInProgress/magma_hr"
