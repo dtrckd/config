@@ -49,9 +49,50 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:ackprg = 'ag --vimgrep'
 " wget the dict at http://ftp.vim.org/vim/runtime/spell/
-
 """ Activate vim-docstring
 "autocmd FileType python PyDocHide
+let g:rainbow_conf = {
+            \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+            \   'ctermfgs': ['white','lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+            \   'operators': '_,_',
+            \   'parentheses': [['(',')'], ['\[','\]'], ['{','}']],
+            \   'separately': {
+            \       '*': {},
+            \       'lisp': {
+            \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+            \           'ctermfgs': ['darkgray', 'darkblue', 'darkmagenta', 'darkcyan', 'darkred', 'darkgreen'],
+            \       },
+            \       'vim': {
+            \           'parentheses': [['fu\w* \s*.*)','endfu\w*'], ['for','endfor'], ['while', 'endwhile'], ['if','_elseif\|else_','endif'], ['(',')'], ['\[','\]'], ['{','}']],
+            \       },
+            \       'tex': {
+            \           'parentheses': [['(',')'], ['\[','\]'], ['\\begin{.*}','\\end{.*}']],
+            \       },
+            \       'html': {
+            \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+            \       },
+            \       'css': 0,
+            \       'stylus': 0,
+            \   }
+            \}
+
+"" fugitive git bindings
+"nnoremap <space>ga :Git add %:p<CR><CR>
+"nnoremap <space>gs :Gstatus<CR>
+"nnoremap <space>gc :Gcommit -v -q<CR>
+"nnoremap <space>gt :Gcommit -v -q %:p<CR>
+nnoremap <leader>gd :Gdiff<CR>
+"nnoremap <space>ge :Gedit<CR>
+"nnoremap <space>gr :Gread<CR>
+"nnoremap <space>gw :Gwrite<CR><CR>
+"nnoremap <space>gl :silent! Glog<CR>:bot copen<CR>
+"nnoremap <space>gp :Ggrep<Space>
+"nnoremap <space>gm :Gmove<Space>
+"nnoremap <space>gb :Git branch<Space>
+"nnoremap <space>go :Git checkout<Space>
+"nnoremap <space>gps :VimProcBang git push<CR>
+"nnoremap <space>gpl :VimProcBang git pull<CR>
+
 
 function! GitBranch()
     let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
@@ -89,7 +130,7 @@ set incsearch                           " Incremental search
 set ignorecase                          " Do case insensitive matching
 set smartcase                           " sensitive if capital letter
 set report=0                            " show number of modification if they are
-set nu                                  " View numbers lines
+"set nu                                  " View numbers lines
 "set cursorline                         " hilight current line
 "set autowrite                          " Automatically save before commands like :next and :make
 "set hidden                             " Hide buffers when they are abandoned
@@ -130,8 +171,9 @@ set foldmethod=indent
 set nofen               " open all folds. see z[mn] command
 
 """"""""""""""""""""""""""""""
-"" Mapping
+""" Mapping
 """"""""""""""""""""""""""""""
+""" general
 imap <C-L> <Esc>
 nnoremap ; : 
 let mapleader = ','
@@ -140,17 +182,10 @@ let mapleader = ','
 "imap <C-u> <C-o><C-u>
 """ Navigate
 noremap <F4> :tabe %<CR>
-" Folding
+""" Folding
 "noremap zR " Open all folds
 "noremap zM " close all folds
-" TAB
-nnoremap <C-UP> gT
-noremap <C-DOWN> <ESC>:tabn<CR>
-noremap <C-DOWN> <ESC>:tabN<CR>
-nnoremap <C-DOWN> gt
-"" Window Moves
-"nnoremap <S-PageUp> <C-W>k
-"nnoremap <S-PageDown> <C-W>j
+"" Window
 nnoremap <S-UP> <C-W>k
 nnoremap <S-DOWN> <C-W>j
 nnoremap <S-LEFT> <C-W>h
@@ -159,7 +194,14 @@ noremap <A-UP> <C-W>10+
 noremap <A-DOWN> <C-W>10-
 noremap <A-LEFT> <C-W>10<
 noremap <A-RIGHT> <C-W>10>
-"" Insert Mode
+"nnoremap <S-PageUp> <C-W>k " can't work...
+"nnoremap <S-PageDown> <C-W>j
+" TAB
+nnoremap <C-UP> gT
+noremap <C-DOWN> <ESC>:tabn<CR>
+noremap <C-DOWN> <ESC>:tabN<CR>
+nnoremap <C-DOWN> gt
+""" Insert Mode
 imap <C-a> <Esc>^^i
 imap <C-e> <Esc>$a
 """ Command Mode
@@ -168,7 +210,7 @@ cnoremap $e e %:p:h
 cnoremap $t tabe %:p:h
 cnoremap $s split %:p:h
 cnoremap $v vs %:p:h
-"""" Mouse map
+""" Mouse map
 "nnoremap <2-LeftMouse> //
 "cno sm set mouse=
 """" Edit
@@ -179,6 +221,7 @@ noremap <Tab>= <S-v>)=''
 """ Info Tag
 nnoremap tf :TlistShowTag<CR>
 nnoremap tc :TagbarShowTag<CR>
+"nmap m :windo set wrap!<CR> " toggle wrap line
 
 "" Compilation & Taglist ! Great
 let g:easytags_cmd = '/usr/bin/ctags'
@@ -247,10 +290,8 @@ func! CurrentFileDir(cmd)
 endfunc
 
 
-
-
 """"""""""""""""""""""""""""""
-""" Makefile
+""" => Makefile
 """"""""""""""""""""""""""""""
 au Filetype tex map <leader>m :!make<cr>
 au Filetype make map <leader>m :!make<cr>
@@ -260,7 +301,7 @@ au Filetype make map <leader>m :!make<cr>
 """" => Python section
 """"""""""""""""""""""""""""""
 au BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent fileformat=unix
-"\ set textwidth=79
+au BufNewFile,BufRead *.py set formatoptions-=tc " prevent inserting \n. Where does it come from ????
 
 func! DeleteTrailingWS()
   exe "normal mz"
@@ -306,56 +347,6 @@ map <Leader>h <ESC>:AV<CR>
 map <Leader>ht <ESC>:AT<CR>
 "map <leader>h :vs %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 
-""""""""""""""""""""""""""""""
-"""" => Snippet/template section
-""""""""""""""""""""""""""""""
-"http://vim.wikia.com/wiki/Different_syntax_highlighting_within_regions_of_a_file
-function! TextEnableCodeSnip(filetype,start,end,textSnipHl) abort
-  let ft=toupper(a:filetype)
-  let group='textGroup'.ft
-  if exists('b:current_syntax')
-    let s:current_syntax=b:current_syntax
-    " Remove current syntax definition, as some syntax files (e.g. cpp.vim)
-    " do nothing if b:current_syntax is defined.
-    unlet b:current_syntax
-  endif
-  execute 'syntax include @'.group.' syntax/'.a:filetype.'.vim'
-  try
-    execute 'syntax include @'.group.' after/syntax/'.a:filetype.'.vim'
-  catch
-  endtry
-  if exists('s:current_syntax')
-    let b:current_syntax=s:current_syntax
-  else
-    unlet b:current_syntax
-  endif
-  execute 'syntax region textSnip'.ft.'
-  \ matchgroup='.a:textSnipHl.'
-  \ start="'.a:start.'" end="'.a:end.'"
-  \ contains=@'.group
-endfunction
-
-"call TextEnableCodeSnip(  'c',   '@begin=c@',   '@end=c@', 'SpecialComment')
-"call TextEnableCodeSnip('cpp', '@begin=cpp@', '@end=cpp@', 'SpecialComment')
-"call TextEnableCodeSnip('sql', '@begin=sql@', '@end=sql@', 'SpecialComment')
-"
-"
-"Reset Session
-
-fu! ResetSession()
-if filereadable(getcwd() . '/.session.vim')
-    execute 'so ' . getcwd() . '/.session.vim'
-    if bufexists(1)
-        for l in range(1, bufnr('$'))
-            if bufwinnr(l) == -1
-                exec 'sbuffer ' . l
-            endif
-        endfor
-    endif
-endif
-syntax on
-endfunction
- 
 """"""""""""""""""""""""""""""
 """" => HTML section
 """"""""""""""""""""""""""""""
@@ -405,47 +396,63 @@ let g:calendar_google_task = 1
 "" Color Workaround
 autocmd FileType calendar if !has('gui_running') | set t_Co=256 | endif
 
-let g:rainbow_conf = {
-            \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-            \   'ctermfgs': ['white','lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-            \   'operators': '_,_',
-            \   'parentheses': [['(',')'], ['\[','\]'], ['{','}']],
-            \   'separately': {
-            \       '*': {},
-            \       'lisp': {
-            \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-            \           'ctermfgs': ['darkgray', 'darkblue', 'darkmagenta', 'darkcyan', 'darkred', 'darkgreen'],
-            \       },
-            \       'vim': {
-            \           'parentheses': [['fu\w* \s*.*)','endfu\w*'], ['for','endfor'], ['while', 'endwhile'], ['if','_elseif\|else_','endif'], ['(',')'], ['\[','\]'], ['{','}']],
-            \       },
-            \       'tex': {
-            \           'parentheses': [['(',')'], ['\[','\]'], ['\\begin{.*}','\\end{.*}']],
-            \       },
-            \       'html': {
-            \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-            \       },
-            \       'css': 0,
-            \       'stylus': 0,
-            \   }
-            \}
+""""""""""""""""""""""""""""""
+"""" => Snippet
+""""""""""""""""""""""""""""""
 
-"" fugitive git bindings
-"nnoremap <space>ga :Git add %:p<CR><CR>
-"nnoremap <space>gs :Gstatus<CR>
-"nnoremap <space>gc :Gcommit -v -q<CR>
-"nnoremap <space>gt :Gcommit -v -q %:p<CR>
-nnoremap <leader>gd :Gdiff<CR>
-"nnoremap <space>ge :Gedit<CR>
-"nnoremap <space>gr :Gread<CR>
-"nnoremap <space>gw :Gwrite<CR><CR>
-"nnoremap <space>gl :silent! Glog<CR>:bot copen<CR>
-"nnoremap <space>gp :Ggrep<Space>
-"nnoremap <space>gm :Gmove<Space>
-"nnoremap <space>gb :Git branch<Space>
-"nnoremap <space>go :Git checkout<Space>
-"nnoremap <space>gps :VimProcBang git push<CR>
-"nnoremap <space>gpl :VimProcBang git pull<CR>
+""" Template
+"http://vim.wikia.com/wiki/Different_syntax_highlighting_within_regions_of_a_file
+function! TextEnableCodeSnip(filetype,start,end,textSnipHl) abort
+  let ft=toupper(a:filetype)
+  let group='textGroup'.ft
+  if exists('b:current_syntax')
+    let s:current_syntax=b:current_syntax
+    " Remove current syntax definition, as some syntax files (e.g. cpp.vim)
+    " do nothing if b:current_syntax is defined.
+    unlet b:current_syntax
+  endif
+  execute 'syntax include @'.group.' syntax/'.a:filetype.'.vim'
+  try
+    execute 'syntax include @'.group.' after/syntax/'.a:filetype.'.vim'
+  catch
+  endtry
+  if exists('s:current_syntax')
+    let b:current_syntax=s:current_syntax
+  else
+    unlet b:current_syntax
+  endif
+  execute 'syntax region textSnip'.ft.'
+  \ matchgroup='.a:textSnipHl.'
+  \ start="'.a:start.'" end="'.a:end.'"
+  \ contains=@'.group
+endfunction
+
+"call TextEnableCodeSnip(  'c',   '@begin=c@',   '@end=c@', 'SpecialComment')
+"call TextEnableCodeSnip('cpp', '@begin=cpp@', '@end=cpp@', 'SpecialComment')
+"call TextEnableCodeSnip('sql', '@begin=sql@', '@end=sql@', 'SpecialComment')
+
+
+""" Reset Session
+fu! ResetSession()
+    if filereadable(getcwd() . '/.session.vim')
+        execute 'so ' . getcwd() . '/.session.vim'
+        if bufexists(1)
+            for l in range(1, bufnr('$'))
+                if bufwinnr(l) == -1
+                    exec 'sbuffer ' . l
+                endif
+            endfor
+        endif
+    endif
+    syntax on
+endfunction
+com! ResetSession :call ResetSession()
+
+""" Workaround for the refresh problem (partial)!
+fu! RedrawTab()
+    execute  'redraw'
+endfunction
+com! RedrawTab :call RedrawTab()
 
 
 """""""""" Colorized it.
@@ -490,26 +497,12 @@ hi Search guifg=#000000 guibg=#8dabcd guisp=#8dabcd gui=NONE ctermfg=NONE ctermb
 hi Comment ctermfg=blue
 
 "set background=dark
-"  =================================================================="
-
-" Remove email bit in from line."
-"map ,w 1G:s/^From:\(.*\) $/From:\1 /$
 
 map <Esc>[B <Down>
-
 noh
-au BufNewFile,BufRead *.py set formatoptions-=tc " prevent inserting \n. Where does it come from ????
 
+""" refresh !?
 "set ttimeoutlen=100
 set ttyfast
 "set lazyredraw
-
-"hack for the refresh problem !
-":au CursorMoved
-"autocmd BufReadPost quickfix map <buffer> <leader>qq :cclose<cr>|map
-"<buffer> <c-p> <up>|map <buffer> <c-n> <down>
-"set synmaxcol=120
-"set nocursorline
-"set re=1
-":redraw
 
