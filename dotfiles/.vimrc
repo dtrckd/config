@@ -89,7 +89,7 @@ set incsearch                           " Incremental search
 set ignorecase                          " Do case insensitive matching
 set smartcase                           " sensitive if capital letter
 set report=0                            " show number of modification if they are
-set nu                                  " View numbers lines
+"set nu                                  " View numbers lines
 "set cursorline                         " hilight current line
 "set autowrite                          " Automatically save before commands like :next and :make
 "set hidden                             " Hide buffers when they are abandoned

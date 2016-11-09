@@ -33,3 +33,4 @@
 /home/dtrckd/src/config/snippets/sound/vol_dec
 /home/dtrckd/src/config/snippets/sound/vol_inc
 /home/dtrckd/src/wikask/wikask.py
+/home/dtrckd/src/backsync
