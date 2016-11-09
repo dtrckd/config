@@ -72,7 +72,7 @@ exuberant-ctags
 #vim
 vim-nox # scripting compilation options
 vim-addon-manager
-texlive
+texlive texlive-latex-extra
 tikz
 
 # pdf viewer / manipulator
