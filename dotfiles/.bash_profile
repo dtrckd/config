@@ -55,7 +55,7 @@ alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
 alias netl='netstat -taupen'
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
-alias grepi='find -iname "*.py" | xargs grep --color -ni'
+alias grepy='find -iname "*.py" | xargs grep --color -ni'
 alias agpy='ag --py'
 ### XFCE
 #alias locks='s2ram -f -m'
@@ -135,6 +135,11 @@ function gitinit_dd() {
 function gitinit_dd_config() {
     git config user.name "dtrckd"
     git config user.email "ddtracked@gmail.com"
+}
+
+function init_ssh() {
+    eval `ssh-agent`
+    ssh-add
 }
 
 ### cd alias
