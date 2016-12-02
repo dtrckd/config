@@ -11,8 +11,7 @@ tags
 
 # Private
 vocabulary.md
-etc/wpa_supplicant/**
-etc/grub/**
+etc/***
 .free
 
 # Project
