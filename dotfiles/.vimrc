@@ -223,6 +223,8 @@ nnoremap tf :TlistShowTag<CR>
 nnoremap tc :TagbarShowTag<CR>
 " toggle wrap line
 nmap <leader>mm :windo set wrap!<CR> 
+" save session
+nmap <leader>ss :mks! .session.vim<CR> 
 
 "" Compilation & Taglist ! Great
 let g:easytags_cmd = '/usr/bin/ctags'
