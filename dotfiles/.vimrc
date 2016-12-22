@@ -44,6 +44,7 @@ Plugin 'jnurmine/zenburn'
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 let g:easytags_updatetime_min = 180000
 let g:easytags_auto_update = 0
+let g:SuperTabNoCompleteAfter = ['^', '\s', '#', "'", '"', '%', '/']
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
