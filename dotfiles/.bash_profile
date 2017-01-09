@@ -30,8 +30,8 @@ fi
 
 ### Utility commands
 alias python="python -O" # basic optimizatio (ignore assert, ..)
-#alias ipython="python -m IPython"
-alias ipython="ipython --colors linux"
+alias ipython="python -m IPython"
+#alias ipython="ipython --colors linux"
 alias pynotebook="jupyter --ip 127.0.0.1"
 alias xback='xbacklight'
 alias bb="byobu"
@@ -149,12 +149,9 @@ PX="~/Desktop/workInProgress/"
 PXX="~/Desktop/workInProgress/networkofgraphs/"
 webApp="webuser"
 alias iu="cd $PX"
-alias ius="cd $PX/networkofgraphs/process/pymake/src"
-alias iud="cd $PX/networkofgraphs/process/pymake/data"
-alias iup="cd $PX/networkofgraphs/papers"
+alias iu="cd ${HOME}/src/config"
+alias iup="cd $PX/networkofgraphs/process/pymake/src"
 alias iug="cd $PX/networkofgraphs/papers/personal/relational_models"
-alias iuc="cd $HOME/src/config"
-alias iut="cd ${MAGMAHR}/code/tools"
 alias iub="cd $PX/CREA/PP/BaseBlue/bhp/src"
 alias iupx="cd $PX/PX"
 alias iupp="cd $PX/CREA/PP"
@@ -255,6 +252,24 @@ Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]
 export PYTHONPATH="/opt/lib/pythy:$HOME/lib/pythy:$HOME/Documents/workInProgress/networkofgraphs/process/pymake/src" #:$HOME/.local/lib/:/usr/local/lib:/usr/lib"
 export OMP_NUM_THREADS=1  # Number of thread used by numpy
 
+### Intall Vundle
+#git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+### Install Brew
+# git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
+export PATH="$PATH:$HOME/.linuxbrew/bin"
+export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+export NODE_PATH="/home/dtrckd/.local/nodes_modules/lib/node_modules"
+
+
+######################
+### From and Style
+#####################
+
+
+# To work with opencv and cam
+#LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so
+
 #### Man Pages
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
@@ -277,16 +292,6 @@ export TERM='xterm-256color'
 
 IGNOREEOF=3   # Shell only exists after the 3th consecutive Ctrl-d
 
-### Intall Vundle
-#git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-### Install Brew
-# git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
-export PATH="$PATH:$HOME/.linuxbrew/bin"
-export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-
-# To work with opencv and cam
-#LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so
 
 ### Fuzzy
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
