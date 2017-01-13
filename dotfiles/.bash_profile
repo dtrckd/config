@@ -246,7 +246,11 @@ xrand () {
     echo -e "$Songs" | xargs -I {} -d "\n" xmms2 add "{}" 
 }
 
-# Shell Global Variable
+#############
+### ENV
+#############
+
+### Shell Global Variable
 #shopt -s extglob
 #setterm -blength 0 # Disable console beep
 HISTSIZE=1000
@@ -260,6 +264,7 @@ Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]
 export PYTHONPATH="/opt/lib/pythy:$HOME/lib/pythy:$HOME/Documents/workInProgress/networkofgraphs/process/pymake/src" #:$HOME/.local/lib/:/usr/local/lib:/usr/lib"
 export OMP_NUM_THREADS=1  # Number of thread used by numpy
 
+
 #### Man Pages
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
@@ -269,6 +274,9 @@ export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
 #export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
+
+# To work with opencv and cam
+#LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so
 
 ### IF XFCE4
 printf "\e[?2004l" # to avoid Copy-Paste in xfce4-terminal adds 0~ and 1~
