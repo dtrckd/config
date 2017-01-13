@@ -1,6 +1,13 @@
 ############################
 ### Shell Configuration, fancy
 ###########################
+
+### How to setup
+# end of .bashrc
+#if [ -f ~/.bash_profile ]; then
+#    . ~/.bash_profile
+#fi
+
 ### Prompt
 #PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ ' # root
 #PROMPT2='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
@@ -253,24 +260,6 @@ Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]
 export PYTHONPATH="/opt/lib/pythy:$HOME/lib/pythy:$HOME/Documents/workInProgress/networkofgraphs/process/pymake/src" #:$HOME/.local/lib/:/usr/local/lib:/usr/lib"
 export OMP_NUM_THREADS=1  # Number of thread used by numpy
 
-### Intall Vundle
-#git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-### Install Brew
-# git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
-export PATH="$PATH:$HOME/.linuxbrew/bin"
-export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-export NODE_PATH="/home/dtrckd/.local/nodes_modules/lib/node_modules"
-
-
-######################
-### From and Style
-#####################
-
-
-# To work with opencv and cam
-#LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so
-
 #### Man Pages
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
@@ -293,13 +282,21 @@ export TERM='xterm-256color'
 
 IGNOREEOF=3   # Shell only exists after the 3th consecutive Ctrl-d
 
+### Intall Vundle
+#git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+### Install Brew
+# git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
+export PATH="$PATH:$HOME/.linuxbrew/bin"
+export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
-### Fuzzy
+# To work with opencv and cam
+#LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so
+
+### FZF
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-### How to setup
-# end of .bashrc
-#if [ -f ~/.bash_profile ]; then
-#    . ~/.bash_profile
-#fi
+# Tmux git prompt
+# git clone git://github.com/drmad/tmux-git.git ~/.tmux-git 
+if [[ $TMUX ]]; then source ~/.tmux-git/tmux-git.sh; fi
 
