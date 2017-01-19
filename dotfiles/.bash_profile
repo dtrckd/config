@@ -10,9 +10,10 @@
 
 ### Prompt
 #PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ ' # root
-#PROMPT2='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#PROMPT2='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ' # root
 
 #PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ ' # remote
+#PROMPT2='${debian_chroot:+($debian_chroot)}\[\033[01; 32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ' # remote
 
 PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
 PROMPT2='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
@@ -143,6 +144,13 @@ function gitinit_dd_config() {
     git config user.name "dtrckd"
     git config user.email "ddtracked@gmail.com"
 }
+# Git Permission Reset
+function git_permissions_reset() {
+    git diff -p \
+        | grep -E '^(diff|old mode|new mode)' \
+        | sed -e 's/^old/NEW/;s/^new/old/;s/^NEW/new/' \
+        | git apply
+}
 
 function init_ssh() {
     eval `ssh-agent`
@@ -153,7 +161,6 @@ function init_ssh() {
 alias xs='cd'
 MAGMAHR="~/Desktop/workInProgress/magma_hr"
 PX="~/Desktop/workInProgress/"
-PXX="~/Desktop/workInProgress/networkofgraphs/"
 webApp="webuser"
 alias iu="cd $PX"
 alias iuc="cd ${HOME}/src/config"
@@ -264,7 +271,6 @@ Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]
 export PYTHONPATH="/opt/lib/pythy:$HOME/lib/pythy:$HOME/Documents/workInProgress/networkofgraphs/process/pymake/src" #:$HOME/.local/lib/:/usr/local/lib:/usr/lib"
 export OMP_NUM_THREADS=1  # Number of thread used by numpy
 
-
 #### Man Pages
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
@@ -298,13 +304,11 @@ export PATH="$PATH:$HOME/.linuxbrew/bin"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
-# To work with opencv and cam
-#LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so
 
 ### FZF
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # Tmux git prompt
 # git clone git://github.com/drmad/tmux-git.git ~/.tmux-git 
-if [[ $TMUX ]]; then source ~/.tmux-git/tmux-git.sh; fi
+if [[ $TMUX && -f "~/.tmux-git/tmux-git.sh" ]]; then source ~/.tmux-git/tmux-git.sh; fi
 
