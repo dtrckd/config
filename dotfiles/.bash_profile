@@ -265,6 +265,7 @@ xrand () {
 #setterm -blength 0 # Disable console beep
 HISTSIZE=1000
 HISTFILESIZE=2000
+IGNOREEOF=3   # Shell only exists after the 3th consecutive Ctrl-d
 export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S "
 export EDITOR="/usr/bin/vim"
 export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/opt/bin"
@@ -272,6 +273,7 @@ export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
 Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
 #export PYTHONPATH=":$HOME/.local/lib/:/usr/local/lib:/usr/lib"
+export PYTHONPATH="${PYTHONPATH}:$PX/networkofgraphs/process/pymake/:$PX/CREA/PP/BaseBlue/bhp/"
 export OMP_NUM_THREADS=1  # Number of thread used by numpy
 
 #### Man Pages
@@ -297,17 +299,14 @@ else
 fi
 export TERM='xterm-256color'
 
-IGNOREEOF=3   # Shell only exists after the 3th consecutive Ctrl-d
 
-### Intall Vundle
+### Vundle
 #git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-### Install Brew
+###  Brew
 # git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
 export PATH="$PATH:$HOME/.linuxbrew/bin"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-
-
 ### FZF
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
