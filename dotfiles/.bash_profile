@@ -41,6 +41,9 @@ alias python="python -O" # basic optimizatio (ignore assert, ..)
 alias ipython="python -m IPython"
 #alias ipython="ipython --colors linux"
 alias pynotebook="jupyter --ip 127.0.0.1"
+alias py='python'
+alias py3='python3'
+alias ppath_python='export PYTHONPATH=$PYTHONPATH:$(pwd)'
 alias xback='xbacklight'
 alias bb="byobu"
 alias cc="cat"
@@ -63,7 +66,7 @@ alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
 alias netl='netstat -taupen'
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
-alias grepy='find -iname "*.py" | xargs grep --color -ni'
+alias grepy='find -iname "*.py" | xargs grep --color'
 alias agpy='ag --py'
 ### XFCE
 #alias locks='s2ram -f -m'
@@ -165,9 +168,9 @@ webApp="webuser"
 alias iu="cd $PX"
 alias iuc="cd ${HOME}/src/config"
 alias ium="cd ${HOME}/Music"
-alias iup="cd $PX/networkofgraphs/process/pymake/src"
+alias iup="cd $PX/networkofgraphs/process/pymake/"
 alias iug="cd $PX/networkofgraphs/papers/personal/relational_models"
-alias iub="cd $PX/CREA/PP/BaseBlue/bhp/src"
+alias iub="cd $PX/CREA/PP/BaseBlue/bhp/"
 alias iupx="cd $PX/PX"
 alias iupp="cd $PX/CREA/PP"
 alias iuw="cd ${PX}/webmain/"
@@ -268,7 +271,7 @@ export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/opt/bin"
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
 Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
-export PYTHONPATH="/opt/lib/pythy:$HOME/lib/pythy:$HOME/Documents/workInProgress/networkofgraphs/process/pymake/src" #:$HOME/.local/lib/:/usr/local/lib:/usr/lib"
+#export PYTHONPATH=":$HOME/.local/lib/:/usr/local/lib:/usr/lib"
 export OMP_NUM_THREADS=1  # Number of thread used by numpy
 
 #### Man Pages
