@@ -1,0 +1,5 @@
+pip install -U --user \
+        ipython jupyter pandoc \
+        numpy scipy matplotlib \
+        sklearn nltk \
+        tabulate
