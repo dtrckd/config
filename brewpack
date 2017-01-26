@@ -1,7 +1,5 @@
 fzf
 ag
 task-spooler
-node
 hub
-
-
+#node
