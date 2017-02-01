@@ -60,7 +60,7 @@ alias eog='ristretto'
 ff () { find -name "*$1*"; }
 ### Net
 alias curlH='curl -I'
-alias myip='nmap -sC -p80 -n -Pn --script=http-title www.KissMyIp.com whatismyip.com.au' #myip.is
+alias myip='nmap -sC -p80 -n -Pn --script=http-title www.showmemyip.com | grep -i "my IP" | cut -d: -f3 | tr -d " " |  xclip -selection clipboard && xclip -o -selection clipboard'
 alias nmapw='nmap -sT -P0 -sV -p80,443 --script=http-headers'
 alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
 alias netl='netstat -taupen'
@@ -163,17 +163,16 @@ function init_ssh() {
 
 ### cd alias
 alias xs='cd'
-MAGMAHR="~/Desktop/workInProgress/magma_hr"
-PX="~/Desktop/workInProgress/"
+PX="${HOME}/Desktop/workInProgress"
 webApp="webuser"
 alias iu="cd $PX"
 alias iuc="cd ${HOME}/src/config"
 alias ium="cd ${HOME}/Music"
-alias iup="cd $PX/networkofgraphs/process/pymake/"
+alias iup="cd $PX/networkofgraphs/process/pymake/pymake"
 alias iug="cd $PX/networkofgraphs/papers/personal/relational_models"
-alias iub="cd $PX/CREA/PP/BaseBlue/bhp/"
+alias iub="cd $PX/BaseBlue/bhp/bhp"
+alias ius="cd $PX/BaseBlue/bluebot/bluebot"
 alias iupx="cd $PX/PX"
-alias iupp="cd $PX/CREA/PP"
 alias iuw="cd ${PX}/webmain/"
 alias iumd="cd ${PX}/webmain/mixtures/md"
 alias iupython="cd /usr/local/lib/python2.7/dist-packages/"
@@ -274,7 +273,7 @@ export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
 Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
 #export PYTHONPATH=":$HOME/.local/lib/:/usr/local/lib:/usr/lib"
-export PYTHONPATH="${PYTHONPATH}:$PX/networkofgraphs/process/pymake/:$PX/CREA/PP/BaseBlue/bhp/"
+export PYTHONPATH="$PX/networkofgraphs/process/pymake/:$PX/BaseBlue/bhp/:$PX/BaseBlue/bluebot"
 export OMP_NUM_THREADS=1  # Number of thread used by numpy
 
 #### Man Pages
