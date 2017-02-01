@@ -67,7 +67,7 @@ alias netl='netstat -taupen'
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepy='find -iname "*.py" | xargs grep --color'
-alias grepall='find -type f | xargs grep --color -ni'
+alias grepall='find -type f | xargs grep --color'
 alias agpy='ag --py'
 ### XFCE
 #alias locks='s2ram -f -m'
@@ -166,15 +166,15 @@ alias xs='cd'
 PX="${HOME}/Desktop/workInProgress"
 webApp="webuser"
 alias iu="cd $PX"
-alias iuc="cd ${HOME}/src/config"
-alias ium="cd ${HOME}/Music"
+alias iuc="cd $HOME/src/config"
+alias ium="cd $HOME/Music"
 alias iup="cd $PX/networkofgraphs/process/pymake/pymake"
 alias iug="cd $PX/networkofgraphs/papers/personal/relational_models"
 alias iub="cd $PX/BaseBlue/bhp/bhp"
 alias ius="cd $PX/BaseBlue/bluebot/bluebot"
 alias iupx="cd $PX/PX"
-alias iuw="cd ${PX}/webmain/"
-alias iumd="cd ${PX}/webmain/mixtures/md"
+alias iuw="cd $PX/webmain/"
+alias iumd="cd $PX/webmain/mixtures/md"
 alias iupython="cd /usr/local/lib/python2.7/dist-packages/"
 alias iuscrapy="cd /usr/local/lib/python2.7/dist-packages/scrapy/"
 alias cdoc="cd ~/Projets/hack-dir/doc-lib"
@@ -312,5 +312,5 @@ export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
 # Tmux git prompt
 # git clone git://github.com/drmad/tmux-git.git ~/.tmux-git 
-if [[ $TMUX && -f "~/.tmux-git/tmux-git.sh" ]]; then source ~/.tmux-git/tmux-git.sh; fi
+if [[ $TMUX && -f ~/.tmux-git/tmux-git.sh ]]; then source ~/.tmux-git/tmux-git.sh; fi
 
