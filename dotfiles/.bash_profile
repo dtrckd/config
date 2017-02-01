@@ -126,6 +126,16 @@ alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Crese
 alias gitls='git ls-tree -r master --name-only'
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
+function  gitchecklasttag() {
+    # Get new tags from the remote
+    git fetch --tags
+
+    # Get the latest tag name
+    latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
+
+    # Checkout the latest tag
+    git checkout $latestTag
+}
 # Output current git branch, echo $(curbr)
 function curbr() {
     git rev-parse --abbrev-ref HEAD
@@ -169,8 +179,9 @@ alias iu="cd $PX"
 alias iuc="cd $HOME/src/config"
 alias ium="cd $HOME/Music"
 alias iup="cd $PX/networkofgraphs/process/pymake/pymake"
-alias iug="cd $PX/networkofgraphs/papers/personal/relational_models"
+alias iupp="cd $PX/networkofgraphs/papers/personal/relational_models"
 alias iub="cd $PX/BaseBlue/bhp/bhp"
+alias iug="cd $PX/BaseBlue/bhp/data/grammar"
 alias ius="cd $PX/BaseBlue/bluebot/bluebot"
 alias iupx="cd $PX/PX"
 alias iuw="cd $PX/webmain/"
