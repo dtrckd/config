@@ -140,6 +140,7 @@ tor
 mutt
 links # w3m mlynx elinks w3as
 wget
+phantomjs # headless brower like fetcher
 # lighttpd #ngynx #apache
 
 ####################
