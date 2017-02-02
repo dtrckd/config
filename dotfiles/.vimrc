@@ -136,7 +136,9 @@ set report=0                            " show number of modification if they ar
 "set autowrite                          " Automatically save before commands like :next and :make
 "set hidden                             " Hide buffers when they are abandoned
 "set mouse=a                            " Enable mouse usage (all modes) in terminals
-"set textwidth                          " set nb cgaracter before backofline
+"set textwidth=0                         " disable textwith
+set fo+=1jcrao fo-=t tw=60 " break comment at tw $size
+"set colorcolumn=-1
 set scrolloff=4                         " visible line at the top or bottom from cursor
 set linebreak                           " don't wrap word
 "set nowrap                             " don't wrap line too long
@@ -295,14 +297,16 @@ endfunc
 
 
 """"""""""""""""""""""""""""""
+"""" => Conf Files
+""""""""""""""""""""""""""""""
+au BufNewFile,BufRead *.*rc set tw=0
+""""""""""""""""""""""""""""""
 """ => Makefile
 """"""""""""""""""""""""""""""
 au Filetype tex map <leader>m :!make<cr>
 au Filetype make map <leader>m :!make<cr>
-
-
 """"""""""""""""""""""""""""""
-"""" => Python section
+"""" => Python Files
 """"""""""""""""""""""""""""""
 au BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent fileformat=unix
 au BufNewFile,BufRead *.py set formatoptions-=tc " prevent inserting \n. Where does it come from ????
@@ -323,9 +327,8 @@ autocmd BufWrite *.py :call DeleteTrailingWS()
 "au BufWritePost * if getline(1) =~ "^#!" | if getline(1) =~ "/bin/" | silent !chmod u+x <afile> | endif | endif
 au BufNewFile,BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x <afile>
 autocmd BufNewFile,BufRead *.nse set filetype=lua    
-
 """"""""""""""""""""""""""""""
-"""" => Latex section
+"""" => Latex Files
 """"""""""""""""""""""""""""""
 au Filetype tex set mouse=a
 au Filetype tex set wrap
@@ -334,13 +337,13 @@ au BufRead,BufNewFile *.md set mouse=
 au BufRead,BufNewFile *.md set wrap
 
 """"""""""""""""""""""""""""""
-"""" => Gnuplot section
+"""" => Gnuplot Files
 """"""""""""""""""""""""""""""
 au BufNewFile,BufRead *.plt,*.gnuplot,*.gnu set filetype=gnuplot
 "au BufNewFile,BufRead *.gnu set filetype=gnuplot
 
 """"""""""""""""""""""""""""""
-"""" => C, Java section
+"""" => C, Java Files
 """"""""""""""""""""""""""""""
 au filetype cpp, java  set ts=8 sts=8 sw=8
 au filetype cpp set fdm=syntax
@@ -350,9 +353,8 @@ au filetype cpp set fdm=syntax
 map <Leader>h <ESC>:AV<CR>
 map <Leader>ht <ESC>:AT<CR>
 "map <leader>h :vs %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
-
 """"""""""""""""""""""""""""""
-"""" => HTML section
+"""" => HTML Files
 """"""""""""""""""""""""""""""
 autocmd BufNewFile,BufRead *.load set filetype=html
 au Filetype html :call TextEnableCodeSnip('python', '{{#py', '}}', 'SpecialComment')
