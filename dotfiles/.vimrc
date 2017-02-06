@@ -11,7 +11,6 @@ Plugin 'gmarik/Vundle.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 """ Plugin
-Plugin 'ZoomWin'
 Plugin 'tpope/vim-surround'
 Plugin 'luochen1990/rainbow'
 Plugin 'a.vim'
@@ -25,6 +24,7 @@ Plugin 'xolox/vim-easytags'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ervandew/supertab'
+Plugin 'ZoomWin'
 "Plugin 'sirver/ultisnips' ' py >=2.7
 Plugin 'gotcha/vimpdb'
 Plugin 'itchyny/calendar.vim'
@@ -76,6 +76,22 @@ let g:rainbow_conf = {
             \       'stylus': 0,
             \   }
             \}
+
+"" Compilation & Taglist ! Great
+let g:easytags_cmd = '/usr/bin/ctags'
+let Tlist_Ctags_Cmd = '/usr/bin/ctags'
+let Tlist_WinWidth = 30
+let Tlist_Exit_OnlyWindow = 1
+let Tlist_File_Fold_Auto_Close = 1
+noremap <Leader>to :TlistAddFiles %<CR>
+noremap <C-p> :TlistToggle<CR>
+noremap <C-m> :TagbarToggle<CR>
+noremap <Leader>tup :TlistUpdate<CR>
+noremap <Leader>mctags :!/usr/bin/ctags -R  --fields=+iaS --extra=+q .<CR>
+noremap <Leader>ct :tab split<CR>:exec("tag ".expand("<cword>"))<CR>:TlistToggle<CR>
+noremap <Leader>mctags :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+noremap <Leader>e <ESC>:! ./%<CR>
+
 
 "" fugitive git bindings
 "nnoremap <space>ga :Git add %:p<CR><CR>
@@ -132,12 +148,12 @@ set ignorecase                          " Do case insensitive matching
 set smartcase                           " sensitive if capital letter
 set report=0                            " show number of modification if they are
 "set nu                                  " View numbers lines
-"set cursorline                         " hilight current line
+set cursorline                         " hilight current line - cul
 "set autowrite                          " Automatically save before commands like :next and :make
 "set hidden                             " Hide buffers when they are abandoned
 "set mouse=a                            " Enable mouse usage (all modes) in terminals
 "set textwidth=0                         " disable textwith
-set fo+=1jcrao fo-=t tw=60 " break comment at tw $size
+set fo+=1cro fo-=t tw=60 " break comment at tw $size
 "set colorcolumn=-1
 set scrolloff=4                         " visible line at the top or bottom from cursor
 set linebreak                           " don't wrap word
@@ -174,7 +190,7 @@ set foldmethod=indent
 set nofen               " open all folds. see z[mn] command
 
 """"""""""""""""""""""""""""""
-""" Mapping
+""" Mapping / MOVES
 """"""""""""""""""""""""""""""
 """ general
 imap <C-L> <Esc>
@@ -197,6 +213,10 @@ noremap <A-UP> <C-W>10+
 noremap <A-DOWN> <C-W>10-
 noremap <A-LEFT> <C-W>10<
 noremap <A-RIGHT> <C-W>10>
+"set <Debut>=^[[1;5D
+"set <FIN>=^[[1;5C
+"map <DEBUT> 8<UP>
+"map <FIN> 8<DOWN>
 "nnoremap <S-PageUp> <C-W>k " can't work...
 "nnoremap <S-PageDown> <C-W>j
 " TAB
@@ -228,21 +248,6 @@ nnoremap tc :TagbarShowTag<CR>
 nmap <leader>mm :windo set wrap!<CR> 
 " save session
 nmap <leader>ss :mks! .session.vim<CR> 
-
-"" Compilation & Taglist ! Great
-let g:easytags_cmd = '/usr/bin/ctags'
-let Tlist_Ctags_Cmd = '/usr/bin/ctags'
-let Tlist_WinWidth = 30
-let Tlist_Exit_OnlyWindow = 1
-let Tlist_File_Fold_Auto_Close = 1
-noremap <Leader>to :TlistAddFiles %<CR>
-noremap <Leader>tl :TlistToggle<CR>
-noremap <Leader>tb :TagbarToggle<CR>
-noremap <Leader>tup :TlistUpdate<CR>
-noremap <Leader>mctags :!/usr/bin/ctags -R  --fields=+iaS --extra=+q .<CR>
-noremap <Leader>ct :tab split<CR>:exec("tag ".expand("<cword>"))<CR>:TlistToggle<CR>
-noremap <Leader>mctags :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-noremap <Leader>e <ESC>:! ./%<CR>
 
 " Jump to the next or previous line that has the same level or a lower
 " level of indentation than the current line.
