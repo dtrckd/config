@@ -10,7 +10,8 @@
  /home/dtrckd/SC/Projets/Informatique/System/convert-mp4
  /home/dtrckd/SC/Projets/Informatique/System/convert-wma
  /home/dtrckd/SC/Projets/Informatique/Reseau/Search_Engine/traduction/dict
- /home/dtrckd/SC/Projets/Informatique/Reseau/Firewalls/firewall-r-strict
+ /home/dtrckd/SC/Projets/Informatique/Reseau/Firewalls/firewall-r-strict.sh
+ /home/dtrckd/SC/Projets/Informatique/Reseau/Firewalls/reset-firewall.sh
  /home/dtrckd/SC/Projets/Informatique/Reseau/Mapping/GeoL/geoip
  /home/dtrckd/SC/Projets/Informatique/Reseau/Mapping/GeoL/geoipdata-update
  /home/dtrckd/SC/Projets/Informatique/System/get_bookmarks_addr
