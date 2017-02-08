@@ -18,19 +18,20 @@ Plugin 'Align'
 Plugin 'taglist.vim'
 Plugin 'mileszs/ack.vim'
 "Plugin 'rargo/vim-line-jump'
+"Plugin 'sirver/ultisnips' ' py >=2.7
+"Plugin rstacruz/sparkup  # Zn writing HTLM
+"msanders/snipmate.vim  # tons of snippet
 Plugin 'majutsushi/tagbar'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ervandew/supertab'
-Plugin 'ZoomWin'
-"Plugin 'sirver/ultisnips' ' py >=2.7
+Plugin 'troydm/zoomwintab.vim'
 Plugin 'gotcha/vimpdb'
 Plugin 'itchyny/calendar.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-"Plugin 'valloric/youcompleteme' 'no compiling
 "Plugin 'klen/python-mode'
 "Plugin 'cecutil'
 Plugin 'TeTrIs.vim'
@@ -88,9 +89,7 @@ noremap <C-p> :TlistToggle<CR>
 noremap <C-m> :TagbarToggle<CR>
 noremap <Leader>tup :TlistUpdate<CR>
 noremap <Leader>mctags :!/usr/bin/ctags -R  --fields=+iaS --extra=+q .<CR>
-noremap <Leader>ct :tab split<CR>:exec("tag ".expand("<cword>"))<CR>:TlistToggle<CR>
 noremap <Leader>mctags :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-noremap <Leader>e <ESC>:! ./%<CR>
 
 
 "" fugitive git bindings
@@ -141,8 +140,6 @@ set showmatch                           " Show matching brackets
 set wildmenu                            " show list instead of just completing
 set hlsearch                            " hilighting resarch matches
                                         " hi Search ctermfg=10 ctermbg=Black            " comment
-hi Search ctermfg=7 ctermbg=3
-hi Comment guifg=DarkGrey ctermfg=brown " like; green, white, brown, cyan(=string)
 set incsearch                           " Incremental search
 set ignorecase                          " Do case insensitive matching
 set smartcase                           " sensitive if capital letter
@@ -153,7 +150,7 @@ set cursorline                         " hilight current line - cul
 "set hidden                             " Hide buffers when they are abandoned
 "set mouse=a                            " Enable mouse usage (all modes) in terminals
 "set textwidth=0                         " disable textwith
-set fo+=1cro fo-=t tw=60 " break comment at tw $size
+set fo+=1cro fo-=t tw=70 " break comment at tw $size
 "set colorcolumn=-1
 set scrolloff=4                         " visible line at the top or bottom from cursor
 set linebreak                           " don't wrap word
@@ -163,8 +160,6 @@ set whichwrap=<,>,[,]                   " enable line return with pad
 "set ff=unix                            " remove ^M
 "set termencoding=UTF-8
 set encoding=utf-8
-hi TabLineSel  ctermbg=Green
-hi TabLine ctermfg=0 ctermbg=7
 " Don't use Ex mode, use Q for formatting
 map Q gq
 """ Last position
@@ -503,9 +498,13 @@ endif
 colo dracula
 "colo hipster
 
-" Custom Colors
+""" Custom Colors
 hi Search guifg=#000000 guibg=#8dabcd guisp=#8dabcd gui=NONE ctermfg=NONE ctermbg=110 cterm=NONE
 hi Comment ctermfg=blue
+"hi Comment guifg=DarkGrey ctermfg=brown " like; green, white, brown, cyan(=string)
+
+hi TabLineSel ctermfg=Blue ctermbg=Green
+hi TabLine ctermfg=0 ctermbg=7
 
 "set background=dark
 
