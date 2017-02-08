@@ -159,7 +159,7 @@ function gitinit_dd_config() {
     git config user.email "ddtracked@gmail.com"
 }
 # Git Permission Reset
-function git_permissions_reset() {
+function git_reset_permissions() {
     git diff -p \
         | grep -E '^(diff|old mode|new mode)' \
         | sed -e 's/^old/NEW/;s/^new/old/;s/^NEW/new/' \
