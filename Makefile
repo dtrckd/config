@@ -39,6 +39,8 @@ HTML_FILES_MAIN := css/ js/ images/ *.html *.php *.py
 all: mixtures tez papers web
 #rest: bin
 
+local: mixtures web_local
+
 # @Debug: nnot up to date !
 mixtures:  $(TAG)
 	$(info Building Mixtures...)
@@ -57,9 +59,9 @@ web_local:
 	$(info Web Local in $(WEB_LOCAL)) 
 	@mkdir -p $(WEB_LOCAL)/$(BD_MIXT)
 	@mkdir -p $(WEB_LOCAL)/$(BD_TEZ)
-	@cp -ruv $(addprefix $(BD_WEB)/mixtures/, $(HTML_FILES_MIXT)) $(WEB_LOCAL)/$(BD_MIXT)
-	@cp -ruv $(addprefix $(BD_WEB)/tez/, $(HTML_FILES_TEZ)) $(WEB_LOCAL)/$(BD_TEZ)
-	@cp -ruv $(addprefix $(BD_WEB)/, $(HTML_FILES_MAIN)) $(WEB_LOCAL)
+	sudo cp -ruv $(addprefix $(BD_WEB)/mixtures/, $(HTML_FILES_MIXT)) $(WEB_LOCAL)/$(BD_MIXT)
+	sudo cp -ruv $(addprefix $(BD_WEB)/tez/, $(HTML_FILES_TEZ)) $(WEB_LOCAL)/$(BD_TEZ)
+	sudo cp -ruv $(addprefix $(BD_WEB)/, $(HTML_FILES_MAIN)) $(WEB_LOCAL)
 
 web_ama:
 	$(info Web Local in $(WEB_AMA)) 
