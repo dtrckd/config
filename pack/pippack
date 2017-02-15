@@ -2,4 +2,6 @@ pip install -U --user \
         ipython jupyter pandoc \
         numpy scipy matplotlib \
         sklearn nltk \
-        tabulate
+        tabulate \
+        termcolor
+        pandoc  pandocfilters
