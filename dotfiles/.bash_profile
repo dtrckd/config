@@ -37,6 +37,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 ### Utility commands
+alias pmk='pymake'
 alias python="python -O" # basic optimizatio (ignore assert, ..)
 alias ipython="python -m IPython"
 #alias ipython="ipython --colors linux"
@@ -123,9 +124,15 @@ alias gitcommit='git commit -am'
 alias gitll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short" 
 alias gitl="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short  --all" 
 alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
-alias gitls='git ls-tree -r master --name-only'
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
+function gitls() {
+    branch="$(git rev-parse --abbrev-ref HEAD)"
+    if [ -n "$1" ]; then
+        branch="$1"
+    fi
+    git ls-tree -r ${branch} --name-only
+}
 function  gitchecklasttag() {
     # Get new tags from the remote
     git fetch --tags
