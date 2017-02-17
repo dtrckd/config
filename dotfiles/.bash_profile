@@ -13,7 +13,7 @@
 #PROMPT2='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ' # root
 
 #PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ ' # remote
-#PROMPT2='${debian_chroot:+($debian_chroot)}\[\033[01; 32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ' # remote
+#PROMPT2='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ' # remote
 
 PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
 PROMPT2='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
@@ -36,11 +36,21 @@ if [ -x /usr/bin/dircolors ]; then
     alias watch='watch --color'
 fi
 
+### ls alias
+alias l='ls'
+alias lq='ls'
+alias sls='ls'
+alias sl='ls'
+alias ll='ls -l'
+alias la='ls -A'
+alias lr='ls -R'
+alias lmd='ls *.md'
+
 ### Utility commands
 alias pmk='pymake'
 alias python="python -O" # basic optimizatio (ignore assert, ..)
-alias ipython="python -m IPython"
-#alias ipython="ipython --colors linux"
+#alias ipython="python -m IPython"
+alias ipython="ipython --colors linux"
 alias py='python'
 alias py3='python3'
 alias pynotebook="jupyter --ip 127.0.0.1"
@@ -50,6 +60,11 @@ alias bb="byobu"
 alias cc="cat"
 alias vdiff='vimdiff'
 alias evc="evince"
+alias tu="htop -u $USER"
+
+_PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/pymake/pymake"        
+alias para="parallel -u --sshloginfile nodeslist --workdir $_PWD -C ' ' --eta --progress"  
+
 # Enable mouse scroll in tmux
 # ctrl-s : <set -g mouse on>
 alias psg="ps -ef | grep -i --color"
@@ -101,16 +116,6 @@ function upgrademe() {
 }
 # Show hold/held package
 #alias apt-mark showhold
-
-### ls alias
-alias l='ls'
-alias lq='ls'
-alias sls='ls'
-alias sl='ls'
-alias ll='ls -l'
-alias la='ls -A'
-alias lr='ls -R'
-alias lmd='ls *.md'
 
 ### GIT
 alias gitupdate="git remote update"
