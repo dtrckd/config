@@ -190,7 +190,7 @@ set nofen               " open all folds. see z[mn] command
 """"""""""""""""""""""""""""""
 """ general
 imap <C-L> <Esc>
-nnoremap ; : 
+"nnoremap ; : 
 let mapleader = ','
 """ Saving
 "nnoremap <C-u> :w<CR>
@@ -241,7 +241,7 @@ noremap <Tab>= <S-v>)=''
 nnoremap tf :TlistShowTag<CR>
 nnoremap tc :TagbarShowTag<CR>
 " toggle wrap line
-nmap <leader>mm :windo set wrap!<CR> 
+nmap <leader>, :windo set wrap!<CR> 
 " save session
 nmap <leader>ss :mks! .session.vim<CR> 
 

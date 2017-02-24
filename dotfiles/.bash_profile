@@ -50,6 +50,9 @@ alias bb="byobu"
 alias cc="cat"
 alias vdiff='vimdiff'
 alias evc="evince"
+function pdf(){
+    evince $1 2>/dev/null &
+}
 # Enable mouse scroll in tmux
 # ctrl-s : <set -g mouse on>
 alias psg="ps -ef | grep -i --color"
