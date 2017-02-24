@@ -13,7 +13,7 @@
 #PROMPT2='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ' # root
 
 #PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ ' # remote
-#PROMPT2='${debian_chroot:+($debian_chroot)}\[\033[01; 32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ' # remote
+#PROMPT2='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ' # remote
 
 PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
 PROMPT2='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
@@ -36,11 +36,21 @@ if [ -x /usr/bin/dircolors ]; then
     alias watch='watch --color'
 fi
 
+### ls alias
+alias l='ls'
+alias lq='ls'
+alias sls='ls'
+alias sl='ls'
+alias ll='ls -l'
+alias la='ls -A'
+alias lr='ls -R'
+alias lmd='ls *.md'
+
 ### Utility commands
 alias pmk='pymake'
 alias python="python -O" # basic optimizatio (ignore assert, ..)
-alias ipython="python -m IPython"
-#alias ipython="ipython --colors linux"
+#alias ipython="python -m IPython"
+alias ipython="ipython --colors linux"
 alias py='python'
 alias py3='python3'
 alias pynotebook="jupyter --ip 127.0.0.1"
@@ -50,9 +60,10 @@ alias bb="byobu"
 alias cc="cat"
 alias vdiff='vimdiff'
 alias evc="evince"
-function pdf(){
-    evince $1 2>/dev/null &
-}
+alias tu="htop -u $USER"
+function pdf(){ evince $1 2>/dev/null & }
+_PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/pymake/pymake"        
+alias para="parallel -u --sshloginfile nodeslist --workdir $_PWD -C ' ' --eta --progress"  
 # Enable mouse scroll in tmux
 # ctrl-s : <set -g mouse on>
 alias psg="ps -ef | grep -i --color"
@@ -104,16 +115,6 @@ function upgrademe() {
 }
 # Show hold/held package
 #alias apt-mark showhold
-
-### ls alias
-alias l='ls'
-alias lq='ls'
-alias sls='ls'
-alias sl='ls'
-alias ll='ls -l'
-alias la='ls -A'
-alias lr='ls -R'
-alias lmd='ls *.md'
 
 ### GIT
 alias gitupdate="git remote update"
@@ -290,7 +291,7 @@ HISTFILESIZE=2000
 IGNOREEOF=3   # Shell only exists after the 3th consecutive Ctrl-d
 export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S "
 export EDITOR="/usr/bin/vim"
-export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/opt/bin"
+export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/opt/bin:$HOME/.local/bin"
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
 Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')

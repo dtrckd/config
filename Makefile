@@ -39,7 +39,7 @@ HTML_FILES_MAIN := css/ js/ images/ *.html *.php *.py
 all: mixtures tez papers web
 #rest: bin
 
-local: mixtures web_local
+local: mixtures tez web_local
 
 # @Debug: nnot up to date !
 mixtures:  $(TAG)
