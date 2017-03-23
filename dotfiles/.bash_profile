@@ -62,8 +62,11 @@ alias vdiff='vimdiff'
 alias evc="evince"
 alias tu="htop -u $USER"
 function pdf(){ evince $1 2>/dev/null & }
+
 _PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/pymake/pymake"        
-alias para="parallel -u --sshloginfile nodeslist --workdir $_PWD -C ' ' --eta --progress"  
+_NDL="$HOME/src/config/nodelist"  
+alias para="parallel -u --sshloginfile $NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS"  
+
 # Enable mouse scroll in tmux
 # ctrl-s : <set -g mouse on>
 alias psg="ps -ef | grep -i --color"
@@ -194,8 +197,8 @@ alias iupp="cd $PX/networkofgraphs/papers/personal/relational_models"
 alias iub="cd $PX/BaseBlue/bhp/bhp"
 alias iubb="cd $PX/BaseBlue/"
 alias iug="cd $PX/BaseBlue/bhp/data/grammar"
-alias ius="cd $PX/BaseBlue/bluebot/bluebot"
-alias iupx="cd $PX/PX"
+alias ius="cd $PX/BaseBlue/bluebot/scrapybot"
+alias iupx="cd $PX/amarrage"
 alias iuw="cd $PX/webmain/"
 alias iumd="cd $PX/webmain/mixtures/md"
 alias iupython="cd /usr/local/lib/python2.7/dist-packages/"
@@ -296,7 +299,7 @@ export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
 Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
 #export PYTHONPATH=":$HOME/.local/lib/:/usr/local/lib:/usr/lib"
-export PYTHONPATH="$PX/networkofgraphs/process/pymake/:$PX/BaseBlue/bhp/:$PX/BaseBlue/bluebot"
+#export PYTHONPATH="$PX/networkofgraphs/process/pymake/:$PX/BaseBlue/bhp/:$PX/BaseBlue/bluebot"
 export PYTHONSTARTUP="$PX/networkofgraphs/process/pymake/pymake/__init__.py"
 export OMP_NUM_THREADS=1  # Number of thread used by numpy
 
@@ -331,10 +334,13 @@ export TERM='xterm-256color'
 export PATH="$PATH:$HOME/.linuxbrew/bin"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-### FZF
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+if [ -x $(echo $TMUX |cut -d',' -f1 ) ]; then
 
-# Tmux git prompt
-# git clone git://github.com/drmad/tmux-git.git ~/.tmux-git 
-if [[ $TMUX && -f ~/.tmux-git/tmux-git.sh ]]; then source ~/.tmux-git/tmux-git.sh; fi
+    ### FZF
+    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+    ### Tmux git prompt
+    # git clone git://github.com/drmad/tmux-git.git ~/.tmux-git 
+    if  [[ ! -z $TMUX && -f ~/.tmux-git/tmux-git.sh ]]; then source ~/.tmux-git/tmux-git.sh; fi
+fi
 
