@@ -298,6 +298,7 @@ export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/opt/bin:$HO
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
 Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
+export PYTHONPATH=""
 #export PYTHONPATH=":$HOME/.local/lib/:/usr/local/lib:/usr/lib"
 #export PYTHONPATH="$PX/networkofgraphs/process/pymake/:$PX/BaseBlue/bhp/:$PX/BaseBlue/bluebot"
 #export PYTHONSTARTUP="$PX/networkofgraphs/process/pymake/pymake/__init__.py"
