@@ -64,8 +64,8 @@ alias tu="htop -u $USER"
 function pdf(){ evince $1 2>/dev/null & }
 
 _PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/pymake/pymake"        
-_NDL="$HOME/src/config/nodelist"  
-alias para="parallel -u --sshloginfile $NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS"  
+_NDL="$HOME/src/config/nodeslist"  
+alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
 
 # Enable mouse scroll in tmux
 # ctrl-s : <set -g mouse on>
@@ -298,7 +298,6 @@ export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/opt/bin:$HO
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
 Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
-export PYTHONPATH=""
 #export PYTHONPATH=":$HOME/.local/lib/:/usr/local/lib:/usr/lib"
 #export PYTHONPATH="$PX/networkofgraphs/process/pymake/:$PX/BaseBlue/bhp/:$PX/BaseBlue/bluebot"
 #export PYTHONSTARTUP="$PX/networkofgraphs/process/pymake/pymake/__init__.py"
@@ -338,7 +337,8 @@ export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 if [ -x $(echo $TMUX |cut -d',' -f1 ) ]; then
 
     ### FZF
-    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+    [ -f ~/.fzf.bash -a -d ~.linuxbrew/Cellar/fzf ] && source ~/.fzf.bash                                                                                                                      
+
 
     ### Tmux git prompt
     # git clone git://github.com/drmad/tmux-git.git ~/.tmux-git 
