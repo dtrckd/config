@@ -146,7 +146,7 @@ set ignorecase                          " Do case insensitive matching
 set smartcase                           " sensitive if capital letter
 set report=0                            " show number of modification if they are
 "set nu                                  " View numbers lines
-set cursorline                         " hilight current line - cul
+set cursorline                          " hilight current line - cul
 "set autowrite                          " Automatically save before commands like :next and :make
 "set hidden                             " Hide buffers when they are abandoned
 "set mouse=a                            " Enable mouse usage (all modes) in terminals
@@ -335,7 +335,7 @@ au Filetype tex set mouse=a
 au Filetype tex set wrap
 au BufRead,BufNewFile *.md set filetype=markdown 
 au BufRead,BufNewFile *.md set mouse=
-au BufRead,BufNewFile *.md set wrap
+au BufRead,BufNewFile *.md set wrap tw=0
 
 """"""""""""""""""""""""""""""
 """" => Gnuplot Files
@@ -506,7 +506,6 @@ hi Search guifg=#000000 guibg=#8dabcd guisp=#8dabcd gui=NONE ctermfg=NONE ctermb
 hi Comment ctermfg=blue
 hi SpellBad ctermbg=red cterm=underline
 "hi Comment guifg=DarkGrey ctermfg=brown " like; green, white, brown, cyan(=string)
-
 
 "set background=dark
 
