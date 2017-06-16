@@ -94,11 +94,11 @@ noremap <Leader>mctags :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=
 
 
 "" fugitive git bindings
-"nnoremap <space>ga :Git add %:p<CR><CR>
-"nnoremap <space>gs :Gstatus<CR>
+nnoremap <space>Gadd :Git add %:p<CR><CR>
+"nnoremap <leader>gd :Gdiff<CR>
+"nnoremap <space>Gstat :Gstatus<CR>
 "nnoremap <space>gc :Gcommit -v -q<CR>
 "nnoremap <space>gt :Gcommit -v -q %:p<CR>
-nnoremap <leader>gd :Gdiff<CR>
 "nnoremap <space>ge :Gedit<CR>
 "nnoremap <space>gr :Gread<CR>
 "nnoremap <space>gw :Gwrite<CR><CR>
@@ -151,7 +151,7 @@ set cursorline                          " hilight current line - cul
 "set hidden                             " Hide buffers when they are abandoned
 "set mouse=a                            " Enable mouse usage (all modes) in terminals
 "set textwidth=0                         " disable textwith
-set fo+=1cro fo-=t tw=70 " break comment at tw $size
+set fo+=1cro fo-=t tw=0 " break comment at tw $size
 "set colorcolumn=-1
 set scrolloff=4                         " visible line at the top or bottom from cursor
 set linebreak                           " don't wrap word
