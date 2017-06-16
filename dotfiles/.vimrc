@@ -94,7 +94,6 @@ noremap <Leader>mctags :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=
 
 
 "" fugitive git bindings
-nnoremap <space>Gadd :Git add %:p<CR><CR>
 "nnoremap <leader>gd :Gdiff<CR>
 "nnoremap <space>Gstat :Gstatus<CR>
 "nnoremap <space>gc :Gcommit -v -q<CR>
