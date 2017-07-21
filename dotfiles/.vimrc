@@ -94,10 +94,11 @@ noremap <Leader>mctags :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=
 
 
 "" fugitive git bindings
-"nnoremap <leader>gd :Gdiff<CR>
-"nnoremap <space>Gstat :Gstatus<CR>
+"nnoremap <space>ga :Git add %:p<CR><CR>
+"nnoremap <space>gs :Gstatus<CR>
 "nnoremap <space>gc :Gcommit -v -q<CR>
 "nnoremap <space>gt :Gcommit -v -q %:p<CR>
+nnoremap <leader>gd :Gdiff<CR>
 "nnoremap <space>ge :Gedit<CR>
 "nnoremap <space>gr :Gread<CR>
 "nnoremap <space>gw :Gwrite<CR><CR>
@@ -127,6 +128,7 @@ endfunction
 """ General / Interface
 """"""""""""""""""""""""""""""
 syntax on
+set tabpagemax=50
 "set clipboard=unnamed " dont support C-S V
 "set title "update window title for X and tmux
 set ruler		"show current position 
@@ -395,12 +397,10 @@ let g:calendar_google_task = 1
 " Week's day colors
 "autocmd FileType calendar call calendar#color#syntax('Saturday', has('gui') ? '#ff0000' : 'blue', 'black', '')
 "autocmd FileType calendar call calendar#color#syntax('Sunday', has('gui') ? '#ff0000' : 196, 'black', '')
-"
 "autocmd FileType calendar hi! link CalendarSunday Normal
 "autocmd FileType calendar hi! link CalendarTodaySunday Normal
-
-"" Color Workaround
-autocmd FileType calendar if !has('gui_running') | set t_Co=256 | endif
+" Color Workaround
+"autocmd FileType calendar if !has('gui_running') | set t_Co=256 | endif
 
 """"""""""""""""""""""""""""""
 """" => Snippet
