@@ -64,7 +64,7 @@ alias tu="htop -u $USER"
 function pdf(){ evince $1 2>/dev/null & }
 
 _PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/pymake/pymake"        
-_NDL="$HOME/src/config/nodeslist"  
+_NDL="$HOME/src/config/configure/nodeslist"  
 alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
 
 # Enable mouse scroll in tmux
@@ -294,7 +294,6 @@ HISTFILESIZE=2000
 IGNOREEOF=3   # Shell only exists after the 3th consecutive Ctrl-d
 export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S "
 export EDITOR="/usr/bin/vim"
-export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/opt/bin:$HOME/.local/bin"
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
 Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
@@ -302,6 +301,8 @@ Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]
 #export PYTHONPATH="$PX/networkofgraphs/process/pymake/:$PX/BaseBlue/bhp/:$PX/BaseBlue/bluebot"
 #export PYTHONSTARTUP="$PX/networkofgraphs/process/pymake/pymake/__init__.py"
 export OMP_NUM_THREADS=1  # Number of thread used by numpy
+export GOPATH=$HOME/src/go
+export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/opt/bin:$HOME/.local/bin:$GOPATH/bin"
 
 #### Man Pages
 # Less Colors for Man Pages

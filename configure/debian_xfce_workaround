@@ -9,6 +9,9 @@ net.ipv6.conf.default.disable_ipv6 = 1
 net.ipv6.conf.lo.disable_ipv6 = 1
 net.ipv6.conf.eth0.disable_ipv6 = 1
 
+# allow user to see syslog
+sysctl -w kernel.dmesg_restrict=1
+
 # Do not enable annoying system beep >> /etc/modprobe.d/blacklist.conf
 blacklist pcspkr
 
