@@ -73,9 +73,12 @@ web_ama:
 
 web: web_ama web_local
 
-BIN_FILES = $(shell cat bin.txt)
+BIN_FILES = $(shell cat configure/bin.txt)
 bin:
 	$(foreach f,$(BIN_FILES), /bin/ln -fs $(f) $(HOME)/bin/$(notdir $(f)) ;)
+
+backup:
+	./backapp.sh
 
 clean:
 	@rm -vf $(CLEAN_FILES)
