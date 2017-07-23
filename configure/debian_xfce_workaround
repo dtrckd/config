@@ -1,0 +1,72 @@
+# A lot of issue resolve in the Arch Wiki:  https://wiki.archlinux.org/index.php/Xfce
+
+### Major
+
+# Disable ipv6 >> /etc/sysctl.conf
+# But breaks CUPS !!!! (printer) !
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+net.ipv6.conf.eth0.disable_ipv6 = 1
+
+# Do not enable annoying system beep >> /etc/modprobe.d/blacklist.conf
+blacklist pcspkr
+
+# If using xfce4-power-manager to control ACPI events, and not systemd >> /etc/systemd/logind.conf:
+HandlePowerKey=ignore
+HandleSuspendKey=ignore
+HandleHibernateKey=ignore
+HandleLidSwitch=ignore
+
+# Hibernation workaround >> /etc/pm/sleep.d/00...
+#!/bin/sh
+#
+case "$1" in
+suspend)
+;;
+resume)
+sleep 0.1
+vbetool dpms off
+vbetool dpms on
+;;
+*) exit $NA
+;;
+esac
+
+### Minor
+
+#Transparent background for icon titles >> ~/.gtkrc-2.0:
+style "xfdesktop-icon-view" {
+    # transparent background
+    XfdesktopIconView::label-alpha = 0
+
+    # white font
+    base[NORMAL] = "#ffffff"
+    base[SELECTED] = "#5D97D1"
+    base[ACTIVE] = "#5D97D1"
+    fg[NORMAL] = "#ffffff"
+    fg[SELECTED] = "#ffffff"
+    fg[ACTIVE] = "#ffffff"
+}
+widget_class "*XfdesktopIconView*" style "xfdesktop-icon-view"
+
+# Missing Icons
+icontheme=/usr/share/icons/gnome
+ln -s /usr/share/icons/hicolor/16x16/actions/xfpm-suspend.png   ${icontheme}/16x16/actions/system-suspend.png
+ln -s /usr/share/icons/hicolor/16x16/actions/xfpm-hibernate.png ${icontheme}/16x16/actions/system-hibernate.png
+ln -s /usr/share/icons/hicolor/22x22/actions/xfpm-suspend.png   ${icontheme}/22x22/actions/system-suspend.png
+ln -s /usr/share/icons/hicolor/22x22/actions/xfpm-hibernate.png ${icontheme}/22x22/actions/system-hibernate.png
+ln -s /usr/share/icons/hicolor/24x24/actions/xfpm-suspend.png   ${icontheme}/24x24/actions/system-suspend.png
+ln -s /usr/share/icons/hicolor/24x24/actions/xfpm-hibernate.png ${icontheme}/24x24/actions/system-hibernate.png
+ln -s /usr/share/icons/hicolor/48x48/actions/xfpm-suspend.png   ${icontheme}/48x48/actions/system-suspend.png
+ln -s /usr/share/icons/hicolor/48x48/actions/xfpm-hibernate.png ${icontheme}/48x48/actions/system-hibernate.png
+
+# Windows buttons stop working and just blinking:
+xfwm4 --replace &
+
+# Panel with windows and worspace don't respond:
+xfce4-panel -r
+
+# SIOCSIFFLAGS: Operation not possible due to RF-kil
+rfkill unblock wifi 
+rfkill unblock all

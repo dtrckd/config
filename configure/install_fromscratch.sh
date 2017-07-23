@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# -- Personnal Distribution --
+#
+#   Unofficial Useful Packages
+#
+
 # atom
 (todo)
 
