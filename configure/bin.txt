@@ -1,6 +1,6 @@
  /home/dtrckd/SC/Projets/Informatique/Reseau/Script/auth-wpa
- /home/dtrckd/src/backsync/backsync.sh
  /home/dtrckd/src/backsync/backsync_light.sh
+ /home/dtrckd/src/backsync/backsync.sh
  /home/dtrckd/SC/Projets/Informatique/System/backup-rsync
  /home/dtrckd/SC/Projets/Informatique/System/analyseur_syntaxyque_calc/calc
  /home/dtrckd/SC/Projets/Informatique/System/chrono
@@ -11,7 +11,6 @@
  /home/dtrckd/SC/Projets/Informatique/System/convert-wma
  /home/dtrckd/SC/Projets/Informatique/Reseau/Search_Engine/traduction/dict
  /home/dtrckd/SC/Projets/Informatique/Reseau/Firewalls/firewall-r-strict.sh
- /home/dtrckd/SC/Projets/Informatique/Reseau/Firewalls/reset-firewall.sh
  /home/dtrckd/SC/Projets/Informatique/Reseau/Mapping/GeoL/geoip
  /home/dtrckd/SC/Projets/Informatique/Reseau/Mapping/GeoL/geoipdata-update
  /home/dtrckd/SC/Projets/Informatique/System/get_bookmarks_addr
@@ -21,11 +20,13 @@
  /home/dtrckd/SC/Projets/Informatique/Reseau/Script/iwonf/iwonf
  /home/dtrckd/src/config/snippets/sound/mute
  /home/dtrckd/src/config/snippets/sound/mute_toggle
+ /home/dtrckd/Desktop/workInProgress/BaseBlue/devops/ipban/nobanme.py
  /home/dtrckd/SC/Projets/Informatique/System/pass-file-merge
  /home/dtrckd/SC/Projets/Informatique/System/pdnsd-pull
  /home/dtrckd/SC/Projets/Informatique/System/power/power-save
  /home/dtrckd/SC/Projets/Informatique/Reseau/Script/pritorgle
  /home/dtrckd/SC/Projets/Informatique/System/purge
+ /home/dtrckd/SC/Projets/Informatique/Reseau/Firewalls/reset-firewall.sh
  /home/dtrckd/src/config/snippets/rwget.sh
  /home/dtrckd/SC/Projets/Informatique/System/smith
  /home/dtrckd/src/config/snippets/sound/sound_switch

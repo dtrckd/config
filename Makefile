@@ -57,8 +57,8 @@ papers:
 
 web_local:
 	$(info Web Local in $(WEB_LOCAL)) 
-	@mkdir -p $(WEB_LOCAL)/$(BD_MIXT)
-	@mkdir -p $(WEB_LOCAL)/$(BD_TEZ)
+	sudo mkdir -p $(WEB_LOCAL)/$(BD_MIXT)
+	sudo mkdir -p $(WEB_LOCAL)/$(BD_TEZ)
 	sudo cp -ruv $(addprefix $(BD_WEB)/mixtures/, $(HTML_FILES_MIXT)) $(WEB_LOCAL)/$(BD_MIXT)
 	sudo cp -ruv $(addprefix $(BD_WEB)/tez/, $(HTML_FILES_TEZ)) $(WEB_LOCAL)/$(BD_TEZ)
 	sudo cp -ruv $(addprefix $(BD_WEB)/, $(HTML_FILES_MAIN)) $(WEB_LOCAL)
@@ -75,6 +75,7 @@ web: web_ama web_local
 
 BIN_FILES = $(shell cat configure/bin.txt)
 bin:
+	mkdir -p ${HOME}/bin
 	$(foreach f,$(BIN_FILES), /bin/ln -fs $(f) $(HOME)/bin/$(notdir $(f)) ;)
 
 backup:
