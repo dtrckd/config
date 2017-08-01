@@ -13,6 +13,7 @@ tags
 vocabulary.md
 etc/***
 .free
+dotfiles/.gethubconfig
 
 # Project
 webmain
