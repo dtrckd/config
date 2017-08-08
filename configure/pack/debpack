@@ -73,7 +73,7 @@ exuberant-ctags
 #vim
 vim-nox # scripting compilation options
 vim-addon-manager
-texlive texlive-latex-extra texlive-science texlive-fonts-extra
+texlive texlive-latex-extra texlive-science texlive-fonts-extra texlive-latex-base texlive-extra-utils texlive-bibtex-extra
 
 # pdf viewer / manipulator
 evince
