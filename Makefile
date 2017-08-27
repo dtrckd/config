@@ -84,7 +84,7 @@ backup:
 clean_deb_test:
 	#dpkg --list | grep '^rc ' | awk '{ print $2 }' | xargs dpkg -P
 	# Show configuration orphant files
-	dpkg --list | grep '^rc '
+	dpkg --list |grep '^rc '
 	apt-get -s autoremove
 	apt-get -s autoclean
 

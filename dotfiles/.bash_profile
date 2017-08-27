@@ -185,6 +185,9 @@ function init_ssh() {
     ssh-add
 }
 
+
+alias sshb='ssh -D 1080 -p 24 vpn@vpn.vapwn.fr'
+
 ### cd alias
 alias xs='cd'
 PX="${HOME}/Desktop/workInProgress"
