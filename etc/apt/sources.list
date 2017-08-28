@@ -1,4 +1,4 @@
-# deb cdrom:[Debian GNU/Linux testing _Jessie_ - Official Snapshot amd64 CD Binary-1 20150209-06:34]/ jessie main
+# deb cdrom:[Debian GNU/Linux testing _Buster_ - Official Snapshot amd64 xfce-CD Binary-1 20170731-19:28]/ buster main
 
 # Security update
 deb http://security.debian.org/ testing/updates main contrib
@@ -19,8 +19,11 @@ deb-src http://debian.ens-cachan.fr/debian/ testing-updates main contrib non-fre
 deb http://debian.ens-cachan.fr/debian/ sid main contrib non-free
 deb-src http://debian.ens-cachan.fr/debian/ sid main contrib non-free
 
+# Archives
 #deb http://snapshot.debian.org/archive/debian/20161122T121501Z/ stable  main contrib non-free
 #deb http://archive.debian.org/debian/ wheezy  main contrib non-free
-#
-deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/3.2 main
-deb http://download.virtualbox.org/virtualbox/debian stretch contrib
+
+# Various Repository
+deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.4 main
+deb http://download.virtualbox.org/virtualbox/debian yakkety contrib
+#deb http://www.deb-multimedia.org testing main non-free

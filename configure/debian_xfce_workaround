@@ -21,6 +21,14 @@ HandleSuspendKey=ignore
 HandleHibernateKey=ignore
 HandleLidSwitch=ignore
 
+# Fix black creen after unlock, after resume
+# This solution works on my laptop (ubuntu 16.04, but should work on previous OS):
+#open as root file
+#/etc/UPower/UPower.conf
+#and change IgnoreLid=false ==> IgnoreLid=true
+#save changes, restart system and now it works :-)
+#You can remove light-locker now.
+
 # Hibernation workaround >> /etc/pm/sleep.d/00...
 #!/bin/sh
 #
@@ -73,3 +81,7 @@ xfce4-panel -r
 # SIOCSIFFLAGS: Operation not possible due to RF-kil
 rfkill unblock wifi 
 rfkill unblock all
+
+# better touchpad thinkpad (X220,), synclient -l # error, cant figure it out ?
+aptitude install xserver-xorg-input-synaptics xserver-xorg-input-libinput 
+#gsettings set org.gnome.desktop.peripherals.touchpad send-events 'enabled'
