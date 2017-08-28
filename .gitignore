@@ -10,9 +10,9 @@ tags
 *.byobu
 
 # Private
-etc/***
 .free
 dotfiles/.gethubconfig
+etc/wpa_supplicant/***
 
 # Project
 webmain

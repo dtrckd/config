@@ -185,6 +185,8 @@ function init_ssh() {
     ssh-add
 }
 
+alias sshb='ssh -D 1080 -p 24 vpn@vpn.vapwn.fr'
+
 ### cd alias
 alias xs='cd'
 PX="${HOME}/Desktop/workInProgress"
@@ -301,7 +303,7 @@ Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]
 #export PYTHONPATH="$PX/networkofgraphs/process/pymake/:$PX/BaseBlue/bhp/:$PX/BaseBlue/bluebot"
 #export PYTHONSTARTUP="$PX/networkofgraphs/process/pymake/pymake/__init__.py"
 export OMP_NUM_THREADS=1  # Number of thread used by numpy
-export GOPATH=$HOME/src/go
+export GOPATH=$HOME/.go
 export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/opt/bin:$HOME/.local/bin:$GOPATH/bin"
 
 #### Man Pages
