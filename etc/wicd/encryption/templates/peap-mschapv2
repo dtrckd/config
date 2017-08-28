@@ -1,0 +1,17 @@
+name = PEAP with MSCHAPv2
+author = dtrckd
+version = 1
+require identity *Identity password *Password #ca_cert *Path_to_CA_Cert
+protected password *Password
+-----
+ctrl_interface=/var/run/wpa_supplicant
+network={
+    ssid="$_ESSID"
+    scan_ssid=$_SCAN
+    key_mgmt=WPA-EAP
+    eap=PEAP
+    phase2="auth=MSCHAPV2"
+    identity="$_IDENTITY"
+    password="$_PASSWORD"
+#ca_cert="$_CA_CERT"
+}
