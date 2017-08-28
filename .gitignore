@@ -10,7 +10,6 @@ tags
 *.byobu
 
 # Private
-vocabulary.md
 etc/***
 .free
 dotfiles/.gethubconfig
