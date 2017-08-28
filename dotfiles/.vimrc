@@ -136,7 +136,7 @@ set laststatus=2
 set statusline=%{LastDir()}/%f%m\ %r\ %h\ %w\%{GitBranch()}\ %=%l/%L:%c\ %015(%p%%%)%<
 "set statusline=%<%f%m\ %r\ %h\ %w\%{GitBranch()}\ %=%l/%L:%c\ %015(%p%%%)
 set mat=1 "How many tenths of a second to blink
-set vb                                  " no beep, visualbell
+set novb                                  " no beep, visualbell
 set showcmd                             " Show (partial) command in status line.
 set showmatch                           " Show matching brackets
 set wildmenu                            " show list instead of just completing
