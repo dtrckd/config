@@ -39,7 +39,6 @@ xinput
 hwinfo
 lshw
 lsbulk
-laptop-
 xclip # set/get the clipboard
 
 # Manage packet on system, purge
