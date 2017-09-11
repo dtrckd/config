@@ -99,6 +99,7 @@ noremap <Leader>mctags :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=
 "nnoremap <space>gc :Gcommit -v -q<CR>
 "nnoremap <space>gt :Gcommit -v -q %:p<CR>
 nnoremap <leader>gd :Gdiff<CR>
+set diffopt+=vertical
 "nnoremap <space>ge :Gedit<CR>
 "nnoremap <space>gr :Gread<CR>
 "nnoremap <space>gw :Gwrite<CR><CR>
