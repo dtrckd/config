@@ -85,6 +85,7 @@ alias netl='netstat -taupen'
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepy='find -iname "*.py" | xargs grep --color'
+function grepyf(){ find -iname "*.py" |xargs grep --color -m1 "$1" |cut -d: -f1; } # don work :(
 alias grepall='find -type f | xargs grep --color'
 alias agpy='ag --py'
 ### XFCE
