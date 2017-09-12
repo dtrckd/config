@@ -1,34 +1,40 @@
-CC=latex
-CONV=dvipdf
-SRC=rapport
-TEST=test
+.ONESHELL:
+SRC = marami
 
-all: dvi
-	${CONV} ${SRC}.dvi
+default: xe
 
-dvi: ${SRC}.tex
-	${CC} ${SRC}.tex
+dvi: $(SRC).tex
+	dvipdf $(SRC).dvi
+	latex $(SRC).tex
 
-bib: dvi
-	bibtex ${SRC}
-	${CC} ${SRC}.tex
-	${CC} ${SRC}.tex
-	${CONV} ${SRC}.dvi
+xe: ${SRC}.tex
+	xelatex $(SRC).tex
 
-test:
-	${CC} ${TEST}.tex
-	${CONV} ${TEST}.dvi; 
+pdf: ${SRC}.tex
+	pdflatex $(SRC).tex
+
+bib:
+	bibtex *.aux
+
+all: default bib default
+
 
 
 clean:
-	rm -f *.dvi
-	rm -f *.log
-	rm -f *.aux
-	rm -f *.toc
-	rm -f *.out
-	rm -f *.bbl
-	rm -f *.blg
-	rm -f *.nav
-	rm -f *.snm
-	rm -f *.vrb
+	find -name "*.dvi" -delete
+	find -name "*.log" -delete
+	find -name "*.aux" -delete
+	find -name "*.toc" -delete
+	find -name "*.out" -delete
+	find -name "*.bbl" -delete
+	find -name "*.blg" -delete
+	find -name "*.nav" -delete
+	find -name "*.snm" -delete
+	find -name "*.vrb" -delete
+	find -name "*.fls" -delete
+	find -name "*.fls" -delete
+	find -name "*.synctex.gz" -delete
+	find -name "*.fdb_latexmk" -delete
+
+
 
