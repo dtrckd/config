@@ -130,6 +130,7 @@ endfunction
 """"""""""""""""""""""""""""""
 syntax on
 set tabpagemax=50
+set pastetoggle=£ " toggle paste mode
 "set clipboard=unnamed " dont support C-S V
 "set title "update window title for X and tmux
 set ruler		"show current position 
@@ -193,7 +194,6 @@ set nofen               " open all folds. see z[mn] command
 """ general
 imap <C-L> <Esc>
 "nnoremap ; : 
-let mapleader = ','
 """ Saving
 "nnoremap <C-u> :w<CR>
 "imap <C-u> <C-o><C-u>
@@ -242,10 +242,6 @@ noremap <Tab>= <S-v>)=''
 """ Info Tag
 nnoremap tf :TlistShowTag<CR>
 nnoremap tc :TagbarShowTag<CR>
-" toggle wrap line
-nmap <leader>, :windo set wrap!<CR> 
-" save session
-nmap <leader>ss :mks! .session.vim<CR> 
 
 " Jump to the next or previous line that has the same level or a lower
 " level of indentation than the current line.
@@ -303,11 +299,7 @@ endfunc
 """" => Conf Files
 """"""""""""""""""""""""""""""
 au BufNewFile,BufRead *.*rc set tw=0
-""""""""""""""""""""""""""""""
-""" => Makefile
-""""""""""""""""""""""""""""""
-au Filetype tex map <leader>m :!make<cr>
-au Filetype make map <leader>m :!make<cr>
+
 """"""""""""""""""""""""""""""
 """" => Python Files
 """"""""""""""""""""""""""""""
@@ -333,7 +325,7 @@ autocmd BufNewFile,BufRead *.nse set filetype=lua
 """"""""""""""""""""""""""""""
 """" => Latex Files
 """"""""""""""""""""""""""""""
-au Filetype tex set mouse=a
+"au Filetype tex set mouse=a
 au Filetype tex set wrap tw=90
 au BufRead,BufNewFile *.md set filetype=markdown 
 au BufRead,BufNewFile *.md set mouse=
@@ -352,10 +344,6 @@ au filetype cpp, java  set ts=8 sts=8 sw=8
 au filetype cpp set fdm=syntax
 "au filetype cpp set cinoptions=>s,e0,f0,{0,}0,^0,:s,=s,l0,gs,hs,ps,ts,+s,c3,C0,(2s,us,U0,w0,j0,)20,*30
 
-"""switch header <-> .c # or a.vim
-map <Leader>h <ESC>:AV<CR>
-map <Leader>ht <ESC>:AT<CR>
-"map <leader>h :vs %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 """"""""""""""""""""""""""""""
 """" => HTML Files
 """"""""""""""""""""""""""""""
@@ -368,11 +356,14 @@ au BufNewFile,BufRead *.css nmap # :s/\([^ ].*\)$/\/\*\1\*\//<CR>:noh<CR>
 au BufNewFile,BufRead *.css nmap ~ :s/\/\*\(.*\)\*\//\1/<CR>:noh<CR>
 au BufNewFile,BufRead  *.html,*.css set tabstop=2 softtabstop=2 shiftwidth=2 nowrap
 
+
+let mapleader = ','
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ => Spell checking
+""" get dict from : ftp://ftp.vim.org/pub/vim/runtime/spell/
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
+map <leader>ss :setlocal spell! spelllang=en<cr>
 map <leader>ssfr :setlocal spell! spelllang=fr<cr>
 
 "Shortcuts using <leader>
@@ -380,7 +371,27 @@ map <leader>ssfr :setlocal spell! spelllang=fr<cr>
 "nmap z[ [s
 map <leader>sa zg
 map <leader>s? z=
-map <leader>w z=  " correct the previous word @TODO
+"map <leader>w z=  " correct the previous word @TODO
+
+""""""
+""" Other Leader Map
+""" Makefile 
+au Filetype tex map <leader>m :!make 1>/dev/null &<cr>
+"""switch header <-> .c # or a.vim
+map <Leader>h <ESC>:AV<CR>
+map <Leader>ht <ESC>:AT<CR>
+"map <leader>h :vs %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+""" Varia
+" toggle wrap line
+nmap <leader>, :windo set wrap!<CR> 
+" save session
+nmap <leader>w :mks! .session.vim<CR> 
+
+""" set mouse mode
+nmap <leader>ma :set mouse=a<cr>
+nmap <leader>mm :set mouse=<cr>
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ => Calendar

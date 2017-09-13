@@ -1,8 +1,7 @@
-Reconfiguration
+reconfiguration
 l'interfaçage
 Gnuradio
-start/!
-l'USRP
+USRP
 FPGA
 RF
 DVB
@@ -11,11 +10,10 @@ OFDM
 encapsule
 entrelaceur
 démultiplexeur
-l'arité
-l'entrelaceur
+arité
+entrelaceur
 séquentiellement
 USB
-DVB-T
 broadcast
-l'émulateur
+émulateur
 interconnectées

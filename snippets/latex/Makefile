@@ -1,22 +1,28 @@
 .ONESHELL:
-SRC = marami
+SRC = main
+OPTS = --halt-on-error
 
 default: xe
+_default : default
+
+	
+all: $(SRC).aux bib default _default
 
 dvi: $(SRC).tex
 	dvipdf $(SRC).dvi
 	latex $(SRC).tex
 
 xe: ${SRC}.tex
-	xelatex $(SRC).tex
+	xelatex $(OPTS) $(SRC).tex
 
 pdf: ${SRC}.tex
-	pdflatex $(SRC).tex
+	pdflatex $(OPTS) $(SRC).tex 
 
 bib:
 	bibtex *.aux
 
-all: default bib default
+$(SRC).aux: default
+
 
 
 

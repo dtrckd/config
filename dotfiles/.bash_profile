@@ -61,6 +61,7 @@ alias cc="cat"
 alias vdiff='vimdiff'
 alias evc="evince"
 alias tu="htop -u $USER"
+alias t="htop"
 function pdf(){ evince $1 2>/dev/null & }
 
 _PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/pymake/pymake"        
@@ -69,9 +70,10 @@ alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --prog
 
 # Enable mouse scroll in tmux
 # ctrl-s : <set -g mouse on>
-alias psg="ps -ef | grep -i --color"
+alias psa="ps -aux | grep -i --color"
 alias pstree='pstree -h'
 alias rmf='shred -zu'
+alias dict="dict -e cnrtl"
 alias dicten='dict enfr'
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
@@ -197,6 +199,7 @@ alias iu="cd $PX"
 alias iuc="cd $HOME/src/config"
 alias ium="cd $HOME/Music"
 alias iup="cd $PX/networkofgraphs/process/pymake/pymake"
+alias iud="cd $PX/networkofgraphs/process/pymake/data"
 alias iupp="cd $PX/networkofgraphs/papers/personal/relational_models"
 alias iub="cd $PX/BaseBlue/"
 alias iubb="cd $PX/BaseBlue/bhp/bhp"
@@ -214,6 +217,9 @@ alias cdwww="cd ~/Projets/Informatique/Reseau/www"
 alias cdsys="cd ~/Projets/Informatique/System"
 alias cdrez="cd ~/Projets/Informatique/Reseau/"
 cdlk () { cd $(dirname $(readlink $1)); }
+
+alias amatop='w3m http://tiger.imag.fr:8000/'
+alias grid='elinks http://localhost/grid.html'
 
 ### PDF Manip
 function pdfpages() {
@@ -238,7 +244,6 @@ function pdffusion() {
 #alias mute='amixer set Master mute'
 #alias unmute='amixer set Master unmute'
 #alias mute_toggle='amixer set Master toggle'
-alias x='xmms2'
 alias xx='xmms2'
 alias xl='xmms2 list'
 alias xls='xmms2 list | command grep --color -C 15 "\->"'
