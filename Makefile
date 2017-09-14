@@ -73,10 +73,32 @@ web_ama:
 
 web: web_ama web_local
 
+#
+#
+# System
+#
+#
+
 BIN_FILES = $(shell cat configure/bin.txt)
+
+init_laptop: configure_pc propagete_dotfiles vim bin
+
+configure_pc:
+	./condifure/configure.sh
+
+propagete_dotfiles:
+	# Warning: Junk file will stay on target (cp don't remove files)
+	ls -A dotfiles/ | xargs cp -r ~/
+
 bin:
 	mkdir -p ${HOME}/bin
 	$(foreach f,$(BIN_FILES), /bin/ln -fs $(f) $(HOME)/bin/$(notdir $(f)) ;)
+
+vim:
+	mkdir -p ~/.vim/bundle/
+	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+	vim -c PluginUpdate
+
 
 backup:
 	./backapp.sh
