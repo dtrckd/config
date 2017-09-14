@@ -36,7 +36,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias watch='watch --color'
 fi
 
-### ls alias
 alias l='ls'
 alias lq='ls'
 alias sls='ls'
@@ -45,6 +44,7 @@ alias ll='ls -l'
 alias la='ls -A'
 alias lr='ls -R'
 alias lmd='ls *.md'
+alias mkdit='mkdir'
 
 ### Utility commands
 alias pmk='pymake'
