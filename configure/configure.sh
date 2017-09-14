@@ -9,12 +9,12 @@ mkdir -p ~/Music ~/Documents ~/Videos ~/SC ~/Desktop ~/src ~/bin
 ######################
 ### System
 ######################
-apt-get install sudo aptitude apt-file apt-show-versions strace vim git 
+apt-get install sudo aptitude make ctags apt-file apt-show-versions htop strace vim git 
 
 ######################
 ### Utils
 ######################
-aptitude install elinks mc rsync byobu wireshark ranger
+aptitude install elinks mc rsync byobu wireshark ranger bmon wicd nmap wget curl
 ranger --copy-config=all
 
 ######################
@@ -23,9 +23,14 @@ ranger --copy-config=all
 # todo
 
 ######################
+### Apps
+######################
+aptitude install firefox thunderbird midori gimp libreoffice
+
+######################
 ### Music (xmms2 plugin)
 ######################
-aptitude install  xmms2 vlc audacity
+aptitude install xmms2 vlc audacity
 
 ######################
 ### Bluetooth
