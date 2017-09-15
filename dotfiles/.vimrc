@@ -39,9 +39,13 @@ Plugin 'uguu-org/vim-matrix-screensaver'
 Plugin 'darkburn'
 Plugin 'dracula/vim'
 Plugin 'jnurmine/zenburn'
+Plugin 'vim-syntastic/syntastic'
 "Plugin 'yhat/vim-docstring'
 "Plugin 'mozilla/doctorjs' " for javascript
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""
+"""" Plugin conf
+"""""""""""""""""""""""""""
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 let g:easytags_updatetime_min = 180000
 let g:easytags_auto_update = 0
@@ -79,6 +83,9 @@ let g:rainbow_conf = {
             \   }
             \}
 
+"""""""""""""""""""""""""""
+"""" Class list / IDE
+"""""""""""""""""""""""""""
 "" Compilation & Taglist ! Great
 let g:easytags_cmd = '/usr/bin/ctags'
 let Tlist_Ctags_Cmd = '/usr/bin/ctags'
@@ -93,7 +100,9 @@ noremap <Leader>mctags :!/usr/bin/ctags -R  --fields=+iaS --extra=+q .<CR>
 noremap <Leader>mctags :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 
-"" fugitive git bindings
+"""""""""""""""""""""""""""
+"""" Fugitive
+"""""""""""""""""""""""""""
 "nnoremap <space>ga :Git add %:p<CR><CR>
 "nnoremap <space>gs :Gstatus<CR>
 "nnoremap <space>gc :Gcommit -v -q<CR>
@@ -112,6 +121,33 @@ set diffopt+=vertical
 "nnoremap <space>gpl :VimProcBang git pull<CR>
 
 
+"""""""""""""""""""""""""""
+"""" Syntastic 
+"""""""""""""""""""""""""""
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+
+fu! Checker()
+    execute  'SyntasticCheck'
+endfunction
+com! Check :call Checker()
+
+fu! CheckerAll()
+    let g:syntastic_quiet_messages = {}
+    execute  'SyntasticCheck'
+endfunction
+com! CheckAll :call CheckerAll()
+
+let g:syntastic_quiet_messages = {
+            \ "!level":  "errors",
+            \ "type":    "style", }
+
+
+"""""""""""""""""""""""""""
+"""" Utils 
+"""""""""""""""""""""""""""
 function! GitBranch()
     let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
     if branch != ''
@@ -137,6 +173,14 @@ set ruler		"show current position
 set laststatus=2
 set statusline=%{LastDir()}/%f%m\ %r\ %h\ %w\%{GitBranch()}\ %=%l/%L:%c\ %015(%p%%%)%<
 "set statusline=%<%f%m\ %r\ %h\ %w\%{GitBranch()}\ %=%l/%L:%c\ %015(%p%%%)
+
+""" Syntastic
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+
+
 set mat=1 "How many tenths of a second to blink
 set novb                                  " no beep, visualbell
 set showcmd                             " Show (partial) command in status line.
