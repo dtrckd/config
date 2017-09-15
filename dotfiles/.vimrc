@@ -99,6 +99,10 @@ noremap <Leader>tup :TlistUpdate<CR>
 noremap <Leader>mctags :!/usr/bin/ctags -R  --fields=+iaS --extra=+q .<CR>
 noremap <Leader>mctags :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
+let g:tagbar_sort = 0
+let g:tagbar_compact = 1
+let g:tagbar_singleclick = 1
+
 
 """""""""""""""""""""""""""
 """" Fugitive
@@ -128,6 +132,11 @@ let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
+let g:syntastic_mode_map = {
+            \ "mode": "passive",
+            \ "active_filetypes": [],
+            \ "passive_filetypes": [] }
+
 
 fu! Checker()
     execute  'SyntasticCheck'
