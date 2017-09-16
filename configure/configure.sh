@@ -1,5 +1,8 @@
 #!/bin/bash
 
+ls
+exit
+
 #
 # Init
 #

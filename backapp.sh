@@ -2,10 +2,18 @@
 
 RSYNC_ARGS="--stats --progress"
 mkdir -p app/
+mkdir -p dotfiles/.config
 
 if [ "$1" == '-s' ];then
     RSYNC_ARGS="${RSYNC_ARGS} --dry-run"
 fi
+
+
+### Backup app config
+CONF_APP=$(cat config-app.txt)
+cp ~/.gtkrc-2.0  dotfiles/
+cp ${CONF_APP} dotfiles/.config/
+
 
 ### Create bin.txt
 ll $HOME/bin | grep '>' |cut -d'>' -f2 > configure/bin.txt
