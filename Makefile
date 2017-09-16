@@ -1,3 +1,6 @@
+.ONESHELL:
+SHELL = /bin/bash
+
 # Base directory
 BD_WEB = webmain
 BD_MIXT = mixtures
@@ -85,12 +88,12 @@ init_laptop: _configure_pc _propagate_dotfiles bin _vim
 
 _configure_pc:
 	cd configure/
-	./configure/configure.sh
+	./configure.sh
 	cd -
 
 _propagate_dotfiles:
 	# Warning: Junk file will stay on target (cp don't remove files)
-	ls -A dotfiles/ | xargs -I{} cp -r {} ~/
+	ls -A dotfiles/ | xargs -I{} cp -r dotfiles/{}  ~/
 
 bin:
 	mkdir -p ${HOME}/bin
