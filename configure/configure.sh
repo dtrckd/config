@@ -60,6 +60,6 @@ service nginx restart
 
 # push apt-source and etc file.. ?
 # Intall Mongo
-# Install Virtualbow
+# Install Virtualbox qemu
 
 #./install_from_scratch
