@@ -9,7 +9,7 @@
 #oprofile # profiling
 strace # see system call
 htop
-psmisc
+psmisc # killall pstree...
 
 # Misc
 rsync
