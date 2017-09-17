@@ -68,8 +68,18 @@ _PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/pymake/pymake"
 _NDL="$HOME/src/config/configure/nodeslist"  
 alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
 
-# Enable mouse scroll in tmux
-# ctrl-s : <set -g mouse on>
+
+##### tmux.conf todo...
+## Enable mouse scroll in tmux
+# <C-s>: <set -g mouse on>
+## copy paste (see alsotmux list-buffers)
+# <C-s>[ # go into paste mode
+# type <space> or <S-v> to select text
+# type <C-space> to copy the selection
+# <C-s>] # paste the selection
+ 
+
+
 alias psa="ps -aux | grep -i --color"
 alias pstree='pstree -h'
 alias rmf='shred -zu'
