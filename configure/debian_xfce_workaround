@@ -1,6 +1,5 @@
 # A lot of issue resolve in the Arch Wiki:  https://wiki.archlinux.org/index.php/Xfce
 
-### Major
 
 # If using xfce4-power-manager to control ACPI events, and not systemd >> /etc/systemd/logind.conf:
 HandlePowerKey=ignore
@@ -31,7 +30,6 @@ vbetool dpms on
 ;;
 esac
 
-### Minor
 
 #Transparent background for icon titles >> ~/.gtkrc-2.0:
 style "xfdesktop-icon-view" {
@@ -72,3 +70,7 @@ rfkill unblock all
 # better touchpad thinkpad (X220,), synclient -l # error, cant figure it out ?
 aptitude install xserver-xorg-input-synaptics xserver-xorg-input-libinput 
 #gsettings set org.gnome.desktop.peripherals.touchpad send-events 'enabled'
+
+
+# Propagate new xfce4 conf (at least panel) (replace all .config/xfce4)
+xfce4-panel --quit ; sudo pkill xfconfd ; rm -rf ~/.config/xfce4/panel ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml ; xfce4-panel;

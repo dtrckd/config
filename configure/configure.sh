@@ -3,7 +3,7 @@
 #
 # Init
 #
-rmdir --ignore-fail-on-non-empty ~/Public/
+rmdir --ignore-fail-on-non-empty   ~/Public/ Templates/
 mkdir -p ~/Music ~/Documents ~/Videos ~/SC ~/Desktop ~/src ~/bin
 cp blue/* ~
 
@@ -20,9 +20,9 @@ sudo aptitude install -R elinks mc rsync byobu wireshark ranger bmon wicd nmap w
 ranger --copy-config=all
 
 ######################
-### Dev (python, c, fortran etc)
+### Python Dev
 ######################
-#aptitude install python3-dev gfortran libopenblas-dev # version ?
+aptitude install -R gfortran libopenblas-dev python3-tk # python3-dev  ?
 pip3 install --user ipython jupyter matplotlib numpy scipy
 
 ######################
@@ -35,6 +35,14 @@ sudo aptitude install -R thunderbird gimp libreoffice elinks w3m # firefox mido
 ######################
 sudo aptitude -R install vlc audacity xmms2 gxmms2 \
     xmms2-plugin-alsa xmms2-plugin-asf xmms2-plugin-avcodec xmms2-plugin-faad xmms2-plugin-flac xmms2-plugin-id3v2 xmms2-plugin-mad xmms2-plugin-mp4 xmms2-plugin-vorbis
+
+
+######################
+### Latex
+######################
+sudo aptitude install -R texlive texlive-latex-extra texlive-science texlive-fonts-extra texlive-latex-base texlive-extra-utils texlive-bibtex-extra
+
+
 
 ######################
 ### Bluetooth

@@ -84,7 +84,7 @@ web: web_ama web_local
 
 BIN_FILES = $(shell cat configure/bin.txt)
 
-init_laptop: _configure_pc _propagate_dotfiles bin _vim
+init_laptop: _configure_pc _propagate_dotfiles bin _vim _web
 
 _configure_pc:
 	cd configure/
@@ -103,6 +103,9 @@ _vim:
 	mkdir -p ~/.vim/bundle/
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 	vim -c PluginUpdate
+
+_web:
+	ln -s ~/Desktop/workInProgress/webmain/ webmain
 
 
 backup:
