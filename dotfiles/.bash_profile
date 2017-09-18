@@ -68,19 +68,6 @@ _PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/pymake/pymake"
 _NDL="$HOME/src/config/configure/nodeslist"  
 alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
 
-
-##### tmux.conf todo...
-## Enable mouse scroll in tmux
-# <C-s>: <set -g mouse on>
-## copy paste (see alsotmux list-buffers)
-# <C-s>[ # go into paste mode
-# type <space> or <S-v> to select text
-# type <C-space> to copy the selection
-# <C-s>] # paste the selection
-## if mouse is on, just select the text with mouse, thne <C-s>]
- 
-
-
 alias psa="ps -aux | grep -i --color"
 alias pstree='pstree -h'
 alias rmf='shred -zu'
@@ -357,10 +344,11 @@ export TERM='xterm-256color'
 export PATH="$PATH:$HOME/.linuxbrew/bin"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+
 if [ -x $(echo $TMUX |cut -d',' -f1 ) ]; then
 
     ### FZF
-    [ -f ~/.fzf.bash -a -d ~.linuxbrew/Cellar/fzf ] && source ~/.fzf.bash
+    [ -f ~/.fzf.bash -a -d ~/.linuxbrew/Cellar/fzf ] && source ~/.fzf.bash
 
     ### Tmux git prompt
     # git clone git://github.com/drmad/tmux-git.git ~/.tmux-git 
