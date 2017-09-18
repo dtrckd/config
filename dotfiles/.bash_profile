@@ -360,8 +360,7 @@ export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 if [ -x $(echo $TMUX |cut -d',' -f1 ) ]; then
 
     ### FZF
-    [ -f ~/.fzf.bash -a -d ~.linuxbrew/Cellar/fzf ] && source ~/.fzf.bash                                                                                                                      
-
+    [ -f ~/.fzf.bash -a -d ~.linuxbrew/Cellar/fzf ] && source ~/.fzf.bash
 
     ### Tmux git prompt
     # git clone git://github.com/drmad/tmux-git.git ~/.tmux-git 
