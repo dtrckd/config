@@ -77,6 +77,7 @@ alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --prog
 # type <space> or <S-v> to select text
 # type <C-space> to copy the selection
 # <C-s>] # paste the selection
+## if mouse is on, just select the text with mouse, thne <C-s>]
  
 
 
@@ -96,7 +97,7 @@ alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
 alias netl='netstat -taupen'
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
-alias grepy='find -iname "*.py" | xargs grep --color'
+alias grepy='find -iname "*.py" | xargs grep --color -n'
 function grepyf(){ find -iname "*.py" |xargs grep --color -m1 "$1" |cut -d: -f1; } # don work :(
 alias grepall='find -type f | xargs grep --color'
 alias agpy='ag --py'

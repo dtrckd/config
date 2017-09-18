@@ -16,8 +16,10 @@ pip3 install --upgrade setuptools wheel
 ######################
 ### Utils
 ######################
-sudo aptitude install -R elinks mc rsync byobu wireshark ranger bmon wicd nmap wget curl vim git gitk gitg
+sudo aptitude install -R mc rsync byobu ranger wicd vim git gitk gitg
 ranger --copy-config=all
+# Optionals (but advised !)
+# aptitude install -R apt-listbugs zip xclip acpi parallel bmon nmap curl wget wireshark elinks w3m
 
 ######################
 ### Python Dev
@@ -28,7 +30,7 @@ pip3 install --user ipython jupyter matplotlib numpy scipy
 ######################
 ### Apps
 ######################
-sudo aptitude install -R thunderbird gimp libreoffice elinks w3m # firefox midori
+#sudo aptitude install -R thunderbird gimp libreoffice # firefox midori
 
 ######################
 ### Music (xmms2 plugin)
