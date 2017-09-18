@@ -38,13 +38,12 @@ HTML_FILES_MIXT := css/ js/ images/ html/ index.php menu.php
 HTML_FILES_TEZ  := css/ js/ images/ html/ a.php menu.php papers/ mlss2015/  
 HTML_FILES_MAIN := css/ js/ images/ *.html *.php *.py
 
-# Timestamp of files no used !
-all: mixtures tez papers web
-#rest: bin
+default: local
 
 local: mixtures tez web_local
 
-# @Debug: nnot up to date !
+web: web_ama web_local
+
 mixtures:  $(TAG)
 	$(info Building Mixtures...)
 	$(MD2BLOG)
@@ -74,7 +73,6 @@ web_ama:
 	sudo cp -ruv $(addprefix $(BD_WEB)/tez/, $(HTML_FILES_TEZ)) $(WEB_AMA)/$(BD_TEZ)
 	sudo cp -ruv $(addprefix $(BD_WEB)/, $(HTML_FILES_MAIN)) $(WEB_AMA)
 
-web: web_ama web_local
 
 #
 #
