@@ -51,7 +51,7 @@ let g:easytags_updatetime_min = 180000
 let g:easytags_auto_update = 0
 let g:SuperTabNoCompleteAfter = ['^', '\s', '#', "'", '"', '%', '/']
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
-map <C-n> :NERDTreeToggle<CR>
+map <C-p> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:ackprg = 'ag --vimgrep'
@@ -93,7 +93,7 @@ let Tlist_WinWidth = 30
 let Tlist_Exit_OnlyWindow = 1
 let Tlist_File_Fold_Auto_Close = 1
 noremap <Leader>to :TlistAddFiles %<CR>
-noremap <C-p> :TlistToggle<CR>
+noremap <C-n> :TlistToggle<CR>
 noremap <C-m> :TagbarToggle<CR>
 noremap <Leader>tup :TlistUpdate<CR>
 noremap <Leader>mctags :!/usr/bin/ctags -R  --fields=+iaS --extra=+q .<CR>
