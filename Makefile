@@ -106,16 +106,17 @@ _web:
 	ln -s ~/Desktop/workInProgress/webmain/ webmain
 
 
-backup:
+_backup:
 	# Todo Debug
 	cd configure/
 	./backapp.sh
 	cd -
 
-clean_deb_test:
+deb_clean:
+	# Add -force option ?
 	#dpkg --list | grep '^rc ' | awk '{ print $2 }' | xargs dpkg -P
 	# Show configuration orphant files
-	dpkg --list |grep '^rc '
+	dpkg --list |grep '^rc'
 	apt-get -s autoremove
 	apt-get -s autoclean
 
