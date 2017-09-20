@@ -339,6 +339,10 @@ export TERM='xterm-256color'
 
 ### Vundle
 #git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+### Tmux Plugin
+#git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 ### Brew
 # git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
 export PATH="$PATH:$HOME/.linuxbrew/bin"
