@@ -1,96 +1,14 @@
 \documentclass[a4paper, 12pt]{article}
 %\documentclass[a4paper, 12pt, draft]{article} % don't include images, leave a border of same size...great
 
-% Variable de compilation
-\newif\ifbeamer
-\beamerfalse
-\newcommand{\beamer}[2]{\ifbeamer #1 \else #2 \fi}
-%%%
+\input{header.tex}
 
-%\usepackage[latin1]{inputenc}
-\usepackage[utf8]{inputenc} % manage utf8 encodage 
-\usepackage[french]{babel} % for french document ! dirty enumerate style,+ bad change rectangle colors for section linking.
-\usepackage{fancyhdr} % for heading
-\usepackage{listings}
-\usepackage[colorlinks=true, urlcolor=blue]{hyperref} % url, link
-\usepackage{graphicx}
-\usepackage{geometry}
+\title{ %\vspace{2cm}
+      \Large{Infinite Latent Features Relational Model}\\--\\ }
 
-\usepackage[cmex10]{amsmath, mathtools}
-\usepackage{multirow}
-\usepackage{amssymb}
-\usepackage{amsfonts}
-\usepackage{enumerate}
-\usepackage{url}
-\usepackage[ruled,vlined]{algorithm2e}
-\usepackage{fancyvrb}
-\usepackage{yfonts}
-
-\usepackage{wrapfig}
-\usepackage{tikz}
-    \input{tikz.conf}
-
-\geometry{
-      a4paper,
-	    body={160mm,260mm},
-	    left=25mm,top=20mm,
-	    headheight=4mm,headsep=8mm,
-        footskip=10mm,
-        }
-                                              
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% => Internal
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% itemize item def
-%% \begin{itemize}\itemsep2pt % example space betwew item
-%\renewcommand{\FrenchLabelItem}{\textbullet}
-\renewcommand{\labelitemi}{$\bullet$}
-\renewcommand{\labelitemii}{$\cdot$}
-\renewcommand{\labelitemiii}{$\diamond$}
-\renewcommand{\labelitemiv}{$\ast$}
-
-% equation reference
-\renewcommand{\theequation}{\thesection.\arabic{equation}}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% => Alias
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% write code
-\lstnewenvironment{C}[1]
-{\lstset{language=C,
-      frame=tBRl,
-      basicstyle=\scriptsize,stringstyle=\emph,showstringspaces=false,
-      numbers=left,numberstyle=\tiny,
-      breaklines=true, columns=flexible, title={#1}}
-}{}
-      
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% => Preambles Pages
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\pagestyle{fancy}
-\fancyhf{} % remove default headers
-\fancyfoot[R]{\thepage}
-\renewcommand{\footrulewidth}{0.3pt}
-\renewcommand{\headrulewidth}{0.3pt}
-
-\author{
-  Smith
-}
-
-\title{
-      %\vspace{2cm}
-      \Large{Infinite Latent Features Relational Model}\\
-            --\\ }
-
+\author{Smith}
 \date{avril 2015}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% => BEGIN DOCUMENT
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 \fancypagestyle{plain}{
@@ -101,9 +19,6 @@
 }
 \maketitle
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% => end PREAMBLES pages
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Introduction}
 
@@ -112,9 +27,19 @@ Let $\mathcal{Y}$ be the set of all relational observations or links, we assume 
 
 
 \bibliographystyle{unsrt}
-\bibliography{rapport-model}
+\bibliography{a}
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

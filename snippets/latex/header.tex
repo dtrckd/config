@@ -1,0 +1,75 @@
+% Variable de compilation
+\newif\ifbeamer
+\beamerfalse
+\newcommand{\beamer}[2]{\ifbeamer #1 \else #2 \fi}
+
+
+
+%\usepackage[latin1]{inputenc}
+%\usepackage[utf8]{inputenc} % manage utf8 encodage 
+%\usepackage[french]{babel} % for french document ! dirty enumerate style,+ bad change rectangle colors for section linking.
+
+
+%\usepackage[fleqn]{amsmath}
+\usepackage{amsmath,amssymb,amsbsy,amsfonts}
+\usepackage[ruled,vlined]{algorithm2e} % what for .
+\usepackage{fancyhdr} % for heading
+\usepackage[colorlinks=true, urlcolor=blue]{hyperref} % url, link
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{enumerate}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{fancyvrb}
+\usepackage{yfonts}
+\usepackage{adjustbox}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{wrapfig}
+\usepackage{calc}%    For the \widthof macro
+\usepackage{xparse}%  For \NewDocumentCommand
+\newcommand{\tikzmark}[1]{\tikz[overlay,remember picture] \node (#1) {};} % what for ?
+\usepackage{tikz}
+\usetikzlibrary{bayesnet}
+%\input{tikz.conf}
+
+\geometry{a4paper,
+    body={160mm,260mm},
+    left=25mm,top=20mm,
+    headheight=4mm,headsep=8mm,
+    footskip=10mm,
+}
+                                              
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proof}{Proof}[section]
+
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\cdot$}
+\renewcommand{\labelitemiii}{$\diamond$}
+\renewcommand{\labelitemiv}{$\ast$}
+
+% equation reference
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+
+
+% write code
+\lstnewenvironment{C}[1]
+{\lstset{language=C,
+      frame=tBRl,
+      basicstyle=\scriptsize,stringstyle=\emph,showstringspaces=false,
+      numbers=left,numberstyle=\tiny,
+      breaklines=true, columns=flexible, title={#1}}
+}{}
+
+% Preambles Pages
+\pagestyle{fancy}
+\fancyhf{} % remove default headers
+\fancyfoot[R]{\thepage}
+\renewcommand{\footrulewidth}{0.3pt}
+\renewcommand{\headrulewidth}{0.3pt}
