@@ -1,8 +1,9 @@
 .ONESHELL:
-SRC = main
+SRC = notes
 OPTS = --halt-on-error
 
-default: xe
+# pdf | xe | dvi
+default: pdf 
 _default : default
 
 	
