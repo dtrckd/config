@@ -19,18 +19,20 @@ pip3 install --upgrade setuptools wheel
 sudo aptitude install -R mc rsync byobu ranger wicd vim git gitk gitg
 ranger --copy-config=all
 # Optionals (but advised !)
-# aptitude install -R apt-listbugs zip xclip acpi parallel bmon nmap curl wget wireshark elinks w3m
+# aptitude install -R apt-listbugs zip xclip acpi bmon nmap curl wget wireshark elinks w3m
 
 ######################
 ### Python Dev
 ######################
-aptitude install -R gfortran libopenblas-dev python3-tk # python3-dev  ?
+sudo aptitude install -R gfortran libopenblas-dev python3-tk # python3-dev  ?
 pip3 install --user ipython jupyter matplotlib numpy scipy
+# pip3 install --user pypandoc
 
 ######################
 ### Apps
 ######################
 #sudo aptitude install -R thunderbird gimp libreoffice # firefox midori
+#sudo aptitude install pandoc parallel
 
 ######################
 ### Music (xmms2 plugin)
