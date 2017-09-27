@@ -217,9 +217,11 @@ alias cdsys="cd ~/Projets/Informatique/System"
 alias cdrez="cd ~/Projets/Informatique/Reseau/"
 cdlk () { cd $(dirname $(readlink $1)); }
 
-alias amatop='w3m http://zombie-dust.imag.fr:8000/'
+alias amatop='elinks http://zombie-dust.imag.fr:8000/'
+#alias amatop='w3m http://zombie-dust.imag.fr:8000/'
 alias grid='elinks http://localhost/grid.html'
 alias jupyter='jupyter-notebook --ip 127.0.0.1 ~/Desktop/workInProgress/networkofgraphs/process/notebook/ '
+alias gg="grid"
 
 ### PDF Manip
 function pdfpages() {

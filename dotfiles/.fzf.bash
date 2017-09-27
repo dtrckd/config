@@ -34,7 +34,7 @@ fd() {
 }
 
 # gg - vi to a grep match
-gg() {
+gf() {
     local file
     file=$(grep --line-buffered --color=never -r "" * | fzf -e +i +m) &&
         vim "$(echo $file | cut -d: -f1)"
