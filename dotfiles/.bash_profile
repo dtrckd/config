@@ -194,11 +194,12 @@ alias xs='cd'
 PX="${HOME}/Desktop/workInProgress"
 webApp="webuser"
 alias iu="cd $PX"
-alias iuc="cd $HOME/src/config"
-alias ium="cd $HOME/Music"
-alias iup="cd $PX/networkofgraphs/process/pymake/pymake"
-alias iud="cd $PX/networkofgraphs/process/pymake/data"
-alias iupp="cd $PX/networkofgraphs/papers/personal/relational_models"
+alias iuc="cd $HOME/src/config/"
+alias ium="cd $HOME/Music/"
+alias iud="cd $PX/networkofgraphs/process/pymake/data/"
+alias iup="cd $PX/networkofgraphs/process/pymake/"
+alias iupp="cd $PX/networkofgraphs/process/pymake/pymake/"
+alias iut="cd $PX/networkofgraphs/papers/personal/relational_models/"
 alias iub="cd $PX/BaseBlue/"
 alias iubb="cd $PX/BaseBlue/bhp/bhp"
 alias iutm="cd $PX/BaseBlue/tmr/tm"
@@ -216,7 +217,7 @@ alias cdsys="cd ~/Projets/Informatique/System"
 alias cdrez="cd ~/Projets/Informatique/Reseau/"
 cdlk () { cd $(dirname $(readlink $1)); }
 
-alias amatop='w3m http://tiger.imag.fr:8000/'
+alias amatop='w3m http://zombie-dust.imag.fr:8000/'
 alias grid='elinks http://localhost/grid.html'
 alias jupyter='jupyter-notebook --ip 127.0.0.1 ~/Desktop/workInProgress/networkofgraphs/process/notebook/ '
 
