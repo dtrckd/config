@@ -69,7 +69,7 @@ sudo cp $P/* /etc/nginx/sites-enabled/
 sudo service nginx restart
 
 # push apt-source and etc file.. ?
-# Intall Mongo
+# Intall Mongo # gpg key, install, enable.
 # Install Virtualbox qemu
 
 #./install_from_scratch
