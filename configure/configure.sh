@@ -24,15 +24,15 @@ ranger --copy-config=all
 ######################
 ### Python Dev
 ######################
-sudo aptitude install -R gfortran libopenblas-dev python3-tk # python3-dev  ?
+sudo aptitude install -R gfortran libopenblas-dev python3-tk #python3-dev
 pip3 install --user ipython jupyter matplotlib numpy scipy
-# pip3 install --user pypandoc
 
 ######################
 ### Apps
 ######################
 #sudo aptitude install -R thunderbird gimp libreoffice # firefox midori
 #sudo aptitude install pandoc parallel
+#pip3 install --user pypandoc
 
 ######################
 ### Music (xmms2 plugin)
@@ -44,7 +44,7 @@ sudo aptitude -R install vlc audacity xmms2 gxmms2 \
 ######################
 ### Latex
 ######################
-sudo aptitude install -R texlive texlive-latex-extra texlive-science texlive-fonts-extra texlive-latex-base texlive-extra-utils texlive-bibtex-extra
+sudo aptitude install -R texlive texlive-latex-extra texlive-science texlive-fonts-extra texlive-latex-base texlive-extra-utils texlive-bibtex-extra texlive-plain-generic
 
 
 
