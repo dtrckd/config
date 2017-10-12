@@ -186,6 +186,18 @@ function init_ssh() {
     ssh-add
 }
 
+function convert_grey() {
+gs \
+ -sOutputFile=${1%%.pdf}_grey.pdf \
+ -sDEVICE=pdfwrite \
+ -sColorConversionStrategy=Gray \
+ -dProcessColorModel=/DeviceGray \
+ -dCompatibilityLevel=1.4 \
+ -dNOPAUSE \
+ -dBATCH \
+ $1
+}
+
 alias sshb='ssh -D 1080 -p 24 vpn@vpn.vapwn.fr'
 alias sshtmr='ssh -D 1090 vpn@163.172.45.128'
 
