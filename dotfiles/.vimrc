@@ -380,6 +380,7 @@ autocmd BufNewFile,BufRead *.nse set filetype=lua
 """"""""""""""""""""""""""""""
 "au Filetype tex set mouse=a
 au Filetype tex set wrap tw=90
+au Filetype tex set indentkeys="    "
 au BufRead,BufNewFile *.md set filetype=markdown 
 au BufRead,BufNewFile *.md set mouse=
 au BufRead,BufNewFile *.md set wrap tw=0
