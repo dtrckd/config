@@ -24,7 +24,8 @@ ranger --copy-config=all
 ######################
 ### Python Dev
 ######################
-sudo aptitude install -R gfortran libopenblas-dev python3-tk #python3-dev
+sudo aptitude install -R gfortran libopenblas-dev python3-tk
+#sudo aptitude install -R build-essential autoconf libtool pkg-config  python3-dev cython
 pip3 install --user ipython jupyter matplotlib numpy scipy
 
 ######################
