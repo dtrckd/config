@@ -278,6 +278,7 @@ nnoremap <C-DOWN> gt
 """ Insert Mode
 imap <C-a> <Esc>^^i
 imap <C-e> <Esc>$a
+"imap <C-s> <Esc>:w<CR> " don't work ?
 """ Command Mode
 cnoremap $h e ~/
 cnoremap $e e %:p:h
