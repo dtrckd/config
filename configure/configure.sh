@@ -69,8 +69,12 @@ P="/home/dtrckd/Desktop/workInProgress/conf/etc/nginx/sites-available/"
 sudo cp $P/* /etc/nginx/sites-enabled/
 sudo service nginx restart
 
+# Packaging
+./setup-packaging.sh
+
+# Various
+#./install_from_scratch
 # push apt-source and etc file.. ?
 # Intall Mongo # gpg key, install, enable.
 # Install Virtualbox qemu
 
-#./install_from_scratch
