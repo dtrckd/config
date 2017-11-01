@@ -229,11 +229,11 @@ alias iuw="cd $PX/webmain/"
 alias iumd="cd $PX/webmain/mixtures/md"
 alias iupython="cd /usr/local/lib/python2.7/dist-packages/"
 alias iuscrapy="cd /usr/local/lib/python2.7/dist-packages/scrapy/"
-alias cdoc="cd ~/Projets/hack-dir/doc-lib"
-alias cdhack="cd ~/Projets/hack-dir/Linux/commandes"
-alias cdwww="cd ~/Projets/Informatique/Reseau/www"
-alias cdsys="cd ~/Projets/Informatique/System"
-alias cdrez="cd ~/Projets/Informatique/Reseau/"
+alias cdoc="cd ~/SC/Projects/hack-dir/doc-lib"
+alias cdhack="cd ~/SC/Projects/hack-dir/Linux/commandes"
+alias cdwww="cd ~/SC/Projects/Informatique/Reseau/www"
+alias cdsys="cd ~/SC/Projects/Informatique/System"
+alias cdrez="cd ~/SC/Projects/Informatique/Reseau/"
 cdlk () { cd $(dirname $(readlink $1)); }
 
 alias amatop='elinks http://zombie-dust.imag.fr:8000/'
