@@ -327,13 +327,26 @@ export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S "
 export EDITOR="/usr/bin/vim"
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
+export PATH="/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/opt/bin:$HOME/.local/bin:$HOME/bin"
+
+# Python
 Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
 #export PYTHONPATH=":$HOME/.local/lib/:/usr/local/lib:/usr/lib"
 #export PYTHONPATH="$PX/networkofgraphs/process/pymake/:$PX/BaseBlue/bhp/:$PX/BaseBlue/bluebot"
 #export PYTHONSTARTUP="$PX/networkofgraphs/process/pymake/pymake/__init__.py"
+
+# Numpy
 export OMP_NUM_THREADS=1  # Number of thread used by numpy
+
+# GOLANG
 export GOPATH=$HOME/.go
-export PATH="$HOME/bin:/usr/local/bin:/usr/bin:/bin:/sbin:/usr/sbin:/opt/bin:$HOME/.local/bin:$GOPATH/bin"
+export PATH="$PATH::$GOPATH/bin:/usr/local/go/bin"
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 
 #### Man Pages
 # Less Colors for Man Pages
