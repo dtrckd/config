@@ -25,5 +25,6 @@ deb-src http://debian.ens-cachan.fr/debian/ sid main contrib non-free
 
 # Various Repository
 deb http://repo.mongodb.org/apt/debian jessie/mongodb-org/3.4 main
-deb http://download.virtualbox.org/virtualbox/debian yakkety contrib
+deb http://download.virtualbox.org/virtualbox/debian stretch contrib
+deb [arch=amd64] https://s3-us-west-2.amazonaws.com/brave-apt stretch main
 #deb http://www.deb-multimedia.org testing main non-free
