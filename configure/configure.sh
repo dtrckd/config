@@ -93,7 +93,4 @@ fi
 
 # Various
 #./install_from_scratch
-# push apt-source and etc file.. ?
-# Intall Mongo # gpg key, install, enable.
-# Install Virtualbox qemu
 
