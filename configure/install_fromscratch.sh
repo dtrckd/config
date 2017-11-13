@@ -11,6 +11,12 @@
 # apt install mongodb-org 
 # apt install virtualbox qemu
 # apt install brave
+#
+#
+# Ethereum (work in ubuntu, not debian 11/2017)
+sudo apt-get install software-properties-common
+sudo add-apt-repository -y ppa:ethereum/ethereum
+sudo apt-get update
 
 # Atom
 wget https://atom.io/download/deb?channel=beta -O atom-beta.deb
