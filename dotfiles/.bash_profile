@@ -57,6 +57,7 @@ alias lmd='ls *.md'
 alias mkdit='mkdir'
 
 ### Utility commands
+alias so='source ~/.bashrc'
 alias pmk='pymake'
 alias python="python -O" # basic optimizatio (ignore assert, ..)
 #alias ipython="python -m IPython"
@@ -94,6 +95,7 @@ alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
 alias netl='netstat -taupen'
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
+alias grepr='grep -R'
 alias grepy='find -iname "*.py" | xargs grep --color -n'
 function grepyf(){ find -iname "*.py" |xargs grep --color -m1 "$1" |cut -d: -f1; } # don work :(
 alias grepall='find -type f | xargs grep --color'
