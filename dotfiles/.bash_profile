@@ -10,7 +10,11 @@
 
 
 function _PWD  {
-    pwd | awk -F\/ '{print $(NF-1)"\057"$(NF)}'
+    if [ "$(pwd)" == $HOME ]; then
+        echo "~/"
+    else
+        pwd | awk -F\/ '{print $(NF-1)"\057"$(NF)}'
+    fi
 }
 
 ### Prompt
