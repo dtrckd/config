@@ -75,5 +75,5 @@ aptitude install xserver-xorg-input-synaptics xserver-xorg-input-libinput
 # Propagate new xfce4 conf (at least panel) (replace all .config/xfce4)
 xfce4-panel --quit ; sudo pkill xfconfd ; rm -rf ~/.config/xfce4/panel ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml ; xfce4-panel;
 
-# Enable Brav
+# Enable Brave
 echo 1 > /proc/sys/kernel/unprivileged_userns_clone
