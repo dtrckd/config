@@ -111,6 +111,8 @@ alias locks='systemctl suspend'
 alias dodo='systemctl hibernate'
 
 ### VIM
+alias vim='vim.nox'
+alias vi='vim'
 alias vcal='vim -c "Calendar -view=month"' # get calendar
 #alias vcal='vim -c Calendar -c on' # Matsumoto calendar
 #alias vcal='vim -c "Calendar -view=year" -c tabe -c "Calendar -view=month"' # get calendar
@@ -192,7 +194,7 @@ function gitinit_dd_config() {
 # Git Permission Reset
 function git_reset_permissions() {
     git diff -p \
-        | grep -E '^(diff|old mode|new mode)' \
+        | command grep -E '^(diff|old mode|new mode)' \
         | sed -e 's/^old/NEW/;s/^new/old/;s/^NEW/new/' \
         | git apply
 }

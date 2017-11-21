@@ -40,6 +40,7 @@ Plugin 'darkburn'
 Plugin 'dracula/vim'
 Plugin 'jnurmine/zenburn'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'ternjs/tern_for_vim'
 "Plugin 'yhat/vim-docstring'
 "Plugin 'mozilla/doctorjs' " for javascript
 
