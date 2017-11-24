@@ -41,6 +41,7 @@ Plugin 'dracula/vim'
 Plugin 'jnurmine/zenburn'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'ternjs/tern_for_vim'
+"Plugin 'cskeeters/vim-smooth-scroll'   " interesting scroll property
 "Plugin 'yhat/vim-docstring'
 "Plugin 'mozilla/doctorjs' " for javascript
 
@@ -103,6 +104,22 @@ noremap <Leader>mctags :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=
 let g:tagbar_sort = 0
 let g:tagbar_compact = 1
 let g:tagbar_singleclick = 1
+
+" markdown support
+let g:tagbar_type_markdown = {
+    \ 'ctagstype': 'markdown',
+    \ 'ctagsbin' : $HOME.'/.local/bin/markdown2ctags',
+    \ 'ctagsargs' : '-f - --sort=yes',
+    \ 'kinds' : [
+        \ 's:sections',
+        \ 'i:images'
+    \ ],
+    \ 'sro' : '|',
+    \ 'kind2scope' : {
+        \ 's' : 'section',
+    \ },
+    \ 'sort': 0,
+\ }
 
 
 """""""""""""""""""""""""""
