@@ -216,8 +216,8 @@ gs \
  $1
 }
 
-alias sshb='ssh -D 1080 -p 24 vpn@vpn.vapwn.fr'
-alias sshtmr='ssh -D 1090 vpn@163.172.45.128'
+alias sshb='autossh -D 1080 -p 24 vpn@vpn.vapwn.fr'
+alias sshtmr='autossh -D 1090 vpn@163.172.45.128'
 
 ### cd alias
 alias xs='cd'

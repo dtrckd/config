@@ -19,7 +19,7 @@ pip3 install --upgrade setuptools wheel
 ######################
 ### Utils
 ######################
-sudo aptitude install -R mc rsync byobu ranger wicd vim git gitk gitg
+sudo aptitude install -R mc rsync byobu ranger wicd vim-nox git gitk gitg
 ranger --copy-config=all
 # Optionals (but advised !)
 if [ $AGGRESSIVE == 1 ]; then 
@@ -40,7 +40,7 @@ pip3 install --user ipython jupyter matplotlib numpy scipy
 ######################
 if [ $AGGRESSIVE == 1 ]; then 
     sudo aptitude install pandoc parallel
-    pip3 install --user pypandoc
+    pip3 install --user pypandoc markdown2ctags
 fi
 
 if [ $PERS == 1 ]; then 
