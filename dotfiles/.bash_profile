@@ -71,7 +71,7 @@ alias py3='python3'
 alias pynotebook="jupyter --ip 127.0.0.1"
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:$(pwd)'
 alias xback='xbacklight'
-alias bb="byobu"
+alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || byobu"
 alias cc="cat"
 alias vdiff='vimdiff'
 alias evc="evince"
@@ -221,7 +221,7 @@ alias sshtmr='autossh -D 1090 vpn@163.172.45.128'
 
 ### cd alias
 alias xs='cd'
-PX="${HOME}/Desktop/workInProgress"
+PX="${HOME}/workInProgress"
 webApp="webuser"
 alias iu="cd $PX"
 alias iuc="cd $HOME/src/config/"
