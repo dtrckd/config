@@ -522,7 +522,18 @@ endfunction
 "call TextEnableCodeSnip('sql', '@begin=sql@', '@end=sql@', 'SpecialComment')
 
 
-""" Reset Session
+
+
+fu! SaveSession()
+    bufdo execute 'NERDTreeClose'
+    bufdo execute 'TagbarClose'
+    "autocmd VimLeave * TagbarClose
+    "autocmd VimLeave * NERDTreeClose
+    execute 'mksession! ' . getcwd() . '/.session.vim'
+endfunction
+com! SaveSession :call SaveSession()
+
+
 fu! ResetSession()
     if filereadable(getcwd() . '/.session.vim')
         execute 'so ' . getcwd() . '/.session.vim'
@@ -537,6 +548,10 @@ fu! ResetSession()
     syntax on
 endfunction
 com! ResetSession :call ResetSession()
+
+
+
+
 
 """ Workaround for the refresh problem (partial)!
 fu! RedrawTab()
