@@ -38,6 +38,7 @@ prompt_short
 #### Colors results
 if [ -x /usr/bin/dircolors ]; then
     COLOR_OPT='always'
+    COLOR_OPT='auto'
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls="ls --color=$COLOR_OPT -p --group-directories-first"
     alias dir='dir --color=$COLOR_OPT'

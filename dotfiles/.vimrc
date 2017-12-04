@@ -40,7 +40,7 @@ Plugin 'darkburn'
 Plugin 'dracula/vim'
 Plugin 'jnurmine/zenburn'
 Plugin 'vim-syntastic/syntastic'
-Plugin 'ternjs/tern_for_vim'
+Plugin 'ternjs/tern_for_vim' " tagbar and js. (Maybe require manual installation of: https://github.com/ramitos/jsctags, and https://github.com/ternjs/tern_for_vim (not sure)
 "Plugin 'cskeeters/vim-smooth-scroll'   " interesting scroll property
 "Plugin 'yhat/vim-docstring'
 "Plugin 'mozilla/doctorjs' " for javascript
@@ -105,7 +105,7 @@ let g:tagbar_sort = 0
 let g:tagbar_compact = 1
 let g:tagbar_singleclick = 1
 
-" markdown support
+" Markdown support tag
 let g:tagbar_type_markdown = {
     \ 'ctagstype': 'markdown',
     \ 'ctagsbin' : $HOME.'/.local/bin/markdown2ctags',
@@ -120,6 +120,14 @@ let g:tagbar_type_markdown = {
     \ },
     \ 'sort': 0,
 \ }
+
+" Makefile support tag
+let g:tagbar_type_make = {
+            \ 'kinds':[
+            \ 'm:macros',
+            \ 't:targets'
+            \ ]
+            \}
 
 
 """""""""""""""""""""""""""
