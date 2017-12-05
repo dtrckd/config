@@ -12,7 +12,7 @@ git clone https://github.com/creationix/nvm.git $HOME/.nvm
 . $HOME/.nvm/nvm.sh
 nvm install node
 
-# docker
+# Docker
 DOCKER_VER="docker-17.09.0-ce"
 #wget https://download.docker.com/linux/debian/dists/stretch/pool/stable/amd64/docker-ce_17.09.0~ce-0~debian_amd64.deb  -O /usr/bin/docker
 wget https://download.docker.com/linux/static/stable/x86_64/$DOCKER_VER.tgz

@@ -7,16 +7,14 @@
 #
 
 
+# APT contrib
 # From /etc/apt/source.list + gpg key, install, enable.
+#sudo apt-get update
 # apt install mongodb-org 
 # apt install virtualbox qemu
 # apt install brave
-#
-#
 # Ethereum (work in ubuntu, not debian 11/2017)
-sudo apt-get install software-properties-common
-sudo add-apt-repository -y ppa:ethereum/ethereum
-sudo apt-get update
+#sudo apt-get install software-properties-common && sudo add-apt-repository -y ppa:ethereum/ethereum
 
 # Atom
 wget https://atom.io/download/deb?channel=beta -O atom-beta.deb
