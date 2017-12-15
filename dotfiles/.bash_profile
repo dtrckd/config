@@ -200,7 +200,7 @@ function git_reset_permissions() {
         | git apply
 }
 
-function init_ssh() {
+function ssh_init() {
     eval `ssh-agent`
     ssh-add
 }
