@@ -13,8 +13,11 @@
 # apt install mongodb-org 
 # apt install virtualbox qemu
 # apt install brave
-# Ethereum (work in ubuntu, not debian 11/2017)
-#sudo apt-get install software-properties-common && sudo add-apt-repository -y ppa:ethereum/ethereum
+# Ethereum (work in ubuntu, not debian 11/2017 => but yes change distribution `bionic` to `xenial`.)
+#add-apt-repository -y ppa:ethereum/ethereum && add-apt-repository -y ppa:ethereum/ethereum-dev
+# If pubkey issues (wget -qO - http://ppa.launchpad.net/ethereum/ethereum-dev/ubuntu/dists/vivid/Release.gpg  | apt-key add -) doesn't work :
+#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  THU_SIG_KEY ...
+
 
 # Atom
 wget https://atom.io/download/deb?channel=beta -O atom-beta.deb
