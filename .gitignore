@@ -10,7 +10,8 @@ tags
 *.byobu
 
 # Private
-.free
+.free/***
+.freak
 dotfiles/.gethubconfig
 etc/wpa_supplicant/***
 
