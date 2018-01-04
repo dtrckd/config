@@ -10,6 +10,7 @@ tags
 *.byobu
 
 # Private
+addr
 .free/***
 .freak
 dotfiles/.gethubconfig
