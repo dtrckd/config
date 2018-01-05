@@ -78,6 +78,7 @@ alias vdiff='vimdiff'
 alias evc="evince"
 alias tu="htop -u $USER"
 alias t="htop"
+alias diffd="diff -rq $1 $2" # show difference files between dir$1 and dir$2
 function pdf(){ evince $1 2>/dev/null & }
 
 _PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/pymake/pymake"        
@@ -236,7 +237,6 @@ alias iub="cd $PX/BaseBlue/"
 alias iubb="cd $PX/BaseBlue/bhp/bhp"
 alias iutm="cd $PX/BaseBlue/tmr/tm"
 alias iug="cd $PX/BaseBlue/bhp/data/grammar"
-alias ius="cd $PX/BaseBlue/bluebot/scrapybot"
 alias iux="cd $PX/BaseDump/bots/skopai/skopy/"
 alias iuw="cd $PX/webmain/"
 alias iumd="cd $PX/webmain/mixtures/md"
