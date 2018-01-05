@@ -231,7 +231,7 @@ set report=0                            " show number of modification if they ar
 set cursorline                          " hilight current line - cul
 "set autowrite                          " Automatically save before commands like :next and :make
 "set hidden                             " Hide buffers when they are abandoned
-set mouse=a                            " Enable mouse usage (all modes) in terminals
+"set mouse=a                            " Enable mouse usage (all modes) in terminals
 "set textwidth=0                         " disable textwith
 set fo+=1cro fo-=t tw=0 " break comment at tw $size
 "set colorcolumn=-1
