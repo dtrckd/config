@@ -1,15 +1,14 @@
  /home/dtrckd/SC/Projects/Informatique/Reseau/Script/auth-wpa
  /home/dtrckd/src/dtrckd/backsync/backsync_light.sh
  /home/dtrckd/src/dtrckd/backsync/backsync.sh
- /home/dtrckd/SC/Projects/Informatique/System/backup-rsync
- /home/dtrckd/SC/Projects/Informatique/System/analyseur_syntaxyque_calc/calc
- /home/dtrckd/SC/Projects/Informatique/System/chrono
+ /home/dtrckd/src/config/snippets/chrono.py
  /home/dtrckd/SC/Projects/Informatique/Reseau/Script/con
  /home/dtrckd/SC/Projects/Informatique/System/convert-flac
  /home/dtrckd/SC/Projects/Informatique/System/convert-m4a
  /home/dtrckd/SC/Projects/Informatique/System/convert-mp4
  /home/dtrckd/SC/Projects/Informatique/System/convert-wma
  /home/dtrckd/SC/Projects/Informatique/Reseau/Search_Engine/traduction/dict
+ /home/dtrckd/Downloads/Exodus-linux-x64/Exodus
  /home/dtrckd/SC/Projects/Informatique/Reseau/Firewalls/firewall-r-strict.sh
  /home/dtrckd/SC/Projects/Informatique/Reseau/Mapping/GeoL/geoip
  /home/dtrckd/SC/Projects/Informatique/Reseau/Mapping/GeoL/geoipdata-update
@@ -21,20 +20,17 @@
  /home/dtrckd/src/config/snippets/sound/mute
  /home/dtrckd/src/config/snippets/sound/mute_toggle
  /home/dtrckd/Desktop/workInProgress/BaseBlue/devops/ipban/nobanme.py
+ /home/dtrckd/Desktop/workInProgress/BaseBlue/devops/ipban/nobanme.py
  /home/dtrckd/SC/Projects/Informatique/System/pass-file-merge
  /home/dtrckd/SC/Projects/Informatique/System/pdnsd-pull
  /home/dtrckd/SC/Projects/Informatique/System/power/power-save
  /home/dtrckd/SC/Projects/Informatique/Reseau/Script/pritorgle
- /home/dtrckd/SC/Projects/Informatique/System/purge
+ /home/dtrckd/src/config/snippets/purge.sh
  /home/dtrckd/SC/Projects/Informatique/Reseau/Firewalls/reset-firewall.sh
  /home/dtrckd/src/config/snippets/rwget.sh
- /home/dtrckd/SC/Projects/Informatique/System/smith
  /home/dtrckd/src/config/snippets/sound/sound_switch
  /home/dtrckd/src/config/snippets/sound/unmute
- /home/dtrckd/SC/Projects/Informatique/System/update-conf
- /home/dtrckd/SC/Projects/Informatique/System/urlunqote
  /home/dtrckd/SC/Projects/Informatique/System/vimr
  /home/dtrckd/src/config/snippets/sound/vol_dec
  /home/dtrckd/src/config/snippets/sound/vol_inc
- /home/dtrckd/SC/Projects/Informatique/Reseau/Script/weirb
  /home/dtrckd/src/dtrckd/wikask/wikask.py
