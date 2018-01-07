@@ -23,7 +23,7 @@ sudo aptitude install -R mc rsync byobu ranger wicd vim-nox git gitk gitg
 ranger --copy-config=all
 # Optionals (but advised !)
 if [ $AGGRESSIVE == 1 ]; then 
-    aptitude install -R apt-listbugs zip xclip acpi bmon nmap curl wget wireshark elinks w3m
+    aptitude install -R apt-listbugs zip xclip acpi bmon nmap curl wget wireshark elinks w3m ksysguard
 fi
 
 ######################
