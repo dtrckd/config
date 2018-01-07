@@ -13,10 +13,16 @@
 # apt install mongodb-org 
 # apt install virtualbox qemu
 # apt install brave
+
 # Ethereum (work in ubuntu, not debian 11/2017 => but yes change distribution `bionic` to `xenial`.)
 #add-apt-repository -y ppa:ethereum/ethereum && add-apt-repository -y ppa:ethereum/ethereum-dev
 # If pubkey issues (wget -qO - http://ppa.launchpad.net/ethereum/ethereum-dev/ubuntu/dists/vivid/Release.gpg  | apt-key add -) doesn't work :
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  THU_SIG_KEY ...
+
+# Signal
+#curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+#echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+#sudo apt update && sudo apt install signal-desktop
 
 
 # Atom

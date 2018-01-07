@@ -105,6 +105,7 @@ bmon # interface monitor
 resolvconf # tools to manage several dns adress for network interfaces
 wpa-supplicant #wpa making
 wicd # replace the fukin' network-manager
+nethogs # monitor process on the internet
 
 # proxy
 privoxy

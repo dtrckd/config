@@ -99,6 +99,7 @@ alias myip='nmap -sC -p80 -n -Pn --script=http-title www.showmemyip.com | grep -
 alias nmapw='nmap -sT -P0 -sV -p80,443 --script=http-headers'
 alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
 alias netl='netstat -taupen'
+alias netp='netstat -lantp | grep -i stab | awk -F/ "{print \$2 \$3}" | sort | uniq'
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R'
@@ -230,6 +231,7 @@ alias iuc="cd $HOME/src/config/"
 alias iucc="cd $HOME/Desktop/workInProgress/BaseDump/bots/skopai/common/"
 alias ium="cd $HOME/Music/"
 alias iud="cd $PX/networkofgraphs/process/pymake/data/"
+alias iuf="cd $PX/networkofgraphs/process/pymake/results/"
 alias iup="cd $PX/networkofgraphs/process/pymake/"
 alias iupp="cd $PX/networkofgraphs/process/pymake/pymake/"
 alias iut="cd $PX/networkofgraphs/papers/personal/relational_models/"
