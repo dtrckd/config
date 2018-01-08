@@ -53,6 +53,7 @@ fi
 if [ $PERS == 1 ]; then 
     sudo aptitude -R install vlc audacity xmms2 gxmms2 \
         xmms2-plugin-alsa xmms2-plugin-asf xmms2-plugin-avcodec xmms2-plugin-faad xmms2-plugin-flac xmms2-plugin-id3v2 xmms2-plugin-mad xmms2-plugin-mp4 xmms2-plugin-vorbis
+    # (mp3cut) => poc-streamer
 fi
 
 
