@@ -18,12 +18,16 @@ function _PWD  {
 }
 
 ### Prompt
-#PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ' # root
-#PROMPTS='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$(_PWD)\[\033[00m\]\$ ' # root
 
-#PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ ' # remote
-#PROMPTS='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]$(_PWD)\[\033[00m\]\$ ' # remote
+# Root
+#PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#PROMPTS='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$(_PWD)\[\033[00m\]\$ '
 
+# Remote
+#PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#PROMPTS='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]$(_PWD)\[\033[00m\]\$ '
+
+# Local
 PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 PROMPT2='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
 PROMPTS='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$(_PWD)\[\033[00m\]\$ '
@@ -142,11 +146,12 @@ function upgrademe() {
 #alias apt-mark showhold
 
 ### GIT
-alias gitupdate="git remote update"
+alias gitupdate='git remote update'
 alias gitg='gitg --all 1>/dev/null &'
 alias gitb='git branch -av'
 alias gits='git status -sb'
 alias gitr='git remote -v'
+gitamc () { git commit -am "$1" && git push; }
 alias lsgit='for d in $(find -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" status -svb; echo; done'
 alias gitamend='git commit -a --amend'
 alias gitcommit='git commit -am'
@@ -242,7 +247,7 @@ alias iug="cd $PX/BaseBlue/bhp/data/grammar"
 alias iux="cd $PX/BaseDump/bots/skopai/skopy/"
 alias iuw="cd $PX/webmain/"
 alias iumd="cd $PX/webmain/mixtures/md"
-alias iumm="cd $HOME/src/config/app/mm/"
+alias iumm="cd $HOME/src/config/app/mm/ && set +o history && unset HISTFILE"
 alias iuscrapy="cd $HOME/.local/lib/python3.6/site-packages/scrapy/"
 alias cdoc="cd ~/SC/Projects/hack-dir/doc-lib"
 alias cdhack="cd ~/SC/Projects/hack-dir/Linux/commandes"
