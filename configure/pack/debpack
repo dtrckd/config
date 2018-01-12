@@ -131,6 +131,7 @@ aircrack
 w3af
 openvas
 tor
+chkrootkit rkhunter clamav clamtk
 
 # application
 mutt
