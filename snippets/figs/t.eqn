@@ -1,0 +1,5 @@
+.EQ
+G(z) ~=~ e sup { ln ~ G(z) }
+    ~=~ exp left ( sum from k>=1 { S sub k z sup k } over k right )
+    ~=~ prod from k>=1 e sup { S sub k z sup k /k }
+.EN
