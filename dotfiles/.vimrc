@@ -184,12 +184,15 @@ let g:syntastic_quiet_messages = {
 """" Utils 
 """""""""""""""""""""""""""
 function! GitBranch()
-    let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
+    let branch = shellescape(system("git branch 2> /dev/null | sed  -e '/^[^*]/d' -e 's/* //'"))
     if branch != ''
         return ' ' . substitute(branch, '\n', '', 'g')
     en  
     return ''
+
+
 endfunction
+let _branch = GitBranch()
 
 function! LastDir()
     let dir = split(getcwd(), '/')[-1]
@@ -206,7 +209,8 @@ set pastetoggle=£ " toggle paste mode
 "set title "update window title for X and tmux
 set ruler		"show current position 
 set laststatus=2
-set statusline=%{LastDir()}/%f%m\ %r\ %h\ %w\%{GitBranch()}\ %=%l/%L:%c\ %015(%p%%%)%<
+set statusline=%{LastDir()}/%f%m\ %r\ %h\ %w\ %015{_branch}\ %=%l/%L:%c\ %015(%p%%%)%<
+"set statusline=%{LastDir()}/%f%m\ %r\ %h\ %w\%{GitBranch()}\ %=%l/%L:%c\ %015(%p%%%)%<
 "set statusline=%<%f%m\ %r\ %h\ %w\%{GitBranch()}\ %=%l/%L:%c\ %015(%p%%%)
 
 """ Syntastic
@@ -429,6 +433,7 @@ au filetype cpp set fdm=syntax
 """"""""""""""""""""""""""""""
 autocmd BufNewFile,BufRead *.load set filetype=html
 au Filetype html :call TextEnableCodeSnip('python', '{{#py', '}}', 'SpecialComment')
+au Filetype html :call TextEnableCodeSnip('python', '<script>', '</script>', 'SpecialComment')
 " Comment 
 au Filetype html nmap # :s/\([^ ].*\)$/<!--\1-->/<CR>:noh<CR>
 au Filetype html nmap ~ :s/<!--\(.*\)-->/\1/<CR>:noh<CR>
