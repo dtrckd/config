@@ -85,7 +85,7 @@ alias t="htop"
 alias diffd="diff -rq $1 $2" # show difference files between dir$1 and dir$2
 function pdf(){ evince $1 2>/dev/null & }
 
-_PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/pymake/pymake"        
+_PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/pymake/repo/ml/"
 _NDL="$HOME/src/config/configure/nodeslist"  
 alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
 
@@ -235,10 +235,10 @@ alias iu="cd $PX"
 alias iuc="cd $HOME/src/config/"
 alias iucc="cd $HOME/Desktop/workInProgress/BaseDump/bots/skopai/common/"
 alias ium="cd $HOME/Music/"
-alias iud="cd $PX/networkofgraphs/process/pymake/data/"
-alias iuf="cd $PX/networkofgraphs/process/pymake/results/"
-alias iup="cd $PX/networkofgraphs/process/pymake/"
-alias iupp="cd $PX/networkofgraphs/process/pymake/pymake/"
+alias iud="cd $PX/networkofgraphs/process/pymake/repo/ml/data/"
+alias iuf="cd $PX/networkofgraphs/process/pymake/repo/ml/data/results/"
+alias iup="cd $PX/networkofgraphs/process/pymake/pymake/"
+alias iupp="cd $PX/networkofgraphs/process/pymake/repo/ml/"
 alias iut="cd $PX/networkofgraphs/papers/personal/relational_models/"
 alias iub="cd $PX/BaseBlue/"
 alias iubb="cd $PX/BaseBlue/bhp/bhp"
@@ -352,6 +352,7 @@ export PATH="/bin:/sbin:/usr/sbin:/opt/bin:/usr/bin:/usr/local/bin:$HOME/.local/
 # Python
 Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
 export PYTHONPATH="$HOME/Desktop/workInProgress/BaseDump/bots/skopai/common/:"
+export PYTHONPATH="$PYTHONPATH:$HOME/workInProgress/networkofgraphs/process/pymake:"
 
 # Numpy
 export OMP_NUM_THREADS=1  # Number of thread used by numpy
