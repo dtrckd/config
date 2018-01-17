@@ -104,6 +104,7 @@ noremap <Leader>mctags :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=
 let g:tagbar_sort = 0
 let g:tagbar_compact = 1
 let g:tagbar_singleclick = 1
+let g:tagbar_autofocus = 1
 
 " Markdown support tag
 let g:tagbar_type_markdown = {

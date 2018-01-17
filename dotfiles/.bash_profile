@@ -233,10 +233,10 @@ PX="${HOME}/workInProgress"
 webApp="webuser"
 alias iu="cd $PX"
 alias iuc="cd $HOME/src/config/"
-alias iucc="cd $HOME/Desktop/workInProgress/BaseDump/bots/skopai/common/"
+alias iucc="cd $PX/BaseDump/bots/skopai/common/"
 alias ium="cd $HOME/Music/"
 alias iud="cd $PX/networkofgraphs/process/pymake/repo/ml/data/"
-alias iuf="cd $PX/networkofgraphs/process/pymake/repo/ml/data/results/"
+alias iuf="cd $PX/networkofgraphs/process/pymake/repo/ml/data/reports/figs/"
 alias iup="cd $PX/networkofgraphs/process/pymake/pymake/"
 alias iupp="cd $PX/networkofgraphs/process/pymake/repo/ml/"
 alias iut="cd $PX/networkofgraphs/papers/personal/relational_models/"
@@ -351,8 +351,8 @@ export PATH="/bin:/sbin:/usr/sbin:/opt/bin:/usr/bin:/usr/local/bin:$HOME/.local/
 
 # Python
 Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
-export PYTHONPATH="$HOME/Desktop/workInProgress/BaseDump/bots/skopai/common/:"
-export PYTHONPATH="$PYTHONPATH:$HOME/workInProgress/networkofgraphs/process/pymake:"
+export PYTHONPATH="$PX/BaseDump/bots/skopai/common/:"
+export PYTHONPATH="$PYTHONPATH:$PX/networkofgraphs/process/pymake:"
 
 # Numpy
 export OMP_NUM_THREADS=1  # Number of thread used by numpy
