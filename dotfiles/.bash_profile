@@ -20,24 +20,25 @@ function _PWD  {
 ### Prompt
 
 # Root
-#PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#PROMPTL='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 #PROMPTS='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$(_PWD)\[\033[00m\]\$ '
 
 # Remote
-#PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#PROMPTL='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 #PROMPTS='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]$(_PWD)\[\033[00m\]\$ '
 
 # Local
-PROMPT1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-PROMPT2='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
+PROMPTL='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#PROMPTS='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
 PROMPTS='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$(_PWD)\[\033[00m\]\$ '
-alias prompt_long="PS1='$PROMPT1'"
+alias prompt_long="PS1='$PROMPTL'"
 alias prompt_short="PS1='$PROMPTS'"
 if [ -x "$PS1" ]; then
-    #prompt_long
     prompt_short
+    #prompt_long
 fi
 prompt_short
+#prompt_long
 
 #### Colors results
 if [ -x /usr/bin/dircolors ]; then
@@ -244,7 +245,8 @@ alias iub="cd $PX/BaseBlue/"
 alias iubb="cd $PX/BaseBlue/bhp/bhp"
 alias iutm="cd $PX/BaseBlue/tmr/tm"
 alias iug="cd $PX/BaseBlue/bhp/data/grammar"
-alias iux="cd $PX/BaseDump/bots/skopai/skopy/"
+alias iux="cd $PX/BaseDump/bots/skopai/skopy"
+alias iubg="cd $PX/BaseDump/bots/skopai/bigbangsearch"
 alias iuw="cd $PX/webmain/"
 alias iumd="cd $PX/webmain/mixtures/md"
 alias iumm="cd $HOME/src/config/app/mm/ && set +o history && unset HISTFILE"
