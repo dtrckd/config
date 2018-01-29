@@ -10,5 +10,8 @@ ffmpeg -i my.ogg -c:a libmp3lame -q:a 2 my.mp3 # avconv
 # flac
 ffmpeg -i my.flac -qscale:a 0 my.mp3
 
+#wav
+ffmpeg -i test.wav -acodec mp3 -ab 64k test.mp3
+
 #for f in *.ogg; do avconv -i "$f" -c:a libmp3lame -q:a 2 "${f/ogg/mp3}"; done
 
