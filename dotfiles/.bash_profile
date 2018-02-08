@@ -68,7 +68,6 @@ alias mkdit='mkdir'
 
 ### Utility commands
 alias so='source ~/.bashrc'
-alias pmk='pymake'
 alias python="python -O" # basic optimizatio (ignore assert, ..)
 #alias ipython="python -m IPython"
 alias ipython="ipython --colors linux"
@@ -349,12 +348,12 @@ export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S "
 export EDITOR="/usr/bin/vim"
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
-export PATH="/bin:/sbin:/usr/sbin:/opt/bin:/usr/bin:/usr/local/bin:$HOME/.local/bin:$HOME/bin:"
+export PATH="/bin:/sbin:/usr/sbin:/opt/bin:/usr/bin:/usr/local/bin:$HOME/.local/bin:$HOME/bin"
 
 # Python
 Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
-export PYTHONPATH="$PX/BaseDump/bots/skopai/common/:"
-export PYTHONPATH="$PYTHONPATH:$PX/networkofgraphs/process/pymake:"
+export PYTHONPATH="$PX/BaseDump/bots/skopai/common/"
+export PYTHONPATH="$PYTHONPATH:$PX/networkofgraphs/process/pymake"
 
 # Numpy
 export OMP_NUM_THREADS=1  # Number of thread used by numpy
