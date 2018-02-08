@@ -44,6 +44,8 @@ Plugin 'ternjs/tern_for_vim' " tagbar and js. (Maybe require manual installation
 "Plugin 'cskeeters/vim-smooth-scroll'   " interesting scroll property
 "Plugin 'yhat/vim-docstring'
 "Plugin 'mozilla/doctorjs' " for javascript
+Plugin 'ciaranm/detectindent'
+
 
 """""""""""""""""""""""""""
 """" Plugin conf
