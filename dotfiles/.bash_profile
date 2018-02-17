@@ -277,6 +277,8 @@ function pdfpages() {
         ${3}
 }
 function pdffusion() {
+    # Or better !
+    #pdftk Page1.pdf Page2.pdf Page3.pdf Page4.pdf Page5.pdf Page6.pdf cat output output.pdf
     outname="$(basename $1 .pdf)$(basename $2 .pdf)"
     outname="fusion_${outname}.pdf"
     gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=${outname} ${1} ${2}
