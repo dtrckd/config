@@ -416,3 +416,13 @@ if [ -x $(echo $TMUX |cut -d',' -f1 ) ]; then
     if  [[ ! -z $TMUX && -f ~/.tmux-git/tmux-git.sh ]]; then source ~/.tmux-git/tmux-git.sh; fi
 fi
 
+
+if [ -d $HOME/.bash_completion.d ]; then
+    if [ ! -z $(ls $HOME/.bash_completion.d) ]; then
+        for bcfile in $HOME/.bash_completion.d/*; do
+            . $bcfile
+        done
+    fi
+fi
+
+
