@@ -455,8 +455,8 @@ map <leader>ss :setlocal spell! spelllang=en<cr>
 map <leader>ssfr :setlocal spell! spelllang=fr<cr>
 
 "Shortcuts using <leader>
-"nmap z] ]s
-"nmap z[ [s
+nmap z] ]s
+nmap z[ [s
 map <leader>sa zg
 map <leader>s? z=
 "map <leader>w z=  " correct the previous word @TODO
