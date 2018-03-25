@@ -479,6 +479,8 @@ nmap <leader>w :mks! .session.vim<CR>
 nmap <leader>ma :set mouse=a<cr>
 nmap <leader>mm :set mouse=<cr>
 
+autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownIgnore "\$.*_.*\$"
+"autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownIgnore "\\begin.*\*.*\\end" " don't work?
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
