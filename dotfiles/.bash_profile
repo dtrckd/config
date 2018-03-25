@@ -97,6 +97,7 @@ alias dicten='dict enfr'
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
 ff () { find -name "*$1*"; }
+alias jerr='journalctl -p err -b'
 ### Net
 alias curlH='curl -I'
 alias myip='nmap -sC -p80 -n -Pn --script=http-title www.showmemyip.com | grep -i "my IP" | cut -d: -f3 | tr -d " " |  xclip -selection clipboard && xclip -o -selection clipboard'
@@ -239,6 +240,7 @@ alias iud="cd $PX/networkofgraphs/process/pymake/repo/ml/data/"
 alias iuf="cd $PX/networkofgraphs/process/pymake/repo/ml/data/reports/figs/"
 alias iup="cd $PX/networkofgraphs/process/pymake/pymake/"
 alias iupp="cd $PX/networkofgraphs/process/pymake/repo/ml/"
+alias iudoc="cd $PX/networkofgraphs/process/pymake/repo/docsearch/"
 alias iut="cd $PX/networkofgraphs/papers/personal/relational_models/"
 alias iub="cd $PX/BaseBlue/"
 alias iubb="cd $PX/BaseBlue/bhp/bhp"

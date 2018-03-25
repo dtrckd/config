@@ -24,19 +24,20 @@
 #echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
 #sudo apt update && sudo apt install signal-desktop
 
+pushd ~/Downloads/
 
 # Atom
 wget https://atom.io/download/deb?channel=beta -O atom-beta.deb
 
 # Wekan
 git clone https://github.com/wekan/wekan-mongodb.git ~/Documents/wekan-mongodb
-cd ~/Documents/wekan-mongodb
+pushd ~/Documents/wekan-mongodb
 # set the host (sed -> replace in the range matching between "/x/, /y/ ..."
 sed -i "/^ *environment:$/, /[#\n]/ s/ROOT_URL=.*$/ROOT_URL=http:\/\/wekan.localhost/"  docker-compose.yml
 # set the port; (sed -> modif the line just after 'ports:')
 sed -i "/^ *ports:$/ {n;s/[0-9]*:[0-9]*/8080:80/}"  docker-compose.yml 
 #docker-compose up # apt instakk docker-compose # maybe apt-mark hold docker.io
-cd -
+popd
 
 # Pycharm
 PAKNAME="pycharm"
@@ -45,6 +46,11 @@ PAKURL=$(phantomjs djs.js $URLTARG | grep -oiE href=.*${PAK}.*tar.gz[\'\"] | cut
 wget $PAKURL
 tar zxvf $(basename $PAKURL)
 
+# Robo3t
+PAKURL="https://download.robomongo.org/1.2.1/linux/robo3t-1.2.1-linux-x86_64-3e50a65.tar.gz"
+wget $PAKURL
+tar zxvf $(basename $PAKURL)
 
 
+popd
 
