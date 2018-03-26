@@ -353,6 +353,10 @@ setxkbmap -option "nbsp:none" # disable non-breaking space, accidently genrated 
 # Find all files having such char (except binaries): find -type f ! -iname "*.pyc" -and ! -iname "*.pk" -and ! -path "*/.git/*" -exec grep -Il '.' {} \; |xargs -d '\n' grep -l $'\xc2\xa0'
 # to replace such character: sed 's/\xc2\xa0/ /g' filename
 
+# <C-w> should behave like vim
+stty werase undef
+bind '\C-w:unix-filename-rubout'
+
 HISTSIZE=1000
 HISTFILESIZE=2000
 IGNOREEOF=3   # Shell only exists after the 3th consecutive Ctrl-d
