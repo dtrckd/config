@@ -2,7 +2,7 @@
 SRC = notes
 OPTS = --halt-on-error
 
-# pdf | xe | dvi
+# pdf | xe | dvi
 default: pdf 
 _default : default
 
