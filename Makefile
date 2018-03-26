@@ -90,7 +90,7 @@ _configure_pc:
 	cd -
 
 _propagate_dotfiles:
-	# Warning: Junk file will stay on target (cp don't remove files)
+	# Warning: Junk file will stay on target (cp don't remove files)
 	ls -A dotfiles/ | xargs -I{} cp -r dotfiles/{}  ~/
 
 bin:
@@ -107,7 +107,7 @@ _web:
 
 
 _backup:
-	# Todo Debug
+	# Todo Debug
 	cd configure/
 	./backapp.sh
 	cd -
@@ -115,7 +115,7 @@ _backup:
 deb_clean:
 	# Add -force option ?
 	#dpkg --list | grep '^rc ' | awk '{ print $2 }' | xargs dpkg -P
-	# Show configuration orphant files
+	# Show configuration orphant files
 	dpkg --list |grep '^rc'
 	apt-get -s autoremove
 	apt-get -s autoclean
