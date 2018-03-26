@@ -345,9 +345,18 @@ xrand () {
 ### Shell Global Variable
 #shopt -s extglob
 #setterm -blength 0 # Disable console beep
+
+# X Keyboard Mapping
+setxkbmap -option "nbsp:none" # disable non-breaking space, accidently genrated when typing <ALTGR>+<SPACE>
+# setxkbmap -option # to reset value
+# to find such character: grep  $'\xc2\xa0' filename
+# Find all files having such char (except binaries): find -type f ! -iname "*.pyc" -and ! -iname "*.pk" -and ! -path "*/.git/*" -exec grep -Il '.' {} \; |xargs -d '\n' grep -l $'\xc2\xa0'
+# to replace such character: sed 's/\xc2\xa0/ /g' filename
+
 HISTSIZE=1000
 HISTFILESIZE=2000
 IGNOREEOF=3   # Shell only exists after the 3th consecutive Ctrl-d
+
 export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S "
 export EDITOR="/usr/bin/vim"
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
