@@ -82,7 +82,7 @@ alias vdiff='vimdiff'
 alias evc="evince"
 alias tu="htop -u $USER"
 alias t="htop"
-alias diffd="diff -rq $1 $2" # show difference files between dir$1 and dir$2
+alias diffd="diff -rq $1 $2" # show difference files between dir$1 and dir$2
 function pdf(){ evince $1 2>/dev/null & }
 
 _PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/pymake/repo/ml/"
@@ -109,7 +109,7 @@ alias netp='netstat -lantp | grep -i stab | awk -F/ "{print \$2 \$3}" | sort | u
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R'
 alias grepy='find -iname "*.py" | xargs grep --color -n'
-function grepyf(){ find -iname "*.py" |xargs grep --color -m1 "$1" |cut -d: -f1; } # don work :(
+function grepyf(){ find -iname "*.py" |xargs grep --color -m1 "$1" |cut -d: -f1; } # don work :(
 alias grepall='find -type f | xargs grep --color'
 alias agpy='ag --py'
 ### XFCE
@@ -279,7 +279,7 @@ function pdfpages() {
         ${3}
 }
 function pdffusion() {
-    # Or better !
+    # Or better !
     #pdftk Page1.pdf Page2.pdf Page3.pdf Page4.pdf Page5.pdf Page6.pdf cat output output.pdf
     outname="$(basename $1 .pdf)$(basename $2 .pdf)"
     outname="fusion_${outname}.pdf"
@@ -363,7 +363,7 @@ export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
 export PATH="/bin:/sbin:/usr/sbin:/opt/bin:/usr/bin:/usr/local/bin:$HOME/.local/bin:$HOME/bin"
 
-# Python
+# Python
 Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
 export PYTHONPATH="$PX/BaseDump/bots/skopai/common/"
 export PYTHONPATH="$PYTHONPATH:$PX/networkofgraphs/process/pymake"

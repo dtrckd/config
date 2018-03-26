@@ -67,7 +67,7 @@ pip, npm, brew, mercurial
 ####################
 
 exuberant-ctags
-vim-nox # scripting compilation options
+vim-nox # scripting compilation options
 vim-addon-manager
 
 # pdf viewer / manipulator
@@ -105,7 +105,7 @@ bmon # interface monitor
 resolvconf # tools to manage several dns adress for network interfaces
 wpa-supplicant #wpa making
 wicd # replace the fukin' network-manager
-nethogs # monitor process on the internet
+nethogs # monitor process on the internet
 
 # proxy
 privoxy
@@ -137,7 +137,7 @@ chkrootkit rkhunter clamav clamtk
 mutt
 links # w3m mlynx elinks w3as
 wget
-phantomjs # headless brower like fetcher
+phantomjs # headless brower like fetcher
 # lighttpd #ngynx #apache
 
 ####################

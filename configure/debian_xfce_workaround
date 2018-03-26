@@ -63,11 +63,11 @@ xfwm4 --replace &
 # Panel with windows and worspace don't respond:
 xfce4-panel -r
 
-# SIOCSIFFLAGS: Operation not possible due to RF-kil
+# SIOCSIFFLAGS: Operation not possible due to RF-kil
 rfkill unblock wifi 
 rfkill unblock all
 
-# better touchpad thinkpad (X220,), synclient -l # error, cant figure it out ?
+# better touchpad thinkpad (X220,), synclient -l # error, cant figure it out ?
 aptitude install xserver-xorg-input-synaptics xserver-xorg-input-libinput 
 #gsettings set org.gnome.desktop.peripherals.touchpad send-events 'enabled'
 

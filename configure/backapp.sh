@@ -20,7 +20,7 @@ ll $HOME/bin | grep '>' |cut -d'>' -f2 > ../configure/bin.txt
 
 ### BACKUP __THUNDERBIRD/
 THUNDER_ID="9nm4luj6"
-#find $HOME/.thunderbird/$THUNDER_ID.default/ -name "*.dat" -o -name "*.json" | sed "s~$HOME/~~g" | xargs -I{} rsync -R {} ../app/
+#find $HOME/.thunderbird/$THUNDER_ID.default/ -name "*.dat" -o -name "*.json" | sed "s~$HOME/~~g" | xargs -I{} rsync -R {} ../app/
 find $HOME/.thunderbird/$THUNDER_ID.default/ -name "*.dat" -o -name "*.json" |xargs -I{} rsync $RSYNC_ARGS -R {} ../app/
 
 ###

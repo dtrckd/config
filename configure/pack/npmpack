@@ -4,6 +4,6 @@ bower
 ionic
 gulp
 
-# taglist for vim
+# taglist for vim
 npm install -g git+https://github.com/ramitos/jsctags.git
 
