@@ -83,7 +83,8 @@ alias evc="evince"
 alias tu="htop -u $USER"
 alias t="htop"
 alias diffd="diff -rq $1 $2" # show difference files between dir$1 and dir$2
-function pdf(){ evince $1 2>/dev/null & }
+function pdf(){ okular $1 2>/dev/null & }
+#function pdf(){ evince $1 2>/dev/null & }
 
 _PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/pymake/repo/ml/"
 _NDL="$HOME/src/config/configure/nodeslist"  
