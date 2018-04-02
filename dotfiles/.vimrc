@@ -197,8 +197,15 @@ function! GitBranch()
 endfunction
 let _branch = GitBranch()
 
-function! LastDir()
+function! CurrDir()
     let dir = split(getcwd(), '/')[-1]
+    return dir
+endfunction
+
+function! LastDir()
+    let dir = split(path, '/')[-2]
+    echo path
+    echo dir
     return dir
 endfunction
 
@@ -212,9 +219,9 @@ set pastetoggle=£ " toggle paste mode
 "set title "update window title for X and tmux
 set ruler		"show current position 
 set laststatus=2
-set statusline=%{LastDir()}/%f%m\ %r\ %h\ %w\ %015{_branch}\ %=%l/%L:%c\ %015(%p%%%)%<
-"set statusline=%{LastDir()}/%f%m\ %r\ %h\ %w\%{GitBranch()}\ %=%l/%L:%c\ %015(%p%%%)%<
-"set statusline=%<%f%m\ %r\ %h\ %w\%{GitBranch()}\ %=%l/%L:%c\ %015(%p%%%)
+set statusline=%<%f%m\ %r\ %h\ %w\ %015{_branch}\ %=%l/%L:%c\ %015(%p%%%)
+"set statusline=%<%{CurrDir()}/%f%m\ %r\ %h\ %w\ %015{_branch}\ %=%l/%L:%c\ %015(%p%%%)
+"set statusline=%<%{LastDir()}/%t%m\ %r\ %h\ %w\ %015{_branch}\ %=%l/%L:%c\ %015(%p%%%)
 
 """ Syntastic
 "set statusline+=%#warningmsg#
@@ -615,13 +622,15 @@ endif
 colo dracula
 "colo hipster
 
-""" Custom Colors
+""" Custom Colors & Highlights
 hi TabLineSel ctermfg=Blue ctermbg=Green
 hi TabLine ctermfg=0 ctermbg=7
 hi Search guifg=#000000 guibg=#8dabcd guisp=#8dabcd gui=NONE ctermfg=NONE ctermbg=110 cterm=NONE 
-hi Comment ctermfg=blue
 hi SpellBad ctermbg=red cterm=underline
+hi Comment ctermfg=blue
 "hi Comment guifg=DarkGrey ctermfg=brown " like; green, white, brown, cyan(=string)
+hi Normal ctermbg=233
+hi StatusLine cterm=bold ctermfg=232 ctermbg=249
 
 "set background=dark
 
@@ -646,3 +655,5 @@ set t_BE=  " disable bracketed paste mode.  https://gitlab.com/gnachman/iterm2/i
 "  set paste
 "  return ""
 "endfunction
+
+
