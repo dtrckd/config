@@ -353,6 +353,9 @@ setxkbmap -option "nbsp:none" # disable non-breaking space, accidently genrated 
 # to find such character: grep  $'\xc2\xa0' filename
 # Find all files having such char (except binaries): find -type f ! -iname "*.pyc" -and ! -iname "*.pk" -and ! -path "*/.git/*" -exec grep -Il '.' {} \; |xargs -d '\n' grep -l $'\xc2\xa0'
 # to replace such character: sed 's/\xc2\xa0/ /g' filename
+# QWERTY
+alias to_qwerty='setxkbmap us' # QWERTY
+alias to_azerty='setxkbmap fr' # AZERTY
 
 # <C-w> should behave like vim
 stty werase undef
