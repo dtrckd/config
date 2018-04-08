@@ -78,3 +78,6 @@ xfce4-panel --quit ; sudo pkill xfconfd ; rm -rf ~/.config/xfce4/panel ~/.config
 xfdesktop --reload
 
 # Enable Brave:  echo 1 > /proc/sys/kernel/unprivileged_userns_clone
+
+# Desactivate automatic upgrade
+sudo systemctl mask unattended-upgrade.service
