@@ -81,3 +81,7 @@ xfdesktop --reload
 
 # Desactivate automatic upgrade
 sudo systemctl mask unattended-upgrade.service
+
+# reboot sound,a al
+pulseaudio -k && sudo alsa force-reload
+
