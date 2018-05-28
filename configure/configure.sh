@@ -11,6 +11,8 @@ rmdir --ignore-fail-on-non-empty   ~/Public/ Templates/
 mkdir -p ~/Music ~/Documents ~/Videos ~/SC ~/Desktop ~/src ~/bin
 cp blue/* ~
 
+# apt install sudo aptitude vim vim.nox firmaware-linux-nonfree
+
 ######################
 ### System
 ######################
@@ -24,7 +26,7 @@ sudo aptitude install $OPTS -R mc rsync byobu ranger wicd vim-nox git gitk gitg
 ranger --copy-config=all
 # Optionals (but advised !)
 if [ $AGGRESSIVE == 1 ]; then 
-    aptitude install $OPTS -R apt-listbugs zip xclip acpi bmon nmap curl wget wireshark elinks w3m ksysguard
+    aptitude install $OPTS -R apt-listbugs zip xclip acpi bmon nmap curl wget wireshark elinks w3m ksysguard iotop
 fi
 
 ######################
@@ -34,7 +36,7 @@ sudo aptitude install $OPTS -R gfortran libopenblas-dev python3-tk
 if [ $AGGRESSIVE == 1 ]; then 
     sudo aptitude install $OPTS -R build-essential autoconf libtool pkg-config  python3-dev cython
 fi
-pip3 install --user ipython jupyter matplotlib numpy scipy
+pip3 install $OPTS --user ipython jupyter matplotlib numpy scipy
 
 ######################
 ### Apps
@@ -52,7 +54,7 @@ fi
 ### Music (xmms2 plugin)
 ######################
 if [ $PERS == 1 ]; then 
-    sudo aptitude $OPTS -R install vlc audacity xmms2 gxmms2 \
+    sudo aptitude  install $OPTS -R vlc audacity xmms2 gxmms2 \
         xmms2-plugin-alsa xmms2-plugin-asf xmms2-plugin-avcodec xmms2-plugin-faad xmms2-plugin-flac xmms2-plugin-id3v2 xmms2-plugin-mad xmms2-plugin-mp4 xmms2-plugin-vorbis
     # (mp3cut) => poc-streamer
 fi
@@ -70,7 +72,7 @@ fi
 ### Bluetooth
 ######################
 if [ $PERS == 1 ]; then 
-    sudo aptitude $OPTS -R install pulseaudio-module-bluetooth blueman
+    sudo aptitude install $OPTS -R  pulseaudio-module-bluetooth blueman
     pactl load-module module-bluetooth-discover
 fi
 
@@ -82,8 +84,8 @@ if [ $PERS == 1 ]; then
     # @debug make webmain links...
     echo "Installing nginx..."
     # Kill apache ?
-    sudo aptitude install nginx 
-    sudo aptitude install php-fpm php php-cgi uwsgi
+    sudo aptitude install $OPTS nginx 
+    sudo aptitude install $OPTS php-fpm php php-cgi uwsgi
     echo "need to set up con files for sites..."
     P="/home/dtrckd/Desktop/workInProgress/conf/etc/nginx/sites-available/"
     sudo cp $P/* /etc/nginx/sites-enabled/
