@@ -153,7 +153,7 @@ alias gitg='gitg --all 1>/dev/null &'
 alias gitb='git branch -av'
 alias gits='git status -sb'
 alias gitr='git remote -v'
-gitamc () { git commit -am "$1" && git push; }
+gitcpush () { git commit -am "$1" && git push; }
 alias lsgit='for d in $(find -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" status -svb; echo; done'
 alias gitamend='git commit -a --amend'
 alias gitcommit='git commit -am'
