@@ -12,6 +12,8 @@ mkdir -p ~/Music ~/Documents ~/Videos ~/SC ~/Desktop ~/src ~/bin
 cp blue/* ~
 
 # apt install sudo aptitude vim vim.nox firmaware-linux-nonfree
+#
+# Basics? python3-pip python3-setuptools  rsync byobu ranger curl wget zip 
 
 ######################
 ### System
