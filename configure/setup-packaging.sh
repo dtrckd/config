@@ -17,16 +17,16 @@ DOCKER_VER="docker-17.09.0-ce"
 #wget https://download.docker.com/linux/debian/dists/stretch/pool/stable/amd64/docker-ce_17.09.0~ce-0~debian_amd64.deb  -O /usr/bin/docker
 wget https://download.docker.com/linux/static/stable/x86_64/$DOCKER_VER.tgz
 tar xzvf $DOCKER_VER.tgz
-cp docker/* /usr/bin/
+sudo cp docker/* /usr/bin/
 rm -r docker/ $DOCKER_VER.tgz
 curl -o /etc/init.d/docker https://raw.githubusercontent.com/dotcloud/docker/master/contrib/init/sysvinit-debian/docker
-chmod +x /usr/bin/docker /etc/init.d/docker
-addgroup docker
+sudo chmod +x /usr/bin/docker /etc/init.d/docker
+sudo addgroup docker
 #update-rc.d -f docker defaults
-cat << EOF > /etc/default/docker
+sudo cat << EOF > /etc/default/docker
 DOCKER_OPTS="-H 127.0.0.1:4243 -H unix:///var/run/docker.sock"
 EOF
-usermod -aG docker dtrckd
-service docker start
+sudo usermod -aG docker $USER
+sudo service docker start
 
 

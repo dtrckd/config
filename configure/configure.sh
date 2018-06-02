@@ -1,6 +1,6 @@
 #!/bin/bash
 
-AGGRESSIVE=0
+AGGRESSIVE=1
 PERS=0
 OPTS="-y"
 
@@ -19,7 +19,7 @@ cp blue/* ~
 ### System
 ######################
 sudo aptitude install $OPTS -R sudo aptitude psmisc python3-pip python3-setuptools rfkill apt-file apt-show-versions htop strace 
-pip3 install $OPTS --upgrade setuptools wheel
+pip3 install --upgrade setuptools wheel
 
 ######################
 ### Utils
@@ -36,7 +36,7 @@ fi
 ######################
 sudo aptitude install $OPTS -R gfortran libopenblas-dev python3-tk
 if [ $AGGRESSIVE == 1 ]; then 
-    sudo aptitude install  $OPTS-R build-essential autoconf automake libtool pkg-config  python3-dev cython
+    sudo aptitude install $OPTS -R build-essential autoconf libtool pkg-config  python3-dev cython
 fi
 pip3 install $OPTS --user ipython jupyter matplotlib numpy scipy
 
@@ -45,7 +45,7 @@ pip3 install $OPTS --user ipython jupyter matplotlib numpy scipy
 ######################
 if [ $AGGRESSIVE == 1 ]; then 
     sudo aptitude install $OPTS pandoc parallel
-    pip3 install $OPTS --user pypandoc markdown2ctags
+    pip3 install --user pypandoc markdown2ctags
 fi
 
 if [ $PERS == 1 ]; then 
