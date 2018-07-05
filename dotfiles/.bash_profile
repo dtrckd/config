@@ -110,6 +110,8 @@ alias netp='netstat -lantp | grep -i stab | awk -F/ "{print \$2 \$3}" | sort | u
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R'
 alias grepy='find -iname "*.py" | xargs grep --color -n'
+alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
+alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
 function grepyf(){ find -iname "*.py" |xargs grep --color -m1 "$1" |cut -d: -f1; } # don work :(
 alias grepall='find -type f | xargs grep --color'
 alias agpy='ag --py'
