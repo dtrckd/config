@@ -597,19 +597,12 @@ function! FindSw(com)
     return 0
   endif
 
-  exe com.' ' find_res
+  exe a:com.' ' find_res
 endfun
 
 
 function! HeadSwitch(com)
-  if exists("b:inc_sw")
-    if a:com == 'e'
-      e#
-    elseif a:com == 'tabe'
-      tabe#
-    endif
-    return 0
-  endif
+
   if match(expand("%"), '\.c') > 0
     let b:inc_sw=substitute(expand("%:t"), '\.c\(.*\)', '.h*', "")
   elseif match(expand("%"), "\\.h") > 0
