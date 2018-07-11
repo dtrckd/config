@@ -393,6 +393,7 @@ endfunc
 """" => Conf Files
 """"""""""""""""""""""""""""""
 au BufNewFile,BufRead *.*rc set tw=0
+au filetype vim  set ts=2 sts=2 sw=2
 
 """"""""""""""""""""""""""""""
 """" => Python Files
@@ -576,13 +577,58 @@ com! ResetSession :call ResetSession()
 
 
 
-
-
 """ Workaround for the refresh problem (partial)!
 fu! RedrawTab()
     execute  'redraw'
 endfunction
 com! RedrawTab :call RedrawTab()
+
+" ===============
+" Switch between header and code
+" from: https://github.com/ericcurtin/CurtineIncSw.vim
+" ===============
+
+function! FindSw(com)
+  let dirname=fnamemodify(expand("%:p"), ":h")
+  let target_file=b:inc_sw
+  let cmd="find " . dirname . " . -type f -iname \"" . target_file . "\" -print -quit"
+  let find_res=system(cmd)
+  if filereadable(find_res)
+    return 0
+  endif
+
+  exe com.' ' find_res
+endfun
+
+
+function! HeadSwitch(com)
+  if exists("b:inc_sw")
+    if a:com == 'e'
+      e#
+    elseif a:com == 'tabe'
+      tabe#
+    endif
+    return 0
+  endif
+  if match(expand("%"), '\.c') > 0
+    let b:inc_sw=substitute(expand("%:t"), '\.c\(.*\)', '.h*', "")
+  elseif match(expand("%"), "\\.h") > 0
+    let b:inc_sw=substitute(expand("%:t"), '\.h\(.*\)', '.c*', "")
+  elseif match(expand("%"), '\.pyx') > 0
+    let b:inc_sw=substitute(expand("%:t"), '\.pyx\(.*\)', '.pxd*', "")
+  elseif match(expand("%"), "\\.pxd") > 0
+    let b:inc_sw=substitute(expand("%:t"), '\.pxd\(.*\)', '.pyx*', "")
+  endif
+
+  call FindSw(a:com)
+endfun
+
+nmap h :call HeadSwitch('e')<CR>
+nmap <leader>h :call HeadSwitch('tabe')<CR>
+
+
+
+
 
 
 """""""""" Colorized it.
