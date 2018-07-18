@@ -282,7 +282,7 @@ alias grid='elinks http://localhost/grid.html'
 alias jupyter='jupyter-notebook --ip 127.0.0.1 ~/Desktop/workInProgress/networkofgraphs/process/notebook/ '
 alias gg="grid"
 
-### PDF Manip
+### PDF Cut
 function pdfpages() {
     # this function uses 3 arguments:
     #     $1 is the first page of the range to extract
@@ -295,6 +295,7 @@ function pdfpages() {
         -sOutputFile=${3%.pdf}_p${1}-p${2}.pdf \
         ${3}
 }
+### PDF Join
 function pdffusion() {
     # Or better !
     #pdftk Page1.pdf Page2.pdf Page3.pdf Page4.pdf Page5.pdf Page6.pdf cat output output.pdf
