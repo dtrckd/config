@@ -21,7 +21,6 @@ elif [ "$Verbose" == "-e" ]; then
         else
             vimdiff $files
         fi
-
     fi
 elif [ -z $Verbose ]; then
     # Show files that differs (first depth)
