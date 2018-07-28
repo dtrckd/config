@@ -7,13 +7,13 @@ Help='-v verbose \n
 
 if [ "$Verbose" == "-v" ]; then
     # Show all files that differs (all depth)
-    for _f in $(find dotfiles/ -type f); do
-        diff -q $_f ${HOME}${_f#dotfiles}
+    for _f in $(find etc/ -type f); do
+        diff -q $_f /etc/${_f#etc}
     done
 elif [ "$Verbose" == "-e" ]; then
     # Edit files that differs (first depth)
-    files=$(find dotfiles/ -maxdepth 1 -type f -exec \
-        sh -c 'diff -q {} ${HOME}/$(basename {})' \; | sed 's/ /\n/g' |  grep  '\.')
+    files=$(find etc/ -maxdepth 3 -type f -exec \
+        sh -c 'diff -q {} /{}' \; | sed 's/ /\n/g' |  grep  '\.')
     if [ ! -z "$files" ]; then
 
         if [ ! -z "$2" ]; then
@@ -24,8 +24,8 @@ elif [ "$Verbose" == "-e" ]; then
     fi
 elif [ -z $Verbose ]; then
     # Show files that differs (first depth)
-    find dotfiles/ -maxdepth 1 -type f -exec \
-        sh -c 'diff -q {} ${HOME}/$(basename {})' \;
+    find etc/ -maxdepth 3 -type f -exec \
+        sh -c 'diff -q {} /{}' \;
 else
     echo "$Help"
 fi
