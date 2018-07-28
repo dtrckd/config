@@ -3,7 +3,6 @@
 127.0.0.1 doku.localhost
 127.0.0.1 wekan.localhost
 
-
 # The following lines are desirable for IPv6 capable hosts
 ::1     localhost ip6-localhost ip6-loopback
 ff02::1 ip6-allnodes
