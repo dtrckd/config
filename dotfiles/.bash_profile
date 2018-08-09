@@ -205,6 +205,10 @@ function git_fatfiles() {
         sort -n -k1
 }
 
+function gitsearch() {
+    git log -S "$1" --source --all
+}
+
 # Git init
 function gitinit_dd() {
     git init
