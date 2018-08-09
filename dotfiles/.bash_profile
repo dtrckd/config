@@ -106,6 +106,7 @@ alias nmapw='nmap -sT -P0 -sV -p80,443 --script=http-headers'
 alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
 alias netl='netstat -taupen'
 alias netp='netstat -lantp | grep -i stab | awk -F/ "{print \$2 \$3}" | sort | uniq'
+alias fetch_debian='wget https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-xfce-CD-1.iso'
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R'
@@ -259,6 +260,7 @@ alias iup="cd $PX/networkofgraphs/process/pymake/pymake/"
 alias iupp="cd $PX/networkofgraphs/process/pymake/repo/ml/"
 alias iudoc="cd $PX/networkofgraphs/process/pymake/repo/docsearch/"
 alias iut="cd $PX/networkofgraphs/papers/personal/relational_models/"
+alias iutt="cd $PX/networkofgraphs/papers/personal/relational_models/thesis/manuscript/source/"
 alias iub="cd $PX/BaseBlue/"
 alias iubb="cd $PX/BaseBlue/bhp/bhp"
 alias iutm="cd $PX/BaseBlue/tmr/tm"
