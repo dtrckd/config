@@ -76,7 +76,7 @@ web_ama:
 
 #
 #
-# System
+# Backup
 #
 #
 
@@ -93,9 +93,6 @@ _propagate_dotfiles:
 	# Warning: Junk file will stay on target (cp don't remove files)
 	ls -A dotfiles/ | xargs -I{} cp -r dotfiles/{}  ~/
 
-bin:
-	mkdir -p ${HOME}/bin
-	$(foreach f,$(BIN_FILES), /bin/ln -fs $(f) $(HOME)/bin/$(notdir $(f)) ;)
 
 _vim:
 	mkdir -p ~/.vim/bundle/
@@ -104,6 +101,22 @@ _vim:
 
 _web:
 	ln -s ~/Desktop/workInProgress/webmain/ webmain
+
+bin:
+	mkdir -p ${HOME}/bin
+	$(foreach f,$(BIN_FILES), /bin/ln -fs $(f) $(HOME)/bin/$(notdir $(f)) ;)
+
+#
+#
+# Snapshot
+#
+#
+
+snapshot:
+	mkdir -p configure/snapshots/
+	pip freeze > configure/snapshots/pip
+	uname -a > configure/snapshots/uname
+	apt list --installed > configure/snapshots/apt
 
 
 _backup:
