@@ -9,9 +9,9 @@ OPTS="-y"
 #
 rmdir --ignore-fail-on-non-empty   ~/Public/ Templates/
 mkdir -p ~/Music ~/Documents ~/Videos ~/SC ~/Desktop ~/src ~/bin
-cp blue/* ~
+#cp blue/* ~
 
-# apt install sudo aptitude vim vim.nox firmaware-linux-nonfree
+# apt install sudo aptitude vim vim.nox firmware-linux-nonfree
 #
 # Basics? python3-pip python3-setuptools  rsync byobu ranger curl wget zip 
 
@@ -19,7 +19,7 @@ cp blue/* ~
 ### System
 ######################
 sudo aptitude install $OPTS -R sudo aptitude psmisc python3-pip python3-setuptools rfkill apt-file apt-show-versions htop strace 
-pip3 install --upgrade setuptools wheel
+pip3 install --user --upgrade setuptools wheel pip
 
 ######################
 ### Utils
@@ -37,8 +37,9 @@ fi
 sudo aptitude install $OPTS -R gfortran libopenblas-dev python3-tk
 if [ $AGGRESSIVE == 1 ]; then 
     sudo aptitude install $OPTS -R build-essential autoconf libtool pkg-config  python3-dev cython
+    pip3 install --user -U cython
 fi
-pip3 install $OPTS --user ipython jupyter matplotlib numpy scipy
+pip3 install --user -U ipython jupyter matplotlib numpy scipy
 
 ######################
 ### Apps
