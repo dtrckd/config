@@ -1,5 +1,8 @@
 # A lot of issue resolve in the Arch Wiki:  https://wiki.archlinux.org/index.php/Xfce
 
+# SSD ata erroor (ddry, timeout, freeze etc)
+https://wiki.archlinux.org/index.php/Solid_State_Drives#Resolving_NCQ_errors
+
 
 # If using xfce4-power-manager to control ACPI events, and not systemd >> /etc/systemd/logind.conf:
 HandlePowerKey=ignore
@@ -9,15 +12,13 @@ HandleLidSwitch=ignore
 
 # Fix black creen after unlock, after resume
 # This solution works on my laptop (ubuntu 16.04, but should work on previous OS):
-#open as root file
-#/etc/UPower/UPower.conf
-#and change IgnoreLid=false ==> IgnoreLid=true
-#save changes, restart system and now it works :-)
-#You can remove light-locker now.
+#    open as root file /etc/UPower/UPower.conf
+#    change IgnoreLid=false ==> IgnoreLid=true
+#    save changes, restart system and now it works :-)
+#    You can remove light-locker now.
 
 # Hibernation workaround >> /etc/pm/sleep.d/00...
 #!/bin/sh
-#
 case "$1" in
 suspend)
 ;;
@@ -31,7 +32,7 @@ vbetool dpms on
 esac
 
 # Disable beep >> ~/.gtkrc-2.0
-# see alos blacklist pcspkr
+# see also: blacklist pcspkr
 gtk-error-bell = 0 
 
 
@@ -81,7 +82,8 @@ xfce4-panel --quit ; sudo pkill xfconfd ; rm -rf ~/.config/xfce4/panel ~/.config
 # Other way to propagate xfconf:
 xfdesktop --reload
 
-# Enable Brave:  echo 1 > /proc/sys/kernel/unprivileged_userns_clone
+# Enable Brave
+echo 1 > /proc/sys/kernel/unprivileged_userns_clone
 
 # Desactivate automatic upgrade
 sudo systemctl mask unattended-upgrade.service
