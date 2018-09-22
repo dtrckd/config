@@ -1,6 +1,6 @@
 #!/bin/bash
 
-use=" $0 [-s] [--sysv] [--stop-serv] [--kill] [[--nuts] [--apt] [--ram] [--logs] | [-a]]"
+use=" $0 [-s] [[--sysv] [--cups] [--nuts] [--apt] [--ram] [--logs [[--kill]] | [-a]]"
 #-a: remove all
 #-s: simulate
 #--nuts: remove thumbnails, backup file~, Adobe flash tmp, dirty Windows-Mac files 
@@ -40,13 +40,14 @@ nutsfiles=".thumbnails/* .macromedia/Flash_Player/* .adobe/Flash_Player/* *~ des
 sysv_files="avahi-daemon cups-browsed cups docker mongod \
 	bluetooh rpcbind exim4 minissdpd saned bind9 mysqld ntp"
 
-serv_files="avahi-daemon cups-browsed cups docker mongod"
+cups_files="cups cups-browsed avahi-daemon"
 
 PurgeNuts=""
 PurgeApt=""
 PurgeRam=""
 PurgeLogs="" #todo
-StopServ=""
+PurgeSysV=""
+PurgeCups=""
 All="" 
 
 # For security
@@ -76,8 +77,8 @@ for i in `seq 1 $nbArg`; do
         Force="y"
     elif [ "$arg" == "--kill" ]; then
         Kill="y"
-    elif [ "$arg" == "--stop-serv" ]; then
-        StopServ="y"
+    elif [ "$arg" == "--cups" ]; then
+        PurgeCups="y"
     elif [ "$arg" == "-a" ]; then
         All="y"
     elif [ "$arg" == "-v" ]; then
@@ -173,9 +174,9 @@ if [ "$Simulate" == "s" ]; then
         done
     fi
 
-    if [ "$StopServ" != "" ]; then
-        echo 'purge StopServ:'
-        for f in $serv_files;do
+    if [ "$PurgeCups" != "" ]; then
+        echo 'purge cups:'
+        for f in $cups_files;do
             echo service $f stop
         done
     fi
@@ -221,14 +222,15 @@ else
             for f in $sysv_files;do
                 service $f stop 
                 update-rc.d -f $f remove
-                systemctl mask $f
+                #systemctl mask $f
             done
         fi
 
-    if [ "$StopServ" != "" ]; then
-        echo 'purge StopServ:'
-        for f in $serv_files;do
+    if [ "$PurgeCups" != "" ]; then
+        echo 'purge cups:'
+        for f in $cups_files;do
             service $f stop
+            update-rc.d -f $f remove
         done
     fi
 
