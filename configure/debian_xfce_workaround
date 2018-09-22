@@ -1,7 +1,9 @@
 # A lot of issue resolve in the Arch Wiki:  https://wiki.archlinux.org/index.php/Xfce
 
 # SSD ata erroor (ddry, timeout, freeze etc)
-https://wiki.archlinux.org/index.php/Solid_State_Drives#Resolving_NCQ_errors
+# https://wiki.archlinux.org/index.php/Solid_State_Drives#Resolving_NCQ_errors
+echo 1 > /sys/block/sda/device/queue_depth
+#aptitude  install  firmware-linux-nonfree
 
 
 # If using xfce4-power-manager to control ACPI events, and not systemd >> /etc/systemd/logind.conf:
