@@ -1,0 +1,42 @@
+## Temporary Files
+*.sw[mnopl]
+tags
+*.out
+*~
+
+## Build
+__pycache__/
+dist/
+build/
+*.egg*
+*cpython*.so
+*.py[co]
+*.[ao]
+*.aux
+*.bb[lg]
+.pytest_cache/***
+doc/html/***
+doc/graph/***
+
+
+# craxkehhsheeere
+
+app/tor-browser_en-US/
+app/images/*
+
+app/wallet/minimalist-ripple-client/
+app/wallet/Nexus/
+app/wallet/ripple-wallet/
+app/wallet/SolarCoin_2.1.8_64bit/
+
+# Big exclude
+#webmain/books/*
+#networkofgraphs/papers/*
+
+
+# Too heavy, not critical
+Projects/*
+
+
++ *
+
