@@ -384,6 +384,11 @@ alias to_azerty='setxkbmap fr' # AZERTY
 stty werase undef
 bind '\C-w:unix-filename-rubout'
 
+# auto-complete
+bind "TAB:menu-complete"
+bind "set show-all-if-ambiguous on"
+#bind "set menu-complete-display-prefix on # tape twice to complete on ambiguous
+
 HISTSIZE=1000
 HISTFILESIZE=2000
 IGNOREEOF=3   # Shell only exists after the 3th consecutive Ctrl-d
