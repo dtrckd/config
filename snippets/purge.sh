@@ -231,6 +231,9 @@ else
         for f in $cups_files;do
             service $f stop
             update-rc.d -f $f remove
+            # upstart is deprecated (update-rc...service also ?⁾
+            #systemctl stop $f
+            systemctl disable $f
         done
     fi
 
