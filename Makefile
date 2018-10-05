@@ -82,17 +82,27 @@ web_ama:
 
 BIN_FILES = $(shell cat configure/bin.txt)
 
-init_laptop: _configure_pc _propagate_dotfiles bin _vim _web
 
-_configure_pc:
-	cd configure/
-	./configure.sh
-	cd -
+
+
+bootstrap: _propagate_dotfiles bin _install_init
+
 
 _propagate_dotfiles:
 	# Warning: Junk file will stay on target (cp don't remove files)
 	ls -A dotfiles/ | xargs -I{} cp -r dotfiles/{}  ~/
 
+_install_init:
+	cd app/init_package
+	dpkg -i *.deb
+	cd -
+
+configure_laptop: _configure _vim _web
+
+_configure:
+	cd configure/
+	./configure.sh
+	cd -
 
 _vim:
 	mkdir -p ~/.vim/bundle/
@@ -100,7 +110,9 @@ _vim:
 	vim -c PluginUpdate
 
 _web:
-	ln -s ~/Desktop/workInProgress/webmain/ webmain
+	if [ ! -e webmain ]; then
+		ln -s ~/Desktop/workInProgress/webmain/ webmain
+	fi
 
 bin:
 	mkdir -p ${HOME}/bin
@@ -134,4 +146,5 @@ deb_clean:
 	apt-get -s autoclean
 
 clean:
+
 	@rm -vf $(CLEAN_FILES)

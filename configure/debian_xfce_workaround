@@ -3,6 +3,8 @@
 # SSD ata erroor (ddry, timeout, freeze etc)
 # https://wiki.archlinux.org/index.php/Solid_State_Drives#Resolving_NCQ_errors
 echo 1 > /sys/block/sda/device/queue_depth
+# Or
+#GRUB_CMDLINE_LINUX="libata.force=noncq" # In /etc/default/grub
 #aptitude  install  firmware-linux-nonfree
 
 
@@ -79,8 +81,8 @@ aptitude install xserver-xorg-input-synaptics xserver-xorg-input-libinput
 #gsettings set org.gnome.desktop.peripherals.touchpad send-events 'enabled'
 
 
-# Propagate new xfce4 conf (at least panel) (replace all .config/xfce4)
-xfce4-panel --quit ; sudo pkill xfconfd ; rm -rf ~/.config/xfce4/panel ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml ; xfce4-panel;
+# Propagate new xfce4 conf (at least panel)
+xfce4-panel --quit ; sudo pkill xfconfd ; rm -rf ~/.config/xfce4/panel ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml ; (copy from cponfig/dotfiles/.config/xfce4; xfce4-panel;
 # Other way to propagate xfconf:
 xfdesktop --reload
 
