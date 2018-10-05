@@ -46,8 +46,8 @@ pip3 install --user -U ipython jupyter matplotlib numpy scipy
 ### Apps
 ######################
 if [ $AGGRESSIVE == 1 ]; then 
-    sudo aptitude install $OPTS pandoc parallel
-    pip3 install --user pypandoc markdown2ctags pandoc-shortcaption
+    sudo aptitude install $OPTS pandoc lmodern pandoc-citeproc parallel
+    pip3 install --user pypandoc markdown2ctags pandoc-shortcaption pandoc-eqnos pandoc-fignos  pandoc-xnos pandocfilters
 fi
 
 if [ $PERS == 1 ]; then 
