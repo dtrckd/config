@@ -384,10 +384,12 @@ alias to_azerty='setxkbmap fr' # AZERTY
 stty werase undef
 bind '\C-w:unix-filename-rubout'
 
-# auto-complete
+# auto-complete (bind is akin to write in the .inputrc file)
 bind "TAB:menu-complete"
 bind "set show-all-if-ambiguous on"
-#bind "set menu-complete-display-prefix on # tape twice to complete on ambiguous
+bind "set menu-complete-display-prefix on" # tape twice to complete on ambiguous
+bind '"\e[Z": menu-complete-backward' # shift tab cycles backward
+bind "Control-q: complete" # stop to cycling and seek take the next key
 
 HISTSIZE=1000
 HISTFILESIZE=2000
