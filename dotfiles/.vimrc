@@ -156,7 +156,7 @@ set diffopt+=vertical
 
 
 """""""""""""""""""""""""""
-"""" Syntastic 
+"""" Syntastic
 """""""""""""""""""""""""""
 let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 0
@@ -185,13 +185,13 @@ let g:syntastic_quiet_messages = {
 
 
 """""""""""""""""""""""""""
-"""" Utils 
+"""" Utils
 """""""""""""""""""""""""""
 function! GitBranch()
     let branch = shellescape(system("git branch 2> /dev/null | sed  -e '/^[^*]/d' -e 's/* //'"))
     if branch != ''
         return ' ' . substitute(branch, '\n', '', 'g')
-    en  
+    en
     return ''
 
 
@@ -218,7 +218,7 @@ set tabpagemax=50
 set pastetoggle=£ " toggle paste mode
 "set clipboard=unnamed " dont support C-S V
 "set title "update window title for X and tmux
-set ruler		"show current position 
+set ruler		"show current position
 set laststatus=2
 set statusline=%<%f%m\ %r\ %h\ %w\ %015{_branch}\ %=%l/%L:%c\ %015(%p%%%)
 "set statusline=%<%{CurrDir()}/%f%m\ %r\ %h\ %w\ %015{_branch}\ %=%l/%L:%c\ %015(%p%%%)
@@ -269,17 +269,17 @@ endif
 """ Tabulations / Indentation
 """"""""""""""""""""""""""""""
 set expandtab
-set softtabstop=4 
+set softtabstop=4
 set shiftwidth=4
 set tabstop=4
 "set preserveindent " ?
 set smarttab " trivial
 
 set autoindent "keep indentation over line
-set cindent 
-set smartindent 
+set cindent
+set smartindent
 
-set foldmethod=indent 
+set foldmethod=indent
 set nofen               " open all folds. see z[mn] command
 
 """"""""""""""""""""""""""""""
@@ -287,7 +287,7 @@ set nofen               " open all folds. see z[mn] command
 """"""""""""""""""""""""""""""
 """ general
 imap <C-L> <Esc>
-"nnoremap ; : 
+"nnoremap ; :
 """ Saving
 "nnoremap <C-u> :w<CR>
 "imap <C-u> <C-o><C-u>
@@ -333,7 +333,7 @@ cnoremap $v vs %:p:h
 nmap <silent> dw diwi
 nmap <silent> da diWa
 " indent under block, and come back (zo?)
-noremap <Tab>= <S-v>)=''    
+noremap <Tab>= <S-v>)=''
 """ Info Tag
 nnoremap tf :TlistShowTag<CR>
 nnoremap tc :TagbarShowTag<CR>
@@ -407,7 +407,7 @@ func! DeleteTrailingWS()
   %s/\s\+$//ge
   exe "normal `z"
 endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
+autocmd BufWrite * :call DeleteTrailingWS()
 "au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 " for tab invisible bug (caused by set paste); try :%retab
 
@@ -417,13 +417,13 @@ autocmd BufWrite *.py :call DeleteTrailingWS()
 
 "au BufWritePost * if getline(1) =~ "^#!" | if getline(1) =~ "/bin/" | silent !chmod u+x <afile> | endif | endif
 au BufNewFile,BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x <afile>
-autocmd BufNewFile,BufRead *.nse set filetype=lua    
+autocmd BufNewFile,BufRead *.nse set filetype=lua
 """"""""""""""""""""""""""""""
 """" => Latex Files
 """"""""""""""""""""""""""""""
 au Filetype tex set wrap tw=90
 au Filetype tex set indentkeys="    "
-au BufRead,BufNewFile *.md set filetype=markdown 
+au BufRead,BufNewFile *.md set filetype=markdown
 "au BufRead,BufNewFile *.md set mouse=
 au BufRead,BufNewFile *.md set wrap tw=0
 
@@ -446,7 +446,7 @@ au filetype cpp set fdm=syntax
 autocmd BufNewFile,BufRead *.load set filetype=html
 au Filetype html :call TextEnableCodeSnip('python', '{{#py', '}}', 'SpecialComment')
 au Filetype html :call TextEnableCodeSnip('python', '<script>', '</script>', 'SpecialComment')
-" Comment 
+" Comment
 au Filetype html nmap # :s/\([^ ].*\)$/<!--\1-->/<CR>:noh<CR>
 au Filetype html nmap ~ :s/<!--\(.*\)-->/\1/<CR>:noh<CR>
 au BufNewFile,BufRead *.css nmap # :s/\([^ ].*\)$/\/\*\1\*\//<CR>:noh<CR>
@@ -472,7 +472,7 @@ map <leader>s? z=
 
 """"""
 """ Other Leader Map
-""" Makefile 
+""" Makefile
 au Filetype tex map <leader>m :!make 1>/dev/null &<cr>
 """switch header <-> .c # or a.vim
 map <Leader>h <ESC>:AV<CR>
@@ -480,9 +480,9 @@ map <Leader>ht <ESC>:AT<CR>
 "map <leader>h :vs %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 """ Varia
 " toggle wrap line
-nmap <leader>, :windo set wrap!<CR> 
+nmap <leader>, :windo set wrap!<CR>
 " save session
-nmap <leader>w :mks! .session.vim<CR> 
+nmap <leader>w :mks! .session.vim<CR>
 
 """ set mouse mode
 nmap <leader>ma :set mouse=a<cr>
@@ -658,14 +658,14 @@ endif
 "colorscheme molokai
 "colo sweyla682066
 "colo zenburn
-"colo darkburn 
+"colo darkburn
 colo dracula
 "colo hipster
 
 """ Custom Colors & Highlights
 hi TabLineSel ctermfg=Blue ctermbg=Green "headers
 hi TabLine ctermfg=0 ctermbg=7 "headers
-hi Search guifg=#000000 guibg=#8dabcd guisp=#8dabcd gui=NONE ctermfg=NONE ctermbg=110 cterm=NONE 
+hi Search guifg=#000000 guibg=#8dabcd guisp=#8dabcd gui=NONE ctermfg=NONE ctermbg=110 cterm=NONE
 hi SpellBad ctermbg=red cterm=underline
 hi Comment ctermfg=blue
 "hi Comment guifg=DarkGrey ctermfg=brown " like; green, white, brown, cyan(=string)
