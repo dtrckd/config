@@ -6,6 +6,7 @@ echo 1 > /sys/block/sda/device/queue_depth
 # Or
 #GRUB_CMDLINE_LINUX="libata.force=noncq" # In /etc/default/grub
 #aptitude  install  firmware-linux-nonfree
+### !!! comment amd64-microcode in modprobe blacklist !!!
 
 
 # If using xfce4-power-manager to control ACPI events, and not systemd >> /etc/systemd/logind.conf:
@@ -37,7 +38,7 @@ esac
 
 # Disable beep >> ~/.gtkrc-2.0
 # see also: blacklist pcspkr
-gtk-error-bell = 0 
+gtk-error-bell = 0
 
 
 #Transparent background for icon titles >> ~/.gtkrc-2.0:
@@ -73,11 +74,11 @@ xfwm4 --replace &
 xfce4-panel -r
 
 # SIOCSIFFLAGS: Operation not possible due to RF-kil
-rfkill unblock wifi 
+rfkill unblock wifi
 rfkill unblock all
 
 # better touchpad thinkpad (X220,), synclient -l # error, cant figure it out ?
-aptitude install xserver-xorg-input-synaptics xserver-xorg-input-libinput 
+aptitude install xserver-xorg-input-synaptics xserver-xorg-input-libinput
 #gsettings set org.gnome.desktop.peripherals.touchpad send-events 'enabled'
 
 
