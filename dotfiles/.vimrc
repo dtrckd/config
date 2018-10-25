@@ -337,6 +337,8 @@ noremap <Tab>= <S-v>)=''
 """ Info Tag
 nnoremap tf :TlistShowTag<CR>
 nnoremap tc :TagbarShowTag<CR>
+""" Search moves
+nnoremap _ ?<C-R>='__init__('<CR><CR>
 
 " Jump to the next or previous line that has the same level or a lower
 " level of indentation than the current line.
