@@ -86,8 +86,11 @@ alias diffd="diff -rq $1 $2" # show difference files between dir$1 and dir$2
 function pdf(){ evince $1 2>/dev/null & }
 function pdfo(){ okular $1 2>/dev/null & }
 
+alias vib="vim ~/.bash_profile"
+alias vimrc="vim ~/.vimrc"
+
 _PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/pymake/repo/ml/"
-_NDL="$HOME/src/config/configure/nodeslist"  
+_NDL="$HOME/src/config/configure/nodeslist"
 alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
 
 alias psa="ps -aux | grep -i --color"
@@ -153,6 +156,7 @@ function upgrademe() {
 ### GIT
 alias gitupdate='git remote update'
 alias gitg='gitg --all 1>/dev/null &'
+alias gitk='gitk &'
 alias gitb='git branch -av'
 alias gits='git status -sb'
 alias gitr='git remote -v'
@@ -160,8 +164,8 @@ gitcpush () { git commit -am "$1" && git push; }
 alias lsgit='for d in $(find -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" status -svb; echo; done'
 alias gitamend='git commit -a --amend'
 alias gitcommit='git commit -am'
-alias gitll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short" 
-alias gitl="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short  --all" 
+alias gitll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short"
+alias gitl="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short  --all"
 alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
@@ -199,7 +203,7 @@ function git_fatfiles() {
         grep blob | \
         sort -n -k 3 | \
         tail -n40 | \
-        while read hash type size; do 
+        while read hash type size; do
         echo -n "-e s/$hash/$size/p ";
         done) | \
         sort -n -k1
@@ -250,6 +254,8 @@ gs \
 alias sshb='autossh -D 1080 -p 24 vpn@vpn.vapwn.fr'
 alias sshtmr='autossh -D 1090 vpn@163.172.45.128'
 
+alias tmr='python3 -m tm manager'
+
 ### cd alias
 alias xs='cd'
 PX="${HOME}/workInProgress"
@@ -267,6 +273,9 @@ alias iut="cd $PX/networkofgraphs/papers/personal/relational_models/"
 alias iutt="cd $PX/networkofgraphs/papers/personal/relational_models/thesis/manuscript/source/"
 alias iub="cd $PX/BaseBlue/"
 alias iubb="cd $PX/BaseBlue/bhp/bhp"
+alias iudd="cd $PX/BaseBlue/bhp/data"
+alias iuww="cd $PX/BaseBlue/bhp/wiki"
+alias iuds="cd $PX/BaseBlue/designspec/"
 alias iutm="cd $PX/BaseBlue/tmr/tm"
 alias iug="cd $PX/BaseBlue/bhp/data/grammar"
 alias iux="cd $PX/BaseDump/bots/skopai/skopy"
@@ -314,10 +323,11 @@ function pdffusion() {
 #alias mute='amixer set Master mute'
 #alias unmute='amixer set Master unmute'
 #alias mute_toggle='amixer set Master toggle'
-alias xx='xmms2'
+alias x='xmms2'
+alias xinfo='xmms2 info'
 alias xl='xmms2 list'
 alias xls='xmms2 list | command grep --color -C 15 "\->"'
-alias xrm='xmms2 remove $(xmms2 list | grep "\->"| grep -o "\[.*/" | grep -wo "[0-9]*") && xmms2 next' 
+alias xrm='xmms2 remove $(xmms2 list | grep "\->"| grep -o "\[.*/" | grep -wo "[0-9]*") && xmms2 next'
 alias xp='xmms2 toggle'
 alias xn='xmms2 next'
 alias xj='xmms2 jump'
@@ -330,36 +340,27 @@ alias xss='xmms2 status'
 alias xrpone='xmms2 server config playlist.repeat_one 1'
 alias xrpall='xmms2 server config playlist.repeat_all 1'
 alias xrpclr='xmms2 server config playlist.repeat_one  0; xmms2 server config playlist.repeat_all 0'
-alias xadd='xmms2 add "`xx info | grep file:// | cut -d: -f2  | xargs -0 dirname`"'
-alias xll='ls "`xx info | grep file:// | cut -d: -f2  | xargs -0 dirname`"'
-xrand () { 
+alias xadd='xmms2 add "`xmms2 info | grep file:// | cut -d: -f2  | xargs -0 dirname`"'
+alias xwhere='xmms2 info | grep file:// | cut -d: -f2  | xargs -0 dirname'
+alias xll='ls "`xmms2 info | grep file:// | cut -d: -f2  | xargs -0 dirname`"'
+xshuff () {
+    # Add random files in xmms2
     if [ "$1" == "" ]; then NBF=50 ;else NBF=$1 ;fi
-    if [ -e "$NBF" -o "$NBF" == "." ]; then
-        cd $NBF
-        NB=`locate --regex "$(pwd)/.*\.(mp3|wav|wma|ogg|flac|mpc|m4a)" | wc -l`
-        fls=`locate --regex "$(pwd)/.*\.(mp3|wav|wma|ogg|flac|mpc|m4a)"`
-        NBF=50
-        cd -
-    else
-        NB=`locate --regex "/home/$(whoami)/Music/.*\.(mp3|wav|wma|ogg|flac|mpc|m4a)" | wc -l`
-        fls=`locate --regex "/home/$(whoami)/Music/.*\.(mp3|wav|wma|ogg|flac|mpc|m4a)"`
-    fi
-    if [ $NB -le $NBF ]; then
-        NBF=$NB
-    fi
-    #NB=`/usr/bin/find ~/Music -type f -exec sh -c "/usr/bin/file -b \"{}\" | /bin/grep -qi 'audio'" \; -print | wc -l`
-    #random=$(od -N1 -An -i /dev/urandom)
-    RANDL=`python -c "import sys;import random;\
-        sys.stdout.write(' '.join(map(str, random.sample(xrange(1,$NB+1),$NBF))))"`
+
+    fls=$(find $HOME/Music/ -type f -iname "*.ogg" -o -iname "*.mp4" -o -iname "*.mp3" -o -iname "*.flac")
+    NB=$(echo "$fls" | wc -l)
+
+    RANDL=`python3 -c "import sys;import random;\
+        sys.stdout.write(' '.join(map(str, random.sample(range(1,$NB+1),$NBF))))"`
     RANDN=""
     for i in $RANDL; do
         RANDN="${i}p;${RANDN}"
     done
     Songs=`echo "$fls" | sed -n "$RANDN"`
-    #Songs=`find ~/Music -type f | sed -n $RANDN`
-    xx playlist switch temp
+    xmms2 playlist switch temp
     xmms2 clear
-    echo -e "$Songs" | xargs -I {} -d "\n" xmms2 add "{}" 
+    echo -e "$Songs" | xargs -I {} -d "\n" xmms2 add "{}"
+    xmms2 jump 1 && xmms2 play
 }
 
 #############
@@ -461,7 +462,7 @@ if [ -x $(echo $TMUX |cut -d',' -f1 ) ]; then
     [ -f ~/.fzf.bash -a -d ~/.linuxbrew/Cellar/fzf ] && source ~/.fzf.bash
 
     ### Tmux git prompt
-    # git clone git://github.com/drmad/tmux-git.git ~/.tmux-git 
+    # git clone git://github.com/drmad/tmux-git.git ~/.tmux-git
     if  [[ ! -z $TMUX && -f ~/.tmux-git/tmux-git.sh ]]; then source ~/.tmux-git/tmux-git.sh; fi
 fi
 
