@@ -73,7 +73,7 @@ alias python="python -O" # basic optimizatio (ignore assert, ..)
 alias ipython="ipython --colors linux"
 alias py='python'
 alias py3='python3'
-alias pynotebook="jupyter --ip 127.0.0.1"
+alias pynotebook="jupyter-notebook --ip 127.0.0.1"
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:$(pwd)'
 alias xback='xbacklight'
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || byobu"
@@ -294,7 +294,7 @@ cdlk () { cd $(dirname $(readlink $1)); }
 alias amatop='elinks http://zombie-dust.imag.fr:8000/'
 #alias amatop='w3m http://zombie-dust.imag.fr:8000/'
 alias grid='elinks http://localhost/grid.html'
-alias jupyter='jupyter-notebook --ip 127.0.0.1 ~/Desktop/workInProgress/networkofgraphs/process/notebook/ '
+alias jupyter_net='jupyter-notebook --ip 127.0.0.1 ~/Desktop/workInProgress/networkofgraphs/process/notebook/ '
 alias gg="grid"
 
 ### PDF Cut
@@ -392,7 +392,7 @@ bind "set menu-complete-display-prefix on" # tape twice to complete on ambiguous
 bind '"\e[Z": menu-complete-backward' # shift tab cycles backward
 bind "Control-q: complete" # stop to cycling and seek take the next key
 
-HISTSIZE=1000
+HISTSIZE=2000
 HISTFILESIZE=2000
 IGNOREEOF=3   # Shell only exists after the 3th consecutive Ctrl-d
 
