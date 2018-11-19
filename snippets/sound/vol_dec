@@ -2,7 +2,7 @@
 
 VOL_STEP=0.5
 
-Sinks=$(pactl list sinks short | grep -i running | grep -o  ^[0-9])
+Sinks=$(pactl list sinks short | grep -iE "running" |grep -o  ^[0-9])
 for s in $Sinks; do
     pactl set-sink-volume $s -$VOL_STEP%
 done
