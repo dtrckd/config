@@ -87,12 +87,49 @@ xfce4-panel --quit ; sudo pkill xfconfd ; rm -rf ~/.config/xfce4/panel ~/.config
 # Other way to propagate xfconf:
 xfdesktop --reload
 
+
 # Enable Brave
 echo 1 > /proc/sys/kernel/unprivileged_userns_clone
+
+#
+# Fukin systemd
+#
 
 # Desactivate automatic upgrade
 sudo systemctl mask unattended-upgrade.service
 
-# reboot sound,a al
-pulseaudio -k && sudo alsa force-reload
+### Dont kill tmux/screen after logout !!!
+/etc/systemd/sustem.conf:KillUserProcesses=no
+# persitent user session...
+loginctl enable-linger dtrckd
+# See the user status
+loginctl user-status dtrckd
 
+# copy in /etc/systemd/user/tmux.service / not sure if needed to have tmux persitent after login ?
+[Unit]
+Description=Start tmux in detached session
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/tmux new-session -s %u -d
+ExecStop=/usr/bin/tmux kill-session -t %u
+
+[Install]
+WantedBy=default.target
+
+
+
+#
+# Sound Issue
+#
+#
+# reboot sound, and al
+pulseaudio -kv && sudo alsabat force-reload && pulseaudio -Dv
+# or (upgrade)
+pulseaudio -k && pulseaudio -D [-v]
+
+# Problem sound with pulseaudio (Dummy output), pactl list sinks short is SUSPENDED no control in pavucontrol.
+# Solution, set /etc/pulse/default.pa
+load-module module-alsa-sink device=default
+load-module module-alsa-source device=default
+load-module module-native-protocol-unix
