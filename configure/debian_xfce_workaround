@@ -133,3 +133,10 @@ pulseaudio -k && pulseaudio -D [-v]
 load-module module-alsa-sink device=default
 load-module module-alsa-source device=default
 load-module module-native-protocol-unix
+
+# is xmmsd chie with alse an kill pulseaudio
+nyxmms2 server config output.plugin pulse
+# or start xmms2 with pulse plusig
+killall xmms2d
+xmms2d -o pulse
+
