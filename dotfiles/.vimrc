@@ -622,10 +622,14 @@ endfun
 nmap h :call HeadSwitch('e')<CR>
 nmap <leader>h :call HeadSwitch('tabe')<CR>
 
+" use `ctags -R -f .tags` to create ctags file.
+set tags=./.tags;\
 
-
-
-
+fu! DoCtags()
+  let cmd = 'ctags --exclude=.git --exclude="*.log" --exclude="*.data" --exclude="*.pk" -R -f .tags'
+  let res=system(cmd)
+endfunction
+com! Ctags :call DoCtags()
 
 """""""""" Colorized it.
 " ~/.vimrc

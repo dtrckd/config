@@ -124,6 +124,7 @@ alias agpy='ag --py'
 #alias dodo='s2disk'
 alias locks='systemctl suspend'
 alias dodo='systemctl hibernate'
+alias list_masked_unit='systemctl list-unit-files | grep masked'
 
 ### VIM
 alias vim='vim.nox'
@@ -251,6 +252,17 @@ gs \
  $1
 }
 
+restore_alsa() {
+    while [ -z "$(pidof pulseaudio)" ]; do
+        sleep 0.5
+    done
+    alsactl -f /var/lib/alsa/asound.state restore
+}
+
+restore_pulseaudio() {
+    pulseaudio -kv && sudo alsabat force-reload && pulseaudio -Dv
+}
+
 alias sshb='autossh -D 1080 -p 24 vpn@vpn.vapwn.fr'
 alias sshtmr='autossh -D 1090 vpn@163.172.45.128'
 
@@ -345,9 +357,18 @@ alias xwhere='xmms2 info | grep file:// | cut -d: -f2  | xargs -0 dirname'
 alias xll='ls "`xmms2 info | grep file:// | cut -d: -f2  | xargs -0 dirname`"'
 xshuff () {
     # Add random files in xmms2
-    if [ "$1" == "" ]; then NBF=50 ;else NBF=$1 ;fi
+    if [ "$1" == "" ]; then
+        NBF=50
+        Path="$HOME/MUSIC/"
+    elif [ -d "$1" ]; then
+        NBF=50
+        Path="$1"
+    else
+        NBF=$1
+        Path="$HOME/MUSIC/"
+    fi
 
-    fls=$(find $HOME/Music/ -type f -iname "*.ogg" -o -iname "*.mp4" -o -iname "*.mp3" -o -iname "*.flac")
+    fls=$(find "$Path" -type f -iname "*.ogg" -o -iname "*.mp4" -o -iname "*.mp3" -o -iname "*.flac")
     NB=$(echo "$fls" | wc -l)
 
     RANDL=`python3 -c "import sys;import random;\
@@ -473,6 +494,11 @@ if [ -d $HOME/.bash_completion.d ]; then
             . $bcfile
         done
     fi
+fi
+
+if [ -f /etc/profile.d/bash_completion.sh ]; then
+    # Enable systemctl completion notably
+    . /etc/profile.d/bash_completion.sh
 fi
 
 
