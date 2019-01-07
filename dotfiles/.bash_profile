@@ -68,6 +68,7 @@ alias mkdit='mkdir'
 
 ### Utility commands
 alias so='source ~/.bashrc'
+alias whoisssd='lsblk  -d -o name,rota'
 alias python="python -O" # basic optimizatio (ignore assert, ..)
 #alias ipython="python -m IPython"
 alias ipython="ipython --colors linux"
@@ -83,6 +84,7 @@ alias evc="evince"
 alias tu="htop -u $USER"
 alias t="htop"
 alias diffd="diff -rq $1 $2" # show difference files between dir$1 and dir$2
+alias mvspace="rename 's/ /_/g'"
 function pdf(){ evince $1 2>/dev/null & }
 function pdfo(){ okular $1 2>/dev/null & }
 
@@ -95,7 +97,7 @@ alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --prog
 
 alias psa="ps -aux | grep -i --color"
 alias pstree='pstree -h'
-alias rmf='shred -zu'
+alias rmf='shred -zuv -n1' # find <directory> -depth -type f -exec shred -v -n 1 -z -u {} \;
 alias dict="dict -e cnrtl"
 alias dicten='dict enfr'
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
