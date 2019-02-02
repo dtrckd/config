@@ -297,13 +297,17 @@ alias iubg="cd $PX/BaseDump/bots/skopai/bigbangsearch"
 alias iuw="cd $PX/webmain/"
 alias iumd="cd $PX/webmain/mixtures/md"
 alias iumm="cd $HOME/src/config/app/mm/ && set +o history && unset HISTFILE"
-alias iuscrapy="cd $HOME/.local/lib/python3.6/site-packages/scrapy/"
+alias iuscrapy="cd $HOME/.local/lib/python3.7/site-packages/scrapy/"
 alias cdoc="cd ~/SC/Projects/hack-dir/doc-lib"
 alias cdhack="cd ~/SC/Projects/hack-dir/Linux/commandes"
 alias cdwww="cd ~/SC/Projects/Informatique/Reseau/www"
 alias cdsys="cd ~/SC/Projects/Informatique/System"
 alias cdrez="cd ~/SC/Projects/Informatique/Reseau/"
 cdlk () { cd $(dirname $(readlink $1)); }
+grepurl () { cat $1 | grep -o '[hrefHREF]=['"'"'"][^"'"'"']*['"'"'"]' | sed -e 's/^[hrefHREF]=["'"'"']//' -e 's/["'"'"']$//'; }
+alias mean="awk '{s+=$1}END{print \"ave:\",s/NR}' RS=\" \""
+
+#alias grepurl='xidel --extract "//a/@href"'
 
 alias amatop='elinks http://zombie-dust.imag.fr:8000/'
 #alias amatop='w3m http://zombie-dust.imag.fr:8000/'
@@ -397,9 +401,13 @@ xshuff () {
 # X Keyboard Mapping
 setxkbmap -option "nbsp:none" # disable non-breaking space, accidently genrated when typing <ALTGR>+<SPACE>
 # setxkbmap -option # to reset value
-# to find such character: grep  $'\xc2\xa0' filename
-# Find all files having such char (except binaries): find -type f ! -iname "*.pyc" -and ! -iname "*.pk" -and ! -path "*/.git/*" -exec grep -Il '.' {} \; |xargs -d '\n' grep -l $'\xc2\xa0'
-# to replace such character: sed 's/\xc2\xa0/ /g' filename
+# To find such character:
+#   grep  $'\xc2\xa0' filename
+# Find all files having such char (except binaries):
+#   find -type f ! -iname "*.pyc" -and ! -iname "*.pk" -and ! -path "*/.git/*" -exec grep -Il '.' {} \; |xargs -d '\n' grep -l $'\xc2\xa0'
+# To replace inline all bad spaces:
+#   xargs sed -i 's/\xc2\xa0/ /g'
+
 # QWERTY
 alias to_qwerty='setxkbmap us' # QWERTY
 alias to_azerty='setxkbmap fr' # AZERTY
