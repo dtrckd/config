@@ -1,7 +1,7 @@
-# Some usefull package 
+# Some usefull package
 
 ####################
-### System tools 
+### System tools
 ####################
 
 #oprofile # profiling
@@ -48,7 +48,7 @@ xclip # set/get the clipboard
 # for brifhtness and nvdia overclock
 #nvclock #or smartdimmer
 
-# Drives
+# Driver
 # to writing ntfs fs
 ntfs-3g
 mtools # fat handle
@@ -152,14 +152,14 @@ vlc
 ffmpeg
 mplayer
 vorbis-tools
-browser-plugin-freshplayer-pepperflash 
+browser-plugin-freshplayer-pepperflash
 pepperflashplugin-nonfree
 
 # to reading japanese caractere
 ttf-sazanami-gothic ttf-sazanami-mincho fonts-font-awesome
 
 # codecs ?
-w32codecs libdvdcss2 (dvdrip?) ||? ffmepg libavcode51 libav* 
+w32codecs libdvdcss2 (dvdrip?) ||? ffmepg libavcode51 libav*
 
 # printer #cups and drivers
 openprinting-ppds # postcript
@@ -171,8 +171,14 @@ avahi
 # bug for some usb mode ini (windows drivers...wan chip)
 usb-modeswitch
 
-# driver nvidia (for openGL et X) 
+# driver nvidia (for openGL et X)
 nvidia-glx_173.14.09-5_amd54 (package)
 NVIDIA-Linux-x86_64-256.35.run (mod)
+
+# graphics/drawing/ploting
+gimp
+inkscape
+geogebra
+dia
 
 

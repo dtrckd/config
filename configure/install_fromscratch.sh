@@ -23,7 +23,6 @@ if [ "$Target" == "atom" ]; then
     wget https://atom.io/download/deb?channel=beta -O atom-beta.deb
     popd
 fi
-
 if [ "$Target" == "wekan" ]; then
     # Wekan
     aptitude install snapd
@@ -51,8 +50,6 @@ if [ "$Target" == "wekan" ]; then
     #docker-compose up
     #popd
 fi
-
-
 if [ "$Target" == "robot3t" ]; then
     # Robo3t
     PAKURL="https://download.robomongo.org/1.2.1/linux/robo3t-1.2.1-linux-x86_64-3e50a65.tar.gz"
@@ -60,14 +57,12 @@ if [ "$Target" == "robot3t" ]; then
     tar zxvf $(basename $PAKURL)
     popd
 fi
-
 if [ "$Target" == "signal" ]; then
     # Signal
     curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
     echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
     sudo apt update && sudo apt install signal-desktop
 fi
-
 if [ "$Target" == "pycharm" ]; then
     # Pycharm
     pushd ~/Downloads/

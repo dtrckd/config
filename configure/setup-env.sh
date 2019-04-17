@@ -7,7 +7,8 @@ if [ -z "$Target" ]; then
     exit
 fi
 
-# @root
+# -become root
+
 if [ "$Target" == "go" ]; then
     # Golang
     GOTARGET="go1.9.1.linux-amd64.tar.gz "
@@ -16,15 +17,12 @@ if [ "$Target" == "go" ]; then
     rm $GOTARGET
     mkdir -p $HOME/.go
 fi
-
 if [ "$Target" == "npm" ]; then
     # NPM
     git clone https://github.com/creationix/nvm.git $HOME/.nvm
     . $HOME/.nvm/nvm.sh
     nvm install node
 fi
-
-# @root
 if [ "$Target" == "docker" ]; then
     # Docker
     #DOCKER_VER="docker-17.09.0-ce"
