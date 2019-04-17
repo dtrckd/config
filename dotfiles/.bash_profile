@@ -390,6 +390,7 @@ xshuff () {
     xmms2 jump 1 && xmms2 play
 }
 
+alias katai-struct-compiler='kaitai-struct-compiler -no-version-check'
 #############
 ### ENV
 #############
