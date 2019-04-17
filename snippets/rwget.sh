@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# wget -r -k -np -p -nc --wait=0.1 
+# wget -r -k -np -p -nc --wait=0.1
 wget --recursive \
          --convert-links \
          --no-parent \
@@ -9,5 +9,8 @@ wget --recursive \
          --wait=0.1 \
          $1
 
-#(see -m /mirror)?
+# See -m /mirror?
+
+# Dowload all pdf a page
+#wget -r -A "*.pdf" "http://blabla.."
 
