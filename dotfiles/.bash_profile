@@ -391,6 +391,7 @@ xshuff () {
 }
 
 alias katai-struct-compiler='kaitai-struct-compiler -no-version-check'
+
 #############
 ### ENV
 #############
