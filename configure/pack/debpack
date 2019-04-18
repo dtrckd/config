@@ -175,11 +175,20 @@ usb-modeswitch
 nvidia-glx_173.14.09-5_amd54 (package)
 NVIDIA-Linux-x86_64-256.35.run (mod)
 
-# graphics/drawing/ploting
-gimp
-inkscape
-geogebra
-aia
-blender/panda3D
+# image/graphics/drawing/ploting
+gimp # image manipulation
+inkscape # vectorial image manipulation
+geogebra # draw math geometric pic, with euclidian paradigm
+dia # draw graph/diagram
+blender/panda3D # 3D scene image creation
+tesseract # cli to  convert image to text (with ml/rnn)
+
+# audio/sound
+audacity
+lmms
+ardour
+rosegarden
+mixxx
+praat # sound synthetizer
 
 
