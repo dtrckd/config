@@ -1,0 +1,2 @@
+URxvt.cutchars: string           -- where to split words on double-clicks
+URXvt.tripleclickwords: boolean  -- prevent copying of the whole line
