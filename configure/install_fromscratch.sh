@@ -9,7 +9,7 @@
 Target="$1"
 
 if [ -z "$Target" ]; then
-    echo "Please enter: atom | signal | wekan | robot3t | pycharm"
+    echo "Please enter: atom | signal | wekan | robot3t | pycharm | drawio"
     exit
 fi
 
@@ -72,6 +72,16 @@ if [ "$Target" == "pycharm" ]; then
     wget $PAKURL
     tar zxvf $(basename $PAKURL)
     popd
+fi
+if [ "$Target" == "drawio" ]; then
+    git clone --recursive https://github.com/jgraph/drawio-desktop.git
+    cd drawio-desktop
+    npm install
+    cd drawio
+    npm install
+    export NODE_ENV=development
+    #cd ..
+    #npm start
 fi
 
 

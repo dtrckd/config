@@ -4,8 +4,10 @@
 [push]
 	default = simple
 [branch]
-	autosetupmerge = 
+	autosetupmerge =
 [credential]
     helper = cache --timeout=3600000
 [diff]
 	tool = vimdiff
+[pull]
+	rebase = true

@@ -249,7 +249,8 @@ set cursorline                          " hilight current line - cul
 "set hidden                             " Hide buffers when they are abandoned
 "set mouse=a                            " Enable mouse usage (all modes) in terminals
 "set textwidth=0                         " disable textwith
-set fo+=1cro fo-=t tw=0 " break comment at tw $size
+"set fo+=1cro fo-=t tw=0 " break comment at tw $size
+set fo+=1ro fo-=tc tw=0 " break comment at tw $size
 "set colorcolumn=-1
 set scrolloff=4                         " visible line at the top or bottom from cursor
 set linebreak                           " don't wrap word
@@ -277,8 +278,12 @@ set tabstop=4
 set smarttab " trivial
 
 set autoindent "keep indentation over line
+
+"set smartindent " <= mess up indent !
+" replacement:
 set cindent
-set smartindent
+set cinkeys-=0#
+set indentkeys-=0#
 
 set foldmethod=indent
 set nofen               " open all folds. see z[mn] command
@@ -421,6 +426,7 @@ autocmd BufWrite * :call DeleteTrailingWS()
 "au BufWritePost * if getline(1) =~ "^#!" | if getline(1) =~ "/bin/" | silent !chmod u+x <afile> | endif | endif
 au BufNewFile,BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x <afile>
 autocmd BufNewFile,BufRead *.nse set filetype=lua
+autocmd BufNewFile,BufRead *.nomad,*.consul set filetype=conf
 """"""""""""""""""""""""""""""
 """" => Latex Files
 """"""""""""""""""""""""""""""

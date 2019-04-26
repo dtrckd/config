@@ -180,6 +180,7 @@ gimp # image manipulation
 inkscape # vectorial image manipulation
 geogebra # draw math geometric pic, with euclidian paradigm
 dia # draw graph/diagram
+drawio # like dia, more powerfull, ergonomic
 blender/panda3D # 3D scene image creation
 tesseract # cli to  convert image to text (with ml/rnn)
 

@@ -104,6 +104,8 @@ sudo systemctl mask unattended-upgrade.service
 loginctl enable-linger dtrckd
 # See the user status
 loginctl user-status dtrckd
+# remove/redirect the lock screen "the session is locked" that dont redirect !!
+loginctl unlock-session <session-id>
 
 # copy in /etc/systemd/user/tmux.service / not sure if needed to have tmux persitent after login ?
 [Unit]
