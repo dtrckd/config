@@ -21,16 +21,17 @@ if [ "$Target" == "atom" ]; then
     pushd ~/Downloads/
     # Atom
     wget https://atom.io/download/deb?channel=beta -O atom-beta.deb
+    sudo dpkg -i atom-beta.deb
     popd
 fi
 if [ "$Target" == "wekan" ]; then
     # Wekan
-    aptitude install snapd
+    sudo aptitude install snapd
     snap install wekan
     snap set wekan root-url="http://wekan.localhost"
     snap set wekan port='8080'
     #snap set wekan mongodb-port=27019 # default
-    systemctl restart snap.wekan.wekan
+    sudo systemctl restart snap.wekan.wekan
     #snap start wekan.wekan
 
     # Install all Snap updates automatically between 02:00AM and 04:00AM
