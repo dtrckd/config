@@ -3,7 +3,7 @@
 use=" $0 [-s] [[--sysv] [--cups] [--nuts] [--apt] [--ram] [--logs [[--kill]] | [-a]]"
 #-a: remove all
 #-s: simulate
-#--nuts: remove thumbnails, backup file~, Adobe flash tmp, dirty Windows-Mac files 
+#--nuts: remove thumbnails, backup file~, Adobe flash tmp, dirty Windows-Mac files
 #--ram: empty ram
 #--logs: remove compressed log
 #--kill: empty log
@@ -30,10 +30,10 @@ use=" $0 [-s] [[--sysv] [--cups] [--nuts] [--apt] [--ram] [--logs [[--kill]] | [
 ####################################################################################################
 
 logext=".gz"
-#nutsfile[1]="/home/*/.thumbnails" 
+#nutsfile[1]="/home/*/.thumbnails"
 #nutsfile[2]="~/.macromedia/Flash_Player"
 #nutsfile[3]="~/.adobe/Flash_Player"
-#nutsfile[4]="*~"  
+#nutsfile[4]="*~"
 ## Extremly carrefull to * to not remove everithing !
 nutsfiles=".thumbnails/* .macromedia/Flash_Player/* .adobe/Flash_Player/* *~ desktop.ini Thumbs.db .DS_Store"
 
@@ -48,7 +48,7 @@ PurgeRam=""
 PurgeLogs="" #todo
 PurgeSysV=""
 PurgeCups=""
-All="" 
+All=""
 
 # For security
 Simulate=""
@@ -84,14 +84,14 @@ for i in `seq 1 $nbArg`; do
     elif [ "$arg" == "-v" ]; then
         Verbose="y"
     else
-        echo "error:${use}" 
+        echo "error:${use}"
         exit 1
     fi
     shift
 done
 
 if [ "$nbArg" == 0 ]; then
-    echo "error:${use}" 
+    echo "error:${use}"
     exit 1
 fi
 
@@ -140,7 +140,7 @@ if [ "$Simulate" == "s" ]; then
         #sizeNuts="0"
         #NB=${_sizeNuts[i]}
         #let "sizeNuts = $NB + $sizeNuts"
-        
+
         CPT=1
         sizeNuts="0"
         for f in $nutsfiles; do
@@ -162,9 +162,10 @@ if [ "$Simulate" == "s" ]; then
     fi
 
     if [ "$PurgeApt" != "" ]; then
-        aptitude -s -y clean
-        aptitude -s -y purge `dpkg -l | grep "^rc" | tr -s ' ' | cut -d ' ' -f 2`
+        apt -s -y clean
+        apt -s -y purge `dpkg -l | grep "^rc" | tr -s ' ' | cut -d ' ' -f 2`
         du -sh /var/cache/apt/archives
+        apt -s autoremove
     fi
 
     if [ "$PurgeSysV" != "" ]; then
@@ -192,8 +193,8 @@ else
         fi
 
         if [ "$PurgeNuts" != "" ]; then
-            #find /home/*/.thumbnails -type f -print0 | xargs -0 rm 
-            #find ~ -name *~ -type f -print0 | xargs -0 rm 
+            #find /home/*/.thumbnails -type f -print0 | xargs -0 rm
+            #find ~ -name *~ -type f -print0 | xargs -0 rm
             #find ~/.macromedia/Flash_Player -type f -name *~ -print0 | xargs -0 rm
             #find ~/.adobe/Flash_Player -type f -print0 | xargs -0 rm
             history -c
@@ -212,15 +213,16 @@ else
         fi
 
         if [ "$PurgeApt" != "" ]; then
-            aptitude clean
-            aptitude purge `dpkg -l | grep "^rc" | tr -s ' ' | cut -d ' ' -f 2`
+            apt clean
+            apt purge `dpkg -l | grep "^rc" | tr -s ' ' | cut -d ' ' -f 2`
+            apt autoremove
 
         fi
 
         if [ "$PurgeSysV" != "" ]; then
             echo 'purge systemV init:'
             for f in $sysv_files;do
-                service $f stop 
+                service $f stop
                 update-rc.d -f $f remove
                 #systemctl mask $f
             done
