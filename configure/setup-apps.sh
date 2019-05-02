@@ -9,14 +9,28 @@
 Target="$1"
 
 if [ -z "$Target" ]; then
-    echo "Please enter: atom | signal | wekan | robot3t | pycharm | drawio"
+    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio"
     exit
 fi
 
 
-#sudo apt-get update
 
 
+if [ "$Target" == "mongo" ]; then
+    # mongodb-org -- stretch/9
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
+    echo "deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+    sudo apt-get update
+    sudo apt-get install -y mongodb-org
+
+    cp ../app/systemd/mongod.servoce /lib/systemd/system/mongod.service
+    mkdir -p /var/log/mongodb/ /var/lib/mongodb/
+    chown mongodb:mongodb /var/log/mongodb/ /var/lib/mongodb/
+    chmod 0755 /var/log/mongodb/ /var/lib/mongodb/
+    systemctl --system daemon-reload
+    systemctl enable mongod.service
+    # or with docker
+fi
 if [ "$Target" == "atom" ]; then
     pushd ~/Downloads/
     # Atom
@@ -86,12 +100,12 @@ if [ "$Target" == "drawio" ]; then
 fi
 
 
-# TODO
+### TODO
 
-# APT contrib
-# apt install mongodb-org
-# apt install virtualbox qemu
-# apt install brave
+# APT contrib:
+# virtualbox
+# qemu
+# brave
 
 
 # Ethereum (work in ubuntu, not debian 11/2017 => but yes change distribution `bionic` to `xenial`.)

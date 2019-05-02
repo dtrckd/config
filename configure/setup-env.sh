@@ -7,7 +7,8 @@ if [ -z "$Target" ]; then
     exit
 fi
 
-# -become root
+
+
 
 if [ "$Target" == "go" ]; then
     # Golang
@@ -32,8 +33,8 @@ if [ "$Target" == "docker" ]; then
     tar xzvf $DOCKER_VER.tgz
     sudo cp docker/* /usr/bin/
     rm -r docker/ $DOCKER_VER.tgz
-    #curl -o /etc/init.d/docker https://raw.githubusercontent.com/dotcloud/docker/master/contrib/init/sysvinit-debian/docker
-    wget -O /etc/init.d/docker https://raw.githubusercontent.com/dotcloud/docker/master/contrib/init/sysvinit-debian/docker
+    #wget -O docker_file https://raw.githubusercontent.com/dotcloud/docker/master/contrib/init/sysvinit-debian/docker
+    sudo cp ../app/systemd/docker /etc/init.d/docker
     sudo chmod +x /usr/bin/docker /etc/init.d/docker
     sudo addgroup docker
     #update-rc.d -f docker defaults
