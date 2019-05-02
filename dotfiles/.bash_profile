@@ -124,9 +124,13 @@ alias agpy='ag --py'
 ### XFCE
 #alias locks='s2ram -f -m'
 #alias dodo='s2disk'
+alias ctr='systemctl'
 alias locks='systemctl suspend'
 alias dodo='systemctl hibernate'
-alias list_masked_unit='systemctl list-unit-files | grep masked'
+alias halt='systemctl poweroff'
+alias ls-service='ctr -t service --state running'
+alias ls-masked-unit='ctr --state masked' # systemctl list-unit-files | grep masked
+alias ls-failed-unit='ctr --state failed' # systemctl --failed
 
 ### VIM
 alias vim='vim.nox'
@@ -267,6 +271,7 @@ restore_pulseaudio() {
 
 alias sshb='autossh -D 1080 -p 24 vpn@vpn.vapwn.fr'
 alias sshtmr='autossh -D 1090 vpn@163.172.45.128'
+alias sshchocobo='autossh root@51.15.89.180'
 
 alias tmr='python3 -m tm manager'
 
