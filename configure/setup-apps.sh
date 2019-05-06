@@ -29,7 +29,12 @@ if [ "$Target" == "mongo" ]; then
     chmod 0755 /var/log/mongodb/ /var/lib/mongodb/
     systemctl --system daemon-reload
     systemctl enable mongod.service
-    # or with docker
+    # Or with docker
+
+    # pull image..and  launch automatically?
+    docker pull mongo[:tag]
+    # run mongo with port forward and map local drive to access storage
+    docker run -d -p 27017:27017 -v /home/dtrckd/src/data/mongo-docker:/data/db mongo
 fi
 if [ "$Target" == "atom" ]; then
     pushd ~/Downloads/
