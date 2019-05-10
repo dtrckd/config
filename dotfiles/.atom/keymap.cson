@@ -1,0 +1,4 @@
+'.platform-linux':
+  'ctrl-i':'fuzzy-finder:toggle-file-finder'
+'.platform-win32, .platform-linux':
+  'ctrl-p':'tree-view:toggle'

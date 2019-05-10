@@ -109,8 +109,9 @@ alias curlH='curl -I'
 alias myip='nmap -sC -p80 -n -Pn --script=http-title www.showmemyip.com | grep -i "my IP" | cut -d: -f3 | tr -d " \n" |  xclip -selection clipboard && xclip -o -selection clipboard && echo'
 alias nmapw='nmap -sT -P0 -sV -p80,443 --script=http-headers'
 alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
-alias netl='netstat -taupen'
-alias netp='netstat -lantp | grep -i stab | awk -F/ "{print \$2 \$3}" | sort | uniq'
+#alias netl='netstat -taupen'
+alias netl='netstat -plant'
+alias netp='netstat -plant | grep -i stab | awk -F/ "{print \$2 \$3}" | sort | uniq'
 alias fetch_debian='wget https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-xfce-CD-1.iso'
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
@@ -271,7 +272,8 @@ restore_pulseaudio() {
 
 alias sshb='autossh -D 1080 -p 24 vpn@vpn.vapwn.fr'
 alias sshtmr='autossh -D 1090 vpn@163.172.45.128'
-alias sshchocobo='autossh root@51.15.89.180'
+alias sshmachine='autossh green@82.251.4.205'
+alias sshchocobo='autossh bomberman@51.15.89.180'
 
 alias tmr='python3 -m tm manager'
 
