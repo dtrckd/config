@@ -481,7 +481,9 @@ map <leader>s? z=
 
 """"""
 """ Other Leader Map
+map <leader>e :!. % &<cr>
 """ Makefile
+map <leader>m :!make &<cr>
 au Filetype tex map <leader>m :!make 1>/dev/null &<cr>
 """switch header <-> .c # or a.vim
 map <Leader>h <ESC>:AV<CR>
