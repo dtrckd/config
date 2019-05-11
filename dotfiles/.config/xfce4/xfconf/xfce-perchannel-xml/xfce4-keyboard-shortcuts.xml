@@ -47,6 +47,8 @@
       <property name="&lt;Alt&gt;s" type="string" value="xmms2 seek +10"/>
       <property name="&lt;Alt&gt;space" type="string" value="xmms2 toggle"/>
       <property name="&lt;Super&gt;F12" type="string" value="xset dpms force off"/>
+      <property name="&lt;Super&gt;k" type="string" value="/bin/ksysguard"/>
+      <property name="Print" type="string" value="xfce4-screenshooter "/>
     </property>
   </property>
   <property name="xfwm4" type="empty">

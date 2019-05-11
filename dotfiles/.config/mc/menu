@@ -359,7 +359,7 @@ o       Open next a free console
         open -s -- sh
 
 x       Open in xmms2
-        xmms2 playlist create temp
+        #xmms2 playlist create temp
         xmms2 playlist switch temp
         xmms2 clear
         xmms2 add %f
