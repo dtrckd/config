@@ -26,8 +26,10 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
+"Plugin 'Valloric/YouCompleteMe' " too heavy
+Plugin 'ajh17/VimCompletesMe' " see also deoplete (hard to setup)
+"Plugin 'maxboisvert/vim-simple-complete' " simple ?
 "Plugin 'ervandew/supertab'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'troydm/zoomwintab.vim'
 Plugin 'gotcha/vimpdb'
 Plugin 'itchyny/calendar.vim'
@@ -52,18 +54,27 @@ Plugin 'ciaranm/detectindent'
 """""""""""""""""""""""""""
 """" Plugin conf
 """""""""""""""""""""""""""
-let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+
+""" Autocompletion
+let g:SuperTabNoCompleteAfter = ['^', '\s', '#', "'", '"', '%', '/']
+let g:ycm_autoclose_preview_window_after_insertion = 1
+autocmd FileType vim let b:vcm_tab_complete = 'vim'
+
+""" ctags
 let g:easytags_updatetime_min = 180000
 let g:easytags_auto_update = 0
-let g:SuperTabNoCompleteAfter = ['^', '\s', '#', "'", '"', '%', '/']
+
+""" NerdTree
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 map <C-p> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+""" ACK
 let g:ackprg = 'ag --vimgrep'
-" wget the dict at http://ftp.vim.org/vim/runtime/spell/
-""" Activate vim-docstring
-"autocmd FileType python PyDocHide
+
+""" Rainbow colors
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 let g:rainbow_conf = {
             \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
             \   'ctermfgs': ['white','lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
@@ -88,6 +99,10 @@ let g:rainbow_conf = {
             \       'stylus': 0,
             \   }
             \}
+" wget the dict at http://ftp.vim.org/vim/runtime/spell/
+""" Activate vim-docstring
+"autocmd FileType python PyDocHide
+
 
 """""""""""""""""""""""""""
 """" Class list / IDE
@@ -343,8 +358,6 @@ noremap <Tab>= <S-v>)=''
 """ Info Tag
 nnoremap tf :TlistShowTag<CR>
 nnoremap tc :TagbarShowTag<CR>
-""" Search moves
-nnoremap _ ?<C-R>='__init__('<CR><CR>
 
 " Jump to the next or previous line that has the same level or a lower
 " level of indentation than the current line.
@@ -409,6 +422,10 @@ au filetype vim  set ts=2 sts=2 sw=2
 """"""""""""""""""""""""""""""
 au BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent fileformat=unix
 au BufNewFile,BufRead *.py set formatoptions-=tc " prevent inserting \n. Where does it come from ????
+
+""" Search moves
+au BufNewFile,BufRead *.py\> nnoremap _ ?<C-R>='__init__('<CR><CR>
+au BufNewFile,BufRead *.pyx nnoremap _ ?<C-R>='__cinit__('<CR><CR>
 
 func! DeleteTrailingWS()
   exe "normal mz"

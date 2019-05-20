@@ -442,25 +442,7 @@ export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
 export PATH="/bin:/sbin:/usr/sbin:/opt/bin:/usr/bin:/usr/local/bin:$HOME/.local/bin:$HOME/bin"
 
-# Python
-Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
-export PYTHONPATH="$PX/BaseDump/bots/skopai/common/"
-export PYTHONPATH="$PYTHONPATH:$PX/networkofgraphs/process/pymake"
-
-# Numpy
-export OMP_NUM_THREADS=1  # Number of thread used by numpy
-
-# GOLANG
-export GOPATH=$HOME/.go
-export PATH="$PATH::$GOPATH/bin:/usr/local/go/bin"
-
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-
-#### Man Pages
+### Man Pages
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
 export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
@@ -483,6 +465,23 @@ else
 fi
 export TERM='xterm-256color'
 
+# Python
+Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
+export PYTHONPATH="$PX/BaseDump/bots/skopai/common/"
+export PYTHONPATH="$PYTHONPATH:$PX/networkofgraphs/process/pymake"
+
+# Numpy
+export OMP_NUM_THREADS=1  # Number of thread used by numpy
+
+# GOLANG
+export GOPATH=$HOME/.go
+export PATH="$PATH::$GOPATH/bin:/usr/local/go/bin"
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 
 ### Vundle
 #git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -491,10 +490,10 @@ export TERM='xterm-256color'
 #git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 ### Brew
-# git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
-export PATH="$PATH:$HOME/.linuxbrew/bin"
-export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+#git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
+#export PATH="$PATH:$HOME/.linuxbrew/bin"
+#export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+#export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
 if [ -x $(echo $TMUX |cut -d',' -f1 ) ]; then
 
