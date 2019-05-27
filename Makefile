@@ -29,13 +29,13 @@ MD2WIKI = webmain/tez/md2wiki.py
 # Files to compile
 ### Make a rule to downlad the content instead
 # Dowload the content
-TAG := $(wildcard $(BD_WEB)/$(BD_MIXT)/md/*.md) 
-TEZ := $(wildcard $(BD_WEB)/$(BD_TEZ)/md/*.md) 
+TAG := $(wildcard $(BD_WEB)/$(BD_MIXT)/md/*.md)
+TEZ := $(wildcard $(BD_WEB)/$(BD_TEZ)/md/*.md)
 PAPERS := $(foreach file,$(PAPERS_NAME), $(BD_PAPER)/$(file))
 
 # Web files to copy
-HTML_FILES_MIXT := css/ js/ images/ html/ index.php menu.php 
-HTML_FILES_TEZ  := css/ js/ images/ html/ a.php menu.php papers/ mlss2015/  
+HTML_FILES_MIXT := css/ js/ images/ html/ index.php menu.php
+HTML_FILES_TEZ  := css/ js/ images/ html/ a.php menu.php papers/ mlss2015/
 HTML_FILES_MAIN := css/ js/ images/ *.html *.php *.py
 
 default: local
@@ -58,7 +58,7 @@ papers:
 	$(foreach paper,$(PAPERS), /bin/cp -u $(paper) $(BD_WEB)/tez/papers/ ;)
 
 web_local:
-	$(info Web Local in $(WEB_LOCAL)) 
+	$(info Web Local in $(WEB_LOCAL))
 	sudo mkdir -p $(WEB_LOCAL)/$(BD_MIXT)
 	sudo mkdir -p $(WEB_LOCAL)/$(BD_TEZ)
 	sudo cp -ruv $(addprefix $(BD_WEB)/mixtures/, $(HTML_FILES_MIXT)) $(WEB_LOCAL)/$(BD_MIXT)
@@ -66,7 +66,7 @@ web_local:
 	sudo cp -ruv $(addprefix $(BD_WEB)/, $(HTML_FILES_MAIN)) $(WEB_LOCAL)
 
 web_ama:
-	$(info Web Local in $(WEB_AMA)) 
+	$(info Web Local in $(WEB_AMA))
 	@mkdir -p $(WEB_AMA)/$(BD_MIXT)
 	@mkdir -p $(WEB_AMA)/$(BD_TEZ)
 	sudo cp -ruv $(addprefix $(BD_WEB)/mixtures/, $(HTML_FILES_MIXT)) $(WEB_AMA)/$(BD_MIXT)
@@ -84,20 +84,20 @@ BIN_FILES = $(shell cat configure/bin.txt)
 
 
 
+configure_laptop: _install_init _configure _vim _web bootstrap
 
-bootstrap: _propagate_dotfiles bin _install_init
-
+bootstrap: _propagate_dotfiles bin
 
 _propagate_dotfiles:
 	# Warning: Junk file will stay on target (cp don't remove files)
 	ls -A dotfiles/ | xargs -I{} cp -r dotfiles/{}  ~/
+	cp dotfiles/.tmux.conf ~/.byobu/
 
 _install_init:
 	cd app/init_package
 	dpkg -i *.deb
 	cd -
 
-configure_laptop: _configure _vim _web
 
 _configure:
 	cd configure/

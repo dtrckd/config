@@ -310,6 +310,7 @@ alias cdhack="cd ~/SC/Projects/hack-dir/Linux/commandes"
 alias cdwww="cd ~/SC/Projects/Informatique/Reseau/www"
 alias cdsys="cd ~/SC/Projects/Informatique/System"
 alias cdrez="cd ~/SC/Projects/Informatique/Reseau/"
+alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
 cdlk () { cd $(dirname $(readlink $1)); }
 grepurl () { cat $1 | grep -o '[hrefHREF]=['"'"'"][^"'"'"']*['"'"'"]' | sed -e 's/^[hrefHREF]=["'"'"']//' -e 's/["'"'"']$//'; }
 alias mean="awk '{s+=$1}END{print \"ave:\",s/NR}' RS=\" \""
@@ -465,8 +466,11 @@ else
 fi
 export TERM='xterm-256color'
 
+# C
+cppversion='g++ -dM -E -x c++  /dev/null | grep -F __cplusplus'
+
 # Python
-Python_version=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
+pythonversion=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
 export PYTHONPATH="$PX/BaseDump/bots/skopai/common/"
 export PYTHONPATH="$PYTHONPATH:$PX/networkofgraphs/process/pymake"
 
