@@ -462,7 +462,7 @@ au BufNewFile,BufRead *.plt,*.gnuplot,*.gnu set filetype=gnuplot
 """"""""""""""""""""""""""""""
 """" => C, Java Files
 """"""""""""""""""""""""""""""
-au filetype cpp, java  set ts=8 sts=8 sw=8
+"au filetype cpp, java  set ts=8 sts=8 sw=8
 au filetype cpp set fdm=syntax
 "au filetype cpp set cinoptions=>s,e0,f0,{0,}0,^0,:s,=s,l0,gs,hs,ps,ts,+s,c3,C0,(2s,us,U0,w0,j0,)20,*30
 
