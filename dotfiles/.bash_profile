@@ -305,8 +305,9 @@ alias iuw="cd $PX/webmain/"
 alias iumd="cd $PX/webmain/mixtures/md"
 alias iumm="cd $HOME/src/config/app/mm/ && set +o history && unset HISTFILE"
 alias iuscrapy="cd $HOME/.local/lib/python3.7/site-packages/scrapy/"
-alias cdoc="cd ~/SC/Projects/hack-dir/doc-lib"
-alias cdhack="cd ~/SC/Projects/hack-dir/Linux/commandes"
+alias cdoc="cd ~/SC/Projects/hack-dir/doc"
+alias cdia2="cd ~/SC/Projects/hack-dir/IA"
+alias cdia="cd $PX/networkofgraphs/papers"
 alias cdwww="cd ~/SC/Projects/Informatique/Reseau/www"
 alias cdsys="cd ~/SC/Projects/Informatique/System"
 alias cdrez="cd ~/SC/Projects/Informatique/Reseau/"
@@ -373,7 +374,7 @@ xshuff () {
     # Add random files in xmms2
     if [ "$1" == "" ]; then
         NBF=50
-        Path="$HOME/MUSIC/"
+        Path="$HOME/Music/"
     elif [ -d "$1" ]; then
         NBF=50
         Path="$1"
@@ -386,7 +387,8 @@ xshuff () {
     NB=$(echo "$fls" | wc -l)
 
     RANDL=`python3 -c "import sys;import random;\
-        sys.stdout.write(' '.join(map(str, random.sample(range(1,$NB+1),$NBF))))"`
+        nbf = min($NB, $NBF);\
+        sys.stdout.write(' '.join(map(str, random.sample(range(1,$NB+1), nbf))))"`
     RANDN=""
     for i in $RANDL; do
         RANDN="${i}p;${RANDN}"

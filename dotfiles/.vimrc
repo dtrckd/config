@@ -57,7 +57,10 @@ Plugin 'ciaranm/detectindent'
 
 """ Autocompletion
 let g:SuperTabNoCompleteAfter = ['^', '\s', '#', "'", '"', '%', '/']
+let g:SuperTabClosePreviewOnPopupClose = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif " more general but wont be able to switch/scroll the preview...
 autocmd FileType vim let b:vcm_tab_complete = 'vim'
 
 """ ctags
