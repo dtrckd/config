@@ -435,8 +435,9 @@ func! DeleteTrailingWS()
   %s/\s\+$//ge
   exe "normal `z"
 endfunc
-autocmd BufWrite * :call DeleteTrailingWS()
-"au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+autocmd BufWrite *.py,*.pyx,*.pyd,*.c,*.cpp,*.h,*.sh,*.txt,*.js,*.html,*.css :call DeleteTrailingWS()
+"au BufRead,BufNe*.pyx wFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 " for tab invisible bug (caused by set paste); try :%retab
 
 " manage indentation error...

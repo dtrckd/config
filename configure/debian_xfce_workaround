@@ -142,3 +142,9 @@ nyxmms2 server config output.plugin pulse
 killall xmms2d
 xmms2d -o pulse
 
+# activate sound for an other logged user
+fuser /dev/snd/*
+     /dev/snd/controlC0:  15074 20025 # here is the pid used by alsa/pulseaudiuo => kill -9 those pid
+     /dev/snd/pcmC0D0p:   15074m
+
+
