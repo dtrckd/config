@@ -312,6 +312,7 @@ alias cdia="cd $PX/networkofgraphs/papers"
 alias cdwww="cd ~/SC/Projects/Informatique/Reseau/www"
 alias cdsys="cd ~/SC/Projects/Informatique/System"
 alias cdrez="cd ~/SC/Projects/Informatique/Reseau/"
+alias cdid="cd ~/SC/Papiers/idh/id_ad/"
 alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
 cdlk () { cd $(dirname $(readlink $1)); }
 grepurl () { cat $1 | grep -o '[hrefHREF]=['"'"'"][^"'"'"']*['"'"'"]' | sed -e 's/^[hrefHREF]=["'"'"']//' -e 's/["'"'"']$//'; }
@@ -341,7 +342,8 @@ function pdfpages() {
 ### PDF Join
 function pdffusion() {
     # Or better !
-    #pdftk Page1.pdf Page2.pdf Page3.pdf Page4.pdf Page5.pdf Page6.pdf cat output output.pdf
+    #pdftk Page1.pdf Page2.pdf cat output output.pdf
+    #join jpeg: convert -rotate 90 page1.jpg page2jpg output.pdf
     outname="$(basename $1 .pdf)$(basename $2 .pdf)"
     outname="fusion_${outname}.pdf"
     gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=${outname} ${1} ${2}
@@ -369,8 +371,8 @@ alias xrpone='xmms2 server config playlist.repeat_one 1'
 alias xrpall='xmms2 server config playlist.repeat_all 1'
 alias xrpclr='xmms2 server config playlist.repeat_one  0; xmms2 server config playlist.repeat_all 0'
 alias xadd='xmms2 add "`xmms2 info | grep file:// | cut -d: -f2  | xargs -0 dirname`"'
-alias xwhere='xmms2 info | grep file:// | cut -d: -f2  | xargs -0 dirname'
-alias xll='ls "`xmms2 info | grep file:// | cut -d: -f2  | xargs -0 dirname`"'
+alias cdxl='cd "$(xmms2 info | grep file:// |cut -d: -f2  |xargs -0 dirname |python3 -c "import sys,urllib.parse;sys.stdout.write(urllib.parse.unquote_plus(sys.stdin.read()))")"'
+alias xll='ls "$(xmms2 info | grep file:// |cut -d: -f2  |xargs -0 dirname |python3 -c "import sys,urllib.parse;sys.stdout.write(urllib.parse.unquote_plus(sys.stdin.read()))")"'
 xshuff () {
     # Add random files in xmms2
     if [ "$1" == "" ]; then
