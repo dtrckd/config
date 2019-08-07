@@ -36,7 +36,7 @@ PAPERS := $(foreach file,$(PAPERS_NAME), $(BD_PAPER)/$(file))
 # Web files to copy
 HTML_FILES_MIXT := css/ js/ images/ html/ index.php menu.php
 HTML_FILES_TEZ  := css/ js/ images/ html/ a.php menu.php papers/ mlss2015/
-HTML_FILES_MAIN := css/ js/ images/ *.html *.php *.py
+HTML_FILES_MAIN := css/ js/ images/ *.html *.php *.py *.js
 
 default: local
 
@@ -130,12 +130,18 @@ snapshot:
 	uname -a > configure/snapshots/uname
 	apt list --installed > configure/snapshots/apt
 
+backup: backapp backbin
 
-_backup:
+backapp:
 	# Todo Debug
 	cd configure/
 	./backapp.sh
 	cd -
+
+backbin:
+	# Create bin.txt
+	ls -l $(HOME)/bin | grep '>' |cut -d'>' -f2 > configure/bin.txt
+
 
 deb_clean:
 	# Add -force option ?
