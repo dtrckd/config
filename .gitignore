@@ -9,9 +9,12 @@ tags
 .session.vim
 *.byobu
 
+# tmp
+dotfiles/.config/xmms2/bindata/*
+
 # Private
 .free
-.freak
+.coin
 addr
 dotfiles/.gethubconfig
 etc/wpa_supplicant/***

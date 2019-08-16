@@ -76,7 +76,7 @@ web_ama:
 
 #
 #
-# Backup
+# Backdown
 #
 #
 
@@ -120,17 +120,17 @@ bin:
 
 #
 #
-# Snapshot
+# Backup
 #
 #
+
+backup: snapshot backapp backbin
 
 snapshot:
 	mkdir -p configure/snapshots/
 	pip freeze > configure/snapshots/pip
 	uname -a > configure/snapshots/uname
 	apt list --installed > configure/snapshots/apt
-
-backup: backapp backbin
 
 backapp:
 	# Todo Debug
@@ -152,5 +152,5 @@ deb_clean:
 	apt-get -s autoclean
 
 clean:
-
 	@rm -vf $(CLEAN_FILES)
+
