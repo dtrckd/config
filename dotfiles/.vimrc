@@ -49,6 +49,7 @@ Plugin 'ternjs/tern_for_vim' " tagbar and js. (Maybe require manual installation
 "Plugin 'mozilla/doctorjs' " for javascript
 Plugin 'ciaranm/detectindent'
 "Plugin 'jceb/vim-orgmode'
+Plugin 'editorconfig/editorconfig-vim'
 
 
 """""""""""""""""""""""""""

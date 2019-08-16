@@ -17,9 +17,10 @@
         <value type="int" value="14"/>
         <value type="int" value="19"/>
         <value type="int" value="20"/>
-        <value type="int" value="16"/>
+        <value type="int" value="21"/>
         <value type="int" value="18"/>
         <value type="int" value="17"/>
+        <value type="int" value="16"/>
         <value type="int" value="6"/>
         <value type="int" value="13"/>
         <value type="int" value="15"/>
@@ -55,6 +56,7 @@
     </property>
     <property name="plugin-2" type="string" value="pulseaudio">
       <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
+      <property name="mpris-players" type="string" value="rhythmbox;vlc;vlc.instance30298"/>
     </property>
     <property name="plugin-3" type="string" value="actions"/>
     <property name="plugin-4" type="string" value="clock">
@@ -89,11 +91,6 @@
       <property name="style" type="uint" value="1"/>
     </property>
     <property name="plugin-15" type="string" value="battery"/>
-    <property name="plugin-16" type="string" value="launcher">
-      <property name="items" type="array">
-        <value type="string" value="15037432761.desktop"/>
-      </property>
-    </property>
     <property name="plugin-17" type="string" value="launcher">
       <property name="items" type="array">
         <value type="string" value="15037434012.desktop"/>
@@ -118,12 +115,25 @@
       <property name="names-visible" type="array">
         <value type="string" value="thunar"/>
         <value type="string" value="vlc"/>
+        <value type="string" value="systray icon"/>
         <value type="string" value="networkmanager applet"/>
         <value type="string" value="task manager"/>
         <value type="string" value="wicd-client.py"/>
         <value type="string" value="blueman-applet"/>
+        <value type="string" value="nicotine"/>
+        <value type="string" value="deluge"/>
         <value type="string" value="xfce4-power-manager"/>
         <value type="string" value="gxmms2"/>
+      </property>
+    </property>
+    <property name="plugin-21" type="string" value="launcher">
+      <property name="items" type="array">
+        <value type="string" value="15387001141.desktop"/>
+      </property>
+    </property>
+    <property name="plugin-16" type="string" value="launcher">
+      <property name="items" type="array">
+        <value type="string" value="15575000931.desktop"/>
       </property>
     </property>
   </property>

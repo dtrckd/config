@@ -9,14 +9,16 @@ fi
 
 ### Backup app config
 CONF_APP=$(cat app-config-dirs.txt)
-cp ~/.gtkrc-2.0  ../dotfiles/
-cp ${CONF_APP} ../dotfiles/.config/
+cp -v  $HOME/.gtkrc-2.0  ../dotfiles/
+for f in $CONF_APP; do
+    cp -rv $(eval echo $f) ../dotfiles/.config/
+done
 
 
 ### BACKUP __THUNDERBIRD/
-THUNDER_ID="9nm4luj6"
+THUNDER_ID="l7nymwge"
 #find $HOME/.thunderbird/$THUNDER_ID.default/ -name "*.dat" -o -name "*.json" | sed "s~$HOME/~~g" | xargs -I{} rsync -R {} ../app/
-find $HOME/.thunderbird/$THUNDER_ID.default/ -name "*.dat" -o -name "*.json" |xargs -I{} rsync $RSYNC_ARGS -R {} ../app/
+#find $HOME/.thunderbird/$THUNDER_ID.default/ -name "*.dat" -o -name "*.json" |xargs -I{} rsync $RSYNC_ARGS -R {} ../app/
 
 ###
 echo "Please, manually backup your etc files !"

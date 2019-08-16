@@ -84,6 +84,10 @@
       <value type="string" value="Workspace 4"/>
       <value type="string" value="Workspace 5"/>
       <value type="string" value="Workspace 6"/>
+      <value type="string" value="Workspace 7"/>
+      <value type="string" value="Workspace 8"/>
+      <value type="string" value="Workspace 9"/>
+      <value type="string" value="Workspace 10"/>
     </property>
   </property>
 </channel>

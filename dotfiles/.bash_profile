@@ -88,6 +88,29 @@ alias mvspace="rename 's/ /_/g'"
 function pdf(){ evince $1 2>/dev/null & }
 function pdfo(){ okular $1 2>/dev/null & }
 
+function make_doc_python(){
+    if [ -z "$1" ]; then echo "give a repo to analyse"; return 2; fi
+    REPO="$1"
+    FN="_doc-$1"
+    if [ -d "$FN" ]; then echo "file \`$FN\' already exists"; return 2; fi
+    pdoc -f --html --output-dir "$FN" "$REPO"
+}
+
+function make_graph_python(){
+    # install pylint
+    if [ -z "$1" ]; then echo "give a repo to analyse"; return 2; fi
+    REPO="$1"
+    FN="_graph-$1"
+    if [ -e "$FN" ]; then echo "file \`$FN\' already exists"; return 2; fi
+    mkdir "$FN"
+    pushd $FN
+    pyreverse ../"$REPO" -A -S -p "$FN"
+    for f in *.dot; do
+        dot -K circo -T png  "$f" > ${f%%.dot}.png
+    done
+    popd
+}
+
 alias vib="vim ~/.bash_profile"
 alias vimrc="vim ~/.vimrc"
 
@@ -98,8 +121,6 @@ alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --prog
 alias psa="ps -aux | grep -i --color"
 alias pstree='pstree -h'
 alias rmf='shred -zuv -n1' # find <directory> -depth -type f -exec shred -v -n 1 -z -u {} \;
-alias dict="dict -e cnrtl"
-alias dicten='dict enfr'
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
 ff () { find -name "*$1*"; }
@@ -298,7 +319,7 @@ alias iudd="cd $PX/BaseBlue/bhp/data"
 alias iuww="cd $PX/BaseBlue/bhp/wiki"
 alias iuds="cd $PX/BaseBlue/designspec/"
 alias iutm="cd $PX/BaseBlue/tmr/tm"
-alias iug="cd $PX/BaseBlue/bhp/data/grammar"
+alias iug="cd $PX/BaseBlue/grator/pnp"
 alias iux="cd $PX/BaseDump/bots/skopai/skopy"
 alias iubg="cd $PX/BaseDump/bots/skopai/bigbangsearch"
 alias iuw="cd $PX/webmain/"

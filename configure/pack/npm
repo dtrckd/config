@@ -7,6 +7,9 @@ gulp
 # taglist for vim
 npm install -g git+https://github.com/ramitos/jsctags.git
 
+# obfuscation
+uglify-js
+
 # retro ingeneering
 wavi
 

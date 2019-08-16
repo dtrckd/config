@@ -8,7 +8,6 @@
  /home/dtrckd/SC/Projects/Informatique/System/convert-mp4
  /home/dtrckd/SC/Projects/Informatique/System/convert-wma
  /home/dtrckd/workInProgress/BaseDump/bots/tools/dict/dict
- /home/dtrckd/Downloads/Exodus-linux-x64/Exodus
  /home/dtrckd/SC/Projects/Informatique/Reseau/Firewalls/firewall-r-strict.sh
  /home/dtrckd/SC/Projects/Informatique/Reseau/Mapping/GeoL/geoip
  /home/dtrckd/SC/Projects/Informatique/Reseau/Mapping/GeoL/geoipdata-update
@@ -17,7 +16,6 @@
  /home/dtrckd/SC/Projects/Informatique/System/gzvim
  /home/dtrckd/SC/Projects/Informatique/Reseau/Script/hotspot
  /home/dtrckd/SC/Projects/Informatique/Reseau/Script/iwonf/iwonf
- /home/dtrckd/Downloads/jaxx-1.3.9-x86_64.AppImage
  /home/dtrckd/src/config/snippets/sound/mute
  /home/dtrckd/src/config/snippets/sound/mute_toggle
  /home/dtrckd/Desktop/workInProgress/BaseBlue/devops/ipban/nobanme.py
@@ -36,3 +34,4 @@
  /home/dtrckd/src/config/snippets/sound/vol_dec
  /home/dtrckd/src/config/snippets/sound/vol_inc
  /home/dtrckd/src/dtrckd/wikask/wikask.py
+ /home/dtrckd/src/config/snippets/xpath.py
