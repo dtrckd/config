@@ -100,7 +100,7 @@ _etc:
 
 bin:
 	mkdir -p ${HOME}/bin
-	$(foreach f,$(BIN_FILES), /bin/ln -fs $(f) $(HOME)/bin/$(notdir $(f)) ;)
+	$(foreach f,$(BIN_FILES), /bin/ln -fs $(f) $(HOME)/bin/$(basename $(notdir $(f))) ;)
 
 _install_init:
 	cd app/init_package
