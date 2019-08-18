@@ -207,16 +207,6 @@ let g:syntastic_quiet_messages = {
 """""""""""""""""""""""""""
 """" Utils
 """""""""""""""""""""""""""
-function! GitBranch()
-    let branch = shellescape(system("git branch 2> /dev/null | sed  -e '/^[^*]/d' -e 's/* //'"))
-    if branch != ''
-        return ' ' . substitute(branch, '\n', '', 'g')
-    en
-    return ''
-
-
-endfunction
-let _branch = GitBranch()
 
 function! CurrDir()
     let dir = split(getcwd(), '/')[-1]
@@ -230,6 +220,15 @@ function! LastDir()
     return dir
 endfunction
 
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+    let l:branchname = GitBranch()
+    return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
 """"""""""""""""""""""""""""""
 """ General / Interface
 """"""""""""""""""""""""""""""
@@ -240,24 +239,12 @@ set pastetoggle=£ " toggle paste mode
 "set title "update window title for X and tmux
 set ruler		"show current position
 set laststatus=2
-set statusline=%<%f%m\ %r\ %h\ %w\ %015{_branch}\ %=%l/%L:%c\ %015(%p%%%)
-"set statusline=%<%{CurrDir()}/%f%m\ %r\ %h\ %w\ %015{_branch}\ %=%l/%L:%c\ %015(%p%%%)
-"set statusline=%<%{LastDir()}/%t%m\ %r\ %h\ %w\ %015{_branch}\ %=%l/%L:%c\ %015(%p%%%)
-
-""" Syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-
-
 set mat=1 "How many tenths of a second to blink
 set novb                                  " no beep, visualbell
 set showcmd                             " Show (partial) command in status line.
 set showmatch                           " Show matching brackets
 set wildmenu                            " show list instead of just completing
 set hlsearch                            " hilighting resarch matches
-                                        " hi Search ctermfg=10 ctermbg=Black            " comment
 set incsearch                           " Incremental search
 set ignorecase                          " Do case insensitive matching
 set smartcase                           " sensitive if capital letter
@@ -280,11 +267,24 @@ set whichwrap=<,>,[,]                   " enable line return with pad
 "set termencoding=UTF-8
 set encoding=utf-8
 " Don't use Ex mode, use Q for formatting
-map Q gq
+"nnoremap Q gq
 """ Last position
 if has("autocmd")
       au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+
+""" refresh !?
+"set ttimeoutlen=100
+set ttyfast
+"set lazyredraw
+
+"" magic pasting
+"" Toggle paste/nopaste automatically when copy/paste with right click in insert mode:
+"let &t_SI .= "\<Esc>[?2004h"
+"let &t_EI .= "\<Esc>[?2004l"
+set t_BE=  " disable bracketed paste mode.  https://gitlab.com/gnachman/iterm2/issues/5698
+
+map <Esc>[B <Down>
 
 """"""""""""""""""""""""""""""
 """ Tabulations / Indentation
@@ -701,39 +701,36 @@ colo dracula
 "colo hipster
 
 """ Custom Colors & Highlights
-hi TabLineSel ctermfg=Blue ctermbg=Green "headers
-hi TabLine ctermfg=0 ctermbg=7 "headers
-hi Search guifg=#000000 guibg=#8dabcd guisp=#8dabcd gui=NONE ctermfg=NONE ctermbg=110 cterm=NONE
-hi SpellBad ctermbg=red cterm=underline
+hi Title ctermfg=39  "affect the number of windows in the tabline and filname in nerdtab
+hi Normal ctermbg=232
 hi Comment ctermfg=blue
 "hi Comment guifg=DarkGrey ctermfg=brown " like; green, white, brown, cyan(=string)
-hi Normal ctermbg=232
+hi Search guifg=#000000 guibg=#8dabcd guisp=#8dabcd gui=NONE ctermfg=NONE ctermbg=110 cterm=NONE
+hi SpellBad ctermbg=red cterm=underline
 hi StatusLine cterm=bold ctermfg=232 ctermbg=158
 hi StatusLineNC ctermfg=15 ctermbg=240
 hi CursorLine term=underline ctermbg=235 guibg=#424450
+hi TabLine ctermfg=0 ctermbg=7 "headers
+hi TabLineSel ctermfg=Blue ctermbg=Green
+"hi TabLineSel ctermfg=Blue ctermbg=Green
+"hi TabLineFill guifg=LightGreen guibg=DarkGreen ctermfg=LightGreen ctermbg=DarkGreen
 
 "set background=dark
-
-map <Esc>[B <Down>
 noh
 
-""" refresh !?
-"set ttimeoutlen=100
-set ttyfast
-"set lazyredraw
+""" StatusLine
 
-"" magic pasting
-"" Toggle paste/nopaste automatically when copy/paste with right click in insert mode:
-"let &t_SI .= "\<Esc>[?2004h"
-"let &t_EI .= "\<Esc>[?2004l"
-set t_BE=  " disable bracketed paste mode.  https://gitlab.com/gnachman/iterm2/issues/5698
-"
-"inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
-"
-"function! XTermPasteBegin()
-"  set pastetoggle=<Esc>[201~
-"  set paste
-"  return ""
-"endfunction
+hi GitColor ctermbg=172 ctermfg=black
+
+set statusline=""
+set statusline+=%#GitColor#%{StatuslineGit()}%*   " %#PmenuSel
+set statusline+=\ %<%f%m\ %r\ %h\ %w
+set statusline+=%=%l/%L:%c\ %05(%p%%%)
+set statusline+=\ 
+"set statusline=%<%{LastDir()}/%t%m\ %r\ %h\ %w\ %015{_branch}\ %=%l/%L:%c\ %015(%p%%%)
+" Syntastic
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
 
