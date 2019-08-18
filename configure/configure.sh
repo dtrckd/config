@@ -11,15 +11,13 @@ rmdir --ignore-fail-on-non-empty   ~/Public/ ~/Templates/
 mkdir -p ~/Music ~/Documents ~/Videos ~/SC ~/Desktop ~/src ~/bin
 #cp blue/* ~
 
-# apt install sudo aptitude vim vim.nox firmware-linux-nonfree
-#
-# Basics? python3-pip python3-setuptools  rsync byobu ranger curl wget zip
-sudo apt-get install $OPTS aptitude make ntfs-3g
+# Base packages (see Makefile)
+#sudo apt-get install -y aptitude make ntfs-3g vim sudo aptitude firmware-linux-nonfree
 
 ######################
 ### System
 ######################
-sudo aptitude install $OPTS -R sudo aptitude psmisc python3-setuptools rfkill apt-file apt-show-versions htop strace # python3-pip bug in debian !
+sudo aptitude install $OPTS -R sudo aptitude make psmisc python3-setuptools rfkill apt-file apt-show-versions htop strace # python3-pip bug in debian !
 pip3 install --user --upgrade setuptools wheel pip
 
 ######################

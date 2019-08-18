@@ -82,26 +82,34 @@ web_ama:
 
 BIN_FILES = $(shell cat configure/bin.txt)
 
+configure_laptop: _bootstrap _install_init _configure _vim _web 
 
+_bootstrap: _dotfiles _etc bin
+	# Base packages
+	sudo apt-get install -y aptitude make ntfs-3g vim sudo aptitude firmware-linux-nonfree
 
-configure_laptop: _install_init _configure _vim _web bootstrap
-
-bootstrap: _propagate_dotfiles bin
-
-_propagate_dotfiles:
+_dotfiles:
 	# Warning: Junk file will stay on target (cp don't remove files)
 	ls -A dotfiles/ | xargs -I{} cp -r dotfiles/{}  ~/
 	cp dotfiles/.tmux.conf ~/.byobu/
+
+_etc:
+	sudo cp etc/rc.local /etc
+	sudo cp -r  etc/wpa_supplicant/ /etc
+	sudo cat etc/sysctl.conf >> /etc/sysctl.conf
+
+bin:
+	mkdir -p ${HOME}/bin
+	$(foreach f,$(BIN_FILES), /bin/ln -fs $(f) $(HOME)/bin/$(notdir $(f)) ;)
 
 _install_init:
 	cd app/init_package
 	dpkg -i *.deb
 	cd -
 
-
 _configure:
 	cd configure/
-	./configure.sh
+	./configure.sh # install package
 	cd -
 
 _vim:
@@ -110,13 +118,7 @@ _vim:
 	vim -c PluginUpdate
 
 _web:
-	if [ ! -e webmain ]; then
-		ln -s ~/Desktop/workInProgress/webmain/ webmain
-	fi
-
-bin:
-	mkdir -p ${HOME}/bin
-	$(foreach f,$(BIN_FILES), /bin/ln -fs $(f) $(HOME)/bin/$(notdir $(f)) ;)
+	ln -s ~/Desktop/workInProgress/webmain/ webmain
 
 #
 #
