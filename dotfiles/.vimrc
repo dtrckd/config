@@ -312,6 +312,7 @@ set nofen               " open all folds. see z[mn] command
 """"""""""""""""""""""""""""""
 """ general
 imap <C-L> <Esc>
+"cnoremap W :w !sudo tee %
 "nnoremap ; :
 """ Saving
 "nnoremap <C-u> :w<CR>
