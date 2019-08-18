@@ -142,6 +142,7 @@ alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
 alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
 function grepyf(){ find -iname "*.py" |xargs grep --color -m1 "$1" |cut -d: -f1; } # don work :(
 alias grepall='find -type f | xargs grep --color'
+alias ag="ag-mcphail.ag --color-path 32"
 alias agpy='ag --py'
 ### XFCE
 #alias locks='s2ram -f -m'
@@ -505,7 +506,10 @@ export OMP_NUM_THREADS=1  # Number of thread used by numpy
 
 # GOLANG
 export GOPATH=$HOME/.go
-export PATH="$PATH::$GOPATH/bin:/usr/local/go/bin"
+export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
+
+# SNAP
+export PATH="$PATH:/snap/bin"
 
 # NVM
 export NVM_DIR="$HOME/.nvm"

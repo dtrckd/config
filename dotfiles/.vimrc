@@ -708,7 +708,8 @@ hi SpellBad ctermbg=red cterm=underline
 hi Comment ctermfg=blue
 "hi Comment guifg=DarkGrey ctermfg=brown " like; green, white, brown, cyan(=string)
 hi Normal ctermbg=232
-hi StatusLine cterm=bold ctermfg=232 ctermbg=249
+hi StatusLine cterm=bold ctermfg=232 ctermbg=158
+hi StatusLineNC ctermfg=15 ctermbg=240
 hi CursorLine term=underline ctermbg=235 guibg=#424450
 
 "set background=dark
