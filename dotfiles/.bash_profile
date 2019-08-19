@@ -67,6 +67,7 @@ alias lmd='ls *.md'
 alias mkdit='mkdir'
 
 ### Utility commands
+alias please='sudo $(fc -ln -1)'
 alias so='source ~/.bashrc'
 alias whoisssd='lsblk  -d -o name,rota'
 alias python="python -O" # basic optimizatio (ignore assert, ..)
@@ -142,8 +143,10 @@ alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
 alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
 function grepyf(){ find -iname "*.py" |xargs grep --color -m1 "$1" |cut -d: -f1; } # don work :(
 alias grepall='find -type f | xargs grep --color'
+# Snap Alias
 alias ag="ag-mcphail.ag --color-path 32"
 alias agpy='ag --py'
+alias fzf='fzf-slowday.fzf'
 ### XFCE
 #alias locks='s2ram -f -m'
 #alias dodo='s2disk'

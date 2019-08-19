@@ -72,7 +72,6 @@ let g:easytags_auto_update = 0
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 map <C-p> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 """ ACK
 let g:ackprg = 'ag --vimgrep'
@@ -663,8 +662,10 @@ fu! DoCtags()
 endfunction
 com! Ctags :call DoCtags()
 
-"""""""""" Colorized it.
-" ~/.vimrc
+
+""""""""""""""""""""""""""""""
+""" Theme/Colors
+""""""""""""""""""""""""""""""
 " Make Vim recognize XTerm escape sequences for Page and Arrow
 " keys combined with modifiers such as Shift, Control, and Alt.
 " See http://www.reddit.com/r/vim/comments/1a29vk/_/c8tze8p
@@ -691,14 +692,9 @@ endif
 "set t_Co=256
 "
 "colorscheme default " Utiliser le jeu de couleurs standard"
-"colo 256-grayvim
-"colo solarized
-"colorscheme molokai
-"colo sweyla682066
 "colo zenburn
 "colo darkburn
 colo dracula
-"colo hipster
 
 """ Custom Colors & Highlights
 hi Title ctermfg=39  "affect the number of windows in the tabline and filname in nerdtab
