@@ -11,7 +11,15 @@
 #
 # By default this script does nothing.
 
+# Set Firewall
 /home/dtrckd/bin/firewall-strict
+
+# Run Mongo
+docker run -d -p 27017:27017 -v ~/src/data/mongo-docker:/data/db mongo
+
+
+# Mouse trick (xserver-xorg-input-synaptics)
 #syndaemon -t -k -i 0.2 -d
+
 
 exit 0

@@ -95,6 +95,7 @@ _dotfiles:
 
 _etc:
 	sudo cp etc/rc.local /etc
+	sudo chmod +x /etc/rc.local
 	sudo cp -r  etc/wpa_supplicant/ /etc
 	sudo cat etc/sysctl.conf >> /etc/sysctl.conf
 
