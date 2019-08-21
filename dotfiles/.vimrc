@@ -49,7 +49,8 @@ Plugin 'ternjs/tern_for_vim' " tagbar and js. (Maybe require manual installation
 "Plugin 'mozilla/doctorjs' " for javascript
 Plugin 'ciaranm/detectindent'
 "Plugin 'jceb/vim-orgmode'
-Plugin 'editorconfig/editorconfig-vim'
+Plugin 'editorconfig/editorconfig-vim' " Read .editorconfig in project
+Plugin 'posva/vim-vue'
 
 
 """""""""""""""""""""""""""
@@ -414,6 +415,13 @@ func! CurrentFileDir(cmd)
   return a:cmd . " " . expand("%:p:h") . "/"
 endfunc
 
+""""""""""""""""""""""""""""""
+"""" => Extra Filetype
+""""""""""""""""""""""""""""""
+au BufNewFile,BufRead *.nse set filetype=lua
+au BufNewFile,BufRead *.nomad,*.consul set filetype=conf
+au BufNewFile,BufRead *.vue setf vue
+au BufNewFile,BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x <afile>
 
 """"""""""""""""""""""""""""""
 """" => Conf Files
@@ -445,10 +453,6 @@ autocmd BufWrite *.py,*.pyx,*.pyd,*.c,*.cpp,*.h,*.sh,*.txt,*.js,*.html,*.css :ca
 " set list (list!) " see the tabulation ^I
 " retab " move tab in space according to tabstop
 
-"au BufWritePost * if getline(1) =~ "^#!" | if getline(1) =~ "/bin/" | silent !chmod u+x <afile> | endif | endif
-au BufNewFile,BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x <afile>
-autocmd BufNewFile,BufRead *.nse set filetype=lua
-autocmd BufNewFile,BufRead *.nomad,*.consul set filetype=conf
 """"""""""""""""""""""""""""""
 """" => Latex Files
 """"""""""""""""""""""""""""""
@@ -697,7 +701,7 @@ endif
 colo dracula
 
 """ Custom Colors & Highlights
-hi Title ctermfg=39  "affect the number of windows in the tabline and filname in nerdtab
+hi Title ctermfg=39  " affect the number of windows in the tabline and filname in nerdtab
 hi Normal ctermbg=232
 hi Comment ctermfg=blue
 "hi Comment guifg=DarkGrey ctermfg=brown " like; green, white, brown, cyan(=string)
