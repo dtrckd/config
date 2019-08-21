@@ -694,7 +694,7 @@ endif
 "set term=xterm-256color
 "set term=screen-256color "TERM=xterm-256color
 "set t_Co=256
-"
+
 "colorscheme default " Utiliser le jeu de couleurs standard"
 "colo zenburn
 "colo darkburn
@@ -715,11 +715,7 @@ hi TabLineSel ctermfg=Blue ctermbg=Green
 "hi TabLineSel ctermfg=Blue ctermbg=Green
 "hi TabLineFill guifg=LightGreen guibg=DarkGreen ctermfg=LightGreen ctermbg=DarkGreen
 
-"set background=dark
-noh
-
 """ StatusLine
-
 hi GitColor ctermbg=172 ctermfg=black
 
 set statusline=""
@@ -733,4 +729,6 @@ set statusline+=\
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*
 
+"set background=dark
+noh
 
