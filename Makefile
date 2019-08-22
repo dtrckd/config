@@ -127,7 +127,7 @@ _web:
 #
 #
 
-backup: snapshot backapp backbin
+backup: snapshot backapp backbin folders
 
 snapshot:
 	mkdir -p configure/snapshots/
@@ -145,6 +145,12 @@ backbin:
 	# Create bin.txt
 	ls -l $(HOME)/bin | grep '>' |cut -d'>' -f2 > configure/bin.txt
 
+folders:
+	echo "backsync on -- \
+		SC/ \
+		workInProgress/ \
+		src/config/ \
+		src/data/"
 
 deb_clean:
 	# Add -force option ?
