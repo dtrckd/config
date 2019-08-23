@@ -168,14 +168,22 @@ alias ci='vim'
 alias vitodo='vim -p $(find -iname todo -type f)'
 ### Octave
 alias octave='octave --silent'
-#alias vims='vim -c "source .session.vim" -S ~/.vimrc'
 function vims() {
-    file=".session.vim"
-    if [ -n "$1" ]; then
-        file=.$1${file}
+    SessionID="$(basename $(dirname $PWD))-$(basename $PWD)"
+    if [ -f "$HOME/.vim/sessions/${SessionID}.vim" ]; then
+        vim -c "OpenSession ${SessionID}"
+    else
+        echo "no vim session file found for ${SessionID}."
     fi
-    vim -c "source $file" -S ~/.vimrc
 }
+#function vims() {
+#    file=".session.vim"
+#    if [ -n "$1" ]; then
+#        file=.$1${file}
+#    fi
+#    vim -c "source $file" -S ~/.vimrc
+#}
+
 function upgrademe() {
     aptitude update && aptitude upgrade
     brew update && brew upgrade
@@ -352,8 +360,8 @@ alias grid='elinks http://localhost/grid.html'
 alias jupyter_net='jupyter-notebook --ip 127.0.0.1 ~/Desktop/workInProgress/networkofgraphs/process/notebook/ '
 alias gg="grid"
 
-### PDF Cut
-function pdfpages() {
+# PDF Cut
+function pdfcut() {
     # this function uses 3 arguments:
     #     $1 is the first page of the range to extract
     #     $2 is the last page of the range to extract
@@ -365,14 +373,17 @@ function pdfpages() {
         -sOutputFile=${3%.pdf}_p${1}-p${2}.pdf \
         ${3}
 }
-### PDF Join
-function pdffusion() {
-    # Or better !
-    #pdftk Page1.pdf Page2.pdf cat output output.pdf
+
+# PDF Join / Overwrite pdfjoin from texlive-extra-utils
+function pdfjoin() {
+    pdftk "$1" "$2" cat output "$(basename $1 .pdf)$(basename $2 .pdf).pdf"
+
     #join jpeg: convert -rotate 90 page1.jpg page2jpg output.pdf
-    outname="$(basename $1 .pdf)$(basename $2 .pdf)"
-    outname="fusion_${outname}.pdf"
-    gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=${outname} ${1} ${2}
+
+    # Old
+    #outname="$(basename $1 .pdf)$(basename $2 .pdf)"
+    #outname="fusion_${outname}.pdf"
+    #gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=${outname} ${1} ${2}
 }
 
 # Music player
