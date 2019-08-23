@@ -148,3 +148,5 @@ fuser /dev/snd/*
      /dev/snd/pcmC0D0p:   15074m
 
 
+# No suitable archive found issue
+apt install file-roller # At the moment it uses file-roller but will use xarchiver in the future.
