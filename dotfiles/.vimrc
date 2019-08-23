@@ -10,13 +10,13 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
+
 """ Plugin
 Plugin 'tpope/vim-surround'
 Plugin 'luochen1990/rainbow'
 Plugin 'a.vim'
 Plugin 'Align'
 Plugin 'taglist.vim'
-Plugin 'mileszs/ack.vim'
 "Plugin 'rargo/vim-line-jump'
 "Plugin 'sirver/ultisnips' ' py >=2.7
 "Plugin rstacruz/sparkup  # Zn writing HTLM
@@ -37,11 +37,11 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 "Plugin 'klen/python-mode'
 "Plugin 'cecutil'
-Plugin 'TeTrIs.vim'
+"Plugin 'TeTrIs.vim'
 Plugin 'uguu-org/vim-matrix-screensaver'
 Plugin 'darkburn'
-Plugin 'dracula/vim'
 Plugin 'jnurmine/zenburn'
+Plugin 'dracula/vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'ternjs/tern_for_vim' " tagbar and js. (Maybe require manual installation of: https://github.com/ramitos/jsctags, and https://github.com/ternjs/tern_for_vim (not sure)
 "Plugin 'cskeeters/vim-smooth-scroll'   " interesting scroll property
@@ -50,8 +50,9 @@ Plugin 'ternjs/tern_for_vim' " tagbar and js. (Maybe require manual installation
 Plugin 'ciaranm/detectindent'
 "Plugin 'jceb/vim-orgmode'
 Plugin 'editorconfig/editorconfig-vim' " Read .editorconfig in project
-Plugin 'posva/vim-vue'
-
+Plugin 'posva/vim-vue' " syntaxixc coloration for Vue.js
+Plugin 'xolox/vim-session'
+Plugin 'mileszs/ack.vim'
 
 """""""""""""""""""""""""""
 """" Plugin conf
@@ -74,8 +75,9 @@ let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 map <C-p> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-""" ACK
-let g:ackprg = 'ag --vimgrep'
+""" ACK/AG (use AG!)
+let g:ackprg = 'ag-mcphail.ag  --smart-case'                                                   
+cnoreabbrev ag Ack
 
 """ Rainbow colors
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
@@ -107,6 +109,15 @@ let g:rainbow_conf = {
 """ Activate vim-docstring
 "autocmd FileType python PyDocHide
 
+""" vim-session
+" Don't save hidden and unloaded buffers in sessions.
+set sessionoptions-=buffers
+set sessionoptions-=help " dont want help windows to be restored
+let g:session_autoload = 'yes' " see https://github.com/xolox/vim-session
+let g:session_autosave = 'yes'
+let g:session_autosave_periodic = 30 " minutes
+let g:session_autosave_silent = 1 " true
+let g:session_default_overwrite = 1 " every Vim instance without an explicit session loaded will overwrite the 'default' session (the last Vim instance wins).
 
 """""""""""""""""""""""""""
 """" Class list / IDE
@@ -215,8 +226,12 @@ endfunction
 
 function! LastDir()
     let dir = split(path, '/')[-2]
-    echo path
-    echo dir
+    return dir
+endfunction
+
+function! Last2Dir()
+    let dir = split(getcwd(), "/")[-2]
+    let dir .= "-". split(getcwd(), "/")[-1]
     return dir
 endfunction
 
@@ -551,7 +566,7 @@ let g:calendar_google_task = 1
 "autocmd FileType calendar if !has('gui_running') | set t_Co=256 | endif
 
 """"""""""""""""""""""""""""""
-"""" => Snippet
+"""" => Snippet & Commands
 """"""""""""""""""""""""""""""
 
 """ Template
@@ -584,42 +599,6 @@ endfunction
 "call TextEnableCodeSnip(  'c',   '@begin=c@',   '@end=c@', 'SpecialComment')
 "call TextEnableCodeSnip('cpp', '@begin=cpp@', '@end=cpp@', 'SpecialComment')
 "call TextEnableCodeSnip('sql', '@begin=sql@', '@end=sql@', 'SpecialComment')
-
-
-
-
-fu! SaveSession()
-    bufdo execute 'NERDTreeClose'
-    bufdo execute 'TagbarClose'
-    "autocmd VimLeave * TagbarClose
-    "autocmd VimLeave * NERDTreeClose
-    execute 'mksession! ' . getcwd() . '/.session.vim'
-endfunction
-com! SaveSession :call SaveSession()
-
-
-fu! ResetSession()
-    if filereadable(getcwd() . '/.session.vim')
-        execute 'so ' . getcwd() . '/.session.vim'
-        if bufexists(1)
-            for l in range(1, bufnr('$'))
-                if bufwinnr(l) == -1
-                    exec 'sbuffer ' . l
-                endif
-            endfor
-        endif
-    endif
-    syntax on
-endfunction
-com! ResetSession :call ResetSession()
-
-
-
-""" Workaround for the refresh problem (partial)!
-fu! RedrawTab()
-    execute  'redraw'
-endfunction
-com! RedrawTab :call RedrawTab()
 
 " ===============
 " Switch between header and code
@@ -657,6 +636,7 @@ endfun
 nmap h :call HeadSwitch('e')<CR>
 nmap <leader>h :call HeadSwitch('tabe')<CR>
 
+
 " use `ctags -R -f .tags` to create ctags file.
 set tags=./.tags;\
 
@@ -665,6 +645,24 @@ fu! DoCtags()
   let res=system(cmd)
 endfunction
 com! Ctags :call DoCtags()
+
+
+""" Workaround for the refresh problem (partial)!
+fu! RedrawTab()
+    execute  'redraw'
+endfunction
+com! RedrawTab :call RedrawTab()
+
+fu! MkSession()
+    execute 'SaveSession '. Last2Dir()
+
+    """ Old
+    "bufdo execute 'NERDTreeClose'
+    "bufdo execute 'TagbarClose'
+    "execute 'mksession! ' . getcwd() . '/.session.vim'
+endfunction
+com! MkSession :call MkSession()
+
 
 
 """"""""""""""""""""""""""""""
