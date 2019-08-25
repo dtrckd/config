@@ -78,7 +78,7 @@ alias py3='python3'
 alias pynotebook="jupyter-notebook --ip 127.0.0.1"
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:$(pwd)'
 alias xback='xbacklight'
-alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || byobu"
+alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || byobu"
 alias cc="cat"
 alias vdiff='vimdiff'
 alias evc="evince"
