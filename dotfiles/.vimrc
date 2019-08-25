@@ -252,6 +252,7 @@ set tabpagemax=50
 set pastetoggle=£ " toggle paste mode
 "set clipboard=unnamed " dont support C-S V
 "set title "update window title for X and tmux
+"set autochdir " set current cwd to the current file
 set ruler		"show current position
 set laststatus=2
 set mat=1 "How many tenths of a second to blink
@@ -367,6 +368,8 @@ cnoremap $e e %:p:h
 cnoremap $t tabe %:p:h
 cnoremap $s split %:p:h
 cnoremap $v vs %:p:h
+cnoremap cwd lcd %:p:h  " change current working directory(cwd) to the dir of the currenet file
+
 """ Mouse map
 "nnoremap <2-LeftMouse> //
 "cno sm set mouse=
