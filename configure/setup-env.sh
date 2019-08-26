@@ -26,6 +26,7 @@ if [ "$Target" == "npm" ]; then
 fi
 if [ "$Target" == "docker" ]; then
     # Docker
+    echo "see also snap installation..."
     #DOCKER_VER="docker-17.09.0-ce"
     DOCKER_VER="docker-18.06.1-ce"
     #wget https://download.docker.com/linux/debian/dists/stretch/pool/stable/amd64/docker-ce_17.09.0~ce-0~debian_amd64.deb  -O /usr/bin/docker
@@ -42,6 +43,6 @@ if [ "$Target" == "docker" ]; then
     DOCKER_OPTS="-H 127.0.0.1:4243 -H unix:///var/run/docker.sock"
 EOF
     sudo usermod -aG docker $USER
-    sudo service docker start
+    sudo update-rc.d docker start
 fi
 
