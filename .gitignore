@@ -27,6 +27,8 @@ mixtures/
 mixtures
 mixtures/
 app/***
+!app/systemd/*
+
 
 # Security
 */.ssh/*
