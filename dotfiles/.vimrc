@@ -289,10 +289,10 @@ if has("autocmd")
       au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-""" refresh !?
-"set ttimeoutlen=100
+""" Refresh options
+"set ttimeoutlen=10
 set ttyfast
-"set lazyredraw
+"set lazyredraw " weird behavious (statuslines is black...)
 
 "" magic pasting
 "" Toggle paste/nopaste automatically when copy/paste with right click in insert mode:
@@ -700,6 +700,7 @@ endif
 "colo zenburn
 "colo darkburn
 colo dracula
+
 
 """ Custom Colors & Highlights
 hi Title ctermfg=39  " affect the number of windows in the tabline and filname in nerdtab
