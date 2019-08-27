@@ -15,6 +15,7 @@ mc
 ranger
 transmission-show caca-utils pdftotext mediainfo elinks atool highlight
 jq # like sed for json data
+thefuck
 
 # Compilation
 gcc

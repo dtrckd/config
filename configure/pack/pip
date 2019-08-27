@@ -1,7 +1,25 @@
-pip install -U --user \
-        ipython jupyter pandoc \
-        numpy scipy matplotlib \
-        sklearn nltk \
-        tabulate \
-        termcolor
-        pandoc  pandocfilters
+# Notebook and terminal
+ipython 
+jupyter
+
+# Data science & ML
+numpy scipy
+nltk
+sklearn
+spacy
+torch torchvision
+keras
+
+# Formating & Edition
+pandoc 
+pandocfilters 
+termcolor
+
+##############################
+# data visualization
+##############################
+tabulate   # print tables
+matplotlib # base
+beaborn    # complex multi-dime,sional plot / wrap around matplotlib
+bokeh      # Interactive plot / build around Glyphs
+plotly     # Interactive plot / build arounf Dash
