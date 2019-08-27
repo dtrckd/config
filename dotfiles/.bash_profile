@@ -75,7 +75,7 @@ alias python="python -O" # basic optimizatio (ignore assert, ..)
 alias ipython="ipython --colors linux"
 alias py='python'
 alias py3='python3'
-alias pynotebook="jupyter-notebook --ip 127.0.0.1"
+alias nb="jupyter-notebook --ip 127.0.0.1"
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:$(pwd)'
 alias xback='xbacklight'
 alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || byobu"
@@ -357,7 +357,7 @@ alias mean="awk '{s+=$1}END{print \"ave:\",s/NR}' RS=\" \""
 alias amatop='elinks http://zombie-dust.imag.fr:8000/'
 #alias amatop='w3m http://zombie-dust.imag.fr:8000/'
 alias grid='elinks http://localhost/grid.html'
-alias jupyter_net='jupyter-notebook --ip 127.0.0.1 ~/Desktop/workInProgress/networkofgraphs/process/notebook/ '
+alias nb_np='jupyter-notebook --ip 127.0.0.1 ~/Desktop/workInProgress/networkofgraphs/process/notebook/ '
 alias gg="grid"
 
 # PDF Cut
