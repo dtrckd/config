@@ -731,6 +731,7 @@ set statusline+=\
 "set statusline+=%{SyntasticStatuslineFlag()}
 "set statusline+=%*
 
+
 "set background=dark
 noh
 
