@@ -86,6 +86,7 @@ alias tu="htop -u $USER"
 alias t="htop"
 alias diffd="diff -rq $1 $2" # show difference files between dir$1 and dir$2
 alias mvspace="rename 's/ /_/g'"
+alias torb="$HOME/src/config/app/tor-browser_en-US/start-tor-browser.desktop"
 function pdf(){ evince $1 2>/dev/null & }
 function pdfo(){ okular $1 2>/dev/null & }
 
