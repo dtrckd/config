@@ -19,6 +19,7 @@ addr
 dotfiles/.gethubconfig
 etc/wpa_supplicant/***
 configure/snapshots/***
+credentials/*
 
 # Project
 webmain
