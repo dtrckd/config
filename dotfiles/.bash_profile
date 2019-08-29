@@ -78,7 +78,7 @@ alias py3='python3'
 alias nb="jupyter-notebook --ip 127.0.0.1"
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:$(pwd)'
 alias xback='xbacklight'
-alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || byobu"
+alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias cc="cat"
 alias vdiff='vimdiff'
 alias evc="evince"
@@ -124,11 +124,13 @@ alias pstree='pstree -h'
 alias rmf='shred -zuv -n1' # find <directory> -depth -type f -exec shred -v -n 1 -z -u {} \;
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
-ff () { find -name "*$1*"; }
+f () { find -name "*$1*"; } # fuzzy match
+ff () { find -name "$1"; } # exact match
 alias jerr='journalctl -p err -b'
 ### Net
 alias curlH='curl -I'
-alias myip='nmap -sC -p80 -n -Pn --script=http-title www.showmemyip.com | grep -i "my IP" | cut -d: -f3 | tr -d " \n" |  xclip -selection clipboard && xclip -o -selection clipboard && echo'
+#alias myip='nmap -sC -p80 -n -Pn --script=http-title www.showmemyip.com | grep -i "my IP" | cut -d: -f3 | tr -d " \n" |  xclip -selection clipboard && xclip -o -selection clipboard && echo'
+alias myip='curl ifconfig.me && echo' # Or: ip.appspot.com'
 alias nmapw='nmap -sT -P0 -sV -p80,443 --script=http-headers'
 alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
 #alias netl='netstat -taupen'
@@ -449,6 +451,7 @@ alias katai-struct-compiler='kaitai-struct-compiler -no-version-check'
 ### Shell Global Variable
 #shopt -s extglob
 #setterm -blength 0 # Disable console beep
+stty -ixon # disable <C-s> freeze in vim (who waits a <C-q> signal !)
 
 # X Keyboard Mapping
 setxkbmap -option "nbsp:none" # disable non-breaking space, accidently genrated when typing <ALTGR>+<SPACE>

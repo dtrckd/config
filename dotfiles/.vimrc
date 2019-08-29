@@ -709,7 +709,7 @@ hi Comment ctermfg=blue
 "hi Comment guifg=DarkGrey ctermfg=brown " like; green, white, brown, cyan(=string)
 hi Search guifg=#000000 guibg=#8dabcd guisp=#8dabcd gui=NONE ctermfg=NONE ctermbg=110 cterm=NONE
 hi SpellBad ctermbg=red cterm=underline
-hi StatusLine cterm=bold ctermfg=232 ctermbg=158
+hi StatusLine cterm=bold ctermfg=232 ctermbg=28
 hi StatusLineNC ctermfg=15 ctermbg=240
 hi CursorLine term=underline ctermbg=235 guibg=#424450
 hi TabLine ctermfg=0 ctermbg=7 "headers
