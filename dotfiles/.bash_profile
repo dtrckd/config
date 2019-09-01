@@ -86,7 +86,7 @@ alias tu="htop -u $USER"
 alias t="htop"
 alias diffd="diff -rq $1 $2" # show difference files between dir$1 and dir$2
 alias mvspace="rename 's/ /_/g'"
-alias torb="$HOME/src/config/app/tor-browser_en-US/start-tor-browser.desktop"
+alias torb="sh -c \"$HOME/src/config/app/tor-browser_en-US/Browser/start-tor-browser\" --detach"
 function pdf(){ evince $1 2>/dev/null & }
 function pdfo(){ okular $1 2>/dev/null & }
 
@@ -327,7 +327,7 @@ alias iuf="cd $PX/networkofgraphs/process/pymake/repo/ml/data/reports/figs/"
 alias iup="cd $PX/networkofgraphs/process/pymake/pymake/"
 alias iupp="cd $PX/networkofgraphs/process/pymake/repo/ml/"
 alias iudoc="cd $PX/networkofgraphs/process/pymake/repo/docsearch/"
-alias iut="cd $PX/networkofgraphs/papers/personal/relational_models/"
+alias iut="cd $HOME/Desktop/tt/"
 alias iutt="cd $PX/networkofgraphs/papers/personal/relational_models/thesis/manuscript/source/"
 alias iub="cd $PX/BaseBlue/"
 alias iubb="cd $PX/BaseBlue/bhp/bhp"
@@ -448,6 +448,7 @@ alias katai-struct-compiler='kaitai-struct-compiler -no-version-check'
 #############
 ### ENV
 #############
+export TZ=UTC+1
 
 ### Shell Global Variable
 #shopt -s extglob
