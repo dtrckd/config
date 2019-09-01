@@ -73,9 +73,11 @@ alias whoisssd='lsblk  -d -o name,rota'
 alias python="python -O" # basic optimizatio (ignore assert, ..)
 #alias ipython="python -m IPython"
 alias ipython="ipython --colors linux"
+alias ipython_dev="ipython --colors linux --profile dev"
 alias py='python'
 alias py3='python3'
 alias nb="jupyter-notebook --ip 127.0.0.1"
+alias nb_np='jupyter-notebook --ip 127.0.0.1 ~/Desktop/workInProgress/networkofgraphs/process/notebook/ '
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:$(pwd)'
 alias xback='xbacklight'
 alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
@@ -342,14 +344,14 @@ alias iuw="cd $PX/webmain/"
 alias iumd="cd $PX/webmain/mixtures/md"
 alias iumm="cd $HOME/src/config/app/mm/ && set +o history && unset HISTFILE"
 alias iuscrapy="cd $HOME/.local/lib/python3.7/site-packages/scrapy/"
-alias cdoc="cd ~/SC/Projects/hack-dir/doc"
-alias cdia2="cd ~/SC/Projects/hack-dir/IA"
+alias cdoc="cd $PX/SC/Projects/hack-dir/doc"
+alias cdia2="cd $PX/SC/Projects/hack-dir/IA"
 alias cdd="cd $PX/PlanD/"
 alias cdia="cd $PX/networkofgraphs/papers"
-alias cdwww="cd ~/SC/Projects/Informatique/Reseau/www"
-alias cdsys="cd ~/SC/Projects/Informatique/System"
-alias cdrez="cd ~/SC/Projects/Informatique/Reseau/"
-alias cdid="cd ~/SC/Papiers/idh/id_ad/"
+alias cdwww="cd $PX/SC/Projects/Informatique/Reseau/www"
+alias cdsys="cd $PX/SC/Projects/Informatique/System"
+alias cdrez="cd $PX/SC/Projects/Informatique/Reseau/"
+alias cdid="cd $PX/SC/Papiers/idh/id_ad/"
 alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
 cdlk () { cd $(dirname $(readlink $1)); }
 grepurl () { cat $1 | grep -o '[hrefHREF]=['"'"'"][^"'"'"']*['"'"'"]' | sed -e 's/^[hrefHREF]=["'"'"']//' -e 's/["'"'"']$//'; }
@@ -360,7 +362,6 @@ alias mean="awk '{s+=$1}END{print \"ave:\",s/NR}' RS=\" \""
 alias amatop='elinks http://zombie-dust.imag.fr:8000/'
 #alias amatop='w3m http://zombie-dust.imag.fr:8000/'
 alias grid='elinks http://localhost/grid.html'
-alias nb_np='jupyter-notebook --ip 127.0.0.1 ~/Desktop/workInProgress/networkofgraphs/process/notebook/ '
 alias gg="grid"
 
 # PDF Cut
