@@ -439,7 +439,7 @@ endfunc
 au BufNewFile,BufRead *.nse set filetype=lua
 au BufNewFile,BufRead *.nomad,*.consul set filetype=conf
 au BufNewFile,BufRead *.vue setf vue
-au BufNewFile,BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x <afile>
+au BufNewFile,BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x "<afile>"
 
 """"""""""""""""""""""""""""""
 """" => Conf Files
