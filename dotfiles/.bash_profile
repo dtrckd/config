@@ -281,6 +281,20 @@ function git_reset_permissions() {
         | git apply
 }
 
+# Remove permanently file and purge whole history !
+function git_eradicate_purge() {
+    File="$1"
+    git filter-branch -f  --index-filter \
+        "git rm --force --cached --ignore-unmatch \"$File\"" \
+         -- --all
+
+    rm -Rf .git/refs/original
+    git reflog expire --expire=now --all
+    git gc --aggressive # --prune
+    git prune
+    #git push origin master --force
+}
+
 function ssh_init() {
     eval `ssh-agent`
     ssh-add
