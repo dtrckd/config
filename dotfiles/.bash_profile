@@ -42,16 +42,17 @@ prompt_short
 
 #### Colors results
 if [ -x /usr/bin/dircolors ]; then
-    COLOR_OPT='always'
-    COLOR_OPT='auto'
+    #COLOR_OPT="auto"
+    COLOR_OPT="always"
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls="ls --color=$COLOR_OPT -p --group-directories-first"
-    alias dir='dir --color=$COLOR_OPT'
-    alias vdir='vdir --color=$COLOR_OPT'
-    alias grep='grep --color=$COLOR_OPT'
-    alias fgrep='fgrep --color=$COLOR_OPT'
-    alias egrep='egrep --color=$COLOR_OPT'
-    alias watch='watch --color'
+    alias dir="dir --color=$COLOR_OPT"
+    alias vdir="vdir --color=$COLOR_OPT"
+    alias grep="grep --color=$COLOR_OPT"
+    alias fgrep="fgrep --color=$COLOR_OPT"
+    alias egrep="egrep --color=$COLOR_OPT"
+    alias watch="watch --color"
+    alias tree="tree -C"
 fi
 
 alias less='less -S -R'
