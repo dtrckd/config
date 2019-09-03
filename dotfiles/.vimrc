@@ -707,25 +707,29 @@ hi Title ctermfg=39  " affect the number of windows in the tabline and filname i
 hi Normal ctermbg=232
 hi Comment ctermfg=blue
 "hi Comment guifg=DarkGrey ctermfg=brown " like; green, white, brown, cyan(=string)
-hi Search guifg=#000000 guibg=#8dabcd guisp=#8dabcd gui=NONE ctermfg=NONE ctermbg=110 cterm=NONE
+hi Search ctermfg=white ctermbg=105 cterm=NONE
 hi SpellBad ctermbg=red cterm=underline
-hi StatusLine cterm=bold ctermfg=232 ctermbg=28
-hi StatusLineNC ctermfg=15 ctermbg=240
-hi CursorLine term=underline ctermbg=235 guibg=#424450
-hi TabLine ctermfg=0 ctermbg=7 "headers
-hi TabLineSel ctermfg=Blue ctermbg=Green
+hi StatusLine ctermfg=white ctermbg=25 cterm=bold
+hi StatusLineNC ctermfg=black ctermbg=242
+hi CursorLine term=underline ctermbg=235
+hi TabLine ctermbg=7 ctermfg=black
+hi TabLineSel ctermfg=blue ctermbg=green
 "hi TabLineSel ctermfg=Blue ctermbg=Green
-"hi TabLineFill guifg=LightGreen guibg=DarkGreen ctermfg=LightGreen ctermbg=DarkGreen
+"hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
 
 """ StatusLine
 hi GitColor ctermbg=172 ctermfg=black
 
 set statusline=""
 set statusline+=%#GitColor#%{StatuslineGit()}%*   " %#PmenuSel
-set statusline+=\ %<%f%m\ %r\ %h\ %w
+set statusline+=\ %<%f
+set statusline+=%m
+set statusline+=\ %r
+set statusline+=\ %h
+set statusline+=\ %w
 set statusline+=%=%l/%L:%c\ %05(%p%%%)
 set statusline+=\ 
-"set statusline=%<%{LastDir()}/%t%m\ %r\ %h\ %w\ %015{_branch}\ %=%l/%L:%c\ %015(%p%%%)
+
 " Syntastic
 "set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
