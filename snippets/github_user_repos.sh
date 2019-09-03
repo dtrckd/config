@@ -1,7 +1,6 @@
 #!/bin/bash
 # Clone all github.com repositories for a specified user.
 
-
 if [ $# -eq 0 ]
   then
     echo "Usage: $0 <user_name> "
@@ -19,4 +18,4 @@ while read -r REPO; do
         echo $URL
         #git clone $repo;
     fi
-done <<<$(curl -s "https://api.github.com/users/$USER/repos?per_page=1000" | jq -c ".[]")
+done <<<$(curl -s "https://api.github.com/users/$USER/repos?per_page=100" | jq -c ".[]")
