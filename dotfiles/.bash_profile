@@ -164,7 +164,7 @@ alias ls-masked-unit='ctr --state masked' # systemctl list-unit-files | grep mas
 alias ls-failed-unit='ctr --state failed' # systemctl --failed
 
 ### VIM
-alias vim='vim.nox'
+#alias vim='vim.nox'
 alias vi='vim'
 alias vcal='vim -c "Calendar -view=month"' # get calendar
 #alias vcal='vim -c Calendar -c on' # Matsumoto calendar
@@ -281,17 +281,19 @@ function git_reset_permissions() {
         | git apply
 }
 
-# Remove permanently file and purge whole history !
+# Remove permanently file and purge whole history.
+# Tell collaborators to do `git pull --rebase` # to avoid messy merge.
 function git_eradicate_purge() {
+    # alternative: bfg --delete-files YOUR-FILE-WITH-SENSITIVE-DATA
     File="$1"
-    git filter-branch -f  --index-filter \
+    git filter-branch --force --index-filter \
         "git rm --force --cached --ignore-unmatch \"$File\"" \
-         -- --all
+        --prune-empty --tag-name-filter cat -- --all
 
+    # Dereferenced objects and garbage collect
     rm -Rf .git/refs/original
     git reflog expire --expire=now --all
-    git gc --aggressive # --prune
-    git prune
+    git gc --prune=now --aggressive
     #git push origin master --force
 }
 
