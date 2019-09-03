@@ -23,7 +23,7 @@ pip3 install --user --upgrade setuptools wheel pip
 ######################
 ### Utils
 ######################
-sudo aptitude install $OPTS -R mc rsync byobu ranger wicd vim-nox git gitk gitg
+sudo aptitude install $OPTS -R mc rsync tmux ranger wicd vim git gitk gitg
 ranger --copy-config=all
 # Optionals (but advised !)
 if [ $AGGRESSIVE == 1 ]; then

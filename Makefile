@@ -91,7 +91,6 @@ _bootstrap: _dotfiles _etc bin
 _dotfiles:
 	# Warning: Junk file will stay on target (cp don't remove files)
 	ls -A dotfiles/ | xargs -I{} cp -r dotfiles/{}  ~/
-	cp dotfiles/.tmux.conf ~/.byobu/
 
 _etc:
 	sudo cp etc/rc.local /etc
