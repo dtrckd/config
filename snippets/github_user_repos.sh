@@ -15,7 +15,7 @@ while read -r REPO; do
     URL=$(echo "$REPO" | jq '.git_url')
     FORK=$(echo "$REPO" | jq '.fork')
     if [ $FORK == "$ISFORKED" ]; then
-        echo $URL
+        echo ${URL:1:-1}
         #git clone $repo;
     fi
 done <<<$(curl -s "https://api.github.com/users/$USER/repos?per_page=100" | jq -c ".[]")
