@@ -118,6 +118,7 @@ function make_graph_python(){
 
 alias vib="vim ~/.bash_profile"
 alias vimrc="vim ~/.vimrc"
+alias vimtmux="vim ~/.tmux.conf"
 
 _PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/pymake/repo/ml/"
 _NDL="$HOME/src/config/configure/nodeslist"
@@ -150,7 +151,7 @@ alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
 function grepyf(){ find -iname "*.py" |xargs grep --color -m1 "$1" |cut -d: -f1; } # don work :(
 alias grepall='find -type f | xargs grep --color'
 # Snap Alias
-alias ag="ag-mcphail.ag --color-path 32"
+alias ag='ag-mcphail.ag --color-path 32 --color-match "1;40;36"'
 alias agpy='ag --py'
 alias fzf='fzf-slowday.fzf'
 ### XFCE
@@ -182,13 +183,14 @@ function vims() {
         echo "no vim session file found for ${SessionID}."
     fi
 }
-#function vims() {
-#    file=".session.vim"
-#    if [ -n "$1" ]; then
-#        file=.$1${file}
-#    fi
-#    vim -c "source $file" -S ~/.vimrc
-#}
+# Old vims but still useful
+function vimss() {
+    file=".session.vim"
+    if [ -n "$1" ]; then
+        file=.$1${file}
+    fi
+    vim -c "source $file" -S ~/.vimrc 
+}
 
 function upgrademe() {
     aptitude update && aptitude upgrade
@@ -334,9 +336,10 @@ alias sshchocobo='autossh bomberman@51.15.89.180'
 alias tmr='python3 -m tm manager'
 
 ### cd alias
-alias xs='cd'
 PX="${HOME}/workInProgress"
-webApp="webuser"
+alias xs='cd'
+alias cdl="cd -"
+alias cdp="cd .."
 alias iu="cd $PX"
 alias iuc="cd $HOME/src/config/"
 alias iucc="cd $PX/BaseDump/bots/skopai/common/"
@@ -345,6 +348,8 @@ alias iud="cd $PX/networkofgraphs/process/pymake/repo/ml/data/"
 alias iuf="cd $PX/networkofgraphs/process/pymake/repo/ml/data/reports/figs/"
 alias iup="cd $PX/networkofgraphs/process/pymake/pymake/"
 alias iupp="cd $PX/networkofgraphs/process/pymake/repo/ml/"
+alias iunb="cd $PX/networkofgraphs/process/notebook/"
+alias iuk="cd $PX/networkofgraphs/missions" # mission / kaggle / etc
 alias iudoc="cd $PX/networkofgraphs/process/pymake/repo/docsearch/"
 alias iut="cd $HOME/Desktop/tt/"
 alias iutt="cd $PX/networkofgraphs/papers/personal/relational_models/thesis/manuscript/source/"
@@ -506,7 +511,7 @@ export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S "
 export EDITOR="/usr/bin/vim"
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
-export PATH="/bin:/sbin:/usr/sbin:/opt/bin:/usr/bin:/usr/local/bin:$HOME/.local/bin:$HOME/bin"
+export PATH="/usr/local/bin:$HOME/.local/bin:$HOME/bin:/bin:/sbin:/usr/sbin:/opt/bin:/usr/bin"
 
 ### Man Pages
 # Less Colors for Man Pages
@@ -544,10 +549,10 @@ export OMP_NUM_THREADS=1  # Number of thread used by numpy
 
 # GOLANG
 export GOPATH=$HOME/.go
-export PATH="$PATH:$GOPATH/bin:/usr/local/go/bin"
+export PATH="$GOPATH/bin:/usr/local/go/bin:$PATH:"
 
 # SNAP
-export PATH="$PATH:/snap/bin"
+export PATH="/snap/bin:$PATH"
 
 # NVM
 export NVM_DIR="$HOME/.nvm"

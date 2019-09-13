@@ -36,7 +36,7 @@ PAPERS := $(foreach file,$(PAPERS_NAME), $(BD_PAPER)/$(file))
 # Web files to copy
 HTML_FILES_MIXT := css/ js/ images/ html/ index.php menu.php
 HTML_FILES_TEZ  := css/ js/ images/ html/ a.php menu.php papers/ mlss2015/
-HTML_FILES_MAIN := css/ js/ images/ *.html *.php *.py *.js
+HTML_FILES_MAIN := css/ js/ images/ *.html *.py *.js
 
 default: local
 

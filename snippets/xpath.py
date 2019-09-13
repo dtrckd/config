@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 import sys, os
-from lxml.html.soupparser import fromstring
+#from lxml.html.soupparser import fromstring
+from lxml import html
 
 def parse_args(settings):
     # Script Arguments Parsing
     j = 1
+    if len(sys.argv) < 2:
+        print(settings['usage'])
+        exit(1)
+
     for i, _arg in enumerate(sys.argv):
         arg = sys.argv[j]
         if arg == "-v":
@@ -16,9 +21,10 @@ def parse_args(settings):
                 settings['pattern'] = arg
             elif settings.get('file') is None:
                 settings['file'] = arg
+
             if j == 0:
                 print(settings['usage'])
-                exit()
+                exit(1)
 
         j += 1
         if j == len(sys.argv):
@@ -31,7 +37,7 @@ if __name__ == '__main__':
     settings = dict(
         debug = -1,
         verbose = None,
-        usage = 'xpath pattern file',
+        usage = 'Usage: xpath PATTERN FILE',
         file = None,
         pattern = None,
     )
@@ -43,9 +49,12 @@ if __name__ == '__main__':
     with open(fn) as _f:
         strings = _f.read()
 
-    p = fromstring(strings)
-    pp = p.xpath(pattern)
-    for o in pp:
-        print(o)
+    tree = html.fromstring(strings)
+    for node in tree.xpath(pattern):
+        #print(node)
+        print(html.tostring(node))
+        #print(o.tag)
+        #print(o.attrib)
+        #print(o.text)
 
 

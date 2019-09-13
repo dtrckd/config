@@ -71,9 +71,19 @@ let g:easytags_updatetime_min = 180000
 let g:easytags_auto_update = 0
 
 """ NerdTree
+:let g:NERDTreeWinSize=26
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 map <C-p> :NERDTreeToggle<CR>
+map <TAB> :NERDTreeFind<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"let NERDTreeMinimalUI = 1
+"let NERDTreeDirArrows = 1
+"let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+"let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
+"let g:WebDevIconsNerdTreeBeforeGlyphPadding = ""
+"let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
+"autocmd FileType nerdtree setlocal signcolumn=no
+
 
 """ ACK/AG (use AG!)
 let g:ackprg = 'ag-mcphail.ag  --smart-case'                                                   
@@ -339,20 +349,19 @@ noremap <F4> :tabe %<CR>
 "noremap zR " Open all folds
 "noremap zM " close all folds
 "" Window
-nnoremap <S-UP> <C-W>k
-nnoremap <S-DOWN> <C-W>j
-nnoremap <S-LEFT> <C-W>h
+nnoremap <S-UP>    <C-W>k
+nnoremap <S-DOWN>  <C-W>j
+nnoremap <S-LEFT>  <C-W>h
 nnoremap <S-RIGHT> <C-W>l
-noremap <A-UP> <C-W>10+
-noremap <A-DOWN> <C-W>10-
-noremap <A-LEFT> <C-W>10<
+nnoremap <C-k> <C-W>10+ 
+nnoremap <C-j> <C-W>10-
+nnoremap <C-h> <C-W>10<
+nnoremap <C-l> <C-W>10>
+noremap <A-UP>    <C-W>10+
+noremap <A-DOWN>  <C-W>10-
+noremap <A-LEFT>  <C-W>10<
 noremap <A-RIGHT> <C-W>10>
-"set <Debut>=^[[1;5D
-"set <FIN>=^[[1;5C
-"map <DEBUT> 8<UP>
-"map <FIN> 8<DOWN>
-"nnoremap <S-PageUp> <C-W>k " can't work...
-"nnoremap <S-PageDown> <C-W>j
+
 " TAB
 nnoremap <C-UP> gT
 noremap <C-DOWN> <ESC>:tabn<CR>
@@ -437,7 +446,7 @@ endfunc
 """" => Extra Filetype
 """"""""""""""""""""""""""""""
 au BufNewFile,BufRead *.nse set filetype=lua
-au BufNewFile,BufRead *.nomad,*.consul set filetype=conf
+au BufNewFile,BufRead *.nomad,*.consul,*.toml,*.yaml set filetype=conf
 au BufNewFile,BufRead *.vue setf vue
 au BufNewFile,BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x "<afile>"
 
@@ -456,6 +465,13 @@ au BufNewFile,BufRead *.py set formatoptions-=tc " prevent inserting \n. Where d
 """ Search moves
 au BufNewFile,BufRead *.py\> nnoremap _ ?<C-R>='__init__('<CR><CR>
 au BufNewFile,BufRead *.pyx nnoremap _ ?<C-R>='__cinit__('<CR><CR>
+
+""" Docstrings
+" To toggle the docstrings in the whole buffer you can use zR and zM, to toggle a single docstring, 
+" use za (I also mapped <space> to za, so I can toggle it pressing the space bar in normal mode)
+" Note that this code should be only triggered when editing a Python buffer (autocommand python call ...).
+autocmd FileType python setlocal foldenable foldmethod=syntax
+nnoremap <space> za
 
 func! DeleteTrailingWS()
   exe "normal mz"
@@ -496,15 +512,20 @@ au filetype cpp set fdm=syntax
 """"""""""""""""""""""""""""""
 """" => HTML Files
 """"""""""""""""""""""""""""""
-autocmd BufNewFile,BufRead *.load set filetype=html
+au BufNewFile,BufRead *.load set filetype=html
+au BufNewFile,BufRead  *.html,*.css set tabstop=2 softtabstop=2 shiftwidth=2 nowrap
+
+" multiple code (web2py...)
 au Filetype html :call TextEnableCodeSnip('python', '{{#py', '}}', 'SpecialComment')
 au Filetype html :call TextEnableCodeSnip('python', '<script>', '</script>', 'SpecialComment')
-" Comment
-au Filetype html nmap # :s/\([^ ].*\)$/<!--\1-->/<CR>:noh<CR>
-au Filetype html nmap ~ :s/<!--\(.*\)-->/\1/<CR>:noh<CR>
-au BufNewFile,BufRead *.css nmap # :s/\([^ ].*\)$/\/\*\1\*\//<CR>:noh<CR>
-au BufNewFile,BufRead *.css nmap ~ :s/\/\*\(.*\)\*\//\1/<CR>:noh<CR>
-au BufNewFile,BufRead  *.html,*.css set tabstop=2 softtabstop=2 shiftwidth=2 nowrap
+
+" Comment / filtetype named doesnt work!
+au BufNewFile,BufRead *.html       nmap # :s/\([^ ].*\)$/<!--\1-->/<CR>:noh<CR>
+au BufNewFile,BufRead *.html       nmap ~ :s/<!--\(.*\)-->/\1/<CR>:noh<CR>
+au BufNewFile,BufRead *.js         nmap # :s/\([^ ].*\)$/\/\*\1\*\//<CR>:noh<CR>
+au BufNewFile,BufRead *.css        nmap # :s/\([^ ].*\)$/\/\*\1\*\//<CR>:noh<CR>
+au BufNewFile,BufRead *.js         nmap ~ :s/\/\*\(.*\)\*\//\1/<CR>:noh<CR>
+au BufNewFile,BufRead *.css        nmap ~ :s/\/\*\(.*\)\*\//\1/<CR>:noh<CR>
 
 
 let mapleader = ','
@@ -636,7 +657,8 @@ function! HeadSwitch(com)
   call FindSw(a:com)
 endfun
 
-nmap h :call HeadSwitch('e')<CR>
+" C/Cython Header find/open
+nmap H :call HeadSwitch('e')<CR>
 nmap <leader>h :call HeadSwitch('tabe')<CR>
 
 
