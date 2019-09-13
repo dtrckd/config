@@ -185,6 +185,7 @@ dia # draw graph/diagram
 drawio # like dia, more powerfull, ergonomic
 blender/panda3D # 3D scene image creation
 tesseract # cli to  convert image to text (with ml/rnn)
+gpick # slect find the colors on the screen
 
 # audio/sound
 audacity
