@@ -333,6 +333,8 @@ alias sshtmr='autossh -D 1090 vpn@163.172.45.128'
 alias sshmachine='autossh green@82.251.4.205'
 alias sshchocobo='autossh bomberman@51.15.89.180'
 
+alias neocities="NEOCITIES_KEY=$(cat $HOME/src/config/credentials/adrien-dulac.neocities) neocities"
+
 alias tmr='python3 -m tm manager'
 
 ### cd alias
@@ -342,6 +344,7 @@ alias cdl="cd -"
 alias cdp="cd .."
 alias iu="cd $PX"
 alias iuc="cd $HOME/src/config/"
+alias iucs="cd $HOME/src/config/snippets"
 alias iucc="cd $PX/BaseDump/bots/skopai/common/"
 alias ium="cd $HOME/Music/"
 alias iud="cd $PX/networkofgraphs/process/pymake/repo/ml/data/"
@@ -367,9 +370,9 @@ alias iumd="cd $PX/webmain/mixtures/md"
 alias iumm="cd $HOME/src/config/app/mm/ && set +o history && unset HISTFILE"
 alias iuscrapy="cd $HOME/.local/lib/python3.7/site-packages/scrapy/"
 alias cdoc="cd $PX/SC/Projects/hack-dir/doc"
-alias cdia2="cd $PX/SC/Projects/hack-dir/IA"
+alias cdia="cd $PX/SC/Projects/hack-dir/IA"
 alias cdd="cd $PX/PlanD/"
-alias cdia="cd $PX/networkofgraphs/papers"
+alias cdpapers="cd $PX/networkofgraphs/papers"
 alias cdwww="cd $PX/SC/Projects/Informatique/Reseau/www"
 alias cdsys="cd $PX/SC/Projects/Informatique/System"
 alias cdrez="cd $PX/SC/Projects/Informatique/Reseau/"

@@ -54,6 +54,10 @@ Plugin 'posva/vim-vue' " syntaxixc coloration for Vue.js
 Plugin 'xolox/vim-session'
 Plugin 'mileszs/ack.vim'
 
+" fix mardown highlight
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+
 """""""""""""""""""""""""""
 """" Plugin conf
 """""""""""""""""""""""""""
