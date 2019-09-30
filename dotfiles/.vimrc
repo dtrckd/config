@@ -264,7 +264,7 @@ function! GitBranch()
 endfunction
 
 function! GitStatus()
-  let status = Chomp(system("git -C ".shellescape(expand('%:p:h'))." status --porcelain -b ".shellescape(expand('%'))." 2>/dev/null"))
+  let status = Chomp(system("git -C ".shellescape(expand('%:p:h'))." status --porcelain -b ".shellescape(expand('%:p'))))
   let status = strpart(get(split(status,'\n'),1, ''),1,1)
   return status
 endfunction
