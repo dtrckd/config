@@ -334,6 +334,7 @@ alias sshmachine='autossh green@82.251.4.205'
 alias sshchocobo='autossh bomberman@51.15.89.180'
 
 alias neocities="NEOCITIES_KEY=$(cat $HOME/src/config/credentials/adrien-dulac.neocities) neocities"
+#alias neocities="NEOCITIES_KEY=$(cat $HOME/src/config/credentials/pymake.neocities) neocities"
 
 alias tmr='python3 -m tm manager'
 
