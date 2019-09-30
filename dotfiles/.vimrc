@@ -233,6 +233,15 @@ let g:syntastic_quiet_messages = {
 """" Utils
 """""""""""""""""""""""""""
 
+" remove trainling newline ans spaces
+function! Chomp(string)
+  if strlen(a:string) > 0
+    return substitute(a:string, '[\n\s]\+$', '', '')
+  else
+    return ''
+  endif
+endfunction
+
 function! CurrDir()
     let dir = split(getcwd(), '/')[-1]
     return dir
@@ -250,12 +259,21 @@ function! Last2Dir()
 endfunction
 
 function! GitBranch()
-  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+  let branch = Chomp(system("git -C ".shellescape(expand('%:p:h'))." rev-parse --abbrev-ref HEAD 2>/dev/null"))
+  return branch
+endfunction
+
+function! GitStatus()
+  let status = Chomp(system("git -C ".shellescape(expand('%:p:h'))." status --porcelain -b ".shellescape(expand('%'))." 2>/dev/null"))
+  let status = strpart(get(split(status,'\n'),1, ''),1,1)
+  return status
 endfunction
 
 function! StatuslineGit()
-    let l:branchname = GitBranch()
-    return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+  let branchname = GitBranch()
+  let status = GitStatus()
+  let b:gitbranch = strlen(branchname) > 0 ? '  '.branchname.' ' : ''
+  let b:gitstatus = strlen(status) > 0 ? '('.status.')' : ''
 endfunction
 
 """"""""""""""""""""""""""""""
@@ -300,7 +318,7 @@ set encoding=utf-8
 "nnoremap Q gq
 """ Last position
 if has("autocmd")
-      au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
 """ Refresh options
@@ -452,13 +470,13 @@ endfunc
 au BufNewFile,BufRead *.nse set filetype=lua
 au BufNewFile,BufRead *.nomad,*.consul,*.toml,*.yaml set filetype=conf
 au BufNewFile,BufRead *.vue setf vue
-au BufNewFile,BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x "<afile>"
+au BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x "<afile>"
 
 """"""""""""""""""""""""""""""
 """" => Conf Files
 """"""""""""""""""""""""""""""
 au BufNewFile,BufRead *.*rc set tw=0
-au filetype vim  set ts=2 sts=2 sw=2
+au filetype vim set ts=2 sts=2 sw=2
 
 """"""""""""""""""""""""""""""
 """" => Python Files
@@ -507,7 +525,7 @@ au BufNewFile,BufRead *.plt,*.gnuplot,*.gnu set filetype=gnuplot
 "au BufNewFile,BufRead *.gnu set filetype=gnuplot
 
 """"""""""""""""""""""""""""""
-"""" => C, Java Files
+"""" => C, C++, Java Files
 """"""""""""""""""""""""""""""
 "au filetype cpp, java  set ts=8 sts=8 sw=8
 au filetype cpp set fdm=syntax
@@ -746,11 +764,11 @@ hi TabLineSel ctermfg=blue ctermbg=green
 """ StatusLine
 hi GitColor ctermbg=172 ctermfg=black
 
-let b:_branch = StatuslineGit()
+au BufEnter,BufRead,BufWritePost * call StatuslineGit()
 
 set statusline=""
-set statusline+=%#GitColor#%{b:_branch}%*   " %#PmenuSel
-set statusline+=\ %<%f
+set statusline+=%#GitColor#%{b:gitbranch}%*
+set statusline+=\ %<%f\ %{b:gitstatus}
 set statusline+=%m
 set statusline+=\ %r
 set statusline+=\ %h
