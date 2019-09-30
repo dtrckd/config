@@ -746,8 +746,10 @@ hi TabLineSel ctermfg=blue ctermbg=green
 """ StatusLine
 hi GitColor ctermbg=172 ctermfg=black
 
+let b:_branch = StatuslineGit()
+
 set statusline=""
-set statusline+=%#GitColor#%{StatuslineGit()}%*   " %#PmenuSel
+set statusline+=%#GitColor#%{b:_branch}%*   " %#PmenuSel
 set statusline+=\ %<%f
 set statusline+=%m
 set statusline+=\ %r
