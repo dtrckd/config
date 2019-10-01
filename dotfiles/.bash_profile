@@ -152,7 +152,7 @@ function grepyf(){ find -iname "*.py" |xargs grep --color -m1 "$1" |cut -d: -f1;
 alias grepall='find -type f | xargs grep --color'
 # Snap Alias
 alias ag='ag-mcphail.ag --color-path 32 --color-match "1;40;36"'
-alias agpy='ag --py'
+alias agy='ag --py'
 alias fzf='fzf-slowday.fzf'
 ### XFCE
 #alias locks='s2ram -f -m'
