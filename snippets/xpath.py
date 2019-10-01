@@ -51,10 +51,9 @@ if __name__ == '__main__':
 
     tree = html.fromstring(strings)
     for node in tree.xpath(pattern):
-        #print(node)
-        print(html.tostring(node))
-        #print(o.tag)
-        #print(o.attrib)
-        #print(o.text)
+        try:
+            print(html.tostring(node))
+        except:
+            print(node)
 
 
