@@ -378,7 +378,7 @@ nnoremap <S-RIGHT> <C-W>l
 nnoremap <C-k> <C-W>10+ 
 nnoremap <C-j> <C-W>10-
 nnoremap <C-h> <C-W>10<
-nnoremap <C-l> <C-W>10>
+"nnoremap <C-l> <C-W>10>
 noremap <A-UP>    <C-W>10+
 noremap <A-DOWN>  <C-W>10-
 noremap <A-LEFT>  <C-W>10<
@@ -680,7 +680,6 @@ function! HeadSwitch(com)
 endfun
 
 " C/Cython Header find/open
-nmap H :call HeadSwitch('e')<CR>
 nmap <leader>h :call HeadSwitch('tabe')<CR>
 
 
