@@ -280,6 +280,7 @@ endfunction
 """ General / Interface
 """"""""""""""""""""""""""""""
 syntax on
+set noequalalways  "prevent automatically resizing windows
 set tabpagemax=50
 set pastetoggle=£ " toggle paste mode
 "set clipboard=unnamed " dont support C-S V
@@ -512,6 +513,7 @@ autocmd BufWrite *.py,*.pyx,*.pyd,*.c,*.cpp,*.h,*.sh,*.txt,*.js,*.html,*.css :ca
 """"""""""""""""""""""""""""""
 """" => Latex Files
 """"""""""""""""""""""""""""""
+au filetype tex set ts=2 sts=2 sw=2
 au Filetype tex set wrap tw=90
 au Filetype tex set indentkeys="    "
 au BufRead,BufNewFile *.md set filetype=markdown
@@ -578,7 +580,7 @@ map <Leader>ht <ESC>:AT<CR>
 "map <leader>h :vs %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 """ Varia
 " toggle wrap line
-nmap <leader>, :windo set wrap!<CR>
+nmap <leader>, :set wrap!<CR>
 " save session
 nmap <leader>w :mks! .session.vim<CR>
 
