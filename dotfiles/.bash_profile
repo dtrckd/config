@@ -120,7 +120,7 @@ alias vib="vim ~/.bash_profile"
 alias vimrc="vim ~/.vimrc"
 alias vimtmux="vim ~/.tmux.conf"
 
-_PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/pymake/repo/ml/"
+_PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/repo/ml/"
 _NDL="$HOME/src/config/configure/nodeslist"
 alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
 
@@ -333,8 +333,10 @@ alias sshtmr='autossh -D 1090 vpn@163.172.45.128'
 alias sshmachine='autossh green@82.251.4.205'
 alias sshchocobo='autossh bomberman@51.15.89.180'
 
-alias neocities="NEOCITIES_KEY=$(cat $HOME/src/config/credentials/adrien-dulac.neocities) neocities"
-#alias neocities="NEOCITIES_KEY=$(cat $HOME/src/config/credentials/pymake.neocities) neocities"
+if [ -d $HOME/src/config/credentials/ ]; then
+    alias neocities="NEOCITIES_KEY=$(cat $HOME/src/config/credentials/adrien-dulac.neocities) neocities"
+    #alias neocities="NEOCITIES_KEY=$(cat $HOME/src/config/credentials/pymake.neocities) neocities"
+fi
 
 alias tmr='python3 -m tm manager'
 
@@ -344,18 +346,16 @@ alias xs='cd'
 alias cdl="cd -"
 alias cdp="cd .."
 alias iu="cd $PX"
+alias ium="cd $HOME/Music/"
 alias iuc="cd $HOME/src/config/"
 alias iucs="cd $HOME/src/config/snippets"
-alias iucc="cd $PX/BaseDump/bots/skopai/common/"
-alias ium="cd $HOME/Music/"
-alias iud="cd $PX/networkofgraphs/process/pymake/repo/ml/data/"
-alias iuf="cd $PX/networkofgraphs/process/pymake/repo/ml/data/reports/figs/"
-alias iup="cd $PX/networkofgraphs/process/pymake/pymake/"
-alias iupp="cd $PX/networkofgraphs/process/pymake/repo/ml/"
-alias iunb="cd $PX/networkofgraphs/process/notebook/"
-alias iuk="cd $PX/networkofgraphs/missions" # mission / kaggle / etc
-alias iudoc="cd $PX/networkofgraphs/process/pymake/repo/docsearch/"
 alias iut="cd $HOME/Desktop/tt/"
+alias iuk="cd $PX/networkofgraphs/missions" # mission / kaggle / etc
+alias iunb="cd $PX/networkofgraphs/process/notebook/"
+alias iup="cd $PX/networkofgraphs/process/pymake/pymake/"
+alias iurp="cd $PX/networkofgraphs/process/repo/"
+alias iupp="cd $PX/networkofgraphs/process/repo/ml/"
+alias iudoc="cd $PX/networkofgraphs/process/repo/docsearch/"
 alias iutt="cd $PX/networkofgraphs/papers/personal/relational_models/thesis/manuscript/source/"
 alias iub="cd $PX/BaseBlue/"
 alias iubb="cd $PX/BaseBlue/bhp/bhp"
@@ -364,6 +364,7 @@ alias iuww="cd $PX/BaseBlue/bhp/wiki"
 alias iuds="cd $PX/BaseBlue/designspec/"
 alias iutm="cd $PX/BaseBlue/tmr/tm"
 alias iug="cd $PX/BaseBlue/grator/pnp"
+alias iucc="cd $PX/BaseDump/bots/skopai/common/"
 alias iux="cd $PX/BaseDump/bots/skopai/skopy"
 alias iubg="cd $PX/BaseDump/bots/skopai/bigbangsearch"
 alias iuw="cd $PX/webmain/"
@@ -438,7 +439,7 @@ alias xrpone='xmms2 server config playlist.repeat_one 1'
 alias xrpall='xmms2 server config playlist.repeat_all 1'
 alias xrpclr='xmms2 server config playlist.repeat_one  0; xmms2 server config playlist.repeat_all 0'
 alias xadd='xmms2 add "`xmms2 info | grep file:// | cut -d: -f2  | xargs -0 dirname`"'
-alias cdxl='cd "$(xmms2 info | grep file:// |cut -d: -f2  |xargs -0 dirname |python3 -c "import sys,urllib.parse;sys.stdout.write(urllib.parse.unquote_plus(sys.stdin.read()))")"'
+alias xcd='cd "$(xmms2 info | grep file:// |cut -d: -f2  |xargs -0 dirname |python3 -c "import sys,urllib.parse;sys.stdout.write(urllib.parse.unquote_plus(sys.stdin.read()))")"'
 alias xll='ls "$(xmms2 info | grep file:// |cut -d: -f2  |xargs -0 dirname |python3 -c "import sys,urllib.parse;sys.stdout.write(urllib.parse.unquote_plus(sys.stdin.read()))")"'
 xshuff () {
     # Add random files in xmms2
