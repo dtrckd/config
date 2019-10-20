@@ -2,9 +2,8 @@
 ipython 
 jupyter
 
-# pmk inspiration
+# Pmk inspiration
 orange
-
 
 # Data science & ML
 numpy scipy
@@ -19,11 +18,13 @@ pandoc
 pandocfilters 
 termcolor
 
-##############################
-# data visualization
-##############################
+# Data visualization
 tabulate   # print tables
 matplotlib # base
 beaborn    # complex multi-dime,sional plot / wrap around matplotlib
 bokeh      # Interactive plot / build around Glyphs
 plotly     # Interactive plot / build arounf Dash
+
+# Profiling
+snakeviz
+tuna
