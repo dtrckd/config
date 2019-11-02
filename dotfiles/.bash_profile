@@ -135,7 +135,11 @@ alias jerr='journalctl -p err -b'
 ### Net
 alias curlH='curl -I'
 #alias myip='nmap -sC -p80 -n -Pn --script=http-title www.showmemyip.com | grep -i "my IP" | cut -d: -f3 | tr -d " \n" |  xclip -selection clipboard && xclip -o -selection clipboard && echo'
-alias myip='curl ifconfig.me && echo' # Or: ip.appspot.com'
+alias myip='curl https://tools.aquilenet.fr/ip/ && echo' # Or: ip.appspot.com'
+                                      # curl https://tools.aquilenet.fr/ip/
+                                      # curl ifconfig.io
+                                      # curl ifconfig.me
+alias vpn_aqui='sudo openvpn /etc/openvpn/aqn.conf'                                      
 alias nmapw='nmap -sT -P0 -sV -p80,443 --script=http-headers'
 alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
 #alias netl='netstat -taupen'
@@ -501,12 +505,14 @@ alias to_azerty='setxkbmap fr' # AZERTY
 stty werase undef
 bind '\C-w:unix-filename-rubout'
 
-# auto-complete (bind is akin to write in the .inputrc file)
-bind "TAB:menu-complete"
+# Bind is akin to write in the .inputrc file)
+# Tab completion features
+bind "TAB:menu-complete" # auto complete menu TAV
 bind "set show-all-if-ambiguous on"
 bind "set menu-complete-display-prefix on" # tape twice to complete on ambiguous
 bind '"\e[Z": menu-complete-backward' # shift tab cycles backward
 bind "Control-q: complete" # stop to cycling and seek take the next key
+bind 'set completion-ignore-case on' # Case insensitive when tab completing
 
 HISTSIZE=2000
 HISTFILESIZE=2000

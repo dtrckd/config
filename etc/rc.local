@@ -17,6 +17,14 @@
 # Run Mongo
 docker run -d -p 27017:27017 -v ~/src/data/mongo-docker:/data/db mongo
 
+# Run Vpn
+sysctl net.ipv4.ip_forward = 1 # enable forwardind for DNS
+# redirect dns
+iptables -t nat -D OUTPUT -p udp --dport 53 -j DNAT --to 80.67.169.40:53
+iptables -t nat -D OUTPUT -p tcp --dport 53 -j DNAT --to 80.67.169.40:53
+iptables -t nat -A POSTROUTING -j MASQUERADE
+#sysctl net.ipv6.conf.all.disable_ipv6=0 # disable ipv6
+openvpn --config  /etc/openvpn/aqn.conf
 
 # Mouse trick (xserver-xorg-input-synaptics)
 #syndaemon -t -k -i 0.2 -d
