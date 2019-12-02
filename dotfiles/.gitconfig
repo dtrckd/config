@@ -11,3 +11,5 @@
 	tool = vimdiff
 [pull]
 	rebase = true
+[core]
+	excludesfile = /home/dtrckd/.gitignore
