@@ -268,17 +268,10 @@ function gitsearch() {
 }
 
 # Git init
-function gitinit_dd() {
-    git init
+function git_config_init() {
     git config user.name "dtrckd"
-    git config user.email "ddtracked@gmail.com"
-    git add .gitignore
-    git commit -m 'init'
-}
-# Git init
-function gitinit_dd_config() {
-    git config user.name "dtrckd"
-    git config user.email "ddtracked@gmail.com"
+    git config user.email "dtrckd@gmail.com"
+    git config --global core.excludesfile ~/.gitignore
 }
 # Git Permission Reset
 function git_reset_permissions() {
@@ -368,7 +361,7 @@ alias iuww="cd $PX/BaseBlue/bhp/wiki"
 alias iuds="cd $PX/BaseBlue/designspec/"
 alias iutm="cd $PX/BaseBlue/tmr/tm"
 alias iug="cd $PX/BaseBlue/grator/pnp"
-alias iucc="cd $PX/BaseDump/bots/skopai/common/"
+alias iucm="cd $PX/BaseDump/bots/skopai/common/"
 alias iux="cd $PX/BaseDump/bots/skopai/skopy"
 alias iubg="cd $PX/BaseDump/bots/skopai/bigbangsearch"
 alias iuw="cd $PX/webmain/"
