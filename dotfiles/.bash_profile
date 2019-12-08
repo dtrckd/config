@@ -117,6 +117,7 @@ function make_graph_python(){
 }
 
 alias vib="vim ~/.bash_profile"
+alias vif="vim ~/.config/fish/aliases.fish"
 alias vimrc="vim ~/.vimrc"
 alias vimtmux="vim ~/.tmux.conf"
 
@@ -172,13 +173,14 @@ alias ls-failed-unit='ctr --state failed' # systemctl --failed
 ### VIM
 #alias vim='vim.nox'
 alias vi='vim'
+alias ci='vim'
 alias vcal='vim -c "Calendar -view=month"' # get calendar
 #alias vcal='vim -c Calendar -c on' # Matsumoto calendar
 #alias vcal='vim -c "Calendar -view=year" -c tabe -c "Calendar -view=month"' # get calendar
-alias ci='vim'
 alias vitodo='vim -p $(find -iname todo -type f)'
 ### Octave
 alias octave='octave --silent'
+
 function vims() {
     SessionID="$(basename $(dirname $PWD))-$(basename $PWD)"
     if [ -f "$HOME/.vim/sessions/${SessionID}.vim" ]; then
@@ -600,4 +602,9 @@ if [ -f /etc/profile.d/bash_completion.sh ]; then
     . /etc/profile.d/bash_completion.sh
 fi
 
-
+if [ -z "$BASH_EXECUTION_STRING" ]; then
+    which fish 1>/dev/null
+    if [ $? == 0 ]; then
+        exec fish
+    fi
+fi
