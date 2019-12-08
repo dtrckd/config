@@ -468,6 +468,7 @@ endfunc
 """"""""""""""""""""""""""""""
 """" => Extra Filetype
 """"""""""""""""""""""""""""""
+au BufNewFile,BufRead *.fish set filetype=sh
 au BufNewFile,BufRead *.nse set filetype=lua
 au BufNewFile,BufRead *.nomad,*.consul,*.toml,*.yaml set filetype=conf
 au BufNewFile,BufRead *.vue setf vue

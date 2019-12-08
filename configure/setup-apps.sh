@@ -9,7 +9,7 @@
 Target="$1"
 
 if [ -z "$Target" ]; then
-    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio"
+    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell)"
     exit
 fi
 
@@ -102,6 +102,14 @@ if [ "$Target" == "drawio" ]; then
     export NODE_ENV=development
     #cd ..
     #npm start
+fi
+if [ "$Target" == "fish" ]; then
+    echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/3/Debian_10/ /' | sudo tee  /etc/apt/sources.list.d/shells:fish:release:3.list
+    wget -nv https://download.opensuse.org/repositories/shells:fish:release:3/Debian_10/Release.key -O Release.key
+    sudo apt-key add - < Release.key
+    rm Release.key
+    sudo apt-get update
+    sudo apt-get install fish
 fi
 
 
