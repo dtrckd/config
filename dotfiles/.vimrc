@@ -79,6 +79,7 @@ let g:easytags_auto_update = 0
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 map <C-p> :NERDTreeToggle<CR>
 map <TAB> :NERDTreeFind<CR>
+nmap f :NERDTreeFocus<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "let NERDTreeMinimalUI = 1
 "let NERDTreeDirArrows = 1
@@ -376,6 +377,8 @@ nnoremap <S-UP>    <C-W>k
 nnoremap <S-DOWN>  <C-W>j
 nnoremap <S-LEFT>  <C-W>h
 nnoremap <S-RIGHT> <C-W>l
+nnoremap l <C-W>w
+nnoremap m <C-W>W
 nnoremap <C-k> <C-W>10+ 
 nnoremap <C-j> <C-W>10-
 nnoremap <C-h> <C-W>10<
