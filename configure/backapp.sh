@@ -27,5 +27,4 @@ cd $(HOME)/workInProgress/conf/wekan
 cd -
 
 
-###
 echo "Please, manually backup your etc files !"

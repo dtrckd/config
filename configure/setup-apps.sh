@@ -48,7 +48,7 @@ if [ "$Target" == "wekan" ]; then
     sudo aptitude install snapd
     snap install wekan
     snap set wekan root-url="http://wekan.localhost"
-    snap set wekan port='8080'
+    snap set wekan port='8989'
     #snap set wekan mongodb-port=27019 # default
     sudo systemctl restart snap.wekan.wekan
     #snap start wekan.wekan
