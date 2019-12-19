@@ -49,9 +49,10 @@ alias t="htop"
 alias diffd="diff -rq $1 $2" # show difference files between dir$1 and dir$2
 alias mvspace="rename 's/ /_/g'"
 alias torb="sh -c \"$HOME/src/config/app/tor-browser_en-US/Browser/start-tor-browser\" --detach"
-function pdf; evince $1 2>/dev/null &; end
-function pdfo; okular $1 2>/dev/null &; end
+function pdf; evince $argv[1] 2>/dev/null &; end
+function pdfo; okular $argv[1] 2>/dev/null &; end
 alias vib="vim ~/.bash_profile"
+alias vif="vim ~/.config/fish/aliases.fish"
 alias vimrc="vim ~/.vimrc"
 alias vimtmux="vim ~/.tmux.conf"
 
@@ -70,8 +71,8 @@ alias pstree='pstree -h'
 alias rmf='shred -zuv -n1'
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
-function f; find -name "*$1*"; end # fuzzy match
-function ff; find -name "$1"; end # exact match
+function f; find -name "*$argv[1]*"; end # fuzzy match
+function ff; find -name "$argv[1]"; end # exact match
 alias jerr='journalctl -p err -b'
 alias curlH='curl -I'
 alias myip='curl https://tools.aquilenet.fr/ip/ && echo'
@@ -84,6 +85,7 @@ alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
 alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
 alias ag='ag-mcphail.ag --color-path 32 --color-match "1;40;36"'
 alias agy='ag --py'
+alias ago='ag --go'
 alias fzf='fzf-slowday.fzf'
 alias ctr='systemctl'
 alias locks='systemctl suspend -i'
@@ -106,8 +108,8 @@ end
 # Old vims but still useful
 function vimss
     set file ".session.vim"
-    if [ -n "$1" ]
-        file=.$1$file
+    if [ -n "$argv[1]" ]
+        file=.$argv[1]$file
     end
     vim -c "source $file" -S ~/.vimrc 
 end
@@ -134,7 +136,7 @@ alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Crese
 alias gitfilelog="git log --pretty=oneline -u dotfiles/.vimrc"
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
-function gitcpush; git commit -am "$1" && git push; end
+function gitcpush; git commit -am $argv[1] && git push; end
 function lsgit 
     for d in (find -type d -name ".git" | sed 's/\.git$//' );
         echo $d
@@ -144,8 +146,8 @@ function lsgit
 end
 function gitls
     set branch (git rev-parse --abbrev-ref HEAD)
-    if [ -n "$1" ]
-        set branch "$1"
+    if [ -n $argv[1] ]
+        set branch $argv[1]
     end
     git ls-tree -r $branch --name-only
 end
@@ -165,7 +167,7 @@ function curbr
 end
 # Diff between $1 past commit of $2 file. Nice.
 function gitdiff
-    git diff  HEAD~$1..HEAD -- $2
+    git diff  HEAD~$argv[1]..HEAD -- $2
 end
 
 # Show fat file in history
@@ -184,7 +186,7 @@ function git_fatfiles
 end
 
 function gitsearch
-    git log -S "$1" --source --all
+    git log -S "$argv[1]" --source --all
 end
 
 # Git init
@@ -205,7 +207,7 @@ end
 # Tell collaborators to do `git pull --rebase` # to avoid messy merge.
 function git_eradicate_purge
     # alternative: bfg --delete-files YOUR-FILE-WITH-SENSITIVE-DATA
-    File="$1"
+    File="$argv[1]"
     git filter-branch --force --index-filter \
         "git rm --force --cached --ignore-unmatch \"$File\"" \
         --prune-empty --tag-name-filter cat -- --all
@@ -224,14 +226,14 @@ end
 
 function convert_grey
     gs \
-        -sOutputFile=(string split '.pdf' $1).pdf \
+        -sOutputFile=(string split '.pdf' $argv[1]).pdf \
     -sDEVICE=pdfwrite \
     -sColorConversionStrategy=Gray \
     -dProcessColorModel=/DeviceGray \
     -dCompatibilityLevel=1.4 \
     -dNOPAUSE \
     -dBATCH \
-    $1
+    $argv[1]
 end
 
 function restore_alsa
@@ -260,8 +262,7 @@ alias tmr='python3 -m tm manager'
 ### cd alias
 set PX "$HOME/workInProgress"
 alias xs='cd'
-alias cdl="cd -"
-alias cdp="cd .."
+alias cdd="cd $HOME/workInProgress/webmain/web/go/fractal"
 alias iu="cd $PX"
 alias ium="cd $HOME/Music/"
 alias iuc="cd $HOME/src/config/"
@@ -286,19 +287,18 @@ alias iux="cd $PX/BaseDump/bots/skopai/skopy"
 alias iubg="cd $PX/BaseDump/bots/skopai/bigbangsearch"
 alias iuw="cd $PX/webmain/"
 alias iumd="cd $PX/webmain/mixtures/md"
-alias iumm="cd $HOME/src/config/app/mm/ && set +o history && unset HISTFILE"
 alias iuscrapy="cd $HOME/.local/lib/python3.7/site-packages/scrapy/"
 alias cdoc="cd $PX/SC/Projects/hack-dir/doc"
 alias cdia="cd $PX/SC/Projects/hack-dir/IA"
-alias cdd="cd $PX/PlanD/"
+alias iud="cd $PX/PlanD/"
 alias cdpapers="cd $PX/networkofgraphs/papers"
 alias cdwww="cd $PX/SC/Projects/Informatique/Reseau/www"
 alias cdsys="cd $PX/SC/Projects/Informatique/System"
 alias cdrez="cd $PX/SC/Projects/Informatique/Reseau/"
 alias cdid="cd $PX/SC/Papiers/idh/id_ad/"
 alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
-function cdlk;  cd (dirname (readlink $1)); end
-function grepurl; cat $1 | grep -o '[hrefHREF]=['"'"'"][^"'"'"']*['"'"'"]' | sed -e 's/^[hrefHREF]=["'"'"']//' -e 's/["'"'"']$//'; end
+function cdlk;  cd (dirname (readlink $argv[1])); end
+function grepurl; cat $argv[1] | grep -o '[hrefHREF]=['"'"'"][^"'"'"']*['"'"'"]' | sed -e 's/^[hrefHREF]=["'"'"']//' -e 's/["'"'"']$//'; end
 alias mean="awk '{s+=$1}END{print \"ave:\",s/NR}' RS=\" \""
 
 alias amatop='elinks http://zombie-dust.imag.fr:8000/'
@@ -307,7 +307,7 @@ alias grid='elinks http://localhost/grid.html'
 alias gg="grid"
 
 function pdfjoin
-    pdftk "$1" "$2" cat output (basename $1 .pdf)(basename $2 .pdf).pdf
+    pdftk "$argv[1]" "$2" cat output (basename $argv[1] .pdf)(basename $2 .pdf).pdf
 end
 
 alias x='xmms2'
@@ -319,7 +319,7 @@ alias xp='xmms2 toggle'
 alias xn='xmms2 next'
 alias xj='xmms2 jump'
 alias xpl='xmms2 playlist list'
-function xplc;  xmms2 playlist create $1 && xmms2 playlist switch $1; end
+function xplc;  xmms2 playlist create $argv[1] && xmms2 playlist switch $argv[1]; end
 alias xpll='xmms2 playlist switch'
 alias xseek='xmms2 seek'
 alias xs='xmms2 seek +25'
@@ -365,4 +365,6 @@ alias katai-struct-compiler='kaitai-struct-compiler -no-version-check'
 alias to_qwerty='setxkbmap us' # QWERTY
 alias to_azerty='setxkbmap fr' # AZERTY
 
-
+alias bash='command env BASH_EXECUTION_STRING=1 bash'
+alias iumm='bash --init-file (echo "source ~/.bash_profile; cd $HOME/src/config/app/mm/ && set +o history && unset HISTFILE"|psub)'
+alias mc='bash -c "mc"'
