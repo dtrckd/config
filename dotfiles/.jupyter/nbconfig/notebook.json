@@ -1,12 +1,16 @@
 {
-    "MarkdownCell": {
-        "cm_config": {
-            "lineWrapping": true
-        }
-    },
-    "CodeCell": {
-        "cm_config": {
-            "lineWrapping": false
-        }
+  "MarkdownCell": {
+    "cm_config": {
+      "lineWrapping": true
     }
+  },
+  "CodeCell": {
+    "cm_config": {
+      "lineWrapping": false
+    }
+  },
+  "load_extensions": {
+    "jupyter-js-widgets/extension": true,
+    "jupyter-leaflet/extension": true
+  }
 }
