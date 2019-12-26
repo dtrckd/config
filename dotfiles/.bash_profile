@@ -84,6 +84,10 @@ alias xback='xbacklight'
 alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias cc="cat"
 alias vdiff='vimdiff'
+alias vidiff='vimdiff'
+alias vid='vimdiff'
+alias vip='vim -p'
+alias vis='vim -S'
 alias evc="evince"
 alias tu="htop -u $USER"
 alias t="htop"
@@ -159,6 +163,7 @@ alias grepall='find -type f | xargs grep --color'
 alias ag='ag-mcphail.ag --color-path 32 --color-match "1;40;36"'
 alias agy='ag --py'
 alias ago='ag --go'
+alias agj='ag --js --ignore node_modules/'
 alias fzf='fzf-slowday.fzf'
 ### XFCE
 #alias locks='s2ram -f -m'
@@ -343,7 +348,7 @@ alias tmr='python3 -m tm manager'
 ### cd alias
 PX="${HOME}/workInProgress"
 alias xs='cd'
-alias cdd="$HOME/workInProgress/webmain/web/go/fractal"
+alias cdp="cd $HOME/workInProgress/webmain/web/go/fractal"
 alias iu="cd $PX"
 alias ium="cd $HOME/Music/"
 alias iuc="cd $HOME/src/config/"

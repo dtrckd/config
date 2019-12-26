@@ -43,6 +43,10 @@ alias xback='xbacklight'
 alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias cc="cat"
 alias vdiff='vimdiff'
+alias vidiff='vimdiff'
+alias vid='vimdiff'
+alias vip='vim -p'
+alias vis='vim -S'  
 alias evc="evince"
 alias tu="htop -u $USER"
 alias t="htop"
@@ -86,6 +90,7 @@ alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
 alias ag='ag-mcphail.ag --color-path 32 --color-match "1;40;36"'
 alias agy='ag --py'
 alias ago='ag --go'
+alias agj='ag --js --ignore node_modules/'
 alias fzf='fzf-slowday.fzf'
 alias ctr='systemctl'
 alias locks='systemctl suspend -i'
@@ -123,8 +128,8 @@ function upgrademe
 end
 
 alias gitupdate='git remote update'
-alias gitg='gitg --all 1>/dev/null &'
-alias gitk='gitk &'
+alias gitg='/bin/gitg --all 1>/dev/null &'
+alias gitk='/bin/gitk &'
 alias gitb='git branch -av'
 alias gits='git status -sb'
 alias gitr='git remote -v'
@@ -236,6 +241,11 @@ function convert_grey
     $argv[1]
 end
 
+#function git-dowloadfolder
+#    set a $1
+#    svn checkout ${a/tree\/master/trunk}
+#end
+
 function restore_alsa
     while [ -z (pidof pulseaudio) ];
         sleep 0.5
@@ -262,7 +272,7 @@ alias tmr='python3 -m tm manager'
 ### cd alias
 set PX "$HOME/workInProgress"
 alias xs='cd'
-alias cdd="cd $HOME/workInProgress/webmain/web/go/fractal"
+alias cdp="cd $HOME/workInProgress/webmain/web/go/fractal"
 alias iu="cd $PX"
 alias ium="cd $HOME/Music/"
 alias iuc="cd $HOME/src/config/"
