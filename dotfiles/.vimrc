@@ -26,10 +26,6 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
-"Plugin 'Valloric/YouCompleteMe' " too heavy
-Plugin 'ajh17/VimCompletesMe' " see also deoplete (hard to setup)
-"Plugin 'maxboisvert/vim-simple-complete' " simple ?
-"Plugin 'ervandew/supertab'
 Plugin 'troydm/zoomwintab.vim'
 Plugin 'gotcha/vimpdb'
 Plugin 'itchyny/calendar.vim'
@@ -42,7 +38,6 @@ Plugin 'uguu-org/vim-matrix-screensaver'
 Plugin 'darkburn'
 Plugin 'jnurmine/zenburn'
 Plugin 'dracula/vim'
-Plugin 'vim-syntastic/syntastic'
 Plugin 'ternjs/tern_for_vim' " tagbar and js. (Maybe require manual installation of: https://github.com/ramitos/jsctags, and https://github.com/ternjs/tern_for_vim (not sure)
 "Plugin 'cskeeters/vim-smooth-scroll'   " interesting scroll property
 "Plugin 'yhat/vim-docstring'
@@ -50,9 +45,22 @@ Plugin 'ternjs/tern_for_vim' " tagbar and js. (Maybe require manual installation
 Plugin 'ciaranm/detectindent'
 "Plugin 'jceb/vim-orgmode'
 Plugin 'editorconfig/editorconfig-vim' " Read .editorconfig in project
-Plugin 'posva/vim-vue' " syntaxixc coloration for Vue.js
 Plugin 'xolox/vim-session'
 Plugin 'mileszs/ack.vim'
+
+" Linting
+Plugin 'dense-analysis/ale'
+"Plugin 'vim-syntastic/syntastic'
+
+" Code completion
+Plugin 'ycm-core/YouCompleteMe'
+"Plugin 'ajh17/VimCompletesMe'
+""Plugin 'maxboisvert/vim-simple-complete'
+"Plugin 'ervandew/supertab'
+
+" Extra Language
+Plugin 'posva/vim-vue' " syntaxixc coloration for Vue.js
+Plugin 'elmcast/elm-vim' " Vim plugin for Elm
 
 " fix mardown highlight
 Plugin 'godlygeek/tabular'
@@ -69,6 +77,9 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif " more general but wont be able to switch/scroll the preview...
 autocmd FileType vim let b:vcm_tab_complete = 'vim'
+let g:ycm_semantic_triggers = {
+     \ 'elm' : ['.'],
+     \}
 
 """ ctags
 let g:easytags_updatetime_min = 180000
@@ -468,6 +479,7 @@ func! CurrentFileDir(cmd)
   return a:cmd . " " . expand("%:p:h") . "/"
 endfunc
 
+
 """"""""""""""""""""""""""""""
 """" => Extra Filetype
 """"""""""""""""""""""""""""""
@@ -475,6 +487,7 @@ au BufNewFile,BufRead *.fish set filetype=sh
 au BufNewFile,BufRead *.nse set filetype=lua
 au BufNewFile,BufRead *.nomad,*.consul,*.toml,*.yaml set filetype=conf
 au BufNewFile,BufRead *.vue setf vue
+au BufNewFile,BufRead *.elm set filetype=elm
 au BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x "<afile>"
 
 """"""""""""""""""""""""""""""
@@ -501,13 +514,15 @@ autocmd FileType python setlocal foldenable foldmethod=syntax
 nnoremap <space> za
 
 func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
+	let l:save = winsaveview()
+	keeppatterns %s/\s\+$//e
+	call winrestview(l:save)
 endfunc
 
 autocmd BufWrite *.py,*.pyx,*.pyd,*.c,*.cpp,*.h,*.sh,*.txt,*.js,*.html,*.css :call DeleteTrailingWS()
+
 "au BufRead,BufNe*.pyx wFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
 " for tab invisible bug (caused by set paste); try :%retab
 
 " manage indentation error...
@@ -562,8 +577,8 @@ let mapleader = ','
 """ get dict from : ftp://ftp.vim.org/pub/vim/runtime/spell/
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell! spelllang=en<cr>
-map <leader>ssfr :setlocal spell! spelllang=fr<cr>
+map <leader>ss :setlocal spell! spelllang=en<CR>
+map <leader>ssfr :setlocal spell! spelllang=fr<CR>
 
 "Shortcuts using <leader>
 nmap z] ]s
@@ -574,10 +589,10 @@ map <leader>s? z=
 
 """"""
 """ Other Leader Map
-map <leader>e :!. % &<cr>
+map <leader>e :!. % &<CR>
 """ Makefile
-map <leader>m :!make &<cr>
-au Filetype tex map <leader>m :!make 1>/dev/null &<cr>
+map <leader>m :!make &<CR>
+au Filetype tex map <leader>m :!make 1>/dev/null &<CR>
 """switch header <-> .c # or a.vim
 map <Leader>h <ESC>:AV<CR>
 map <Leader>ht <ESC>:AT<CR>
@@ -589,8 +604,10 @@ nmap <leader>, :set wrap!<CR>
 nmap <leader>w :mks! .session.vim<CR>
 
 """ set mouse mode
-nmap <leader>ma :set mouse=a<cr>
-nmap <leader>mm :set mouse=<cr>
+nmap <leader>ma :set mouse=a<CR>
+nmap <leader>mm :set mouse=<CR>
+
+nmap <leader>t :ALEToggle<CR>
 
 autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownIgnore "\$.*_.*\$"
 "autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownIgnore "\\begin.*\*.*\\end" " don't work?
