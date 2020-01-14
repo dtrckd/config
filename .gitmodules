@@ -1,0 +1,8 @@
+[submodule "snippets/backsync"]
+	path = snippets/backsync
+	url = https://github.com/dtrckd/backsync
+	branch = master
+[submodule "snippets/contacts_converter"]
+	path = snippets/contacts_converter
+	url = https://github.com/dtrckd/contact_converter.git
+	branch = master
