@@ -45,4 +45,12 @@ EOF
     sudo usermod -aG docker $USER
     sudo update-rc.d docker start
 fi
+if [ "$Target" == "crystal" ]; then
+    curl -sL "https://keybase.io/crystal/pgp_keys.asc" | sudo apt-key add -
+    echo "deb https://dist.crystal-lang.org/apt crystal main" | sudo tee /etc/apt/sources.list.d/crystal.list
+    sudo apt-get update
+    # Dependencies
+    apt install libssl-dev libxml2-dev libyaml-dev libgmp-dev libreadline-dev libz-dev
+    sudo apt install crystal
+fi
 

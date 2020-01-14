@@ -1,5 +1,5 @@
  /home/dtrckd/workInProgress/SC/Projects/Informatique/Reseau/Script/auth-wpa
- /home/dtrckd/src/dtrckd/backsync/backsync
+ /home/dtrckd/src/config/snippets/backsync/backsync
  /home/dtrckd/src/dtrckd/backsync/backsync_light
  /home/dtrckd/src/config/snippets/chrono.py
  /home/dtrckd/workInProgress/SC/Projects/Informatique/Reseau/Script/con
@@ -13,9 +13,12 @@
  /home/dtrckd/workInProgress/SC/Projects/Informatique/Reseau/Mapping/GeoL/geoipdata-update
  /home/dtrckd/workInProgress/SC/Projects/Informatique/System/get_bookmarks_addr
  /home/dtrckd/workInProgress/BaseDump/bots/tools/getl/getl
+ /home/dtrckd/src/config/snippets/github_user_repos.sh
  /home/dtrckd/workInProgress/SC/Projects/Informatique/System/gzvim
  /home/dtrckd/workInProgress/SC/Projects/Informatique/Reseau/Script/hotspot
  /home/dtrckd/workInProgress/SC/Projects/Informatique/Reseau/Script/iwonf/iwonf
+ /usr/local/MATLAB/R2019b/bin/matlab
+ /usr/local/MATLAB/R2019b/bin/mex
  /home/dtrckd/src/config/snippets/sound/mute
  /home/dtrckd/src/config/snippets/sound/mute_toggle
  /home/dtrckd/Desktop/workInProgress/BaseBlue/devops/ipban/nobanme.py
