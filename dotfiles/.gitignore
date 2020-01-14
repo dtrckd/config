@@ -1,3 +1,4 @@
 *.swp
 *.swo
+.session.vim
 __pycache__/
