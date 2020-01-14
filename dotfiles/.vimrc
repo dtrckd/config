@@ -61,6 +61,7 @@ Plugin 'ycm-core/YouCompleteMe'
 " Extra Language
 Plugin 'posva/vim-vue' " syntaxixc coloration for Vue.js
 Plugin 'elmcast/elm-vim' " Vim plugin for Elm
+Plugin 'rhysd/vim-crystal' " Vim plugin for Crystal
 
 " fix mardown highlight
 Plugin 'godlygeek/tabular'
@@ -389,7 +390,7 @@ nnoremap <S-DOWN>  <C-W>j
 nnoremap <S-LEFT>  <C-W>h
 nnoremap <S-RIGHT> <C-W>l
 nnoremap l <C-W>w
-nnoremap m <C-W>W
+nnoremap ù <C-W>W
 nnoremap <C-k> <C-W>10+ 
 nnoremap <C-j> <C-W>10-
 nnoremap <C-h> <C-W>10<
@@ -488,6 +489,7 @@ au BufNewFile,BufRead *.nse set filetype=lua
 au BufNewFile,BufRead *.nomad,*.consul,*.toml,*.yaml set filetype=conf
 au BufNewFile,BufRead *.vue setf vue
 au BufNewFile,BufRead *.elm set filetype=elm
+au BufNewFile,BufRead *.cr set filetype=crystal
 au BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x "<afile>"
 
 """"""""""""""""""""""""""""""

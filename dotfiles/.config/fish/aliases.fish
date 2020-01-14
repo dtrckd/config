@@ -40,7 +40,8 @@ alias nb="jupyter-notebook --ip 127.0.0.1"
 alias nb_np='jupyter-notebook --ip 127.0.0.1 ~/Desktop/workInProgress/networkofgraphs/process/notebook/ '
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:(pwd)'
 alias xback='xbacklight'
-alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
+#alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
+alias bb="[ tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias cc="cat"
 alias vdiff='vimdiff'
 alias vidiff='vimdiff'
@@ -83,6 +84,8 @@ alias myip='curl https://tools.aquilenet.fr/ip/ && echo'
 alias netl='netstat -plant'
 alias netp='netstat -plant | grep -i stab | awk -F/ "{print \$2 \$3}" | sort | uniq'
 alias fetch_debian='wget https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-xfce-CD-1.iso'
+alias ipv4="ip -4 -br a"
+alias ipv6="ip -6 -br a"
 alias grepr='grep -R'
 alias grepy='find -iname "*.py" | xargs grep --color -n'
 alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
@@ -141,6 +144,7 @@ alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Crese
 alias gitfilelog="git log --pretty=oneline -u dotfiles/.vimrc"
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
+alias git_count_commit='git rev-list --count master'
 function gitcpush; git commit -am $argv[1] && git push; end
 function lsgit 
     for d in (find -type d -name ".git" | sed 's/\.git$//' );
