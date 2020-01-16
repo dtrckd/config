@@ -88,7 +88,7 @@ let g:easytags_auto_update = 0
 
 """ NerdTree
 :let g:NERDTreeWinSize=26
-let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
+let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.swp$']
 map <C-p> :NERDTreeToggle<CR>
 map <TAB> :NERDTreeFind<CR>
 nmap f :NERDTreeFocus<CR>
@@ -285,8 +285,8 @@ endfunction
 function! StatuslineGit()
   let branchname = GitBranch()
   let status = GitStatus()
-  let b:gitbranch = strlen(branchname) > 0 ? '  '.branchname.' ' : ''
-  let b:gitstatus = strlen(status) > 0 ? '('.status.')' : ''
+  let g:gitbranch = strlen(branchname) > 0 ? '  '.branchname.' ' : ''
+  let g:gitstatus = strlen(status) > 0 ? '('.status.')' : ''
 endfunction
 
 """"""""""""""""""""""""""""""
@@ -791,8 +791,8 @@ hi GitColor ctermbg=172 ctermfg=black
 au BufEnter,BufRead,BufWritePost * call StatuslineGit()
 
 set statusline=""
-set statusline+=%#GitColor#%{b:gitbranch}%*
-set statusline+=\ %<%f\ %{b:gitstatus}
+set statusline+=%#GitColor#%{g:gitbranch}%*
+set statusline+=\ %<%f\ %{g:gitstatus}
 set statusline+=%m
 set statusline+=\ %r
 set statusline+=\ %h

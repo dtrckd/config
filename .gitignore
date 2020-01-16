@@ -17,6 +17,7 @@ dotfiles/.config/xmms2/bindata/*
 .coin
 addr
 dotfiles/.gethubconfig
+dotfiles/.bash_aliases
 etc/wpa_supplicant/***
 configure/snapshots/***
 credentials/*
