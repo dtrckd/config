@@ -20,11 +20,15 @@ function _PWD  {
 ### Prompt
 
 # Root
+# @LOCAL
 #PROMPTL='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+# @LOCAL
 #PROMPTS='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$(_PWD)\[\033[00m\]\$ '
 
 # Remote
+# @SERVER
 #PROMPTL='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+# @SERVER
 #PROMPTS='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[01;33m\]@\h\[\033[00m\]:\[\033[01;34m\]$(_PWD)\[\033[00m\]\$ '
 
 # Local
@@ -336,11 +340,6 @@ restore_alsa() {
 restore_pulseaudio() {
     pulseaudio -kv && sudo alsabat force-reload && pulseaudio -Dv
 }
-
-alias sshb='autossh -D 1080 -p 24 vpn@vpn.vapwn.fr'
-alias sshtmr='autossh -D 1090 vpn@163.172.45.128'
-alias sshmachine='autossh green@82.251.4.205'
-alias sshchocobo='autossh bomberman@51.15.89.180'
 
 if [ -d $HOME/src/config/credentials/ ]; then
     alias neocities="NEOCITIES_KEY=$(cat $HOME/src/config/credentials/adrien-dulac.neocities) neocities"

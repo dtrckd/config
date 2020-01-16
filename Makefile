@@ -82,6 +82,18 @@ web_ama:
 
 BIN_FILES = $(shell cat configure/bin.txt)
 
+configure_server:
+	cp -r dotfile/{.bash_profile,.tmux.conf} ~/
+	cp dotfile/.vimshortrc ~/.vimrc
+
+	# Delete the match and the next line (recursive)
+	awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' ~/.tmux.conf  > ~/.tmux.conf.temp && mv ~/.tmux.conf.temp ~/.tmux.conf
+	awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' ~/.bash_profile  > ~/.bash_profile.temp && mv ~/.bash_profile.temp ~/.bash_profile
+
+	# Delete the next (recursive)
+	sed -i '/# @SERVER/{n;s/^.//}' ~/.tmux.conf
+	sed -i '/# @SERVER/{n;s/^.//}' ~/.bash_profile
+
 configure_laptop: _bootstrap _install_init _configure _vim _web 
 
 _bootstrap: _dotfiles _etc bin
