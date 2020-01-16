@@ -83,8 +83,8 @@ web_ama:
 BIN_FILES = $(shell cat configure/bin.txt)
 
 configure_server:
-	cp -r dotfile/{.bash_profile,.tmux.conf} ~/
-	cp dotfile/.vimshortrc ~/.vimrc
+	cp -r dotfiles/{.bash_profile,.tmux.conf} ~/
+	cp dotfiles/.vimshortrc ~/.vimrc
 
 	# Delete the match and the next line (recursive)
 	awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' ~/.tmux.conf  > ~/.tmux.conf.temp && mv ~/.tmux.conf.temp ~/.tmux.conf
