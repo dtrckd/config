@@ -491,6 +491,7 @@ export TZ=UTC+1
 stty -ixon # disable <C-s> freeze in vim (who waits a <C-q> signal !)
 
 # X Keyboard Mapping
+# @LOCAL
 setxkbmap -option "nbsp:none" # disable non-breaking space, accidently genrated when typing <ALTGR>+<SPACE>
 # setxkbmap -option # to reset value
 # To find such character:
