@@ -94,6 +94,10 @@ configure_server:
 	sed -i '/# @SERVER/{n;s/^.//}' ~/.tmux.conf
 	sed -i '/# @SERVER/{n;s/^.//}' ~/.bash_profile
 
+	# Install plugin
+	# tmux plugin
+	[ ! -f ~/.tmux/plugins/tpm/tpm ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 configure_laptop: _bootstrap _install_init _configure _vim _web 
 
 _bootstrap: _dotfiles _etc bin
