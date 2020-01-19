@@ -87,7 +87,7 @@ alias nb_np='jupyter-notebook --ip 127.0.0.1 ~/Desktop/workInProgress/networkofg
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:$(pwd)'
 alias xback='xbacklight'
 #alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
-alias bb=" tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
+alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias cc="cat"
 alias vdiff='vimdiff'
 alias vidiff='vimdiff'
