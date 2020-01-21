@@ -16,8 +16,15 @@ dotfiles/.config/xmms2/bindata/*
 .free
 .coin
 addr
+# --
+dotfiles/.ssh
+*/.ssh/*
+!.ssh/config
 dotfiles/.gethubconfig
 dotfiles/.bash_aliases
+dotfiles/.mutt
+dotfiles/.muttrc
+# --
 etc/wpa_supplicant/***
 configure/snapshots/***
 credentials/*
@@ -33,7 +40,5 @@ app/***
 
 
 # Security
-*/.ssh/*
-!.ssh/config
 
 !*/

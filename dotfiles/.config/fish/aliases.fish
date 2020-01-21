@@ -1,4 +1,5 @@
 function serve
+    # see caddy instead !
     if test (count $argv) -ge 1
         if python -c 'import sys; sys.exit(sys.version_info[0] != 3)'
             /bin/sh -c "(cd $argv[1] && python -m http.server)"
@@ -53,7 +54,7 @@ alias vpasteclean="xsel | sed 's/ *\$//' | xsel -bi"
 alias evc="evince"
 alias tu="htop -u $USER"
 alias t="htop"
-alias diffd="diff -rq $1 $2" # show difference files between dir$1 and dir$2
+alias diffd="diff -rq $argv[1] $argv[2]" # show difference files between dir$1 and dir$2
 alias mvspace="rename 's/ /_/g'"
 alias torb="sh -c \"$HOME/src/config/app/tor-browser_en-US/Browser/start-tor-browser\" --detach"
 function pdf; evince $argv[1] 2>/dev/null &; end
@@ -178,7 +179,7 @@ function curbr
 end
 # Diff between $1 past commit of $2 file. Nice.
 function gitdiff
-    git diff  HEAD~$argv[1]..HEAD -- $2
+    git diff  HEAD~$argv[1]..HEAD -- $argv[2]
 end
 
 # Show fat file in history
@@ -237,7 +238,7 @@ end
 
 function convert_grey
     gs \
-        -sOutputFile=(string split '.pdf' $argv[1]).pdf \
+    -sOutputFile=(string split '.pdf' $argv[1]).pdf \
     -sDEVICE=pdfwrite \
     -sColorConversionStrategy=Gray \
     -dProcessColorModel=/DeviceGray \
@@ -276,8 +277,71 @@ end
 alias tmr='python3 -m tm manager'
 
 ### cd alias
-set PX "$HOME/workInProgress"
+# Replace cd with pushd https://gist.github.com/mbadran/130469 | fish compatible
+function _cd
+    if [ -z "$argv[1]" ]
+        # typing just `_cd` will take you $HOME ;)
+        if [ $PWD != $HOME ]
+            _cd "$HOME"
+        end
+    else if [ "$argv[1]" = "-" ]
+        # use `_cd -` to visit previous directory
+        if [ (_cd -p | wc -l) -gt 1 ]
+            set current_dir "$PWD"
+            popd > /dev/null
+            set -g dirstack $current_dir $dirstack
+            #pushd $current_dir > /dev/null
+        else if [ -n "$OLDPWD" ]
+            builtin cd -
+        end
+
+    else if [ "$argv[1]" = "-p" ]
+        # list stack
+        dirs | tr ' ' '\n' | grep -v "^\$"
+    else if [ "$argv[1]" = "-l" ]
+        # use `_cd -l` to print current stack of folders
+        dirs | tr ' ' '\n' | grep -v "^\$" | awk '{print  " " NR-1 "  " $0}' 
+    else if [ "$argv[1]" = "-c" ]
+        # clear stack
+        dirs -c
+
+    else if [ "$argv[1]" = "-g" ] && string match -arq "^[0-9]+\$" "$argv[2]"
+        # use `_cd -g N` to go to the Nth directory in history (pushing)
+        set indexed_path (_cd -p | sed -n (math $argv[2]+1)p | string replace "~" "$HOME")
+        _cd $indexed_path
+    else if string match -arq -- "^\+[0-9]+\$" "$argv[1]"
+        # use `_cd +N` to go to the Nth directory in history (pushing)
+        _cd -g (string sub -s 2 $argv[1])
+    else if string match -arq -- "^-[0-9]+\$" "$argv[1]"
+        # use `_cd -N` to go n directories back in history (popping)
+        for i in (seq 1 (string sub -s 2 -- $argv[1]))
+            popd > /dev/null
+        end
+
+    else if [ "$argv[1]" = "..." ]
+        cd ..
+        cd ..
+
+    else if [ "$argv[1]" = "--" ]
+        # use `_cd -- <path>` if your path begins with a dash
+        pushd -- "$argv[2]" > /dev/null
+    else
+        # basic case: move to a dir and add it to history
+        if [ $argv[1] != $PWD -a $argv[1] != '.' ]
+            pushd "$argv" > /dev/null
+        end
+
+    end
+end
+
+# replace standard `cd` with enhanced version, ensure tab-completion works
+alias cd=_cd
+complete -c _cd -w cd
+
 alias xs='cd'
+alias cdl='cd -l'
+
+set PX "$HOME/workInProgress"
 alias cdp="cd $HOME/workInProgress/webmain/web/go/fractal"
 alias iu="cd $PX"
 alias ium="cd $HOME/Music/"
@@ -315,7 +379,7 @@ alias cdid="cd $PX/SC/Papiers/idh/id_ad/"
 alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
 function cdlk;  cd (dirname (readlink $argv[1])); end
 function grepurl; cat $argv[1] | grep -o '[hrefHREF]=['"'"'"][^"'"'"']*['"'"'"]' | sed -e 's/^[hrefHREF]=["'"'"']//' -e 's/["'"'"']$//'; end
-alias mean="awk '{s+=$1}END{print \"ave:\",s/NR}' RS=\" \""
+alias mean="awk '{s+=$argv}END{print \"ave:\",s/NR}' RS=\" \""
 
 alias amatop='elinks http://zombie-dust.imag.fr:8000/'
 #alias amatop='w3m http://zombie-dust.imag.fr:8000/'
@@ -323,7 +387,7 @@ alias grid='elinks http://localhost/grid.html'
 alias gg="grid"
 
 function pdfjoin
-    pdftk "$argv[1]" "$2" cat output (basename $argv[1] .pdf)(basename $2 .pdf).pdf
+    pdftk "$argv[1]" "$argv[2]" cat output (basename $argv[1] .pdf)(basename $argv[2] .pdf).pdf
 end
 
 alias x='xmms2'
