@@ -71,8 +71,8 @@ alias lla='ls -la'
 alias lr='ls -R'
 alias lmd='ls *.md'
 alias mkdit='mkdir'
-#complete -D l
-#complete -D lla
+complete -f l
+complete -f lla
 
 ### Utility commands
 alias please='sudo $(fc -ln -1)'
@@ -418,6 +418,7 @@ function _cd() {
 
 # replace standard `cd` with enhanced version, ensure tab-completion works
 alias cd=_cd
+complete -f cd
 #complete -D cd
 
 alias xs='cd'
