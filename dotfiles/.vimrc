@@ -1,4 +1,5 @@
 runtime! debian.vim
+let mapleader = ','
 
 """"""""""""""""""""""""""""""
 """ Vundle
@@ -90,8 +91,8 @@ let g:easytags_auto_update = 0
 :let g:NERDTreeWinSize=26
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.swp$']
 map <C-p> :NERDTreeToggle<CR>
-map <TAB> :NERDTreeFind<CR>
-nmap f :NERDTreeFocus<CR>
+nnoremap <TAB><TAB> :NERDTreeFocus<CR>
+nmap f :NERDTreeFind<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "let NERDTreeMinimalUI = 1
 "let NERDTreeDirArrows = 1
@@ -105,7 +106,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 """ ACK/AG (use AG!)
 let g:ackprg = 'ag-mcphail.ag  --smart-case'                                                   
 cnoreabbrev ag Ack
-noremap <leader>a :Ag! "<cword>"<cr>
+noremap <leader>s :Ag! "<cword>"<cr>
 
 """ Rainbow colors
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
@@ -192,6 +193,8 @@ let g:tagbar_type_make = {
             \ ]
             \}
 
+nnoremap tf :TlistShowTag<CR>
+nnoremap tc :TagbarShowTag<CR>
 
 """""""""""""""""""""""""""
 """" Fugitive
@@ -244,7 +247,33 @@ let g:syntastic_quiet_messages = {
 
 
 """""""""""""""""""""""""""
-"""" Utils
+""" Linting
+"""""""""""""""""""""""""""
+" lit after save only
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 0
+
+" pretier
+let g:ale_sign_error = '●'
+let g:ale_sign_warning = '.'
+
+" Python
+"let g:ale_linters = {
+"  \ 'python': ['pylint'] ,
+"    \ }
+let g:ale_python_pylint_options = '--rcfile ~/src/config/configure/linters/.pylintrc'
+
+nmap <leader>t :ALEToggle<CR>
+nmap <leader>an :ALENext<CR>
+nmap <leader>ap :ALEPrevious<CR>
+
+
+
+" ########################################"
+
+"""""""""""""""""""""""""""
+"""" Helper Functions
 """""""""""""""""""""""""""
 
 " remove trainling newline ans spaces
@@ -424,11 +453,12 @@ cnoremap cwd lcd %:p:h  " change current working directory(cwd) to the dir of th
 """" Edit
 nmap <silent> dw diwi
 nmap <silent> da diWa
+nmap <Tab> <S-v>=
 " indent under block, and come back (zo?)
-noremap <Tab>= <S-v>)=''
-""" Info Tag
-nnoremap tf :TlistShowTag<CR>
-nnoremap tc :TagbarShowTag<CR>
+noremap <Tab>) m9<S-v>)='9
+
+""" Remap unsefull one that get remap !
+unmap <C-i>
 
 " Jump to the next or previous line that has the same level or a lower
 " level of indentation than the current line.
@@ -574,7 +604,6 @@ au BufNewFile,BufRead *.js         nmap ~ :s/\/\*\(.*\)\*\//\1/<CR>:noh<CR>
 au BufNewFile,BufRead *.css        nmap ~ :s/\/\*\(.*\)\*\//\1/<CR>:noh<CR>
 
 
-let mapleader = ','
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ => Spell checking
 """ get dict from : ftp://ftp.vim.org/pub/vim/runtime/spell/
@@ -609,8 +638,6 @@ nmap <leader>w :mks! .session.vim<CR>
 """ set mouse mode
 nmap <leader>ma :set mouse=a<CR>
 nmap <leader>mm :set mouse=<CR>
-
-nmap <leader>t :ALEToggle<CR>
 
 autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownIgnore "\$.*_.*\$"
 "autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownIgnore "\\begin.*\*.*\\end" " don't work?

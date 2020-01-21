@@ -71,6 +71,8 @@ alias lla='ls -la'
 alias lr='ls -R'
 alias lmd='ls *.md'
 alias mkdit='mkdir'
+#complete -D l
+#complete -D lla
 
 ### Utility commands
 alias please='sudo $(fc -ln -1)'
@@ -351,8 +353,77 @@ fi
 alias tmr='python3 -m tm manager'
 
 ### cd alias
-PX="${HOME}/workInProgress"
+# Replace cd with pushd https://gist.github.com/mbadran/130469 
+function _cd() {
+  # typing just `_cd` will take you $HOME ;)
+  if [ -z "$1" ]; then
+      if [ ! $PWD == $HOME ]; then
+        _cd "$HOME"
+      fi
+
+  # use `_cd -` to visit previous directory
+  elif [ "$1" == "-" ]; then
+    if [ "$(_cd -p | wc -l)" -gt 1 ]; then
+      current_dir="$PWD"
+      popd > /dev/null
+      pushd -n $current_dir > /dev/null
+    elif [ -n "$OLDPWD" ]; then
+      _cd $OLDPWD
+    fi
+
+  # list stack
+  elif [ "$1" == "-p" ]; then
+	dirs | tr ' ' '\n' | grep -v "^\$"
+  # use `_cd -l` to print current stack of folders
+  elif [ "$1" == "-l" ]; then
+    dirs | tr ' ' '\n' | grep -v "^$" | awk '{print  " " NR-1 "  " $0}'
+  # clear stack
+  elif [ "$1" == "-c" ]; then
+      dirs -c
+
+  # use `_cd -g N` to go to the Nth directory in history (pushing)
+  elif [ "$1" == "-g" ] && [[ "$2" =~ ^[0-9]+$ ]]; then
+    indexed_path=$(_cd -p | sed -n $(($2+1))p)
+    _cd $indexed_path
+
+  # use `_cd +N` to go to the Nth directory in history (pushing)
+  elif [[ "$1" =~ ^+[0-9]+$ ]]; then
+    _cd -g ${1/+/}
+
+  # use `_cd -N` to go n directories back in history (popping)
+  elif [[ "$1" =~ ^-[0-9]+$ ]]; then
+      for i in $(seq 1 ${1/-/}); do
+          popd > /dev/null
+    done
+
+  elif [ "$1" == "..." ]; then
+      cd ..
+      cd ..
+
+  # use `_cd -- <path>` if your path begins with a dash
+  elif [ "$1" == "--" ]; then
+    shift
+    pushd -- "$@" > /dev/null
+
+    # basic case: move to a dir and add it to history
+  else
+    pushd "$@" > /dev/null
+
+    if [ "$1" == "." ] || [ "$1" == "$PWD" ]; then
+      popd -n > /dev/null
+    fi
+  fi
+
+}
+
+# replace standard `cd` with enhanced version, ensure tab-completion works
+alias cd=_cd
+#complete -D cd
+
 alias xs='cd'
+alias cdl='cd -l'
+
+PX="${HOME}/workInProgress"
 alias cdp="cd $HOME/workInProgress/webmain/web/go/fractal"
 alias iu="cd $PX"
 alias ium="cd $HOME/Music/"
