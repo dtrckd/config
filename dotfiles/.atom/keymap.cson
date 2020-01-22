@@ -9,3 +9,5 @@
   'alt-up':'project-plus:open-next-recently-used-project'
   'alt-down':'project-plus:open-previous-recently-used-project'
   'alt-,':'editor:toggle-soft-wrap'
+'atom-workspace':
+  'ctrl-;': 'minimap:toggle'

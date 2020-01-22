@@ -67,7 +67,15 @@ alias sls='ls'
 alias sl='ls'
 alias ll='ls -l'
 alias la='ls -A'
-alias lla='ls -la'
+function lla() {
+    if [ ! -z $1 ]; then
+        pushd "$1" >/dev/null
+    fi
+    find -maxdepth 2 -mindepth 1  -not -name "." | cut -d/ -f2 | uniq -c | sort -nr | awk  '{rc=system("ls --color -pld " $2 " | tr -d \"\n\""); print  " \t "  $1-1 }'
+    if [ ! -z $1 ]; then
+        popd >/dev/null
+    fi
+}
 alias lr='ls -R'
 alias lmd='ls *.md'
 alias mkdit='mkdir'
