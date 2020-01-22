@@ -106,7 +106,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 """ ACK/AG (use AG!)
 let g:ackprg = 'ag-mcphail.ag  --smart-case'                                                   
 cnoreabbrev ag Ack
-noremap <leader>s :Ag! "<cword>"<cr>
+noremap <leader>s :Ack! "<cword>"<cr>
 
 """ Rainbow colors
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle

@@ -150,7 +150,7 @@ snapshot:
 	uname -a > configure/snapshots/uname
 	apt list --installed > configure/snapshots/apt
 
-backapp:
+backapp: backup_atom
 	# Todo Debug
 	cd configure/
 	./backapp.sh
@@ -161,11 +161,26 @@ backbin:
 	ls -l $(HOME)/bin | grep '>' |cut -d'>' -f2 > configure/bin.txt
 
 folders:
-	echo "backsync on -- \
+	echo "TODO -- backsync on -- \
 		SC/ \
 		workInProgress/ \
 		src/config/ \
 		src/data/"
+
+#
+# Extra setup
+#
+backup_atom:
+	cp ~/.atom/config.cson dotfiles/.atom
+	cp ~/.atom/keymap.cson dotfiles/.atom
+	apm-beta list --installed --bare > dotfiles/.atom/package-list.txt
+
+configure_atom:
+	apm-beta install --packages-file dotfiles/.atom/package-list.txt
+
+#
+# Clean stuff
+#
 
 deb_clean:
 	# Add -force option ?

@@ -23,10 +23,18 @@ alias sls='ls'
 alias sl='ls'
 alias ll='ls -l'
 alias la='ls -A'
-alias lla='ls -la'
 alias lr='ls -R'
 alias lmd='ls *.md'
 alias mkdit='mkdir'
+function lla
+    if test (count $argv) -ge 1
+        pushd $argv[1]
+    end
+    find -maxdepth 2 -mindepth 1  -not -name "." | cut -d/ -f2 | uniq -c | sort -nr | awk  '{rc=system("ls --color -pld " $2 " | tr -d \"\n\""); print  " \t "  $1-1 }'
+    if test (count $argv) -ge 1
+        popd
+    end
+end
 
 ### Utility commands
 alias please='sudo (fc -ln -1)'
