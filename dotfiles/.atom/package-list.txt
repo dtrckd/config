@@ -1,0 +1,7 @@
+atom-terminal@0.8.0
+elm-format@3.2.0
+highlight-selected@0.17.0
+language-elm@1.5.0
+minimap@4.29.9
+project-plus@1.0.0
+
