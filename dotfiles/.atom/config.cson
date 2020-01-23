@@ -17,7 +17,6 @@
     ]
   editor:
     autoIndentOnPaste: true
-    fontSize: 16
     invisibles: {}
     showLineNumbers: false
     softTabs: true
