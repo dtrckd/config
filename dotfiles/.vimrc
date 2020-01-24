@@ -18,36 +18,22 @@ Plugin 'luochen1990/rainbow'
 Plugin 'a.vim'
 Plugin 'Align'
 Plugin 'taglist.vim'
-"Plugin 'rargo/vim-line-jump'
-"Plugin 'sirver/ultisnips' ' py >=2.7
-"Plugin rstacruz/sparkup  # Zn writing HTLM
-"msanders/snipmate.vim  # tons of snippet
 Plugin 'majutsushi/tagbar'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
-Plugin 'troydm/zoomwintab.vim'
 Plugin 'gotcha/vimpdb'
-Plugin 'itchyny/calendar.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-"Plugin 'klen/python-mode'
-"Plugin 'cecutil'
-"Plugin 'TeTrIs.vim'
-Plugin 'uguu-org/vim-matrix-screensaver'
-Plugin 'darkburn'
-Plugin 'jnurmine/zenburn'
-Plugin 'dracula/vim'
-"Plugin 'ternjs/tern_for_vim' " tagbar and js. (Maybe require manual installation of: https://github.com/ramitos/jsctags, and https://github.com/ternjs/tern_for_vim (not sure)
-"Plugin 'cskeeters/vim-smooth-scroll'   " interesting scroll property
 "Plugin 'yhat/vim-docstring'
 "Plugin 'mozilla/doctorjs' " for javascript
-Plugin 'ciaranm/detectindent'
-"Plugin 'jceb/vim-orgmode'
-Plugin 'editorconfig/editorconfig-vim' " Read .editorconfig in project
-Plugin 'xolox/vim-session'
+
+" File and code Search
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'mileszs/ack.vim'
+
+" Git
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
 
 " Linting
 Plugin 'dense-analysis/ale'
@@ -59,7 +45,7 @@ Plugin 'ycm-core/YouCompleteMe'
 ""Plugin 'maxboisvert/vim-simple-complete'
 "Plugin 'ervandew/supertab'
 
-" Extra Language
+" Syntaxic colration / Extra Language
 Plugin 'posva/vim-vue' " syntaxic coloration for Vue.js
 Plugin 'elmcast/elm-vim' " Vim plugin for Elm
 Plugin 'rhysd/vim-crystal' " Vim plugin for Crystal
@@ -67,6 +53,26 @@ Plugin 'rhysd/vim-crystal' " Vim plugin for Crystal
 " fix mardown highlight
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+
+" Misc
+Plugin 'xolox/vim-session'
+Plugin 'itchyny/calendar.vim'
+Plugin 'troydm/zoomwintab.vim'
+Plugin 'ciaranm/detectindent'
+Plugin 'editorconfig/editorconfig-vim' " Read .editorconfig in project
+"Plugin 'jceb/vim-orgmode'
+"Plugin 'cskeeters/vim-smooth-scroll'   " interesting scroll property
+"Plugin 'rargo/vim-line-jump'
+"Plugin 'sirver/ultisnips' ' py >=2.7
+"Plugin rstacruz/sparkup  # Zn writing HTLM
+"msanders/snipmate.vim  # tons of snippet
+
+" Theme
+Plugin 'darkburn'
+Plugin 'uguu-org/vim-matrix-screensaver'
+Plugin 'jnurmine/zenburn'
+Plugin 'dracula/vim'
+Plugin 'rakr/vim-one'
 
 """""""""""""""""""""""""""
 """" Plugin conf
@@ -79,9 +85,7 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif " more general but wont be able to switch/scroll the preview...
 autocmd FileType vim let b:vcm_tab_complete = 'vim'
-let g:ycm_semantic_triggers = {
-     \ 'elm' : ['.'],
-     \}
+let g:ycm_semantic_triggers = { 'elm' : ['.'], }
 
 """ ctags
 let g:easytags_updatetime_min = 180000
@@ -91,8 +95,8 @@ let g:easytags_auto_update = 0
 :let g:NERDTreeWinSize=26
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.swp$']
 map <C-p> :NERDTreeToggle<CR>
-nnoremap <TAB><TAB> :NERDTreeFocus<CR>
-nmap f :NERDTreeFind<CR>
+nnoremap <TAB><TAB> :NERDTreeFind<CR>
+nmap f :NERDTreeFocus<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "let NERDTreeMinimalUI = 1
 "let NERDTreeDirArrows = 1
@@ -186,19 +190,14 @@ let g:tagbar_type_markdown = {
 \ }
 
 " Makefile support tag
-let g:tagbar_type_make = {
-            \ 'kinds':[
-            \ 'm:macros',
-            \ 't:targets'
-            \ ]
-            \}
-
+let g:tagbar_type_make = { 'kinds':[ 'm:macros', 't:targets' ] }
 nnoremap tf :TlistShowTag<CR>
 nnoremap tc :TagbarShowTag<CR>
 
 """""""""""""""""""""""""""
-"""" Fugitive
+"""" Git
 """""""""""""""""""""""""""
+"""" Fugitive
 "nnoremap <space>ga :Git add %:p<CR><CR>
 "nnoremap <space>gs :Gstatus<CR>
 "nnoremap <space>gc :Gcommit -v -q<CR>
@@ -216,62 +215,52 @@ set diffopt+=vertical
 "nnoremap <space>gps :VimProcBang git push<CR>
 "nnoremap <space>gpl :VimProcBang git pull<CR>
 
-
-"""""""""""""""""""""""""""
-"""" Syntastic
-"""""""""""""""""""""""""""
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_mode_map = {
-            \ "mode": "passive",
-            \ "active_filetypes": [],
-            \ "passive_filetypes": [] }
-
-
-fu! Checker()
-    execute  'SyntasticCheck'
-endfunction
-com! Check :call Checker()
-
-fu! CheckerAll()
-    let g:syntastic_quiet_messages = {}
-    execute  'SyntasticCheck'
-endfunction
-com! CheckAll :call CheckerAll()
-
-let g:syntastic_quiet_messages = {
-            \ "!level":  "errors",
-            \ "type":    "style", }
+""" git-gutter
+let g:gitgutter_enabled = 0
+let g:gitgutter_map_keys = 0
+set updatetime=4000 " 4 sec
+nmap <leader>d :GitGutterToggle<CR>
+nmap <leader>n :set invnumber<CR>
+let g:gitgutter_override_sign_column_highlight = 0
 
 
 """""""""""""""""""""""""""
 """ Linting
 """""""""""""""""""""""""""
-" lit after save only
+" lint after save only
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 0
 
+" fix after save
+let g:ale_fix_on_save = 1
+
+
 " prettier
 let g:ale_sign_error = '●'
 let g:ale_sign_warning = '.'
-"highlight ALEWarning ctermbg=236
+"hi ALEWarning ctermbg=236
+hi ALEStyleWarningSign ctermbg=235 
+hi ALEStyleErrorSign ctermbg=235 
 
 " Python
-"let g:ale_linters = {
-"  \ 'python': ['pylint'] ,
-"    \ }
+"let g:ale_linters = { 'python': ['pylint'] }
+let g:ale_fixers = { 'python': ['autopep8' ] }
 let g:ale_python_pylint_options = '--rcfile ~/src/config/configure/linters/.pylintrc'
+let g:ale_python_autopep8_options = '--global-config ~/src/config/configure/linters/.pycodestyle'
+let g:ale_python_autopep8_global = 1  
+" @depends: pylint, autopep8
+
+" Elm
+" @depends: elm-format
 
 nmap <leader>t :ALEToggle<CR>
 nmap <leader>an :ALENext<CR>
 nmap <leader>ap :ALEPrevious<CR>
 
-
-
-" ########################################"
+" #######################################
+" #######################################
+" #######################################
 
 """""""""""""""""""""""""""
 """" Helper Functions
@@ -624,9 +613,6 @@ map <leader>s? z=
 """"""
 """ Other Leader Map
 map <leader>e :!. % &<CR>
-""" Makefile
-map <leader>m :!make &<CR>
-au Filetype tex map <leader>m :!make 1>/dev/null &<CR>
 """switch header <-> .c # or a.vim
 map <Leader>h <ESC>:AV<CR>
 map <Leader>ht <ESC>:AT<CR>
@@ -638,7 +624,7 @@ nmap <leader>, :set wrap!<CR>
 nmap <leader>w :mks! .session.vim<CR>
 
 """ set mouse mode
-nmap <leader>ma :set mouse=a<CR>
+nmap <leader>m :set mouse=a<CR>
 nmap <leader>mm :set mouse=<CR>
 
 autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownIgnore "\$.*_.*\$"
@@ -789,20 +775,24 @@ if &term =~ '256color'
     " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
     set t_ut=
 endif
-"set term=rxvt-unicode-256color
 "set term=xterm-256color
-"set term=screen-256color "TERM=xterm-256color
-"set t_Co=256
+
+" Vim TMUX 
+"set t_8b=^[[48;2;%lu;%lu;%lum
+"set t_8f=^[[38;2;%lu;%lu;%SignColumn
 
 "colorscheme default " Utiliser le jeu de couleurs standard"
 "colo zenburn
 "colo darkburn
 colo dracula
+"colo one
+
 
 
 """ Custom Colors & Highlights
+
 hi Title ctermfg=39  " affect the number of windows in the tabline and filname in nerdtab
-hi Normal ctermbg=232
+hi Normal ctermbg=233
 hi Comment ctermfg=blue
 "hi Comment guifg=DarkGrey ctermfg=brown " like; green, white, brown, cyan(=string)
 hi Search ctermfg=white ctermbg=105 cterm=NONE
@@ -814,6 +804,9 @@ hi TabLine ctermbg=7 ctermfg=black
 hi TabLineSel ctermfg=blue ctermbg=green
 "hi TabLineSel ctermfg=Blue ctermbg=Green
 "hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
+
+" Gutter
+hi SignColumn ctermbg=235
 
 """ StatusLine
 hi GitColor ctermbg=172 ctermfg=black
@@ -829,12 +822,6 @@ set statusline+=\ %h
 set statusline+=\ %w
 set statusline+=%=%l/%L:%c\ %05(%p%%%)
 set statusline+=\ 
-
-" Syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
 
 "set background=dark
 noh
