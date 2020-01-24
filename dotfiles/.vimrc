@@ -39,7 +39,7 @@ Plugin 'uguu-org/vim-matrix-screensaver'
 Plugin 'darkburn'
 Plugin 'jnurmine/zenburn'
 Plugin 'dracula/vim'
-Plugin 'ternjs/tern_for_vim' " tagbar and js. (Maybe require manual installation of: https://github.com/ramitos/jsctags, and https://github.com/ternjs/tern_for_vim (not sure)
+"Plugin 'ternjs/tern_for_vim' " tagbar and js. (Maybe require manual installation of: https://github.com/ramitos/jsctags, and https://github.com/ternjs/tern_for_vim (not sure)
 "Plugin 'cskeeters/vim-smooth-scroll'   " interesting scroll property
 "Plugin 'yhat/vim-docstring'
 "Plugin 'mozilla/doctorjs' " for javascript
@@ -60,7 +60,7 @@ Plugin 'ycm-core/YouCompleteMe'
 "Plugin 'ervandew/supertab'
 
 " Extra Language
-Plugin 'posva/vim-vue' " syntaxixc coloration for Vue.js
+Plugin 'posva/vim-vue' " syntaxic coloration for Vue.js
 Plugin 'elmcast/elm-vim' " Vim plugin for Elm
 Plugin 'rhysd/vim-crystal' " Vim plugin for Crystal
 
@@ -254,9 +254,10 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 0
 
-" pretier
+" prettier
 let g:ale_sign_error = '●'
 let g:ale_sign_warning = '.'
+"highlight ALEWarning ctermbg=236
 
 " Python
 "let g:ale_linters = {
@@ -453,6 +454,7 @@ cnoremap cwd lcd %:p:h  " change current working directory(cwd) to the dir of th
 """" Edit
 nmap <silent> dw diwi
 nmap <silent> da diWa
+nmap <silent> da diw"0p
 nmap <Tab> <S-v>=
 " indent under block, and come back (zo?)
 noremap <Tab>) m9<S-v>)='9

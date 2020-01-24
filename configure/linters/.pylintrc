@@ -1,5 +1,7 @@
-[MASTER]
+[MESSAGES CONTROL]
 
-disable=C0114,
-    C0115,
-    C0116
+disable=C0111,  # missing docstring
+    C0103,       # snake case and conventional typo
+    C0301,       # Line too long
+    C0411,       # import order
+    C0305,       # trailing new line
