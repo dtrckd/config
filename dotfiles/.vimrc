@@ -217,7 +217,7 @@ set diffopt+=vertical
 
 """ git-gutter
 let g:gitgutter_enabled = 0
-let g:gitgutter_map_keys = 0
+let g:gitgutter_map_keys = 1
 set updatetime=4000 " 4 sec
 nmap <leader>d :GitGutterToggle<CR>
 nmap <leader>n :set invnumber<CR>
