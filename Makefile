@@ -175,7 +175,6 @@ backup_dot:
 	cp -v ~/.bash_profile dotfiles/
 	cp -v ~/.vimrc dotfiles/
 	cp -v ~/.tmux.conf dotfiles/
-	cp -v ~/.tmux.conf dotfiles/
 	cp -v ~/.config/fish/aliases.fish dotfiles/.config/fish/
 
 backup_atom:

@@ -145,15 +145,21 @@ alias gitupdate='git remote update'
 alias gitg='/bin/gitg --all 1>/dev/null &'
 alias gitk='/bin/gitk &'
 alias gitb='git branch -av'
-alias gb='gitb'
 alias gits='git status -sb'
-alias gs='gits'
 alias gitr='git remote -v'
+alias gitd='git diff'
 alias gitamend='git commit -a --amend'
 alias gitcommit='git commit -am'
 alias gitl="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short  --all"
 alias gitll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short"
 alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias gr='gitr'
+alias gb='gitb'
+alias gd='gitd'
+alias gs='gits'
+alias gl="gitl"
+alias gll="gitll"
+alias glt="gitlt"
 alias gitfilelog="git log --pretty=oneline -u dotfiles/.vimrc"
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
