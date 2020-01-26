@@ -1,3 +1,6 @@
 # go get $@
 github.com/pearkes/gethub
 github.com/wit-ai/wit-go
+
+# Template
+github.com/mholt/sprig
