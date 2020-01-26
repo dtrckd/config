@@ -3,7 +3,7 @@ elm-format@3.2.0
 file-watcher@2.0.0
 highlight-selected@0.17.0
 language-elm@1.5.0
-markdown-scroll-sync@2.1.2
+markdown-preview-enhanced@0.17.3
 minimap@4.29.9
 project-plus@1.0.0
 
