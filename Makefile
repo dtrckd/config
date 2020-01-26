@@ -142,7 +142,8 @@ _web:
 #
 #
 
-backup: snapshot backapp backbin folders
+full_backup: snapshot backapp backbin folders backup_wekan backup
+backup: backup_dot backup_atom
 
 snapshot:
 	mkdir -p configure/snapshots/
@@ -181,6 +182,11 @@ backup_atom:
 	cp ~/.atom/config.cson dotfiles/.atom
 	cp ~/.atom/keymap.cson dotfiles/.atom
 	apm-beta list --installed --bare > dotfiles/.atom/package-list.txt
+
+backup_wekan:
+	cd $(HOME)/workInProgress/conf/wekan
+	./wekan-backup.sh
+	cd -
 
 configure_atom:
 	apm-beta install --packages-file dotfiles/.atom/package-list.txt

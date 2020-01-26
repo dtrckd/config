@@ -1,6 +1,9 @@
 "*":
   core:
     autoHideMenuBar: true
+    disabledPackages: [
+      "language-gfm"
+    ]
     ignoredNames: [
       ".git"
       ".svn"
@@ -13,18 +16,21 @@
     telemetryConsent: "no"
     themes: [
       "atom-dark-ui"
-      "atom-dark-syntax"
+      "one-dark-syntax"
     ]
   editor:
     autoIndentOnPaste: true
+    fontSize: 15
     invisibles: {}
-    showLineNumbers: false
     softTabs: true
     softWrapHangingIndent: 2
     tabLength: 2
     tabType: "soft"
+  "elm-format": {}
   "exception-reporting":
     userId: "a0ceeb79-4728-4e97-be0a-d493c78df878"
+  "file-watcher":
+    promptWhenChange: true
   "fuzzy-finder":
     ignoredNames: [
       "*.class"
