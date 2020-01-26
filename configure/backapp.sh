@@ -6,6 +6,9 @@ if [ "$1" == '-s' ];then
     RSYNC_ARGS="${RSYNC_ARGS} --dry-run"
 fi
 
+echo "instable"
+exit
+
 # Backup app config (.
 CONF_APP=$(cat app-config-dirs.txt)
 cp -v  $HOME/.gtkrc-2.0  ../dotfiles/
@@ -20,11 +23,5 @@ THUNDER_ID="l7nymwge"
 
 # Fireforx bookmakrs (@Debug)
 sqlite3 ~/.mozilla/firefox/4z2axixj.default/places.sqlite ".backup /home/dtrckd/Desktop/tt/g/bak"
-
-# Wekan
-cd $(HOME)/workInProgress/conf/wekan
-./wekan-backup.sh
-cd -
-
 
 echo "Please, manually backup your etc files !"
