@@ -9,7 +9,6 @@
       "node_modules"
       "vendor"
     ]
-    packagesWithKeymapsDisabled: []
     telemetryConsent: "no"
     themes: [
       "atom-dark-ui"
@@ -32,7 +31,6 @@
       "*.asc"
     ]
   "markdown-preview-enhanced":
-    breakOnSingleNewLine: false
     enableEmojiSyntax: false
     previewTheme: "gothic.css"
   "project-plus":
@@ -45,7 +43,6 @@
     ]
   "tree-view":
     hideIgnoredNames: true
-    hideVcsIgnoredFiles: true
   welcome:
     showOnStartup: false
 ".python.source":

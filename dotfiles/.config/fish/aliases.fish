@@ -21,7 +21,7 @@ alias l='ls'
 alias lq='ls'
 alias sls='ls'
 alias sl='ls'
-alias ll='ls -l'
+alias ll='ls -lh'
 alias la='ls -A'
 alias lr='ls -R'
 alias lmd='ls *.md'
@@ -30,7 +30,7 @@ function lla
     if test (count $argv) -ge 1
         pushd $argv[1]
     end
-    find -maxdepth 2 -mindepth 1  -not -name "." | cut -d/ -f2 | uniq -c | sort -nr | awk  '{rc=system("ls --color -pld " $2 " | tr -d \"\n\""); print  " \t "  $1-1 }'
+    find -maxdepth 2 -mindepth 1  -not -name "." | cut -d/ -f2 | uniq -c | sort -nr | awk  '{rc=system("ls --color -pldh " $2 " | tr -d \"\n\""); print  " \t "  $1-1 }'
     if test (count $argv) -ge 1
         popd
     end
@@ -97,7 +97,7 @@ alias netp='netstat -plant | grep -i stab | awk -F/ "{print \$2 \$3}" | sort | u
 alias fetch_debian='wget https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-xfce-CD-1.iso'
 alias ipv4="ip -4 -br a"
 alias ipv6="ip -6 -br a"
-alias grepr='grep -R'
+alias grepr='grep -R --exclude-dir={node_modules,.git}'
 alias grepy='find -iname "*.py" | xargs grep --color -n'
 alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
 alias grepxd='find -iname "*.pxd" | xargs grep --color -n'

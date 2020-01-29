@@ -65,13 +65,13 @@ alias l='ls'
 alias lq='ls'
 alias sls='ls'
 alias sl='ls'
-alias ll='ls -l'
+alias ll='ls -lh'
 alias la='ls -A'
 function lla() {
     if [ ! -z $1 ]; then
         pushd "$1" >/dev/null
     fi
-    find -maxdepth 2 -mindepth 1  -not -name "." | cut -d/ -f2 | uniq -c | sort -nr | awk  '{rc=system("ls --color -pld " $2 " | tr -d \"\n\""); print  " \t "  $1-1 }'
+    find -maxdepth 2 -mindepth 1  -not -name "." | cut -d/ -f2 | uniq -c | sort -nr | awk  '{rc=system("ls --color -pldh " $2 " | tr -d \"\n\""); print  " \t "  $1-1 }'
     if [ ! -z $1 ]; then
         popd >/dev/null
     fi
@@ -172,7 +172,7 @@ alias ipv4="ip -4 -br a"
 alias ipv6="ip -6 -br a"
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
-alias grepr='grep -R'
+alias grepr='grep -R --exclude-dir={node_modules,.git}'
 alias grepy='find -iname "*.py" | xargs grep --color -n'
 alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
 alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
