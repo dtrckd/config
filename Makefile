@@ -173,14 +173,14 @@ folders:
 # (factor backup rule and and backapp.sh)
 # Not all dotfile are backed up
 backup_dot:
-	cp -v ~/.bash_profile dotfiles/
-	cp -v ~/.vimrc dotfiles/
-	cp -v ~/.tmux.conf dotfiles/
-	cp -v ~/.config/fish/aliases.fish dotfiles/.config/fish/
+	@cp -v ~/.bash_profile dotfiles/
+	@cp -v ~/.vimrc dotfiles/
+	@cp -v ~/.tmux.conf dotfiles/
+	@cp -v ~/.config/fish/aliases.fish dotfiles/.config/fish/
 
 backup_atom:
-	cp ~/.atom/config.cson dotfiles/.atom
-	cp ~/.atom/keymap.cson dotfiles/.atom
+	@cp -v ~/.atom/config.cson dotfiles/.atom
+	@cp -v ~/.atom/keymap.cson dotfiles/.atom
 	apm-beta list --installed --bare > dotfiles/.atom/package-list.txt
 
 backup_wekan:

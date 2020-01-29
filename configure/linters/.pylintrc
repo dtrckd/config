@@ -5,3 +5,4 @@ disable=C0111,  # missing docstring
     C0301,       # Line too long
     C0411,       # import order
     C0305,       # trailing new line
+    R1705 # no else return
