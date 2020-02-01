@@ -97,7 +97,7 @@ alias netp='netstat -plant | grep -i stab | awk -F/ "{print \$2 \$3}" | sort | u
 alias fetch_debian='wget https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-xfce-CD-1.iso'
 alias ipv4="ip -4 -br a"
 alias ipv6="ip -6 -br a"
-alias grepr='grep -R --exclude-dir={node_modules,.git}'
+alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff}'
 alias grepy='find -iname "*.py" | xargs grep --color -n'
 alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
 alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
