@@ -3,7 +3,9 @@
 # cat configure_server.sh | ssh user@remote_adrr
 
 USERNAME="bomberman"
-#
+##################################
+###### Install Base Package ######
+##################################
 apt-get update
 apt-get upgrade -y
 
@@ -17,6 +19,9 @@ apt-get clean -y
 #pip3 install -U pip setuptools wheel
 pip3 install -U cython
 
+##################################
+###### fix Hostnames        ######
+##################################
 # Fix hostname in hosts (sudo failed with unable to resolve host plus potiential other errors)
 grep -q  $(cat /etc/hostname) /etc/hosts || echo "127.0.0.1 $(cat  /etc/hostname)" >> /etc/hosts
 
@@ -24,7 +29,7 @@ grep -q  $(cat /etc/hostname) /etc/hosts || echo "127.0.0.1 $(cat  /etc/hostname
 cat > /etc/cron.weekly/aptupgrade <<END
 #!/bin/sh
 apt-get update
-apt-get upgrade -y >> /var/log/aptupgrade
+apt-getp upgrade -y >> /var/log/aptupgrade
 apt-get autoclean -y
 apt-get clean -y
 
@@ -35,6 +40,9 @@ END
 # |adduser user| from script ??
 #
 
+##################################
+###### Add New User Programmatically
+##################################
 useradd --create-home -d /home/$USERNAME --shell /bin/bash  $USERNAME -p $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w ${1:-64} | head -n 1)
 usermod -aG sudo $USERNAME
 
@@ -55,7 +63,9 @@ su - bomberman
 ssh-keyscan github.com >> ~/.ssh/known_hosts
 #ssh-keygen -lf githubKey
 
-# Setup env
+##################################
+###### Setup New User Programmatically
+##################################
 git clone https://github.com/dtrckd/config.git src/config
 cd src/config/
 make configure_server

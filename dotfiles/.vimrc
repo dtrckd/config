@@ -371,10 +371,10 @@ map <Esc>[B <Down>
 """"""""""""""""""""""""""""""
 """ Tabulations / Indentation
 """"""""""""""""""""""""""""""
-set expandtab
 set softtabstop=4
 set shiftwidth=4
 set tabstop=4
+set expandtab
 "set preserveindent " ?
 set smarttab " trivial
 
@@ -626,6 +626,12 @@ nmap <leader>w :mks! .session.vim<CR>
 """ set mouse mode
 nmap <leader>m :set mouse=a<CR>
 nmap <leader>mm :set mouse=<CR>
+
+""" Copy current line to clipboard
+<leader>c :.w %xclip -selection clipboard 
+""" Copy all file to clipboard
+<leader>c :%w %xclip -selection clipboard 
+
 
 autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownIgnore "\$.*_.*\$"
 "autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownIgnore "\\begin.*\*.*\\end" " don't work?
