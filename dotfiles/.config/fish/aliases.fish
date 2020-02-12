@@ -458,9 +458,19 @@ end
 
 alias katai-struct-compiler='kaitai-struct-compiler -no-version-check'
 
-alias to_qwerty='setxkbmap us' # QWERTY
-alias to_azerty='setxkbmap fr' # AZERTY
-
 alias bash='command env BASH_EXECUTION_STRING=1 bash'
 alias iumm='bash --init-file (echo "source ~/.bash_profile; cd $HOME/src/config/app/mm/ && set +o history && unset HISTFILE"|psub)'
 alias mc='bash -c "mc"'
+
+#############
+### ENV
+#############
+
+# Env variables variable are got from bash definition
+
+stty -ixon # disable <C-s> freeze in vim (who waits a <C-q> signal !)
+setxkbmap -option "nbsp:none" # disable non-breaking space, accidently genrated when typing <ALTGR>+<SPACE>
+alias to_qwerty='setxkbmap us' # QWERTY
+alias to_azerty='setxkbmap fr' # AZERTY
+
+
