@@ -628,9 +628,9 @@ nmap <leader>m :set mouse=a<CR>
 nmap <leader>mm :set mouse=<CR>
 
 """ Copy current line to clipboard
-<leader>c :.w %xclip -selection clipboard 
+nmap <leader>c :.w !xclip -selection clipboard<CR>
 """ Copy all file to clipboard
-<leader>c :%w %xclip -selection clipboard 
+nmap <leader>cf :%w !xclip -selection clipboard<CR>
 
 
 autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownIgnore "\$.*_.*\$"
@@ -810,6 +810,8 @@ hi TabLine ctermbg=7 ctermfg=black
 hi TabLineSel ctermfg=blue ctermbg=green
 "hi TabLineSel ctermfg=Blue ctermbg=Green
 "hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
+
+hi ErrorMsg ctermfg=Red ctermbg=None
 
 " Gutter
 hi SignColumn ctermbg=235
