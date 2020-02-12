@@ -610,7 +610,7 @@ bind 'set completion-ignore-case on' # Case insensitive when tab completing
 
 HISTSIZE=2000
 HISTFILESIZE=2000
-IGNOREEOF=3   # Shell only exists after the 3th consecutive Ctrl-d
+IGNOREEOF=2   # Shell only exists after the nth consecutive Ctrl-d
 
 export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S "
 export EDITOR="/usr/bin/vim"
