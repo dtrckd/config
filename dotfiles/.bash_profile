@@ -255,6 +255,7 @@ alias gs='gits'
 alias gl="gitl"
 alias gll="gitll"
 alias glt="gitlt"
+alias gil='git issue list -l "%i | %T| %D"'
 alias gitfilelog="git log --pretty=oneline -u dotfiles/.vimrc"
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
@@ -441,7 +442,7 @@ alias xs='cd'
 alias cdl='cd -l'
 
 PX="${HOME}/workInProgress"
-alias cdp="cd $HOME/workInProgress/webmain/web/go/fractal"
+alias cdf="cd $HOME/workInProgress/networkofgraphs/missions/fractal/"
 alias iu="cd $PX"
 alias ium="cd $HOME/Music/"
 alias iuc="cd $HOME/src/config/"
