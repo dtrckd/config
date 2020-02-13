@@ -404,21 +404,29 @@ noremap <F4> :tabe %<CR>
 """ Folding
 "noremap zR " Open all folds
 "noremap zM " close all folds
-"" Window
+""" Window moves
 nnoremap <S-UP>    <C-W>k
 nnoremap <S-DOWN>  <C-W>j
 nnoremap <S-LEFT>  <C-W>h
 nnoremap <S-RIGHT> <C-W>l
 nnoremap l <C-W>w
 nnoremap ù <C-W>W
+""" windows resize
 nnoremap <C-k> <C-W>10+ 
 nnoremap <C-j> <C-W>10-
 nnoremap <C-h> <C-W>10<
 "nnoremap <C-l> <C-W>10>
-noremap <A-UP>    <C-W>10+
-noremap <A-DOWN>  <C-W>10-
-noremap <A-LEFT>  <C-W>10<
-noremap <A-RIGHT> <C-W>10>
+noremap <C-S-UP>    :resize +3<cr>
+noremap <C-S-DOWN>  :resize -3<cr>
+noremap <C-S-LEFT>  :vertical resize +3<cr>
+noremap <C-S-RIGHT> :vertical resize -3<cr>
+
+"keycode 113 = Alt_R
+"add mod1 = Alt_R
+"keycode 116 = Meta_R
+"add mod4 = Meta_R
+"Mod1 Mod4 h :HorizontalDecrement
+
 
 " TAB
 nnoremap <C-UP> gT

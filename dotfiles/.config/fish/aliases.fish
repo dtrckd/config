@@ -128,7 +128,7 @@ end
 function vimss
     set file ".session.vim"
     if [ -n "$argv[1]" ]
-        file=.$argv[1]$file
+        set file .$argv[1]$file
     end
     vim -c "source $file" -S ~/.vimrc 
 end
@@ -160,6 +160,7 @@ alias gs='gits'
 alias gl="gitl"
 alias gll="gitll"
 alias glt="gitlt"
+alias gil='git issue list -l "%i | %T| %D"'
 alias gitfilelog="git log --pretty=oneline -u dotfiles/.vimrc"
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
@@ -235,7 +236,7 @@ end
 # Tell collaborators to do `git pull --rebase` # to avoid messy merge.
 function git_eradicate_purge
     # alternative: bfg --delete-files YOUR-FILE-WITH-SENSITIVE-DATA
-    File="$argv[1]"
+    set File "$argv[1]"
     git filter-branch --force --index-filter \
         "git rm --force --cached --ignore-unmatch \"$File\"" \
         --prune-empty --tag-name-filter cat -- --all
@@ -335,8 +336,8 @@ function _cd
         end
 
     else if [ "$argv[1]" = "..." ]
-        cd ..
-        cd ..
+        builtin cd ..
+        builtin cd ..
 
     else if [ "$argv[1]" = "--" ]
         # use `_cd -- <path>` if your path begins with a dash
@@ -358,7 +359,7 @@ alias xs='cd'
 alias cdl='cd -l'
 
 set PX "$HOME/workInProgress"
-alias cdp="cd $HOME/workInProgress/webmain/web/go/fractal"
+alias cdf="cd $HOME/workInProgress/networkofgraphs/missions/fractal/"
 alias iu="cd $PX"
 alias ium="cd $HOME/Music/"
 alias iuc="cd $HOME/src/config/"
