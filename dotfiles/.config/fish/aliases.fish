@@ -160,7 +160,9 @@ alias gs='gits'
 alias gl="gitl"
 alias gll="gitll"
 alias glt="gitlt"
+alias gi='git issue'
 alias gil='git issue list -l "%i | %T| %D"'
+alias gis='git issue show'
 alias gitfilelog="git log --pretty=oneline -u dotfiles/.vimrc"
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
