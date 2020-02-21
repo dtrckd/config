@@ -12,11 +12,22 @@ fi
 
 if [ "$Target" == "go" ]; then
     # Golang
-    GOTARGET="go1.11.8.linux-amd64.tar.gz "
-    wget https://storage.googleapis.com/golang/$GOTARGET
-    sudo tar -zxvf  $GOTARGET -C /usr/local/
-    rm $GOTARGET
-    mkdir -p $HOME/.go
+
+    # First approach
+    #GOTARGET="go1.11.8.linux-amd64.tar.gz "
+    #wget https://storage.googleapis.com/golang/$GOTARGET
+    #sudo tar -zxvf  $GOTARGET -C /usr/local/
+    #rm $GOTARGET
+    #mkdir -p $HOME/.go
+
+    # Go update approach
+    release=$(curl --silent https://golang.org/doc/devel/release.html | /bin/grep -Eo 'go[0-9]+(\.[0-9]+)+' | sort -V | uniq | tail -1)
+    os=$(uname -s | tr '[:upper:]' '[:lower:]')
+    arch=$(case "$(uname -m)" in i*) echo '386' ;; x*) echo 'amd64' ;; *) echo 'armv61'; esac)
+
+    curl --silent "https://storage.googleapis.com/golang/$release.$os-$arch.tar.gz" | sudo tar -vxz --strip-components 1 -C "/usr/local"
+    source ~/.bashrc
+    echo "updated to $(go version)"
 fi
 if [ "$Target" == "npm" ]; then
     # NPM

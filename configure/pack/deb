@@ -9,13 +9,15 @@ strace # see system call
 htop
 psmisc # killall pstree...
 
-# Misc
+# Utility / Misc
 rsync
 mc
 ranger
 transmission-show caca-utils pdftotext mediainfo elinks atool highlight
 jq # like sed for json data
 thefuck
+ripgrep
+fish
 
 # Compilation
 gcc
