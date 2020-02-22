@@ -45,12 +45,13 @@ Plugin 'ycm-core/YouCompleteMe'
 ""Plugin 'maxboisvert/vim-simple-complete'
 "Plugin 'ervandew/supertab'
 
-" Syntaxic colration / Extra Language
+" File Format / Extra Language
 Plugin 'posva/vim-vue' " syntaxic coloration for Vue.js
 Plugin 'elmcast/elm-vim' " Vim plugin for Elm
 Plugin 'rhysd/vim-crystal' " Vim plugin for Crystal
+Plugin 'jparise/vim-graphql'
 
-" fix mardown highlight
+" fix markdown highlight
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
@@ -514,6 +515,7 @@ endfunc
 """"""""""""""""""""""""""""""
 """" => Extra Filetype
 """"""""""""""""""""""""""""""
+au BufNewFile,BufRead *.prisma,*.graphql,*.gql setfiletype graphql
 au BufNewFile,BufRead *.fish set filetype=sh
 au BufNewFile,BufRead *.nse set filetype=lua
 au BufNewFile,BufRead *.nomad,*.consul,*.toml,*.yaml set filetype=conf
