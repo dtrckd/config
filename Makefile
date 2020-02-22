@@ -147,9 +147,11 @@ backup: backup_dot backup_atom
 
 snapshot:
 	mkdir -p configure/snapshots/
-	pip freeze > configure/snapshots/pip
 	uname -a > configure/snapshots/uname
 	apt list --installed > configure/snapshots/apt
+	pip freeze > configure/snapshots/pip
+	snap list > configure/snapshots/snap
+	npm list -g --depth 0 > configure/snapshots/npm
 
 backapp: backup_atom backup_dot
 	# Todo Debug
