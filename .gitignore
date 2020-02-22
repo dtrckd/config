@@ -25,8 +25,8 @@ dotfiles/.bash_aliases
 dotfiles/.mutt
 dotfiles/.muttrc
 # --
-etc/wpa_supplicant/***
-configure/snapshots/***
+etc/wpa_supplicant/**
+configure/snapshots/**
 credentials/*
 
 # Project
@@ -35,7 +35,7 @@ webmain/
 mixtures/
 mixtures
 mixtures/
-app/***
+app/**
 !app/systemd/*
 
 
