@@ -296,6 +296,7 @@ end
 alias tmr='python3 -m tm manager'
 
 ### cd alias
+
 # Replace cd with pushd https://gist.github.com/mbadran/130469 | fish compatible
 function _cd
     if [ -z "$argv[1]" ]
@@ -311,7 +312,7 @@ function _cd
             set -g dirstack $current_dir $dirstack
             #pushd $current_dir > /dev/null
         else if [ -n "$OLDPWD" ]
-            builtin cd -
+            builtin cd -; and ls
         end
 
     else if [ "$argv[1]" = "-p" ]
@@ -339,15 +340,15 @@ function _cd
 
     else if [ "$argv[1]" = "..." ]
         builtin cd ..
-        builtin cd ..
+        builtin cd ..; and ls
 
     else if [ "$argv[1]" = "--" ]
         # use `_cd -- <path>` if your path begins with a dash
-        pushd -- "$argv[2]" > /dev/null
+        pushd -- "$argv[2]" > /dev/null; and ls
     else
         # basic case: move to a dir and add it to history
         if [ $argv[1] != $PWD -a $argv[1] != '.' ]
-            pushd "$argv" > /dev/null
+            pushd "$argv" > /dev/null; and ls
         end
 
     end
