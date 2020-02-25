@@ -50,6 +50,7 @@ Plugin 'posva/vim-vue' " syntaxic coloration for Vue.js
 Plugin 'elmcast/elm-vim' " Vim plugin for Elm
 Plugin 'rhysd/vim-crystal' " Vim plugin for Crystal
 Plugin 'jparise/vim-graphql'
+"Plugin 'fatih/vim-go' " use ale and revivre instead
 
 " fix markdown highlight
 Plugin 'godlygeek/tabular'
@@ -78,6 +79,13 @@ Plugin 'rakr/vim-one'
 """""""""""""""""""""""""""
 """" Plugin conf
 """""""""""""""""""""""""""
+
+""" Editorconfig
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+
+""" go-vim
+" intall dependancuse with (if not it stucks!)  :GoInstallBinaries
+let g:go_fmt_command = "goimports"
 
 """ Autocompletion
 let g:SuperTabNoCompleteAfter = ['^', '\s', '#', "'", '"', '%', '/']
@@ -254,6 +262,19 @@ let g:ale_python_autopep8_global = 1
 
 " Elm
 " @depends: elm-format
+
+" Go
+" @depends: go get github.com/mgechev/revive
+" * Don't work, watch PR on ALE about revive
+" * diable golint ?
+call ale#linter#Define('go', {
+      \   'name': 'revive',
+      \   'output_stream': 'both',
+      \   'executable': 'revive',
+      \   'read_buffer': 0,
+      \   'command': 'revive ~/src/config/configure/linters/.golint_revive_config.toml %t',
+      \   'callback': 'ale#handlers#unix#HandleAsWarning',
+      \})
 
 nmap <leader>t :ALEToggle<CR>
 nmap <leader>an :ALENext<CR>
