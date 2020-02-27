@@ -2,7 +2,7 @@ elm-format@3.2.0
 file-watcher@2.0.0
 highlight-selected@0.17.0
 language-elm@1.5.0
-markdown-preview-enhanced@0.17.3
+markdown-preview-enhanced@0.17.7
 minimap@4.29.9
 open-terminal-here@2.3.2
 project-plus@1.0.0
