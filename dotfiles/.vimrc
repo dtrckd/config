@@ -88,6 +88,11 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 let g:go_fmt_command = "goimports"
 
 """ Autocompletion
+"let g:loaded_youcompleteme = 1
+let g:ycm_show_diagnostics_ui = 1
+let g:ycm_enable_diagnostic_signs = 0 
+let g:ycm_enable_diagnostic_highlighting = 0
+"
 let g:SuperTabNoCompleteAfter = ['^', '\s', '#', "'", '"', '%', '/']
 let g:SuperTabClosePreviewOnPopupClose = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -207,12 +212,13 @@ nnoremap tc :TagbarShowTag<CR>
 """" Git
 """""""""""""""""""""""""""
 """" Fugitive
-"nnoremap <space>ga :Git add %:p<CR><CR>
+set diffopt+=vertical
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <space>ga :Git add %<CR><CR>
+com! Gadd :call Git add %
 "nnoremap <space>gs :Gstatus<CR>
 "nnoremap <space>gc :Gcommit -v -q<CR>
 "nnoremap <space>gt :Gcommit -v -q %:p<CR>
-nnoremap <leader>gd :Gdiff<CR>
-set diffopt+=vertical
 "nnoremap <space>ge :Gedit<CR>
 "nnoremap <space>gr :Gread<CR>
 "nnoremap <space>gw :Gwrite<CR><CR>
@@ -236,6 +242,7 @@ let g:gitgutter_override_sign_column_highlight = 0
 """""""""""""""""""""""""""
 """ Linting
 """""""""""""""""""""""""""
+let g:ale_enabled = 1
 " lint after save only
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
@@ -253,8 +260,13 @@ hi ALEStyleWarningSign ctermbg=235
 hi ALEStyleErrorSign ctermbg=235 
 
 " Python
-"let g:ale_linters = { 'python': ['pylint'] }
+" see ~/.vim/bundle/ale/autoload/ale/linter.vim
+let g:ale_fixers = {
+      \   'go': ['gofmt', 'golint', 'go vet'],
+      \}
 let g:ale_fixers = { 'python': ['autopep8' ] }
+
+
 let g:ale_python_pylint_options = '--rcfile ~/src/config/configure/linters/.pylintrc'
 let g:ale_python_autopep8_options = '--global-config ~/src/config/configure/linters/.pycodestyle'
 let g:ale_python_autopep8_global = 1  
@@ -431,7 +443,7 @@ nnoremap <S-UP>    <C-W>k
 nnoremap <S-DOWN>  <C-W>j
 nnoremap <S-LEFT>  <C-W>h
 nnoremap <S-RIGHT> <C-W>l
-nnoremap l <C-W>w
+nnoremap à <C-W>w
 nnoremap ù <C-W>W
 """ windows resize
 nnoremap <C-k> <C-W>10+ 
