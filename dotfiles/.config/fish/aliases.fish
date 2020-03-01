@@ -17,6 +17,7 @@ end
 # basic
 alias tree="tree -C"
 alias less='less -S -R'
+alias g="grep"
 alias l='ls'
 alias lq='ls'
 alias sls='ls'
@@ -67,6 +68,7 @@ alias mvspace="rename 's/ /_/g'"
 alias torb="sh -c \"$HOME/src/config/app/tor-browser_en-US/Browser/start-tor-browser\" --detach"
 function pdf; evince $argv[1] 2>/dev/null &; end
 function pdfo; okular $argv[1] 2>/dev/null &; end
+alias v="vim"
 alias vib="vim ~/.bash_profile"
 alias vif="vim ~/.config/fish/aliases.fish"
 alias vimrc="vim ~/.vimrc"
@@ -88,7 +90,9 @@ alias rmf='shred -zuv -n1'
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
 function f; find -name "*$argv[1]*"; end # fuzzy match
-function ff; find -name "$argv[1]"; end # exact match
+function ff; find -name "$argv[1]" ; end # exact match
+function fdelete; find -name "*$argv[1]*" -delete; end # fuzzy match
+function ffdelete; find -name "$argv[1]" -delete ; end # exact match
 alias jerr='journalctl -p err -b'
 alias curlH='curl -I'
 alias myip='curl https://tools.aquilenet.fr/ip/ && echo'
@@ -166,7 +170,7 @@ alias gis='git issue show'
 alias gitfilelog="git log --pretty=oneline -u dotfiles/.vimrc"
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
-alias git_count_commit='git rev-list --count master'
+alias gitcount='echo (git rev-list --count master) commits'
 function gitcpush; git commit -am $argv[1] && git push; end
 function lsgit 
     for d in (find -type d -name ".git" | sed 's/\.git$//' );

@@ -61,6 +61,7 @@ fi
 
 alias less='less -S -R'
 
+alias g="grep"
 alias l='ls'
 alias lq='ls'
 alias sls='ls'
@@ -137,6 +138,7 @@ function make_graph_python(){
     popd
 }
 
+alias v="vim"
 alias vib="vim ~/.bash_profile"
 alias vif="vim ~/.config/fish/aliases.fish"
 alias vimrc="vim ~/.vimrc"
@@ -261,7 +263,7 @@ alias gis='git issue show'
 alias gitfilelog="git log --pretty=oneline -u dotfiles/.vimrc"
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
-alias git_count_commit='git rev-list --count master'
+alias gitcount='echo "$(git rev-list --count master) commits'
 function gitls() {
     branch="$(git rev-parse --abbrev-ref HEAD)"
     if [ -n "$1" ]; then
@@ -613,7 +615,7 @@ bind 'set completion-ignore-case on' # Case insensitive when tab completing
 
 HISTSIZE=2000
 HISTFILESIZE=2000
-IGNOREEOF=2   # Shell only exists after the nth consecutive Ctrl-d
+IGNOREEOF=1   # Shell only exists after the nth consecutive Ctrl-d
 
 export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S "
 export EDITOR="/usr/bin/vim"
