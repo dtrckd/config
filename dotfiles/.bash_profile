@@ -234,6 +234,7 @@ function upgrademe() {
 }
 # Show hold/held package
 #alias apt-mark showhold
+alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
 
 ### GIT
 alias gitupdate='git remote update'
@@ -341,18 +342,6 @@ function git_eradicate_purge() {
 function ssh_init() {
     eval `ssh-agent`
     ssh-add
-}
-
-function convert_grey() {
-gs \
- -sOutputFile=${1%%.pdf}_grey.pdf \
- -sDEVICE=pdfwrite \
- -sColorConversionStrategy=Gray \
- -dProcessColorModel=/DeviceGray \
- -dCompatibilityLevel=1.4 \
- -dNOPAUSE \
- -dBATCH \
- $1
 }
 
 restore_alsa() {
@@ -500,7 +489,7 @@ function pdfcut() {
     #     $2 is the last page of the range to extract
     #     $3 is the input file
     #     output file will be named "inputfile_pXX-pYY.pdf"
-    gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER \
+    command gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER \
         -dFirstPage=${1} \
         -dLastPage=${2} \
         -sOutputFile=${3%.pdf}_p${1}-p${2}.pdf \
@@ -518,6 +507,23 @@ function pdfjoin() {
     #outname="fusion_${outname}.pdf"
     #gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile=${outname} ${1} ${2}
 }
+
+function pdfgrey() {
+    gs \
+     -sOutputFile=${1%%.pdf}_grey.pdf \
+     -sDEVICE=pdfwrite \
+     -sColorConversionStrategy=Gray \
+     -dProcessColorModel=/DeviceGray \
+     -dCompatibilityLevel=1.4 \
+     -dNOPAUSE \
+     -dBATCH \
+     $1
+}
+
+function pdfcompress {
+    command gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=${1%%.pdf}_compressed.pdf ${1}
+}
+
 
 # Music player
 #alias mute='amixer set Master mute'
