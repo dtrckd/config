@@ -144,6 +144,7 @@ function upgrademe
     npm update
     vim -c "UpdatePlugin"
 end
+alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
 
 alias gitupdate='git remote update'
 alias gitg='/bin/gitg --all 1>/dev/null &'
@@ -257,18 +258,6 @@ end
 function ssh_init
     eval (ssh-agent -c)
     ssh-add
-end
-
-function convert_grey
-    gs \
-    -sOutputFile=(string split '.pdf' $argv[1]).pdf \
-    -sDEVICE=pdfwrite \
-    -sColorConversionStrategy=Gray \
-    -dProcessColorModel=/DeviceGray \
-    -dCompatibilityLevel=1.4 \
-    -dNOPAUSE \
-    -dBATCH \
-    $argv[1]
 end
 
 #function git-dowloadfolder
@@ -413,6 +402,23 @@ alias gg="grid"
 function pdfjoin
     pdftk "$argv[1]" "$argv[2]" cat output (basename $argv[1] .pdf)(basename $argv[2] .pdf).pdf
 end
+
+function pdfgrey
+    command gs \
+    -sOutputFile=(string split '.pdf' $argv[1])_grey.pdf \
+    -sDEVICE=pdfwrite \
+    -sColorConversionStrategy=Gray \
+    -dProcessColorModel=/DeviceGray \
+    -dCompatibilityLevel=1.4 \
+    -dNOPAUSE \
+    -dBATCH \
+    $argv[1]
+end
+
+function pdfcompress 
+    command gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=(string split '.pdf' $argv[1])_compressed.pdf $argv[1]
+end
+
 
 alias x='xmms2'
 alias xinfo='xmms2 info'
