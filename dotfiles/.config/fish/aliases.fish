@@ -348,6 +348,7 @@ function _cd
 end
 
 # replace standard `cd` with enhanced version, ensure tab-completion works
+# FIX: replace "cd" in /usr/share/fish/functions/{popd,pushd}.fish by "builtin cd"
 alias cd=_cd
 complete -c _cd -w cd
 
