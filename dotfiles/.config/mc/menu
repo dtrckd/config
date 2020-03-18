@@ -365,3 +365,41 @@ x       Open in xmms2
         xmms2 add %f
         xmms2 jump 1
         xmms2 play
+
+= t f
+s       shuffle in xmms2
+        xmms2 playlist switch temp
+        xmms2 clear
+        CODE=$(cat <<-END
+            xshuff () {
+                # Add random files in xmms2
+                if [ "\$1" == "" ]; then
+                    NBF=50
+                    Path="$HOME/Music/"
+                elif [ -d "\$1" ]; then
+                    NBF=50
+                    Path="\$1"
+                else
+                    NBF=\$1
+                    Path="\$HOME/MUSIC/"
+                fi
+                fls=\$(find "\$Path" -type f -iname "*.ogg" -o -iname "*.mp4" -o -iname "*.mp3" -o -iname "*.flac")
+                NB=\$(echo "\$fls" | wc -l)
+                RANDL=\$(python3 -c "import sys;import random;\
+                    nbf = min(\$NB, \$NBF);\
+                    sys.stdout.write(' '.join(map(str, random.sample(range(1,\$NB+1), nbf))))")
+                RANDN=""
+                for i in \$RANDL; do
+                    RANDN="\${i}p;\${RANDN}"
+                done
+                Songs=\$(echo -e "\$fls" | sed -n "\$RANDN")
+                xmms2 playlist switch temp
+                xmms2 clear
+                echo -e "\$Songs" | xargs -I {} -d "\n" xmms2 add "{}"
+                xmms2 jump 1 && xmms2 play
+            }
+        END
+        )
+        bash -c "$CODE && xshuff %f"
+        
+        
