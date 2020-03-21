@@ -60,7 +60,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 alias less='less -S -R'
-
+alias df='df -TH'
 alias g="grep"
 alias l='ls'
 alias lq='ls'
@@ -105,7 +105,7 @@ alias vidiff='vimdiff'
 alias vid='vimdiff'
 alias vip='vim -p'
 alias vis='vim -S'
-alias vpasteclean="xsel | sed 's/ *$//' | xsel -bi"
+alias pasteclean="xsel | sed 's/ *$//' | xsel -bi"
 alias evc="evince"
 alias tu="htop -u $USER"
 alias t="htop"
@@ -222,7 +222,11 @@ function vimss() {
     if [ -n "$1" ]; then
         file=.$1${file}
     fi
-    vim -c "source $file" -S ~/.vimrc 
+    if [ -f "$file" ]; then
+        vim -c "source $file" -S ~/.vimrc 
+    else
+        echo "no vim session file found for $file."
+    fi
 }
 
 function upgrademe() {

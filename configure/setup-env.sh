@@ -25,7 +25,13 @@ if [ "$Target" == "go" ]; then
     os=$(uname -s | tr '[:upper:]' '[:lower:]')
     arch=$(case "$(uname -m)" in i*) echo '386' ;; x*) echo 'amd64' ;; *) echo 'armv61'; esac)
 
-    curl --silent "https://storage.googleapis.com/golang/$release.$os-$arch.tar.gz" | sudo tar -vxz --strip-components 1 -C "/usr/local"
+    VER="$release.$os-$arch"
+    sudo mkdir -p "/usr/local/lib/$VER"
+    #curl --silent "https://storage.googleapis.com/golang/$VER.tar.gz" | sudo tar -vxz --strip-components 1 -C "/usr/local/lib/$VER"
+    sudo rm -f /usr/local/bin/go
+    sudo rm -f /usr/local/bin/gofmt
+    sudo ln -s "/usr/local/lib/$VER/bin/go" /usr/local/bin/go
+    sudo ln -s "/usr/local/lib/$VER/bin/gofmt" /usr/local/bin/gofmt
     source ~/.bashrc
     echo "updated to $(go version)"
 fi

@@ -215,7 +215,7 @@ nnoremap tc :TagbarShowTag<CR>
 set diffopt+=vertical
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <space>ga :Git add %<CR><CR>
-com! Gadd :call Git add %
+com! Gadd :Git add %
 "nnoremap <space>gs :Gstatus<CR>
 "nnoremap <space>gc :Gcommit -v -q<CR>
 "nnoremap <space>gt :Gcommit -v -q %:p<CR>
@@ -251,7 +251,6 @@ let g:ale_lint_on_enter = 0
 " fix after save
 let g:ale_fix_on_save = 1
 
-
 " prettier
 let g:ale_sign_error = '●'
 let g:ale_sign_warning = '.'
@@ -259,24 +258,20 @@ let g:ale_sign_warning = '.'
 hi ALEStyleWarningSign ctermbg=235 
 hi ALEStyleErrorSign ctermbg=235 
 
-" Python
+""" Python @depends: pylint, autopep8
 " see ~/.vim/bundle/ale/autoload/ale/linter.vim
 let g:ale_fixers = {
       \   'go': ['gofmt', 'golint', 'go vet'],
       \}
 let g:ale_fixers = { 'python': ['autopep8' ] }
-
-
 let g:ale_python_pylint_options = '--rcfile ~/src/config/configure/linters/.pylintrc'
 let g:ale_python_autopep8_options = '--global-config ~/src/config/configure/linters/.pycodestyle'
 let g:ale_python_autopep8_global = 1  
-" @depends: pylint, autopep8
 
-" Elm
-" @depends: elm-format
+""" Elm @depends: elm-format
+"let g:elm_format_autosave = 0
 
-" Go
-" @depends: go get github.com/mgechev/revive
+" Go @depends: go get github.com/mgechev/revive
 " * Don't work, watch PR on ALE about revive
 " * diable golint ?
 call ale#linter#Define('go', {
