@@ -17,6 +17,7 @@ end
 # basic
 alias tree="tree -C"
 alias less='less -S -R'
+alias df="df -Th"
 alias g="grep"
 alias l='ls'
 alias lq='ls'
@@ -59,7 +60,7 @@ alias vidiff='vimdiff'
 alias vid='vimdiff'
 alias vip='vim -p'
 alias vis='vim -S'  
-alias vpasteclean="xsel | sed 's/ *\$//' | xsel -bi"
+alias pasteclean="xsel | sed 's/ *\$//' | xsel -bi"
 alias evc="evince"
 alias tu="htop -u $USER"
 alias t="htop"
@@ -134,7 +135,11 @@ function vimss
     if [ -n "$argv[1]" ]
         set file .$argv[1]$file
     end
-    vim -c "source $file" -S ~/.vimrc 
+    if [ -f "$file" ]
+        vim -c "source $file" -S ~/.vimrc 
+    else
+        echo "no vim session file found for $file."
+    end
 end
 
 function upgrademe
