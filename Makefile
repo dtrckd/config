@@ -183,6 +183,7 @@ backup_dot:
 backup_atom:
 	@cp -v ~/.atom/config.cson dotfiles/.atom
 	@cp -v ~/.atom/keymap.cson dotfiles/.atom
+	@cp -v ~/.atom/projects.cson dotfiles/.atom
 	apm-beta list --installed --bare > dotfiles/.atom/package-list.txt
 
 backup_wekan:
