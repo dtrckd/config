@@ -3,11 +3,9 @@
 Target="$1"
 
 if [ -z "$Target" ]; then
-    echo "Please enter: go | npm | docker"
+    echo "Please enter: go | npm | docker | crystal | brew"
     exit
 fi
-
-
 
 
 if [ "$Target" == "go" ]; then
@@ -32,7 +30,6 @@ if [ "$Target" == "go" ]; then
     sudo rm -f /usr/local/bin/gofmt
     sudo ln -s "/usr/local/lib/$VER/bin/go" /usr/local/bin/go
     sudo ln -s "/usr/local/lib/$VER/bin/gofmt" /usr/local/bin/gofmt
-    source ~/.bashrc
     echo "updated to $(go version)"
 fi
 if [ "$Target" == "npm" ]; then
@@ -70,4 +67,9 @@ if [ "$Target" == "crystal" ]; then
     apt install libssl-dev libxml2-dev libyaml-dev libgmp-dev libreadline-dev libz-dev
     sudo apt install crystal
 fi
+if [ "$Target" == "brew" ]; then
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+fi
+
+source ~/.bashrc
 
