@@ -61,6 +61,7 @@ fi
 
 alias less='less -S -R'
 alias df='df -TH'
+alias du='du -csh'
 alias g="grep"
 alias l='ls'
 alias lq='ls'
@@ -84,6 +85,7 @@ complete -f l
 complete -f lla
 
 ### Utility commands
+alias apti="aptitude"
 alias please='sudo $(fc -ln -1)'
 alias so='source ~/.bashrc'
 alias whoisssd='lsblk  -d -o name,rota'
@@ -143,6 +145,7 @@ alias vib="vim ~/.bash_profile"
 alias vif="vim ~/.config/fish/aliases.fish"
 alias vimrc="vim ~/.vimrc"
 alias vimtmux="vim ~/.tmux.conf"
+alias vig="vim ~/.gitconfig"
 
 _PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/repo/ml/"
 _NDL="$HOME/src/config/configure/nodeslist"

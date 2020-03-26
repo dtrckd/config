@@ -18,6 +18,7 @@ end
 alias tree="tree -C"
 alias less='less -S -R'
 alias df="df -Th"
+alias du="du -sch"
 alias g="grep"
 alias l='ls'
 alias lq='ls'
@@ -39,6 +40,7 @@ function lla
 end
 
 ### Utility commands
+alias apti="aptitude"
 alias please='sudo (fc -ln -1)'
 alias so='source ~/.config/fish/config.fish'
 alias whoisssd='lsblk  -d -o name,rota'
@@ -74,6 +76,7 @@ alias vib="vim ~/.bash_profile"
 alias vif="vim ~/.config/fish/aliases.fish"
 alias vimrc="vim ~/.vimrc"
 alias vimtmux="vim ~/.tmux.conf"
+alias vig="vim ~/.gitconfig"
 
 alias vi='vim'
 alias ci='vim'

@@ -4,3 +4,6 @@ github.com/wit-ai/wit-go
 
 # Template
 github.com/mholt/sprig
+
+# git
+GO111MODULE=off  go get github.com/MichaelMure/git-bug
