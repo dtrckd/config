@@ -234,6 +234,7 @@ function vimss() {
 
 function upgrademe() {
     aptitude update && aptitude upgrade
+    snap refresh
     brew update && brew upgrade
     pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
     npm update
@@ -691,9 +692,9 @@ export NVM_DIR="$HOME/.nvm"
 
 ### Brew
 #git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
-#export PATH="$PATH:$HOME/.linuxbrew/bin"
-#export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-#export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+export PATH="$PATH:$HOME/.linuxbrew/bin"
+export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
 if [ -x $(echo $TMUX |cut -d',' -f1 ) ]; then
 

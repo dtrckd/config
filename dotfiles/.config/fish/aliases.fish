@@ -147,6 +147,7 @@ end
 
 function upgrademe
     aptitude update && aptitude upgrade
+    snap refresh
     brew update && brew upgrade
     pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
     npm update
