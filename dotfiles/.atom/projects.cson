@@ -8,3 +8,8 @@
   paths: [
     "/home/dtrckd/Desktop/workInProgress/networkofgraphs/missions/fractal/fractal6/schema"
   ]
+"fractal-elm":
+  title: "fractal-elm"
+  paths: [
+    "/home/dtrckd/Desktop/workInProgress/networkofgraphs/missions/fractal/fractal6/fractal6-ui.elm"
+  ]
