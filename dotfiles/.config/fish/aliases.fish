@@ -163,7 +163,7 @@ alias gits='git status -sb'
 alias gitr='git remote -v'
 alias gitd='git diff'
 alias gitamend='git commit -a --amend'
-alias gitcommit='git commit -am'
+alias gitcommit='git commit -a'
 alias gitl="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short  --all"
 alias gitll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short"
 alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"

@@ -237,7 +237,7 @@ function upgrademe() {
     snap refresh
     brew update && brew upgrade
     pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
-    npm update
+    npm update # -g
     vim -c "UpdatePlugin"
 }
 # Show hold/held package
@@ -255,7 +255,7 @@ alias gitd='git diff'
 gitcpush () { git commit -am "$1" && git push; }
 alias lsgit='for d in $(find -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" status -svb; echo; done'
 alias gitamend='git commit -a --amend'
-alias gitcommit='git commit -am'
+alias gitcommit='git commit -a'
 alias gitl="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short  --all"
 alias gitll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short"
 alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
