@@ -449,15 +449,12 @@ noremap <C-S-UP>    :resize +3<cr>
 noremap <C-S-DOWN>  :resize -3<cr>
 noremap <C-S-LEFT>  :vertical resize +3<cr>
 noremap <C-S-RIGHT> :vertical resize -3<cr>
-
 "keycode 113 = Alt_R
 "add mod1 = Alt_R
 "keycode 116 = Meta_R
 "add mod4 = Meta_R
 "Mod1 Mod4 h :HorizontalDecrement
-
-
-" TAB
+""" TAB
 nnoremap <C-UP> gT
 noremap <C-DOWN> <ESC>:tabn<CR>
 noremap <C-DOWN> <ESC>:tabN<CR>
@@ -473,7 +470,6 @@ cnoremap $t tabe %:p:h
 cnoremap $s split %:p:h
 cnoremap $v vs %:p:h
 cnoremap cwd lcd %:p:h  " change current working directory(cwd) to the dir of the currenet file
-
 """ Mouse map
 "nnoremap <2-LeftMouse> //
 "cno sm set mouse=
@@ -487,6 +483,9 @@ noremap <Tab>) m9<S-v>)='9
 
 """ Remap unsefull one that get remap !
 unmap <C-i>
+
+""" Format Json
+noremap <Leader>jf :%!jq .<CR>
 
 " Jump to the next or previous line that has the same level or a lower
 " level of indentation than the current line.
