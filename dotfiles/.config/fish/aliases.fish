@@ -62,6 +62,7 @@ alias vidiff='vimdiff'
 alias vid='vimdiff'
 alias vip='vim -p'
 alias vis='vim -S'  
+alias j=jobs
 alias pasteclean="xsel | sed 's/ *\$//' | xsel -bi"
 alias evc="evince"
 alias tu="htop -u $USER"
@@ -149,9 +150,9 @@ function upgrademe
     aptitude update && aptitude upgrade
     snap refresh
     brew update && brew upgrade
-    pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
-    npm update
-    vim -c "UpdatePlugin"
+    vim -c "PluginUpdate"
+    #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+    #npm update # -g
 end
 alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
 
