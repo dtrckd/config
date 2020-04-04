@@ -163,8 +163,8 @@ alias gitb='git branch -av'
 alias gits='git status -sb'
 alias gitr='git remote -v'
 alias gitd='git diff'
-alias gitamend='git commit -a --amend'
-alias gitcommit='git commit -a'
+alias gitamend='git commit --amend'
+alias gitcommit='git commit'
 alias gitl="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short  --all"
 alias gitll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short"
 alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
@@ -323,6 +323,8 @@ function _cd
         dirs | tr ' ' '\n' | grep -v "^\$"
     else if [ "$argv[1]" = "-l" ]
         # use `_cd -l` to print current stack of folders
+        # remove duplicate consecutive dir
+        set dirstack (echo $dirstack | tr ' ' '\n' | uniq)
         dirs | tr ' ' '\n' | grep -v "^\$" | awk '{print  " " NR-1 "  " $0}' 
     else if [ "$argv[1]" = "-c" ]
         # clear stack
