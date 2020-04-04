@@ -6,7 +6,7 @@ if [ "$1" == '-s' ];then
     RSYNC_ARGS="${RSYNC_ARGS} --dry-run"
 fi
 
-echo "instable"
+echo "Instable...exiting"
 exit
 
 # Backup app config (.
