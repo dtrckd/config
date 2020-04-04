@@ -255,8 +255,8 @@ alias gitr='git remote -v'
 alias gitd='git diff'
 gitcpush () { git commit -am "$1" && git push; }
 alias lsgit='for d in $(find -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" status -svb; echo; done'
-alias gitamend='git commit -a --amend'
-alias gitcommit='git commit -a'
+alias gitamend='git commit --amend'
+alias gitcommit='git commit'
 alias gitl="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short  --all"
 alias gitll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short"
 alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
@@ -374,14 +374,14 @@ alias tmr='python3 -m tm manager'
 ### cd alias
 # Replace cd with pushd https://gist.github.com/mbadran/130469 
 function _cd() {
-  # typing just `_cd` will take you $HOME ;)
   if [ -z "$1" ]; then
+      # typing just `_cd` will take you $HOME ;)
       if [ ! $PWD == $HOME ]; then
         _cd "$HOME"
       fi
 
-  # use `_cd -` to visit previous directory
   elif [ "$1" == "-" ]; then
+      # use `_cd -` to visit previous directory
     if [ "$(_cd -p | wc -l)" -gt 1 ]; then
       current_dir="$PWD"
       popd > /dev/null
@@ -390,27 +390,29 @@ function _cd() {
       _cd $OLDPWD
     fi
 
-  # list stack
   elif [ "$1" == "-p" ]; then
+      # list stack
 	dirs | tr ' ' '\n' | grep -v "^\$"
-  # use `_cd -l` to print current stack of folders
   elif [ "$1" == "-l" ]; then
+      # use `_cd -l` to print current stack of folders
+    # remove duplicate consecutive dir
+    dirstack="$(echo $dirstack | tr ' ' '\n' | uniq)"
     dirs | tr ' ' '\n' | grep -v "^$" | awk '{print  " " NR-1 "  " $0}'
-  # clear stack
   elif [ "$1" == "-c" ]; then
+      # clear stack
       dirs -c
 
-  # use `_cd -g N` to go to the Nth directory in history (pushing)
   elif [ "$1" == "-g" ] && [[ "$2" =~ ^[0-9]+$ ]]; then
-    indexed_path=$(_cd -p | sed -n $(($2+1))p)
+      # use `_cd -g N` to go to the Nth directory in history (pushing)
+    #indexed_path=$(_cd -p | sed -n $(($2+1))p)
     _cd $indexed_path
 
-  # use `_cd +N` to go to the Nth directory in history (pushing)
   elif [[ "$1" =~ ^+[0-9]+$ ]]; then
+      # use `_cd +N` to go to the Nth directory in history (pushing)
     _cd -g ${1/+/}
 
-  # use `_cd -N` to go n directories back in history (popping)
   elif [[ "$1" =~ ^-[0-9]+$ ]]; then
+      # use `_cd -N` to go n directories back in history (popping)
       for i in $(seq 1 ${1/-/}); do
           popd > /dev/null
     done
@@ -419,15 +421,14 @@ function _cd() {
       cd ..
       cd ..
 
-  # use `_cd -- <path>` if your path begins with a dash
   elif [ "$1" == "--" ]; then
+      # use `_cd -- <path>` if your path begins with a dash
     shift
     pushd -- "$@" > /dev/null
 
-    # basic case: move to a dir and add it to history
   else
+    # basic case: move to a dir and add it to history
     pushd "$@" > /dev/null
-
     if [ "$1" == "." ] || [ "$1" == "$PWD" ]; then
       popd -n > /dev/null
     fi
