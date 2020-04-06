@@ -178,7 +178,7 @@ alias ipv4="ip -4 -br a"
 alias ipv6="ip -6 -br a"
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
-alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff}' # see also rg
+alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}' # see also rg
 alias grepy='find -iname "*.py" | xargs grep --color -n'
 alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
 alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
@@ -254,7 +254,8 @@ alias gits='git status -sb'
 alias gitr='git remote -v'
 alias gitd='git diff'
 gitcpush () { git commit -am "$1" && git push; }
-alias lsgit='for d in $(find -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" status -svb; echo; done'
+alias lsgit='for d in $(find -maxdepth 2 -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" status -svb; echo; done'
+alias lsissues='for d in $(find -maxdepth 2 -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" bug ls; echo; done'
 alias gitamend='git commit --amend'
 alias gitcommit='git commit'
 alias gitl="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short  --all"
@@ -397,7 +398,9 @@ function _cd() {
       # use `_cd -l` to print current stack of folders
     # remove duplicate consecutive dir
     dirstack="$(echo $dirstack | tr ' ' '\n' | uniq)"
-    dirs | tr ' ' '\n' | grep -v "^$" | awk '{print  " " NR-1 "  " $0}'
+    bold=$(tput bold)
+    normal=$(tput normal)
+    dirs | tr ' ' '\n' | grep -v "^$" | awk -v normal=$normal -v bold=$bold '{print  "\033[1;32m" NR-1 "\033[0m"  "  " bold $0 normal}' | tac | tail -n 12
   elif [ "$1" == "-c" ]; then
       # clear stack
       dirs -c
@@ -443,6 +446,8 @@ complete -f cd
 
 alias xs='cd'
 alias cdl='cd -l'
+alias d='cd -l'
+alias cd-='cd -'
 
 PX="${HOME}/workInProgress"
 alias cdf="cd $HOME/workInProgress/networkofgraphs/missions/fractal/"
