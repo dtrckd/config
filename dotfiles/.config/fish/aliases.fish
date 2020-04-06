@@ -40,6 +40,7 @@ function lla
 end
 
 ### Utility commands
+alias fuk="fuck"
 alias apti="aptitude"
 alias please='sudo (fc -ln -1)'
 alias so='source ~/.config/fish/config.fish'
@@ -334,7 +335,7 @@ function _cd
         set dirstack (echo $dirstack | tr ' ' '\n' | uniq)
         set bold (tput bold)
         set normal (tput sgr0)
-        dirs | tr ' ' '\n' | grep -v "^\$" | awk -v normal=$normal -v bold=$bold '{print  "\033[1;32m" NR-1 "\033[0m"  "  " bold $0 normal}' | tac | tail -n 12
+        dirs | tr ' ' '\n' | grep -v "^\$" | awk -v normal=$normal -v bold=$bold '{print  "\033[1;32m" NR-1 "\033[0m"  "  " bold $0 normal}' | tac | tail -n 20
     else if [ "$argv[1]" = "-c" ]
         # clear stack
         dirs -c
@@ -461,7 +462,7 @@ alias xss='xmms2 status'
 alias xrpone='xmms2 server config playlist.repeat_one 1'
 alias xrpall='xmms2 server config playlist.repeat_all 1'
 alias xrpclr='xmms2 server config playlist.repeat_one  0; xmms2 server config playlist.repeat_all 0'
-alias xadd='xmms2 add "`xmms2 info | grep file:// | cut -d: -f2  | xargs -0 dirname`"'
+alias xadd='xmms2 add .'
 alias xcd='cd (xmms2 info | grep file:// |cut -d: -f2  |xargs -0 dirname |python3 -c "import sys,urllib.parse;sys.stdout.write(urllib.parse.unquote_plus(sys.stdin.read()))")'
 alias xll='ls (xmms2 info | grep file:// |cut -d: -f2  |xargs -0 dirname |python3 -c "import sys,urllib.parse;sys.stdout.write(urllib.parse.unquote_plus(sys.stdin.read()))")'
 function xshuff
