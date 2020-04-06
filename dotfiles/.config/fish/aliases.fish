@@ -106,7 +106,7 @@ alias netp='netstat -plant | grep -i stab | awk -F/ "{print \$2 \$3}" | sort | u
 alias fetch_debian='wget https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-xfce-CD-1.iso'
 alias ipv4="ip -4 -br a"
 alias ipv6="ip -6 -br a"
-alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff}'
+alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}'
 alias grepy='find -iname "*.py" | xargs grep --color -n'
 alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
 alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
@@ -184,9 +184,16 @@ alias git_excludf='git update-index --assume-unchanged'
 alias gitcount='echo (git rev-list --count master) commits'
 function gitcpush; git commit -am $argv[1] && git push; end
 function lsgit 
-    for d in (find -type d -name ".git" | sed 's/\.git$//' );
+    for d in (find -maxdepth 2 -type d -name ".git" | sed 's/\.git$//' );
         echo $d
         git -C "$d" status -svb
+        echo
+    end
+end
+function lsissues
+    for d in (find -maxdepth 2 -type d -name ".git" | sed 's/\.git$//' );
+        echo $d
+        git -C "$d" bug ls
         echo
     end
 end
@@ -325,7 +332,9 @@ function _cd
         # use `_cd -l` to print current stack of folders
         # remove duplicate consecutive dir
         set dirstack (echo $dirstack | tr ' ' '\n' | uniq)
-        dirs | tr ' ' '\n' | grep -v "^\$" | awk '{print  " " NR-1 "  " $0}' 
+        set bold (tput bold)
+        set normal (tput sgr0)
+        dirs | tr ' ' '\n' | grep -v "^\$" | awk -v normal=$normal -v bold=$bold '{print  "\033[1;32m" NR-1 "\033[0m"  "  " bold $0 normal}' | tac | tail -n 12
     else if [ "$argv[1]" = "-c" ]
         # clear stack
         dirs -c
@@ -366,6 +375,8 @@ complete -c _cd -w cd
 
 alias xs='cd'
 alias cdl='cd -l'
+alias d="cd -l"
+alias cd-="cd -"
 
 set PX "$HOME/workInProgress"
 alias cdf="cd $HOME/workInProgress/networkofgraphs/missions/fractal/"
