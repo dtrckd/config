@@ -105,12 +105,6 @@ alias ppath_python='export PYTHONPATH=$PYTHONPATH:$(pwd)'
 alias xback='xbacklight'
 #alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
-alias cc="cat"
-alias vdiff='vimdiff'
-alias vidiff='vimdiff'
-alias vid='vimdiff'
-alias vip='vim -p'
-alias vis='vim -S'
 alias j=jobs
 alias pasteclean="xsel | sed 's/ *$//' | xsel -bi"
 alias evc="evince"
@@ -146,6 +140,13 @@ function make_graph_python(){
 }
 
 alias v="vim"
+alias vls="vim" # use when using with "C-A" and quicly change ls to vls for openin vim
+alias vcd="vim" # use when using with "C-A" and quicly change ls to vls for openin vim
+alias vdiff='vimdiff'
+alias vidiff='vimdiff'
+alias vid='vimdiff'
+alias vip='vim -p'
+alias vis='vim -S'
 alias vib="vim ~/.bash_profile"
 alias vif="vim ~/.config/fish/aliases.fish"
 alias vimrc="vim ~/.vimrc"
@@ -161,8 +162,8 @@ alias pstree='pstree -h'
 alias rmf='shred -zuv -n1' # find <directory> -depth -type f -exec shred -v -n 1 -z -u {} \;
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
-f () { find -name "*$1*"; } # fuzzy match
-ff () { find -name "$1"; } # exact match
+f () { find -iname "*$1*"; } # fuzzy match
+ff () { find -iname "$1"; } # exact match
 alias jerr='journalctl -p err -b'
 ### Net
 alias curlH='curl -I'
@@ -270,11 +271,23 @@ alias gb='gitb'
 alias gd='gitd'
 alias gs='gits'
 alias gl="gitl"
+alias ga="git add"
 alias gll="gitll"
 alias glt="gitlt"
-alias gi='git issue'
-alias gil='git issue list -l "%i | %T| %D"'
-alias gis='git issue show'
+alias gi="git bug"
+alias gil="git bug ls"
+alias gilb="git bug ls-label"
+alias gilid="git bug ls-id"
+alias gir="gi bridge auth"
+alias gis="git bug show"
+alias gia="git bug add"
+alias gila="git bug label add"
+alias gilx="git bug label rm"
+alias gio="git bug status open"
+alias gic="git bug status close"
+#alias gi='git issue'
+#alias gil='git issue list -l "%i | %T| %D"'
+#alias gis='git issue show'
 alias gitfilelog="git log --pretty=oneline -u dotfiles/.vimrc"
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'

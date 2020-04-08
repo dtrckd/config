@@ -57,12 +57,6 @@ alias ppath_python='export PYTHONPATH=$PYTHONPATH:(pwd)'
 alias xback='xbacklight'
 #alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
-alias cc="cat"
-alias vdiff='vimdiff'
-alias vidiff='vimdiff'
-alias vid='vimdiff'
-alias vip='vim -p'
-alias vis='vim -S'  
 alias j=jobs
 alias pasteclean="xsel | sed 's/ *\$//' | xsel -bi"
 alias evc="evince"
@@ -74,6 +68,13 @@ alias torb="sh -c \"$HOME/src/config/app/tor-browser_en-US/Browser/start-tor-bro
 function pdf; evince $argv[1] 2>/dev/null &; end
 function pdfo; okular $argv[1] 2>/dev/null &; end
 alias v="vim"
+alias vls="vim" # use when using with "C-A" and quicly change ls to vls for openin vim
+alias vcd="vim" # use when using with "C-A" and quicly change cd to vcd for openin vim
+alias vdiff='vimdiff'
+alias vidiff='vimdiff'
+alias vid='vimdiff'
+alias vip='vim -p'
+alias vis='vim -S'  
 alias vib="vim ~/.bash_profile"
 alias vif="vim ~/.config/fish/aliases.fish"
 alias vimrc="vim ~/.vimrc"
@@ -95,8 +96,8 @@ alias pstree='pstree -h'
 alias rmf='shred -zuv -n1'
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
-function f; find -name "*$argv[1]*"; end # fuzzy match
-function ff; find -name "$argv[1]" ; end # exact match
+function f; find -iname "*$argv[1]*"; end # fuzzy match
+function ff; find -iname "$argv[1]" ; end # exact match
 function fdelete; find -name "*$argv[1]*" -delete; end # fuzzy match
 function ffdelete; find -name "$argv[1]" -delete ; end # exact match
 alias jerr='journalctl -p err -b'
@@ -174,11 +175,23 @@ alias gb='gitb'
 alias gd='gitd'
 alias gs='gits'
 alias gl="gitl"
+alias ga="git add"
 alias gll="gitll"
 alias glt="gitlt"
-alias gi='git issue'
-alias gil='git issue list -l "%i | %T| %D"'
-alias gis='git issue show'
+alias gi="git bug"
+alias gil="git bug ls"
+alias gilb="git bug ls-label"
+alias gilid="git bug ls-id"
+alias gir="gi bridge auth"
+alias gis="git bug show"
+alias gia="git bug add"
+alias gila="git bug label add"
+alias gilx="git bug label rm"
+alias gio="git bug status open"
+alias gic="git bug status close"
+#alias gi='git issue'
+#alias gil='git issue list -l "%i | %T| %D"'
+#alias gis='git issue show'
 alias gitfilelog="git log --pretty=oneline -u dotfiles/.vimrc"
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
@@ -323,7 +336,7 @@ function _cd
             set -g dirstack $current_dir $dirstack
             #pushd $current_dir > /dev/null
         else if [ -n "$OLDPWD" ]
-            builtin cd -; and ls
+            builtin cd -;
         end
 
     else if [ "$argv[1]" = "-p" ]
@@ -355,15 +368,15 @@ function _cd
 
     else if [ "$argv[1]" = "..." ]
         builtin cd ..
-        builtin cd ..; and ls
+        builtin cd ..;
 
     else if [ "$argv[1]" = "--" ]
         # use `_cd -- <path>` if your path begins with a dash
-        pushd -- "$argv[2]" > /dev/null; and ls
+        pushd -- "$argv[2]" > /dev/null;
     else
         # basic case: move to a dir and add it to history
         if [ $argv[1] != $PWD -a $argv[1] != '.' ]
-            pushd "$argv" > /dev/null; and ls
+            pushd "$argv" > /dev/null;
         end
 
     end
