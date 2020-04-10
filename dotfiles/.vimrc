@@ -106,7 +106,7 @@ let g:easytags_updatetime_min = 180000
 let g:easytags_auto_update = 0
 
 """ NerdTree
-:let g:NERDTreeWinSize=26
+:let g:NERDTreeWinSize=22
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.swp$']
 map <C-p> :NERDTreeToggle<CR>
 nnoremap <TAB><TAB> :NERDTreeFind<CR>
