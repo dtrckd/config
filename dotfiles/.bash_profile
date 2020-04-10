@@ -62,6 +62,8 @@ if [ -x /usr/bin/dircolors ]; then
     alias tree="tree -C"
 fi
 
+alias diff="diff -u"
+alias tree="tree -C"
 alias less='less -S -R'
 alias df='df -TH'
 alias du='du -csh'
@@ -299,13 +301,18 @@ function gitls() {
     fi
     git ls-tree -r ${branch} --name-only
 }
-function  gitchecklasttag() {
+function gitlasttag() {
     # Get new tags from the remote
     git fetch --tags
-
     # Get the latest tag name
     latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
-
+    echo $latestTag
+}
+function gitcheckoutlasttag() {
+    # Get new tags from the remote
+    git fetch --tags
+    # Get the latest tag name
+    latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
     # Checkout the latest tag
     git checkout $latestTag
 }

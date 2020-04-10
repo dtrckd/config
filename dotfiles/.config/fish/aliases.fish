@@ -15,6 +15,7 @@ end
 
 
 # basic
+alias diff="diff -u"
 alias tree="tree -C"
 alias less='less -S -R'
 alias df="df -Th"
@@ -228,8 +229,14 @@ function gitls
     end
     git ls-tree -r $branch --name-only
 end
-
-function  gitchecklasttag
+function  gitlasttag
+    # Get new tags from the remote
+    git fetch --tags
+    # Get the latest tag name
+    set latestTag (git describe --tags (git rev-list --tags --max-count=1))
+    echo $latestTag
+end
+function  gitcheckoutlasttag
     # Get new tags from the remote
     git fetch --tags
     # Get the latest tag name
