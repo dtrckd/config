@@ -180,7 +180,7 @@ alias ga="git add"
 alias gll="gitll"
 alias glt="gitlt"
 alias gi="git bug"
-alias gil="git bug ls"
+alias gil="git bug ls -s open"
 alias gilb="git bug ls-label"
 alias gilid="git bug ls-id"
 alias gir="gi bridge auth"
@@ -191,15 +191,31 @@ function gip
     end
 end
 alias gia="git bug add"
-function  girm; 
+function girm
     set bugid  (git bug ls-id $argv[1])
-    rm .git/git-bug/bug-cache
     rm .git/refs/bugs/$bugid
+    rm .git/git-bug/bug-cache
 end
 alias gila="git bug label add"
 alias gilrm="git bug label rm"
 alias gio="git bug status open"
 alias gic="git bug status close"
+function gi_clean_local_bugs
+    git for-each-ref refs/bugs/ | cut -f 2 | xargs -r -n 1 git update-ref -d
+    git for-each-ref refs/remotes/origin/bugs/ | cut -f 2 | xargs -r -n 1 git update-ref -d
+    rm -f .git/git-bug/bug-cache
+end
+function  gi_clean_remote_bugs
+    git ls-remote origin "refs/bugs/*" | cut -f 2 | xargs -r git push origin -d
+end
+function gi_clean_local_identity
+    git for-each-ref refs/identities/ | cut -f 2 | xargs -r -n 1 git update-ref -d
+    git for-each-ref refs/remotes/origin/identities/ | cut -f 2 | xargs -r -n 1 git update-ref -d
+    rm -f .git/git-bug/identity-cache
+end
+function gi_clean_remote_identity
+	git ls-remote origin "refs/identities/*" | cut -f 2 | xargs -r git push origin -d 
+end
 #alias gi='git issue'
 #alias gil='git issue list -l "%i | %T| %D"'
 #alias gis='git issue show'
