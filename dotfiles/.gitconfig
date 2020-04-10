@@ -14,4 +14,3 @@
 [core]
 	excludesfile = /home/dtrckd/.gitignore
     pager = delta --dark --plus-color=17 --minus-color=53 --hunk-color=3 --theme="TwoDark" --file-color=226
-#[git-bug ...

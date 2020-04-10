@@ -184,9 +184,19 @@ alias gilb="git bug ls-label"
 alias gilid="git bug ls-id"
 alias gir="gi bridge auth"
 alias gis="git bug show"
+function gip
+    for f in (string split ' ' 'status labels authorEmail participants')
+        echo "$f:"  (git bug show -f $f $argv[1] )
+    end
+end
 alias gia="git bug add"
+function  girm; 
+    set bugid  (git bug ls-id $argv[1])
+    rm .git/git-bug/bug-cache
+    rm .git/refs/bugs/$bugid
+end
 alias gila="git bug label add"
-alias gilx="git bug label rm"
+alias gilrm="git bug label rm"
 alias gio="git bug status open"
 alias gic="git bug status close"
 #alias gi='git issue'
@@ -427,6 +437,7 @@ alias cdwww="cd $PX/SC/Projects/Informatique/Reseau/www"
 alias cdsys="cd $PX/SC/Projects/Informatique/System"
 alias cdrez="cd $PX/SC/Projects/Informatique/Reseau/"
 alias cdid="cd $PX/SC/Papiers/idh/id_ad/"
+alias cdp="cd $PX/SC/Papiers/"
 alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
 function cdlk;  cd (dirname (readlink $argv[1])); end
 function grepurl; cat $argv[1] | grep -o '[hrefHREF]=['"'"'"][^"'"'"']*['"'"'"]' | sed -e 's/^[hrefHREF]=["'"'"']//' -e 's/["'"'"']$//'; end

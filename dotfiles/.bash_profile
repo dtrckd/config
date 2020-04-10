@@ -502,6 +502,7 @@ alias cdwww="cd $PX/SC/Projects/Informatique/Reseau/www"
 alias cdsys="cd $PX/SC/Projects/Informatique/System"
 alias cdrez="cd $PX/SC/Projects/Informatique/Reseau/"
 alias cdid="cd $PX/SC/Papiers/idh/id_ad/"
+alias cdp="cd $PX/SC/Papiers/"
 alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
 cdlk () { cd $(dirname $(readlink $1)); }
 grepurl () { cat $1 | grep -o '[hrefHREF]=['"'"'"][^"'"'"']*['"'"'"]' | sed -e 's/^[hrefHREF]=["'"'"']//' -e 's/["'"'"']$//'; }

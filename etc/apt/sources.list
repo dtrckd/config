@@ -29,4 +29,3 @@ deb http://ftp.fr.debian.org/debian/ sid main contrib non-free
 deb http://download.virtualbox.org/virtualbox/debian buster contrib
 #deb [arch=amd64] https://s3-us-west-2.amazonaws.com/brave-apt stretch main
 #deb https://dl.bintray.com/kaitai-io/debian jessie main # kaitai-struct-compiler
-
