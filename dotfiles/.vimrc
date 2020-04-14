@@ -108,9 +108,8 @@ let g:easytags_auto_update = 0
 """ NerdTree
 :let g:NERDTreeWinSize=22
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.swp$']
-map <C-p> :NERDTreeToggle<CR>
+map <C-p> :NERDTreeFocus<CR>
 nnoremap <TAB><TAB> :NERDTreeFind<CR>
-nmap f :NERDTreeFocus<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "let NERDTreeMinimalUI = 1
 "let NERDTreeDirArrows = 1
@@ -440,6 +439,8 @@ nnoremap <S-LEFT>  <C-W>h
 nnoremap <S-RIGHT> <C-W>l
 nnoremap à <C-W>w
 nnoremap ù <C-W>W
+""" Window Zoom
+nnoremap <C-W>z :ZoomWinTabToggle<cr>
 """ windows resize
 nnoremap <C-k> <C-W>10+ 
 nnoremap <C-j> <C-W>10-
