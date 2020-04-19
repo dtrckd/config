@@ -46,8 +46,9 @@ alias apti="aptitude"
 alias please='sudo (fc -ln -1)'
 alias so='source ~/.config/fish/config.fish'
 alias whoisssd='lsblk  -d -o name,rota'
-alias python="python -O" # basic optimizatio (ignore assert, ..)
+alias cleancolors="sed -r 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' $1"
 #alias ipython="python -m IPython"
+alias python="python -O" # basic optimizatio (ignore assert, ..)
 alias ipython="ipython --colors linux"
 alias ipython_dev="ipython --colors linux --profile dev"
 alias py='python'
@@ -191,6 +192,7 @@ function gip
     end
 end
 alias gia="git bug add"
+alias gie="git bug termui"
 function girm
     set bugid  (git bug ls-id $argv[1])
     rm .git/refs/bugs/$bugid
@@ -198,8 +200,9 @@ function girm
 end
 alias gila="git bug label add"
 alias gilrm="git bug label rm"
-alias gio="git bug status open"
-alias gic="git bug status close"
+alias gic="git bug comment add"
+alias gibo="git bug status open"
+alias gibc="git bug status close"
 function gi_clean_local_bugs
     git for-each-ref refs/bugs/ | cut -f 2 | xargs -r -n 1 git update-ref -d
     git for-each-ref refs/remotes/origin/bugs/ | cut -f 2 | xargs -r -n 1 git update-ref -d
