@@ -108,7 +108,7 @@ let g:easytags_auto_update = 0
 """ NerdTree
 :let g:NERDTreeWinSize=22
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.swp$']
-map <C-p> :NERDTreeFocus<CR>
+map <C-p> :NERDTreeToggle<CR>
 nnoremap <TAB><TAB> :NERDTreeFind<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "let NERDTreeMinimalUI = 1
@@ -168,7 +168,7 @@ let g:session_default_overwrite = 1 " every Vim instance without an explicit ses
 """""""""""""""""""""""""""
 """" Class list / IDE
 """""""""""""""""""""""""""
-"" Compilation & Taglist ! Great
+"" Compilation & Tagbar ! Great
 let g:easytags_cmd = '/usr/bin/ctags'
 let Tlist_Ctags_Cmd = '/usr/bin/ctags'
 let Tlist_WinWidth = 30
@@ -185,6 +185,8 @@ let g:tagbar_sort = 0
 let g:tagbar_compact = 1
 let g:tagbar_singleclick = 1
 let g:tagbar_autofocus = 1
+nnoremap tf :TlistShowTag<CR>
+nnoremap tc :TagbarShowTag<CR>
 
 " Markdown tagbar
 let g:tagbar_type_markdown = {
@@ -204,8 +206,6 @@ let g:tagbar_type_markdown = {
 
 " Makefile tagbar
 let g:tagbar_type_make = { 'kinds':[ 'm:macros', 't:targets' ] }
-nnoremap tf :TlistShowTag<CR>
-nnoremap tc :TagbarShowTag<CR>
 
 " Elm tagbar
 let g:tagbar_type_elm = {
@@ -218,6 +218,17 @@ let g:tagbar_type_elm = {
       \ 'c:type constructors:0:0',
       \ 'p:ports:0:0',
       \ 's:functions:0:0',
+      \ ]
+      \}
+
+" CSS tagbar
+let g:tagbar_type_scss = {
+      \ 'kinds' : [
+      \ 'f:function:0:0',
+      \ 'm:mixin:0:0',
+      \ 't:tag:0:0',
+      \ 'i:id:0:0',
+      \ 'c:class:0:0',
       \ ]
       \}
 
@@ -557,13 +568,17 @@ endfunc
 """"""""""""""""""""""""""""""
 """" => Extra Filetype
 """"""""""""""""""""""""""""""
-au BufNewFile,BufRead *.prisma,*.graphql,*.gql setfiletype graphql
+au BufNewFile,BufRead *.md set filetype=markdown
+au BufNewFile,BufRead *.load set filetype=html
+au BufNewFile,BufRead *.css,*.scss,*.sass,*.less setf scss
+au BufNewFile,BufRead *.prisma,*.graphql,*.gql setf graphql
+au BufNewFile,BufRead *.nomad,*.consul,*.toml,*.yaml setf conf
 au BufNewFile,BufRead *.fish set filetype=sh
 au BufNewFile,BufRead *.nse set filetype=lua
-au BufNewFile,BufRead *.nomad,*.consul,*.toml,*.yaml set filetype=conf
-au BufNewFile,BufRead *.vue setf vue
 au BufNewFile,BufRead *.elm set filetype=elm
+au BufNewFile,BufRead *.vue set filetype=vue
 au BufNewFile,BufRead *.cr set filetype=crystal
+au BufNewFile,BufRead *.plt,*.gnuplot,*.gnu set filetype=gnuplot
 au BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x "<afile>"
 
 """"""""""""""""""""""""""""""
@@ -611,15 +626,9 @@ autocmd BufWrite *.py,*.pyx,*.pyd,*.c,*.cpp,*.h,*.sh,*.txt,*.js,*.html,*.css :ca
 au filetype tex set ts=2 sts=2 sw=2
 au Filetype tex set wrap tw=90
 au Filetype tex set indentkeys="    "
-au BufRead,BufNewFile *.md set filetype=markdown
 "au BufRead,BufNewFile *.md set mouse=
 au BufRead,BufNewFile *.md set wrap tw=0
 
-""""""""""""""""""""""""""""""
-"""" => Gnuplot Files
-""""""""""""""""""""""""""""""
-au BufNewFile,BufRead *.plt,*.gnuplot,*.gnu set filetype=gnuplot
-"au BufNewFile,BufRead *.gnu set filetype=gnuplot
 
 """"""""""""""""""""""""""""""
 """" => C, C++, Java Files
@@ -631,7 +640,6 @@ au filetype cpp set fdm=syntax
 """"""""""""""""""""""""""""""
 """" => HTML Files
 """"""""""""""""""""""""""""""
-au BufNewFile,BufRead *.load set filetype=html
 au BufNewFile,BufRead  *.html,*.css set tabstop=2 softtabstop=2 shiftwidth=2 nowrap
 
 " multiple code (web2py...)
