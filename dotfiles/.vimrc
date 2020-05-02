@@ -1,6 +1,7 @@
 runtime! debian.vim
 let mapleader = ','
 
+
 """"""""""""""""""""""""""""""
 """ Vundle
 """"""""""""""""""""""""""""""
@@ -108,8 +109,8 @@ let g:easytags_auto_update = 0
 """ NerdTree
 :let g:NERDTreeWinSize=22
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.swp$']
-map <C-p> :NERDTreeToggle<CR>
-nnoremap <TAB><TAB> :NERDTreeFind<CR>
+noremap <C-p> :NERDTreeFind<CR>
+"noremap <TAB><TAB> :NERDTreeToggle<CR> " Problem with <C-i> that get map and delayed
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "let NERDTreeMinimalUI = 1
 "let NERDTreeDirArrows = 1
@@ -118,7 +119,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 "let g:WebDevIconsNerdTreeBeforeGlyphPadding = ""
 "let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
 "autocmd FileType nerdtree setlocal signcolumn=no
-
 
 """ ACK/AG (use AG!)
 let g:ackprg = 'ag-mcphail.ag  --smart-case'                                                   
@@ -181,6 +181,7 @@ noremap <Leader>tup :TlistUpdate<CR>
 noremap <Leader>mctags :!/usr/bin/ctags -R  --fields=+iaS --extra=+q .<CR>
 noremap <Leader>mctags :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
+" tagbar of taglist, ???
 let g:tagbar_sort = 0
 let g:tagbar_compact = 1
 let g:tagbar_singleclick = 1
@@ -206,6 +207,24 @@ let g:tagbar_type_markdown = {
 
 " Makefile tagbar
 let g:tagbar_type_make = { 'kinds':[ 'm:macros', 't:targets' ] }
+
+
+"let g:tagbar_type_javascript = {
+"      \ 'ctagstype': 'javascript',
+"      \ 'kinds': [
+"      \ 'A:arrays',
+"      \ 'P:properties',
+"      \ 'T:tags',
+"      \ 'O:objects',
+"      \ 'G:generator functions',
+"      \ 'F:functions',
+"      \ 'C:constructors/classes',
+"      \ 'M:methods',
+"      "\ 'V:variables',
+"      \ 'I:imports',
+"      \ 'E:exports',
+"      \ 'S:styled components'
+"      \ ]}
 
 " Elm tagbar
 let g:tagbar_type_elm = {
@@ -413,7 +432,11 @@ endif
 set ttyfast
 "set lazyredraw " weird behavious (statuslines is black...)
 
-"" magic pasting
+"""
+""" Terminal hacks
+"""
+
+"" Magic pasting
 "" Toggle paste/nopaste automatically when copy/paste with right click in insert mode:
 "let &t_SI .= "\<Esc>[?2004h"
 "let &t_EI .= "\<Esc>[?2004l"
@@ -480,7 +503,7 @@ noremap <C-S-RIGHT> :vertical resize -3<cr>
 "keycode 116 = Meta_R
 "add mod4 = Meta_R
 "Mod1 Mod4 h :HorizontalDecrement
-""" TAB
+""" Tab
 nnoremap <C-UP> gT
 noremap <C-DOWN> <ESC>:tabn<CR>
 noremap <C-DOWN> <ESC>:tabN<CR>
@@ -496,19 +519,21 @@ cnoremap $t tabe %:p:h
 cnoremap $s split %:p:h
 cnoremap $v vs %:p:h
 cnoremap cwd lcd %:p:h  " change current working directory(cwd) to the dir of the currenet file
+noremap <Leader>v :vs<cr>
 """ Mouse map
 "nnoremap <2-LeftMouse> //
 "cno sm set mouse=
 """" Edit
-nmap <silent> dw diwi
-nmap <silent> da diWa
-nmap <silent> da diw"0p
-nmap <Tab> <S-v>=
-" indent under block, and come back (zo?)
-noremap <Tab>) m9<S-v>)='9
+nnoremap <silent> dw diwi
+nnoremap <silent> da diWa
+nnoremap <silent> da diw"0p
 
-""" Remap unsefull one that get remap !
-unmap <C-i>
+" indent under block, and come back (zo?)
+"noremap <TAB>) m9<S-v>)='9  " Equal to '=)'
+
+""" Remap unsefull one that get remap (if <TAB> get mapped)
+"unmap <C-i>
+"unmap <C-i><C-i>
 
 """ Format Json
 noremap <Leader>jf :%!jq .<CR>
@@ -642,55 +667,51 @@ au filetype cpp set fdm=syntax
 """"""""""""""""""""""""""""""
 au BufNewFile,BufRead  *.html,*.css set tabstop=2 softtabstop=2 shiftwidth=2 nowrap
 
-" multiple code (web2py...)
+" Multiple code (web2py...)
 au Filetype html :call TextEnableCodeSnip('python', '{{#py', '}}', 'SpecialComment')
 au Filetype html :call TextEnableCodeSnip('python', '<script>', '</script>', 'SpecialComment')
 
 " Comment / filtetype named doesnt work!
-au BufNewFile,BufRead *.html       nmap # :s/\([^ ].*\)$/<!--\1-->/<CR>:noh<CR>
-au BufNewFile,BufRead *.html       nmap ~ :s/<!--\(.*\)-->/\1/<CR>:noh<CR>
-au BufNewFile,BufRead *.js         nmap # :s/\([^ ].*\)$/\/\*\1\*\//<CR>:noh<CR>
-au BufNewFile,BufRead *.css        nmap # :s/\([^ ].*\)$/\/\*\1\*\//<CR>:noh<CR>
-au BufNewFile,BufRead *.js         nmap ~ :s/\/\*\(.*\)\*\//\1/<CR>:noh<CR>
-au BufNewFile,BufRead *.css        nmap ~ :s/\/\*\(.*\)\*\//\1/<CR>:noh<CR>
-
+au BufNewFile,BufRead *.html  noremap # :s/\([^ ].*\)$/<!--\1-->/<CR>:noh<CR>
+au BufNewFile,BufRead *.html  noremap ~ :s/<!--\(.*\)-->/\1/<CR>:noh<CR>
+au BufNewFile,BufRead *.css   noremap # :s/\([^ ].*\)$/\/\*\1\*\//<CR>:noh<CR>
+au BufNewFile,BufRead *.css   noremap ~ :s/\/\*\(.*\)\*\//\1/<CR>:noh<CR>
+au BufNewFile,BufRead *.js    noremap # :s/\([^ ].*\)$/\/\*\1\*\//<CR>:noh<CR>
+au BufNewFile,BufRead *.js    noremap ~ :s/\/\*\(.*\)\*\//\1/<CR>:noh<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ => Spell checking
 """ get dict from : ftp://ftp.vim.org/pub/vim/runtime/spell/
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell! spelllang=en<CR>
-map <leader>ssfr :setlocal spell! spelllang=fr<CR>
+" Pressing ,ss will toggle and untoggle spell checking
+noremap <leader>ss :setlocal spell! spelllang=en<CR>
+noremap <leader>ssfr :setlocal spell! spelllang=fr<CR>
 
-"Shortcuts using <leader>
-nmap z] ]s
-nmap z[ [s
-map <leader>sa zg
-map <leader>s? z=
-"map <leader>w z=  " correct the previous word @TODO
+" Shortcuts using <leader>
+noremap z] ]s
+noremap z[ [s
+noremap <leader>sa zg
+noremap <leader>s? z=
 
-""""""
+"""
 """ Other Leader Map
-map <leader>e :!. % &<CR>
+"""
+noremap <leader>e :!. % &<CR>
 """switch header <-> .c # or a.vim
-map <Leader>h <ESC>:AV<CR>
-map <Leader>ht <ESC>:AT<CR>
-"map <leader>h :vs %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
-""" Varia
+noremap <Leader>h <ESC>:AV<CR>
+noremap <Leader>ht <ESC>:AT<CR>
+"noremap <leader>h :vs %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 " toggle wrap line
-nmap <leader>, :set wrap!<CR>
+nnoremap <leader>, :set wrap!<CR>
 " save session
-nmap <leader>w :mks! .session.vim<CR>
-
+nnoremap <leader>w :mks! .session.vim<CR>
 """ set mouse mode
-nmap <leader>m :set mouse=a<CR>
-nmap <leader>mm :set mouse=<CR>
-
+nnoremap <leader>m :set mouse=a<CR>
+nnoremap <leader>mm :set mouse=<CR>
 """ Copy current line to clipboard
-nmap <leader>c :.w !xclip -selection clipboard<CR>
+nnoremap <leader>c :.w !xclip -selection clipboard<CR>
 """ Copy all file to clipboard
-nmap <leader>cf :%w !xclip -selection clipboard<CR>
+nnoremap <leader>cf :%w !xclip -selection clipboard<CR>
 
 
 autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownIgnore "\$.*_.*\$"
@@ -893,4 +914,8 @@ set statusline+=\
 
 "set background=dark
 noh
+
+" Unbind <TAB> and <C-O
+let &t_TI = "\<Esc>[>4;2m"
+let &t_TE = "\<Esc>[>4;m"
 
