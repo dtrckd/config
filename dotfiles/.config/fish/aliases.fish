@@ -111,7 +111,7 @@ alias fetch_debian='wget https://cdimage.debian.org/cdimage/weekly-builds/amd64/
 alias ipv4="ip -4 -br a"
 alias ipv6="ip -6 -br a"
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}'
-#alias rg="rg -g '!node_modules'"
+alias rg="rg -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/'"
 alias grepy='find -iname "*.py" | xargs grep --color -n'
 alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
 alias grepxd='find -iname "*.pxd" | xargs grep --color -n'

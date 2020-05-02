@@ -187,7 +187,7 @@ alias ipv6="ip -6 -br a"
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}' # see also rg
-#alias rg="rg -g '!node_modules'"
+alias rg="rg -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/'"
 alias grepy='find -iname "*.py" | xargs grep --color -n'
 alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
 alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
