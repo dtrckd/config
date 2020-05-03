@@ -109,8 +109,6 @@ let g:easytags_auto_update = 0
 """ NerdTree
 :let g:NERDTreeWinSize=22
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.swp$']
-noremap <C-p> :NERDTreeFind<CR>
-"noremap <TAB><TAB> :NERDTreeToggle<CR> " Problem with <C-i> that get map and delayed
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "let NERDTreeMinimalUI = 1
 "let NERDTreeDirArrows = 1
@@ -119,6 +117,19 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 "let g:WebDevIconsNerdTreeBeforeGlyphPadding = ""
 "let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
 "autocmd FileType nerdtree setlocal signcolumn=no
+
+""" Similar behaviour than ToggleTagBar
+function! NERDTreeToggleFind()
+    if g:NERDTree.IsOpen()
+        execute ':NERDTreeClose'
+    else
+        execute ':NERDTreeFind'
+    endif
+endfunction
+
+"noremap <TAB><TAB> :NERDTreeToggle<CR> " Problem with <C-i> that get map and delayed
+nnoremap <C-p> :call NERDTreeToggleFind()<CR>
+
 
 """ ACK/AG (use AG!)
 let g:ackprg = 'ag-mcphail.ag  --smart-case'                                                   
@@ -830,10 +841,10 @@ com! RedrawTab :call RedrawTab()
 fu! MkSession()
     execute 'SaveSession '. Last2Dir()
 
-    """ Old
-    "bufdo execute 'NERDTreeClose'
-    "bufdo execute 'TagbarClose'
-    "execute 'mksession! ' . getcwd() . '/.session.vim'
+""" Old
+"bufdo execute 'NERDTreeClose'
+"bufdo execute 'TagbarClose'
+"execute 'mksession! ' . getcwd() . '/.session.vim'
 endfunction
 com! MkSession :call MkSession()
 
