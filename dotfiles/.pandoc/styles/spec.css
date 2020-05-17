@@ -425,8 +425,6 @@ html,body{
   padding-right: 1em;
   padding-left: 1em;
   max-width: 52em;  //44em
-
-  color:black;
 }
 
 *:not('#mkdbuttons'){
@@ -445,10 +443,11 @@ body{
   padding:30px;
   margin:15px;
   line-height:1.75;
-  font-family: 'Raleway',sans-serif;
-  font-size: 1rem;
-
-
+  font-family: 'Raleway',  sans-serif;
+  font-size: 0.9rem;
+  //font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+  //font-size: 1rem;
+  color:#111;
 }
 
 p{

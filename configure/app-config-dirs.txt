@@ -1,5 +1,0 @@
-~/.config/htop/
-~/.config/mc/
-~/.config/user-dirs.dirs
-~/.config/xmms2/
-~/.config/xfce4/
