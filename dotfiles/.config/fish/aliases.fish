@@ -193,7 +193,7 @@ function gip
     end
 end
 alias gia="git bug add"
-alias gie="git bug termui"
+alias giui="git bug termui"
 function girm
     set bugid  (git bug ls-id $argv[1])
     rm .git/refs/bugs/$bugid

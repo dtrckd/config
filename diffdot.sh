@@ -8,7 +8,7 @@ Help='-v verbose \n
 if [ "$Verbose" == "-v" ]; then
     # Show all files that differs (all depth)
     for _f in $(find dotfiles/ -type f); do
-        diff -q $_f ${HOME}${_f#dotfiles}
+        diff -q ${HOME}${_f#dotfiles} $_f
     done
 elif [ "$Verbose" == "-e" ]; then
     # Edit files that differs (first depth)
@@ -25,7 +25,7 @@ elif [ "$Verbose" == "-e" ]; then
 elif [ -z $Verbose ]; then
     # Show files that differs (first depth)
     find dotfiles/ -maxdepth 1 -type f -exec \
-        sh -c 'diff -q {} ${HOME}/$(basename {})' \;
+        sh -c 'diff -q ${HOME}/$(basename {}) {}' \;
 else
     echo "$Help"
 fi

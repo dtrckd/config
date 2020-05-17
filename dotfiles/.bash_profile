@@ -290,6 +290,7 @@ function gip() {
     done
 }
 alias gia="git bug add"
+alias giui="git bug termui"
 function girm(){
     bugid=$(git bug ls-id $1)
     rm .git/refs/bugs/$bugid
@@ -297,8 +298,9 @@ function girm(){
 }
 alias gila="git bug label add"
 alias gilrm="git bug label rm"
-alias gio="git bug status open"
-alias gic="git bug status close"
+alias gic="git bug comment add"
+alias gibo="git bug status open"
+alias gibc="git bug status close"
 function gi_clean_local_bugs() {
     git for-each-ref refs/bugs/ | cut -f 2 | xargs -r -n 1 git update-ref -d
     git for-each-ref refs/remotes/origin/bugs/ | cut -f 2 | xargs -r -n 1 git update-ref -d
@@ -633,7 +635,8 @@ xshuff () {
     fls=$(find "$Path" -type f -iname "*.ogg" -o -iname "*.mp4" -o -iname "*.mp3" -o -iname "*.flac")
     NB=$(echo "$fls" | wc -l)
 
-    RANDL=`python3 -c "import sys;import random;\
+    RANDL=`python3 -c "import sys, random, time;\
+        random.seed(int(time.time()));\
         nbf = min($NB, $NBF);\
         sys.stdout.write(' '.join(map(str, random.sample(range(1,$NB+1), nbf))))"`
     RANDN=""

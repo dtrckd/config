@@ -142,8 +142,12 @@ _web:
 #
 #
 
-full_backup: snapshot backapp backbin folders backup_wekan backup
+full_backup: backup_fulldot backapp backbin snapshot folders
 backup: backup_dot backup_atom
+
+backbin:
+	# Create bin.txt
+	ls -l $(HOME)/bin | grep '>' |cut -d'>' -f2 > configure/bin.txt
 
 snapshot:
 	mkdir -p configure/snapshots/
@@ -153,15 +157,7 @@ snapshot:
 	snap list > configure/snapshots/snap
 	npm list -g --depth 0 > configure/snapshots/npm
 
-backapp: backup_atom backup_dot
-	# Todo Debug
-	cd configure/
-	./backapp.sh
-	cd -
-
-backbin:
-	# Create bin.txt
-	ls -l $(HOME)/bin | grep '>' |cut -d'>' -f2 > configure/bin.txt
+backapp: backuo_adtom backup_wekan backup_thunderbird
 
 folders:
 	echo "TODO -- backsync on -- \
@@ -180,6 +176,14 @@ backup_dot:
 	@cp -v ~/.tmux.conf dotfiles/
 	@cp -v ~/.config/fish/aliases.fish dotfiles/.config/fish/
 
+backup_fulldot: backup_dot
+	@echo "TODO: check backup for: "\
+		"~/.config/htop/"\
+		"~/.config/mc/"\
+		"~/.config/user-dirs.dirs"\
+		"~/.config/xmms2/"\
+		"~/.config/xfce4/"
+
 backup_atom:
 	@cp -v ~/.atom/config.cson dotfiles/.atom
 	@cp -v ~/.atom/keymap.cson dotfiles/.atom
@@ -190,6 +194,17 @@ backup_wekan:
 	cd $(HOME)/workInProgress/conf/wekan
 	./wekan-backup.sh
 	cd -
+
+backup_thunderbird:
+	echo "check before"
+	exit
+	# Thnderbird
+	THUNDER_ID="l7nymwge"
+	#find $HOME/.thunderbird/$THUNDER_ID.default/ -name "*.dat" -o -name "*.json" | sed "s~$HOME/~~g" | xargs -I{} rsync -R {} ../app/
+	#find $HOME/.thunderbird/$THUNDER_ID.default/ -name "*.dat" -o -name "*.json" |xargs -I{} rsync $RSYNC_ARGS -R {} ../app/
+
+	# Fireforx bookmakrs (@Debug)
+	sqlite3 ~/.mozilla/firefox/4z2axixj.default/places.sqlite ".backup /home/dtrckd/Desktop/tt/g/bak"
 
 configure_atom:
 	apm-beta install --packages-file dotfiles/.atom/package-list.txt
