@@ -19,7 +19,7 @@ alias diff="diff -u"
 alias tree="tree -C"
 alias less='less -S -R'
 alias df="df -Th"
-alias du="du -sch"
+#alias du="du -sch"
 alias g="grep"
 alias l='ls'
 alias lq='ls'
@@ -194,6 +194,7 @@ function gip
 end
 alias gia="git bug add"
 alias giui="git bug termui"
+alias giw="git bug webui"
 function girm
     set bugid  (git bug ls-id $argv[1])
     rm .git/refs/bugs/$bugid
