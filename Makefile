@@ -143,7 +143,7 @@ _web:
 #
 
 full_backup: backup_fulldot backapp backbin snapshot folders
-backup: backup_dot backup_atom
+backup: backup_dot backup_atom calendar
 
 backbin:
 	# Create bin.txt
@@ -157,7 +157,7 @@ snapshot:
 	snap list > configure/snapshots/snap
 	npm list -g --depth 0 > configure/snapshots/npm
 
-backapp: backuo_adtom backup_wekan backup_thunderbird
+backapp: backup_atom backup_wekan backup_thunderbird
 
 folders:
 	echo "TODO -- backsync on -- \
@@ -165,6 +165,12 @@ folders:
 		workInProgress/ \
 		src/config/ \
 		src/data/"
+
+calendar:
+	cd ~/.cache/calendar.vim
+	git commit -am "backup"
+	git push
+	cd -
 
 #
 # Extra setup

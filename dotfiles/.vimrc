@@ -735,12 +735,12 @@ autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownIgnore "\$.*_.*\$"
 
 " Setup
 """ Itchyny Calendar
-"let pp = '~/Desktop/workInProgress/.diary/'
-"let g:calendar_diary = expand(pp)
-"let g:calendar_cache_directory = expand(pp)
+let CALENDARDIR = '~/.cache/calendar.vim'
+let g:calendar_diary = expand(CALENDARDIR)
+let g:calendar_cache_directory = expand(CALENDARDIR)
 let g:calendar_first_day = 'monday'
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
+"let g:calendar_google_calendar = 1
+"let g:calendar_google_task = 1
 
 " Week's day colors
 "autocmd FileType calendar call calendar#color#syntax('Saturday', has('gui') ? '#ff0000' : 'blue', 'black', '')
