@@ -21,6 +21,7 @@ alias less='less -S -R'
 alias df="df -Th"
 #alias du="du -sch"
 alias g="grep"
+alias ls="ls --group-directories-first -p --color=always"
 alias l='ls'
 alias lq='ls'
 alias sls='ls'
@@ -106,7 +107,7 @@ alias jerr='journalctl -p err -b'
 alias curlH='curl -I'
 alias myip='curl https://tools.aquilenet.fr/ip/ && echo'
 alias netl='netstat -plant'
-alias netp='netstat -plant | grep -i stab | awk -F/ "{print \$2 \$3}" | sort | uniq'
+alias netp='netstat -plant | grep -i stab | awk -F/ "{print \$argv[2] \$argv[3]}" | sort | uniq'
 alias fetch_debian='wget https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-xfce-CD-1.iso'
 alias ipv4="ip -4 -br a"
 alias ipv6="ip -6 -br a"
@@ -476,6 +477,19 @@ alias amatop='elinks http://zombie-dust.imag.fr:8000/'
 alias grid='elinks http://localhost/grid.html'
 alias gg="grid"
 
+function pdfcut
+    # this function uses 3 arguments:
+    #     $1 is the first page of the range to extract
+    #     $2 is the last page of the range to extract
+    #     $3 is the input file
+    #     output file will be named "inputfile_pXX-pYY.pdf"
+    command gs -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -dSAFER \
+        -dFirstPage=$argv[1] \
+        -dLastPage=$argv[2] \
+        -sOutputFile=(string split '.pdf' $argv[3])_p$argv[1]-p$argv[2].pdf \
+        $argv[3]
+end
+
 function pdfjoin
     pdftk "$argv[1]" "$argv[2]" cat output (basename $argv[1] .pdf)(basename $argv[2] .pdf).pdf
 end
@@ -534,6 +548,7 @@ function xshuff
     set NB (printf '%s\n' $fls | wc -l)
 
     set RANDL (python3 -c "import sys;import random;\
+        random.seed(int(time.time()));\
         nbf = min($NB, $NBF);\
         sys.stdout.write(' '.join(map(str, random.sample(range(1,$NB+1), nbf))))")
     set RANDN ""
