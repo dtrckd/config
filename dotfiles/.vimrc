@@ -91,7 +91,7 @@ let g:go_fmt_command = "goimports"
 """ Autocompletion
 "let g:loaded_youcompleteme = 1
 let g:ycm_show_diagnostics_ui = 1
-let g:ycm_enable_diagnostic_signs = 0 
+let g:ycm_enable_diagnostic_signs = 0
 let g:ycm_enable_diagnostic_highlighting = 0
 "
 let g:SuperTabNoCompleteAfter = ['^', '\s', '#', "'", '"', '%', '/']
@@ -132,7 +132,7 @@ nnoremap <C-p> :call NERDTreeToggleFind()<CR>
 
 
 """ ACK/AG (use AG!)
-let g:ackprg = 'ag-mcphail.ag  --smart-case'                                                   
+let g:ackprg = 'ag-mcphail.ag  --smart-case'
 cnoreabbrev ag Ack
 noremap <leader>s :Ack! "<cword>"<cr>
 
@@ -309,8 +309,8 @@ let g:ale_fix_on_save = 1
 let g:ale_sign_error = '●'
 let g:ale_sign_warning = '.'
 "hi ALEWarning ctermbg=236
-hi ALEStyleWarningSign ctermbg=235 
-hi ALEStyleErrorSign ctermbg=235 
+hi ALEStyleWarningSign ctermbg=235
+hi ALEStyleErrorSign ctermbg=235
 
 """ Python @depends: pylint, autopep8
 " see ~/.vim/bundle/ale/autoload/ale/linter.vim
@@ -320,7 +320,7 @@ let g:ale_fixers = {
 let g:ale_fixers = { 'python': ['autopep8' ] }
 let g:ale_python_pylint_options = '--rcfile ~/src/config/configure/linters/.pylintrc'
 let g:ale_python_autopep8_options = '--global-config ~/src/config/configure/linters/.pycodestyle'
-let g:ale_python_autopep8_global = 1  
+let g:ale_python_autopep8_global = 1
 
 """ Elm @depends: elm-format
 "let g:elm_format_autosave = 0
@@ -402,7 +402,7 @@ set pastetoggle=£ " toggle paste mode
 "set clipboard=unnamed " dont support C-S V
 "set title "update window title for X and tmux
 "set autochdir " set current cwd to the current file
-set ruler		"show current position
+set ruler   "show current position
 set laststatus=2
 set mat=1 "How many tenths of a second to blink
 set novb                                  " no beep, visualbell
@@ -501,7 +501,7 @@ nnoremap ù <C-W>W
 """ Window Zoom
 nnoremap <C-W>z :ZoomWinTabToggle<cr>
 """ windows resize
-nnoremap <C-k> <C-W>10+ 
+nnoremap <C-k> <C-W>10+
 nnoremap <C-j> <C-W>10-
 nnoremap <C-h> <C-W>10<
 "nnoremap <C-l> <C-W>10>
@@ -514,11 +514,12 @@ noremap <C-S-RIGHT> :vertical resize -3<cr>
 "keycode 116 = Meta_R
 "add mod4 = Meta_R
 "Mod1 Mod4 h :HorizontalDecrement
-""" Tab
+""" Move between Tab
 nnoremap <C-UP> gT
-noremap <C-DOWN> <ESC>:tabn<CR>
-noremap <C-DOWN> <ESC>:tabN<CR>
 nnoremap <C-DOWN> gt
+""" Move Tab
+nnoremap <C-S-PageUp> :tabm-<cr>
+nnoremap <C-S-PageDown> :tabm+<cr>
 """ Insert Mode
 imap <C-a> <Esc>^^i
 imap <C-e> <Esc>$a
@@ -634,27 +635,21 @@ au BufNewFile,BufRead *.py\> nnoremap _ ?<C-R>='__init__('<CR><CR>
 au BufNewFile,BufRead *.pyx nnoremap _ ?<C-R>='__cinit__('<CR><CR>
 
 """ Docstrings
-" To toggle the docstrings in the whole buffer you can use zR and zM, to toggle a single docstring, 
+" To toggle the docstrings in the whole buffer you can use zR and zM, to toggle a single docstring,
 " use za (I also mapped <space> to za, so I can toggle it pressing the space bar in normal mode)
 " Note that this code should be only triggered when editing a Python buffer (autocommand python call ...).
 autocmd FileType python setlocal foldenable foldmethod=syntax
 nnoremap <space> za
 
 func! DeleteTrailingWS()
-	let l:save = winsaveview()
-	keeppatterns %s/\s\+$//e
-	call winrestview(l:save)
+  let l:save = winsaveview()
+  keeppatterns %s/\s\+$//e
+  call winrestview(l:save)
 endfunc
 
 autocmd BufWrite *.py,*.pyx,*.pyd,*.c,*.cpp,*.h,*.sh,*.txt,*.js,*.html,*.css :call DeleteTrailingWS()
-
-"au BufRead,BufNe*.pyx wFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-
 " for tab invisible bug (caused by set paste); try :%retab
 
-" manage indentation error...
-" set list (list!) " see the tabulation ^I
-" retab " move tab in space according to tabstop
 
 """"""""""""""""""""""""""""""
 """" => Latex Files
@@ -875,7 +870,7 @@ if &term =~ '256color'
 endif
 "set term=xterm-256color
 
-" Vim TMUX 
+" Vim TMUX
 "set t_8b=^[[48;2;%lu;%lu;%lum
 "set t_8f=^[[38;2;%lu;%lu;%SignColumn
 
@@ -921,7 +916,7 @@ set statusline+=\ %r
 set statusline+=\ %h
 set statusline+=\ %w
 set statusline+=%=%l/%L:%c\ %05(%p%%%)
-set statusline+=\ 
+set statusline+=\
 
 "set background=dark
 noh
