@@ -89,7 +89,7 @@ if [ $PERS == 1 ]; then
     sudo aptitude install $OPTS nginx
     sudo aptitude install $OPTS php-fpm php php-cgi uwsgi
     echo "need to set up con files for sites..."
-    P="/home/dtrckd/Desktop/workInProgress/conf/etc/nginx/sites-available/"
+    P="/home/dtrckd/main/conf/etc/nginx/sites-available/"
     sudo cp $P/* /etc/nginx/sites-enabled/
     sudo service nginx restart
 fi

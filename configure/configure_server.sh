@@ -2,7 +2,7 @@
 
 # cat configure_server.sh | ssh user@remote_adrr
 
-USERNAME="bomberman"
+USERNAME="admin"
 ##################################
 ###### Install Base Package ######
 ##################################
@@ -10,6 +10,7 @@ apt-get update
 apt-get upgrade -y
 
 apt-get install -y htop git make psmisc vim mc rsync tmux ranger curl wget # basic
+apt-get install -y net-tools # network
 apt-get install -y vim  mc rsync tmux ranger curl wget # edition
 apt-get install -y python3-setuptools python-pip python3-pip # python
 apt-get autoclean -y
@@ -17,7 +18,7 @@ apt-get autoremove -y
 apt-get clean -y
 
 #pip3 install -U pip setuptools wheel
-pip3 install -U cython
+#pip3 install -U cython
 
 ##################################
 ###### fix Hostnames        ######
@@ -57,7 +58,7 @@ if [ -f ~/.bash_profile ]; then
 fi
 EOF
 
-su - bomberman
+su - admin
 
 # Authorize github
 ssh-keyscan github.com >> ~/.ssh/known_hosts
