@@ -55,7 +55,7 @@ alias ipython_dev="ipython --colors linux --profile dev"
 alias py='python'
 alias py3='python3'
 alias nb="jupyter-notebook --ip 127.0.0.1"
-alias nb_np='jupyter-notebook --ip 127.0.0.1 ~/Desktop/workInProgress/networkofgraphs/process/notebook/ '
+alias nb_np='jupyter-notebook --ip 127.0.0.1 ~/main/networkofgraphs/process/notebook/ '
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:(pwd)'
 alias xback='xbacklight'
 #alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
@@ -89,7 +89,7 @@ alias ci='vim'
 alias vcal='vim -c "Calendar -view=month"' # get calendar
 alias vitodo='vim -p (find -iname todo -type f)'
 
-set _PWD "/home/ama/adulac/workInProgress/networkofgraphs/process/repo/ml/"
+set _PWD "/home/ama/adulac/main/networkofgraphs/process/repo/ml/"
 set _NDL "$HOME/src/config/configure/nodeslist"
 alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
 
@@ -346,11 +346,6 @@ function restore_pulseaudio
     pulseaudio -kv && sudo alsabat force-reload && pulseaudio -Dv
 end
 
-alias sshb='autossh -D 1080 -p 24 vpn@vpn.vapwn.fr'
-alias sshtmr='autossh -D 1090 vpn@163.172.45.128'
-alias sshmachine='autossh green@82.251.4.205'
-alias sshchocobo='autossh bomberman@51.15.89.180'
-
 if [ -d $HOME/src/config/credentials/ ]; 
     alias neocities="env NEOCITIES_KEY=(cat $HOME/src/config/credentials/adrien-dulac.neocities) neocities"
     #alias neocities="NEOCITIES_KEY=(cat $HOME/src/config/credentials/pymake.neocities) neocities"
@@ -431,14 +426,14 @@ alias cdl='cd -l'
 alias d="cd -l"
 alias cd-="cd -"
 
-set PX "$HOME/workInProgress"
-alias cdf="cd $HOME/workInProgress/networkofgraphs/missions/fractal/"
+set PX "$HOME/main"
+alias cdf="cd $HOME/main/missions/fractal/"
 alias iu="cd $PX"
 alias ium="cd $HOME/Music/"
 alias iuc="cd $HOME/src/config/"
 alias iucs="cd $HOME/src/config/snippets"
 alias iut="cd $HOME/Desktop/tt/"
-alias iuk="cd $PX/networkofgraphs/missions" # mission / kaggle / etc
+alias iuk="cd $PX/missions" # mission / kaggle / etc
 alias iunb="cd $PX/networkofgraphs/process/notebook/"
 alias iup="cd $PX/networkofgraphs/process/pymake/pymake/"
 alias iurp="cd $PX/networkofgraphs/process/repo/"
