@@ -128,7 +128,8 @@ function! NERDTreeToggleFind()
 endfunction
 
 "noremap <TAB><TAB> :NERDTreeToggle<CR> " Problem with <C-i> that get map and delayed
-nnoremap <C-p> :call NERDTreeToggleFind()<CR>
+nnoremap <C-p> :call NERDTreeToggleFind()<cr>
+noremap <leader>f :NERDTreeFind<cr>
 
 
 """ ACK/AG (use AG!)
@@ -337,9 +338,9 @@ call ale#linter#Define('go', {
       \   'callback': 'ale#handlers#unix#HandleAsWarning',
       \})
 
-nmap <leader>t :ALEToggle<CR>
-nmap <leader>an :ALENext<CR>
-nmap <leader>ap :ALEPrevious<CR>
+nmap <leader>e :ALEToggle<CR>
+nmap <leader>en :ALENext<CR>
+nmap <leader>ep :ALEPrevious<CR>
 
 " #######################################
 " #######################################
@@ -532,6 +533,7 @@ cnoremap $s split %:p:h
 cnoremap $v vs %:p:h
 cnoremap cwd lcd %:p:h  " change current working directory(cwd) to the dir of the currenet file
 noremap <Leader>v :vs<cr>
+noremap <Leader>t :tabe %<cr>
 """ Mouse map
 "nnoremap <2-LeftMouse> //
 "cno sm set mouse=

@@ -103,7 +103,7 @@ alias ipython_dev="ipython --colors linux --profile dev"
 alias py='python'
 alias py3='python3'
 alias nb="jupyter-notebook --ip 127.0.0.1"
-alias nb_np='jupyter-notebook --ip 127.0.0.1 ~/Desktop/workInProgress/networkofgraphs/process/notebook/ '
+alias nb_np='jupyter-notebook --ip 127.0.0.1 ~/main/networkofgraphs/process/notebook/ '
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:$(pwd)'
 alias xback='xbacklight'
 #alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
@@ -156,7 +156,7 @@ alias vimrc="vim ~/.vimrc"
 alias vimtmux="vim ~/.tmux.conf"
 alias vig="vim ~/.gitconfig"
 
-_PWD="/home/ama/adulac/workInProgress/networkofgraphs/process/repo/ml/"
+_PWD="/home/ama/adulac/main/networkofgraphs/process/repo/ml/"
 _NDL="$HOME/src/config/configure/nodeslist"
 alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
 
@@ -503,14 +503,14 @@ alias cdl='cd -l'
 alias d='cd -l'
 alias cd-='cd -'
 
-PX="${HOME}/workInProgress"
-alias cdf="cd $HOME/workInProgress/networkofgraphs/missions/fractal/"
+PX="${HOME}/main"
+alias cdf="cd $HOME/main/missions/fractal/"
 alias iu="cd $PX"
 alias ium="cd $HOME/Music/"
 alias iuc="cd $HOME/src/config/"
 alias iucs="cd $HOME/src/config/snippets"
 alias iut="cd $HOME/Desktop/tt/"
-alias iuk="cd $PX/networkofgraphs/missions" # mission / kaggle / etc
+alias iuk="cd $PX/missions" # mission / kaggle / etc
 alias iunb="cd $PX/networkofgraphs/process/notebook/"
 alias iup="cd $PX/networkofgraphs/process/pymake/pymake/"
 alias iurp="cd $PX/networkofgraphs/process/repo/"

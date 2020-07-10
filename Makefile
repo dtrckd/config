@@ -11,7 +11,7 @@ WEB_LOCAL = /var/www/
 WEB_AMA = /media/Synology/home/www/
 
 # PDF RESSOURCES
-BD_PAPER = $(HOME)/Desktop/workInProgress/networkofgraphs/papers/personal/relational_models/
+BD_PAPER = $(HOME)/main/networkofgraphs/papers/personal/relational_models/
 PAPERS_NAME = hdp_dynamics.pdf  hdp.pdf  ibp.pdf  lfc_model.pdf  poisson_binomial.pdf  rm_tab.pdf
 
 # Stuff to clean
@@ -134,7 +134,7 @@ _vim:
 	vim -c PluginUpdate
 
 _web:
-	ln -s ~/Desktop/workInProgress/webmain/ webmain
+	ln -s ~/main/webmain/ webmain
 
 #
 #
@@ -161,8 +161,7 @@ backapp: backup_atom backup_wekan backup_thunderbird
 
 folders:
 	echo "TODO -- backsync on -- \
-		SC/ \
-		workInProgress/ \
+		main/ \
 		src/config/ \
 		src/data/"
 
@@ -197,7 +196,7 @@ backup_atom:
 	apm-beta list --installed --bare > dotfiles/.atom/package-list.txt
 
 backup_wekan:
-	cd $(HOME)/workInProgress/conf/wekan
+	cd $(HOME)/main/conf/wekan
 	./wekan-backup.sh
 	cd -
 
