@@ -21,6 +21,18 @@ apt-get clean -y
 #pip3 install -U cython
 
 ##################################
+###### Install Server | nginx/certbot/security ######
+##################################
+sudo apt-get install -y nginx # server
+sudo apt-get install -y fail2ban # secu
+# Certbot/HTTPS
+#sudo apt-get install software-properties-common
+#sudo add-apt-repository ppa:certbot/certbot
+#sudo apt-get update
+sudo apt-get install -y software-properties-common
+sudo apt-get install -y certbot python3-certbot-nginx
+
+##################################
 ###### fix Hostnames        ######
 ##################################
 # Fix hostname in hosts (sudo failed with unable to resolve host plus potiential other errors)
@@ -58,7 +70,7 @@ if [ -f ~/.bash_profile ]; then
 fi
 EOF
 
-su - admin
+su - $USERNAME
 
 # Authorize github
 ssh-keyscan github.com >> ~/.ssh/known_hosts

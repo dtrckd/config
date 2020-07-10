@@ -17,7 +17,7 @@ mkdir -p ~/Music ~/Documents ~/Videos ~/SC ~/Desktop ~/src ~/bin
 ######################
 ### System
 ######################
-sudo aptitude install $OPTS -R sudo aptitude make psmisc python3-setuptools rfkill apt-file apt-show-versions htop strace # python3-pip bug in debian !
+sudo aptitude install $OPTS -R sudo aptitude make psmisc python3-setuptools rfkill apt-file apt-show-versions htop strace net-tools # python3-pip bug in debian !
 pip3 install --user --upgrade setuptools wheel pip
 
 ######################

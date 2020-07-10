@@ -25,7 +25,7 @@ if [ "$Target" == "go" ]; then
 
     VER="$release.$os-$arch"
     sudo mkdir -p "/usr/local/lib/$VER"
-    #curl --silent "https://storage.googleapis.com/golang/$VER.tar.gz" | sudo tar -vxz --strip-components 1 -C "/usr/local/lib/$VER"
+    curl --silent "https://storage.googleapis.com/golang/$VER.tar.gz" | sudo tar -vxz --strip-components 1 -C "/usr/local/lib/$VER"
     sudo rm -f /usr/local/bin/go
     sudo rm -f /usr/local/bin/gofmt
     sudo ln -s "/usr/local/lib/$VER/bin/go" /usr/local/bin/go
