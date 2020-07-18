@@ -74,11 +74,9 @@ web_ama:
 	sudo cp -ruv $(addprefix $(BD_WEB)/, $(HTML_FILES_MAIN)) $(WEB_AMA)
 
 
-#
-#
+# ================================
 # Backdown
-#
-#
+# ================================
 
 BIN_FILES = $(shell cat configure/bin.txt)
 
@@ -136,11 +134,9 @@ _vim:
 _web:
 	ln -s ~/main/webmain/ webmain
 
-#
-#
+# ================================
 # Backup
-#
-#
+# ================================
 
 full_backup: backup_fulldot backapp backbin snapshot folders
 backup: backup_dot backup_atom calendar
@@ -214,9 +210,17 @@ backup_thunderbird:
 configure_atom:
 	apm-beta install --packages-file dotfiles/.atom/package-list.txt
 
-#
+# ================================
+# Database
+# ================================
+
+mongo_start:
+	 docker run -d -p 27017:27017 -v ~/src/data/mongo-docker:/data/db mongo
+
+
+# ================================
 # Clean stuff
-#
+# ================================
 
 deb_clean:
 	# Add -force option ?
