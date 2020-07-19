@@ -81,18 +81,33 @@ web_ama:
 BIN_FILES = $(shell cat configure/bin.txt)
 
 configure_server:
+	# Reset/Configure firewall
+	./snippets/fw.sh restart
+	./snippets/fw.sh enable
+	systemctl restart docker
+
+	# Reset/Configure ssh
+	./snippets/edit_config_line "PermitEmptyPasswords" "no"
+	./snippets/edit_config_line "PermitRootLogin" "no"
+	./snippets/edit_config_line "PermitEmptyPasswords" "no"
+	./snippets/edit_config_line "ChallengeResponseAuthentication" "no"
+	./snippets/edit_config_line "PasswordAuthentication" "no"
+	./snippets/edit_config_line "UsePAM" "no"
+	./snippets/edit_config_line "AuthenticationMethods" "publickey"
+	./snippets/edit_config_line "PubkeyAuthentication" "yes"
+	systemctl restart ssh
+	systemctl restart sshd
+
+	# Reset/Configure Profile
 	cp -r dotfiles/{.bash_profile,.tmux.conf} ~/
 	cp dotfiles/.vimshortrc ~/.vimrc
-
-	# Delete the match and the next line (recursive)
+	# Delete the matched and the next line (recursive)
 	awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' ~/.tmux.conf  > ~/.tmux.conf.temp && mv ~/.tmux.conf.temp ~/.tmux.conf
 	awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' ~/.bash_profile  > ~/.bash_profile.temp && mv ~/.bash_profile.temp ~/.bash_profile
-
-	# Delete the next (recursive)
+	# Delete the next line (recursive)
 	sed -i '/# @SERVER/{n;s/^.//}' ~/.tmux.conf
 	sed -i '/# @SERVER/{n;s/^.//}' ~/.bash_profile
-
-	# Install plugin
+	# Install plugins
 	# tmux plugin
 	[ ! -f ~/.tmux/plugins/tpm/tpm ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
