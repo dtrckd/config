@@ -4,6 +4,10 @@
 
 name=${1//\//\\/}
 value=${2//\//\\/}
+
+CONFIG_FILE="$3"
+SEP=" "
+
 sed -i \
-	-e '/^#\?\(\s*'"${name}"'\s*=\s*\).*/{s//\1'"${value}"'/;:a;n;ba;q}' \
-	-e '$a'"${name}"'='"${value}" $3
+	-e '/^#\?\(\s*'"${name}"'\s*${SEP}\s*\).*/{s//\1'"${value}"'/;:a;n;ba;q}' \
+	-e '$a'"${name}$SEP${value}" $CONFIG_FILE
