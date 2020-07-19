@@ -82,21 +82,21 @@ BIN_FILES = $(shell cat configure/bin.txt)
 
 configure_server:
 	# Reset/Configure firewall
-	./snippets/fw.sh restart
-	./snippets/fw.sh enable
-	systemctl restart docker
+	sudo ./snippets/fw.sh restart
+	sudo ./snippets/fw.sh enable
+	sudo systemctl restart docker
 
 	# Reset/Configure ssh
-	./snippets/edit_config_line "PermitEmptyPasswords" "no"
-	./snippets/edit_config_line "PermitRootLogin" "no"
-	./snippets/edit_config_line "PermitEmptyPasswords" "no"
-	./snippets/edit_config_line "ChallengeResponseAuthentication" "no"
-	./snippets/edit_config_line "PasswordAuthentication" "no"
-	./snippets/edit_config_line "UsePAM" "no"
-	./snippets/edit_config_line "AuthenticationMethods" "publickey"
-	./snippets/edit_config_line "PubkeyAuthentication" "yes"
-	systemctl restart ssh
-	systemctl restart sshd
+	sudo ./snippets/edit_config_line "PermitEmptyPasswords" "no" /etc/ssh/sshd_config
+	sudo ./snippets/edit_config_line "PermitRootLogin" "no" /etc/ssh/sshd_config
+	sudo ./snippets/edit_config_line "PermitEmptyPasswords" "no" /etc/ssh/sshd_config
+	sudo ./snippets/edit_config_line "ChallengeResponseAuthentication" "no" /etc/ssh/sshd_config
+	sudo ./snippets/edit_config_line "PasswordAuthentication" "no" /etc/ssh/sshd_config
+	sudo ./snippets/edit_config_line "UsePAM" "no" /etc/ssh/sshd_config
+	sudo ./snippets/edit_config_line "AuthenticationMethods" "publickey" /etc/ssh/sshd_config
+	sudo ./snippets/edit_config_line "PubkeyAuthentication" "yes" /etc/ssh/sshd_config
+	sudo systemctl restart ssh
+	sudo systemctl restart sshd
 
 	# Reset/Configure Profile
 	cp -r dotfiles/{.bash_profile,.tmux.conf} ~/

@@ -61,8 +61,8 @@ function qfw_rules {
   /sbin/iptables -t filter -A INPUT -p udp --dport 53 -j ACCEPT
   echo "     > Authorize DNS"
 
-  /sbin/iptables -t filter -I OUTPUT -p udp --dport 67:68 --sport 67:68 -j ACCEPT
-  /sbin/iptables -t filter -I INPUT  -p udp --dport 67:68 --sport 67:68 -j ACCEPT
+  /sbin/iptables -t filter -A OUTPUT -p udp --dport 67:68 --sport 67:68 -j ACCEPT
+  /sbin/iptables -t filter -A INPUT  -p udp --dport 67:68 --sport 67:68 -j ACCEPT
   echo "     > Authorize DHCP"
 
   # NTP Out
