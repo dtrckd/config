@@ -1,5 +1,9 @@
 #!/bin/bash
 
+
+# Change config value if exist (and uncomment if commented
+# or append config if not found if config file 
+#
 # https://stackoverflow.com/questions/20267910/how-to-add-a-line-in-sed-if-not-match-is-found
 
 name=${1//\//\\/}
@@ -9,5 +13,5 @@ CONFIG_FILE="$3"
 SEP=" "
 
 sed -i \
-	-e '/^#\?\(\s*'"${name}"'\s*${SEP}\s*\).*/{s//\1'"${value}"'/;:a;n;ba;q}' \
+	-e '/^#\?\(\s*'"${name}"'\s*'"${SEP}"'\s*\).*/{s//\1'"${value}"'/;:a;n;ba;q}' \
 	-e '$a'"${name}$SEP${value}" $CONFIG_FILE
