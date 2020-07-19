@@ -5,7 +5,7 @@
 # This is a basic /sbin/iptables firewall script.
 #
 # Usage:
-# ./fw {start|stop}
+# ./fw {restart|stop|enable}
 #
 # Notes:
 # 1. Comment or uncomment the firewall rules below according to your
@@ -60,6 +60,10 @@ function qfw_rules {
   /sbin/iptables -t filter -A INPUT -p tcp --dport 53 -j ACCEPT
   /sbin/iptables -t filter -A INPUT -p udp --dport 53 -j ACCEPT
   echo "     > Authorize DNS"
+
+  /sbin/iptables -t filter -I OUTPUT -p udp --dport 67:68 --sport 67:68 -j ACCEPT
+  /sbin/iptables -t filter -I INPUT  -p udp --dport 67:68 --sport 67:68 -j ACCEPT
+  echo "     > Authorize DHCP"
 
   # NTP Out
   /sbin/iptables -t filter -A OUTPUT -p udp --dport 123 -j ACCEPT
@@ -137,7 +141,7 @@ function qfw_rules {
 # ## Other functions
 
 function qfw_help {
-  echo "qFirewall usage: ./fw {start|stop|enable}"
+  echo "qFirewall usage: ./fw {restart|stop|enable}"
   exit 1
 }
 
@@ -161,7 +165,7 @@ function qfw_reset {
   /sbin/iptables -t filter -X
 }
 
-function qfw_start {
+function qfw_restart {
   echo "     > Starting qFirewall..."
   qfw_clean
   echo "     > Loading the rules..."
@@ -196,8 +200,8 @@ function qfw_enable {
 # ## Main
 
 case "$1" in
-  start)
-  qfw_start
+  restart)
+  qfw_restart
   ;;
   stop)
   qfw_stop
