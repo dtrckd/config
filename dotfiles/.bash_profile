@@ -542,7 +542,7 @@ alias cdid="cd $PX/SC/Papiers/idh/id_ad/"
 alias cdp="cd $PX/SC/Papiers/"
 alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
 cdlk () { cd $(dirname $(readlink $1)); }
-grepurl () { cat $1 | grep -o '[hrefHREF]=['"'"'"][^"'"'"']*['"'"'"]' | sed -e 's/^[hrefHREF]=["'"'"']//' -e 's/["'"'"']$//'; }
+grepurl () { sed -e  's/.*[hH][rR][eE][fF]=['\"''\'']\([^'\"''\'']*\)['\"''\''].*/\1/' $1; }
 alias mean="awk '{s+=$1}END{print \"ave:\",s/NR}' RS=\" \""
 
 #alias grepurl='xidel --extract "//a/@href"'
