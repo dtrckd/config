@@ -13,3 +13,4 @@ MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/vn
 StartupWMClass=Firefox
 StartupNotify=true
 X-XFCE-Source=file:///usr/share/applications/firefox.desktop
+Path=

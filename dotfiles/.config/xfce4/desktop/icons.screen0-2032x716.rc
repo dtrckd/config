@@ -58,8 +58,8 @@ row=4
 col=0
 
 [/home/dtrckd/Desktop/jensen_taxonomy-of-action-large.jpg]
-row=5
-col=1
+row=11
+col=0
 
 [/home/dtrckd/Desktop/tt]
 row=8
@@ -73,8 +73,8 @@ col=0
 row=4
 col=3
 
-[/home/dtrckd/Desktop/FRACTAL_USAGE.txt]
-row=4
+[/home/dtrckd/Desktop/sao_frac6.txt]
+row=0
 col=1
 
 [/home/dtrckd/Desktop/wmmsb.pdf]
@@ -96,10 +96,6 @@ col=0
 [/home/dtrckd/Desktop/radicalité_et_violence.txt]
 row=6
 col=4
-
-[/home/dtrckd/Desktop/sao_frac6.txt]
-row=0
-col=1
 
 [Trash]
 row=2

@@ -25,6 +25,7 @@
         <value type="int" value="24"/>
         <value type="int" value="19"/>
         <value type="int" value="23"/>
+        <value type="int" value="29"/>
         <value type="int" value="26"/>
         <value type="int" value="17"/>
         <value type="int" value="16"/>
@@ -63,7 +64,7 @@
     </property>
     <property name="plugin-2" type="string" value="pulseaudio">
       <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
-      <property name="mpris-players" type="string" value="chromium.instance11696;chromium.instance13666;chromium.instance1951;chromium.instance20522;chromium.instance2189;chromium.instance25446;chromium.instance3942;rhythmbox;vlc;vlc.instance30298"/>
+      <property name="mpris-players" type="string" value="chromium.instance11696;chromium.instance13666;chromium.instance1951;chromium.instance20522;chromium.instance2189;chromium.instance25446;chromium.instance3942;chromium.instance6993;rhythmbox;vlc;vlc.instance30298"/>
     </property>
     <property name="plugin-3" type="string" value="actions"/>
     <property name="plugin-4" type="string" value="clock">
@@ -117,14 +118,18 @@
       <property name="names-visible" type="array">
         <value type="string" value="gitter"/>
         <value type="string" value="vlc"/>
-        <value type="string" value="mattermost-desktop"/>
+        <value type="string" value="kazam"/>
         <value type="string" value="thunar"/>
+        <value type="string" value="mattermost-desktop"/>
         <value type="string" value="system-config-printer"/>
         <value type="string" value="systray icon"/>
         <value type="string" value="task manager"/>
         <value type="string" value="networkmanager applet"/>
         <value type="string" value="wicd-client.py"/>
+        <value type="string" value="obs"/>
         <value type="string" value="telegramdesktop"/>
+        <value type="string" value="discord"/>
+        <value type="string" value="ibus panel"/>
         <value type="string" value="blueman-applet"/>
         <value type="string" value="nicotine"/>
         <value type="string" value="deluge"/>
@@ -134,6 +139,7 @@
         <value type="string" value="gxmms2"/>
         <value type="string" value="slack"/>
         <value type="string" value="telegram"/>
+        <value type="string" value="zoom"/>
       </property>
     </property>
     <property name="plugin-21" type="string" value="launcher">
@@ -182,6 +188,11 @@
     <property name="plugin-28" type="string" value="launcher">
       <property name="items" type="array">
         <value type="string" value="15870473451.desktop"/>
+      </property>
+    </property>
+    <property name="plugin-29" type="string" value="launcher">
+      <property name="items" type="array">
+        <value type="string" value="15976736631.desktop"/>
       </property>
     </property>
   </property>

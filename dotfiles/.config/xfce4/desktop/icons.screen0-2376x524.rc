@@ -10,8 +10,8 @@ row=5
 col=0
 
 [/home/dtrckd/Desktop/2. Outils communication non violente.zip]
-row=10
-col=0
+row=6
+col=1
 
 [/home/dtrckd/Desktop/nsa_python.pdf]
 row=7
@@ -42,8 +42,8 @@ row=4
 col=8
 
 [/home/dtrckd/Desktop/CONSTITUTION_SAO_PARIS_NORD V2.pdf]
-row=9
-col=0
+row=5
+col=1
 
 [/home/dtrckd/Desktop/sos-spec.txt]
 row=5
@@ -58,12 +58,12 @@ row=4
 col=0
 
 [/home/dtrckd/Desktop/jensen_taxonomy-of-action-large.jpg]
-row=5
+row=4
 col=1
 
 [/home/dtrckd/Desktop/tt]
-row=8
-col=0
+row=7
+col=1
 
 [/home/dtrckd/Desktop/workInProgress]
 row=1
@@ -73,8 +73,8 @@ col=0
 row=4
 col=3
 
-[/home/dtrckd/Desktop/FRACTAL_USAGE.txt]
-row=4
+[/home/dtrckd/Desktop/sao_frac6.txt]
+row=0
 col=1
 
 [/home/dtrckd/Desktop/wmmsb.pdf]
@@ -96,10 +96,6 @@ col=0
 [/home/dtrckd/Desktop/radicalité_et_violence.txt]
 row=6
 col=4
-
-[/home/dtrckd/Desktop/sao_frac6.txt]
-row=0
-col=1
 
 [Trash]
 row=2

@@ -2,20 +2,20 @@
 4.10.3+=true
 
 [/home/dtrckd/Desktop/XR_rad_lecture.zip]
-row=2
-col=0
+row=9
+col=3
 
 [/home/dtrckd/Desktop/id_ad]
-row=13
+row=1
 col=0
 
 [/home/dtrckd/Desktop/2. Outils communication non violente.zip]
-row=6
-col=0
+row=13
+col=6
 
 [/home/dtrckd/Desktop/bill.pdf]
-row=8
-col=9
+row=4
+col=3
 
 [/home/dtrckd/Desktop/SOS Learning Series English]
 row=11
@@ -26,50 +26,54 @@ row=4
 col=2
 
 [/home/dtrckd/Desktop/xr_note.txt]
+row=11
+col=3
+
+[/home/dtrckd/Desktop/main]
 row=0
 col=0
 
-[/home/dtrckd/Desktop/main]
-row=14
-col=0
-
 [/home/dtrckd/Desktop/sos-game.txt]
-row=1
-col=0
+row=12
+col=5
 
 [/home/dtrckd/Desktop/CONSTITUTION_SAO_PARIS_NORD V2.pdf]
-row=9
-col=0
+row=10
+col=6
 
 [/home/dtrckd/Desktop/sos-spec.txt]
-row=4
-col=0
+row=12
+col=4
 
 [/home/dtrckd/Desktop/sos.md]
-row=3
-col=0
+row=12
+col=6
 
 [/home/dtrckd/Desktop/jensen_taxonomy-of-action-large.jpg]
-row=5
-col=0
+row=10
+col=7
 
 [/home/dtrckd/Desktop/alloc-ass.pdf]
-row=7
-col=0
+row=4
+col=4
 
 [/home/dtrckd/Desktop/tt]
-row=1
-col=1
-
-[/home/dtrckd/Desktop/sos-notes.txt]
 row=8
 col=0
 
+[/home/dtrckd/Desktop/sos-notes.txt]
+row=12
+col=3
+
 [/home/dtrckd/Desktop/radicalité_et_violence.txt]
-row=11
+row=10
+col=4
+
+[7784-5789]
+row=2
 col=0
 
 [Trash]
-row=2
-col=1
+row=10
+col=26
 

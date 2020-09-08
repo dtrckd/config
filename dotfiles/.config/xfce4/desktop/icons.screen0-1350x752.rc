@@ -1,71 +1,63 @@
 [xfdesktop-version-4.10.3+-rcfile_format]
 4.10.3+=true
 
-[/home/dtrckd/Desktop/2019-07-12-dessin-une-cfp-france-24-tjeerds-royaards.jpg]
+[/home/dtrckd/Desktop/ico-126.png]
+row=2
+col=0
+
+[/home/dtrckd/Desktop/2. Outils communication non violente.zip]
 row=6
-col=0
-
-[/home/dtrckd/Desktop/statuts]
-row=0
-col=0
-
-[/home/dtrckd/Desktop/last_dijon.pdf]
-row=9
-col=0
-
-[/home/dtrckd/Desktop/rabbit_blue.pdf]
-row=6
-col=3
+col=8
 
 [/home/dtrckd/Desktop/todo.txt]
 row=4
+col=5
+
+[/home/dtrckd/Desktop/sos-game.txt]
+row=6
 col=2
-
-[/home/dtrckd/Desktop/HeteroNAM_2018_paper_10.pdf]
-row=10
-col=0
-
-[/home/dtrckd/Desktop/jpineau-NeurIPS-dec18-fb.pdf]
-row=10
-col=1
 
 [/home/dtrckd/Desktop/workInProgress]
 row=1
 col=0
 
-[/home/dtrckd/Desktop/avenirsocieteindustrielle.pdf]
+[/home/dtrckd/Desktop/xr_note.txt]
 row=7
+col=3
+
+[/home/dtrckd/Desktop/sos-spec.txt]
+row=4
+col=0
+
+[/home/dtrckd/Desktop/sos-notes.txt]
+row=5
 col=2
 
-[/home/dtrckd/Desktop/P19900-book_houy_thomas.pdf]
-row=5
-col=0
+[/home/dtrckd/Desktop/sos.md]
+row=2
+col=4
 
 [/home/dtrckd/Desktop/tt]
 row=8
 col=0
 
-[/home/dtrckd/Desktop/MARSEILLE_DIJON_201908051007_QNCRCU.pdf]
+[/home/dtrckd/Desktop/DEVIS-I-19-12-5-IAE-DE-ST-ETIENNE.pdf]
+row=0
+col=0
+
+[/home/dtrckd/Desktop/cv.pdf]
 row=3
 col=0
 
-[/home/dtrckd/Desktop/PP ruches VOIX.pptx]
+[/home/dtrckd/Desktop/radicalité_et_violence.txt]
 row=7
-col=7
-
-[/home/dtrckd/Desktop/sucre.txt]
-row=3
-col=9
-
-[/home/dtrckd/Desktop/somewhere]
-row=4
-col=0
+col=2
 
 [DB4E-39A1]
-row=2
+row=5
 col=0
 
 [Trash]
-row=16
-col=30
+row=6
+col=0
 

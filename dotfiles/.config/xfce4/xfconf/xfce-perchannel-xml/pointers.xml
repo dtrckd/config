@@ -6,4 +6,9 @@
     <property name="Threshold" type="int" value="30"/>
     <property name="Acceleration" type="double" value="1.500000"/>
   </property>
+  <property name="Logitech_K400_Plus" type="empty">
+    <property name="RightHanded" type="bool" value="true"/>
+    <property name="Threshold" type="int" value="6"/>
+    <property name="Acceleration" type="double" value="10.000000"/>
+  </property>
 </channel>

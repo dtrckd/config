@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Telegram
+Comment=
+Exec=/snap/bin/telegram-desktop
+Icon=xfce4-whiskermenu
+Path=/tmp
+Terminal=false
+StartupNotify=false
