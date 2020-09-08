@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Mattermost
+Comment=
+Exec=/snap/bin/mattermost-desktop
+Icon=internet-group-chat
+Path=/tmp
+Terminal=false
+StartupNotify=false

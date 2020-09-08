@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=tor browser
+Comment=
+Exec=/home/dtrckd/src/config/app/tor-browser_en-US/start-tor-browser.desktop
+Icon=/home/dtrckd/src/config/app/tor-browser_en-US/Browser/browser/chrome/icons/default/default16.png
+Path=/home/dtrckd/src/config/app/tor-browser_en-US/
+Terminal=false
+StartupNotify=false
