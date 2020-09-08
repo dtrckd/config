@@ -1,3 +1,4 @@
+editorconfig@2.6.1
 elm-format@3.2.0
 file-watcher@2.0.0
 highlight-selected@0.17.0
