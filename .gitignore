@@ -19,7 +19,6 @@ addr
 # --
 dotfiles/.ssh
 */.ssh/*
-!.ssh/config
 dotfiles/.gethubconfig
 dotfiles/.bash_aliases
 dotfiles/.mutt
