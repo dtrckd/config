@@ -111,10 +111,19 @@ configure_server:
 	# tmux plugin
 	[ ! -f ~/.tmux/plugins/tpm/tpm ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-configure_laptop: _bootstrap _install_init _configure _vim _web 
+configure_laptop: _dotfiles _etc _bin _configure _vim
 
-_bootstrap: _dotfiles _etc bin
+_install_init:
+	cd app/init_package
+	dpkg -i *.deb
+	cd -
+
+_bootstrap: 
 	# Base packages
+	# -- bootstrap
+	# usermod -aG sudo dtrckd && su - dtrckd
+	# sudo apt get update && sudo apt install make
+	# -- /bootstrap
 	sudo apt-get install -y aptitude make ntfs-3g vim sudo aptitude firmware-linux-nonfree
 
 _dotfiles:
@@ -125,16 +134,11 @@ _etc:
 	sudo cp etc/rc.local /etc
 	sudo chmod +x /etc/rc.local
 	sudo cp -r  etc/wpa_supplicant/ /etc
-	sudo cat etc/sysctl.conf >> /etc/sysctl.conf
+	#sudo cat etc/sysctl.conf >> /etc/sysctl.conf
 
-bin:
+_bin:
 	mkdir -p ${HOME}/bin
 	$(foreach f,$(BIN_FILES), /bin/ln -fs $(f) $(HOME)/bin/$(basename $(notdir $(f))) ;)
-
-_install_init:
-	cd app/init_package
-	dpkg -i *.deb
-	cd -
 
 _configure:
 	cd configure/
@@ -145,9 +149,6 @@ _vim:
 	mkdir -p ~/.vim/bundle/
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 	vim -c PluginUpdate
-
-_web:
-	ln -s ~/main/webmain/ webmain
 
 # ================================
 # Backup
