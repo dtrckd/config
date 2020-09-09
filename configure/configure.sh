@@ -27,7 +27,7 @@ sudo aptitude install $OPTS -R mc rsync tmux ranger wicd vim git gitk gitg
 ranger --copy-config=all
 # Optionals (but advised !)
 if [ $AGGRESSIVE == 1 ]; then
-    sudo aptitude install $OPTS -R apt-listbugs zip xclip acpi bmon nmap curl wget wireshark elinks w3m ksysguard iotop jq
+    sudo aptitude install $OPTS -R apt-listbugs zip xclip acpi bmon nmap curl wget wireshark elinks w3m ksysguard iotop jq ripgrep fish
 fi
 
 ######################
