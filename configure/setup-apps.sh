@@ -9,7 +9,7 @@
 Target="$1"
 
 if [ -z "$Target" ]; then
-    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell)"
+    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell) | manta"
     exit
 fi
 
@@ -83,16 +83,6 @@ if [ "$Target" == "signal" ]; then
     echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
     sudo apt update && sudo apt install signal-desktop
 fi
-if [ "$Target" == "pycharm" ]; then
-    # Pycharm
-    pushd ~/Downloads/
-    PAKNAME="pycharm"
-    URLTARG="https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=linux"
-    PAKURL=$(phantomjs djs.js $URLTARG | grep -oiE href=.*${PAK}.*tar.gz[\'\"] | cut -d= -f 2 | tr -d '"')
-    wget $PAKURL
-    tar zxvf $(basename $PAKURL)
-    popd
-fi
 if [ "$Target" == "drawio" ]; then
     git clone --recursive https://github.com/jgraph/drawio-desktop.git
     cd drawio-desktop
@@ -111,6 +101,20 @@ if [ "$Target" == "fish" ]; then
     sudo apt-get update
     sudo apt-get install fish
 fi
+if [ "$Target" == "manta" ]; then
+    wget https://github.com/hql287/Manta/releases/download/v1.1.4/Manta-1.1.4-x86_64.AppImage -O ~/Downloads/Manta.AppImage
+    ~/Download/https://github.com/hql287/Manta/releases/download/v1.1.4/Manta.AppImage
+fi
+#if [ "$Target" == "pycharm" ]; then
+#    # Pycharm
+#    pushd ~/Downloads/
+#    PAKNAME="pycharm"
+#    URLTARG="https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=linux"
+#    PAKURL=$(phantomjs djs.js $URLTARG | grep -oiE href=.*${PAK}.*tar.gz[\'\"] | cut -d= -f 2 | tr -d '"')
+#    wget $PAKURL
+#    tar zxvf $(basename $PAKURL)
+#    popd
+#fi
 
 
 ### TODO

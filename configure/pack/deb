@@ -18,6 +18,7 @@ jq # like sed for json data
 thefuck
 ripgrep
 fish
+deepin-calculator
 
 # Compilation
 gcc
