@@ -37,6 +37,7 @@ endfunction
 """ General / Interface
 """"""""""""""""""""""""""""""
 syntax on
+set backspace=indent,eol,start
 set tabpagemax=50
 set pastetoggle=£ " toggle paste mode
 "set clipboard=unnamed " dont support C-S V
