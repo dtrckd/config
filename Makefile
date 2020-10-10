@@ -185,6 +185,7 @@ folders:
 
 calendar:
 	cd ~/.cache/calendar.vim
+	git add *
 	git commit -am "backup"
 	git push
 	cd -
@@ -229,8 +230,15 @@ backup_thunderbird:
 	# Fireforx bookmakrs (@Debug)
 	sqlite3 ~/.mozilla/firefox/4z2axixj.default/places.sqlite ".backup /home/dtrckd/Desktop/tt/g/bak"
 
-configure_atom:
-	apm-beta install --packages-file dotfiles/.atom/package-list.txt
+# ================================
+# sync
+# ================================
+
+sync:
+	git pull orgin --rebase
+	cd ~/.cache/calendar.vim
+	git pull origin --rebase
+	cd -
 
 # ================================
 # Database
