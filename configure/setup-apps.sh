@@ -38,9 +38,12 @@ if [ "$Target" == "mongo" ]; then
 fi
 if [ "$Target" == "atom" ]; then
     pushd ~/Downloads/
-    # Atom
+    # Get Atom
     wget https://atom.io/download/deb?channel=beta -O atom-beta.deb
+    # Install Atom
     sudo dpkg -i atom-beta.deb
+    # Configure atom
+	apm-beta install --packages-file ~/src/config/dotfiles/.atom/package-list.txt
     popd
 fi
 if [ "$Target" == "wekan" ]; then

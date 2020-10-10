@@ -397,6 +397,7 @@ endfunction
 """ General / Interface
 """"""""""""""""""""""""""""""
 syntax on
+set backspace=indent,eol,start
 set noequalalways  "prevent automatically resizing windows
 set tabpagemax=50
 set pastetoggle=£ " toggle paste mode
