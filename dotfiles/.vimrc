@@ -98,6 +98,11 @@ let g:SuperTabNoCompleteAfter = ['^', '\s', '#', "'", '"', '%', '/']
 let g:SuperTabClosePreviewOnPopupClose = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
+" Disable popu preview (dont fakin work !)
+"let g:ycm_auto_hover = ""
+"let g:ycm_add_preview_to_completeopt = 0
+"set completeopt-=preview
+"let g:ycm_disable_signature_help=1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif " more general but wont be able to switch/scroll the preview...
 autocmd FileType vim let b:vcm_tab_complete = 'vim'
 let g:ycm_semantic_triggers = { 'elm' : ['.'], }
@@ -444,6 +449,9 @@ endif
 "set ttimeoutlen=10
 set ttyfast
 "set lazyredraw " weird behavious (statuslines is black...)
+
+" unmap K
+map <S-k> <Nop>
 
 """
 """ Terminal hacks

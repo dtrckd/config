@@ -12,10 +12,11 @@
     telemetryConsent: "no"
     themes: [
       "atom-dark-ui"
-      "one-dark-syntax"
+      "atom-dark-syntax"
     ]
   editor:
     autoIndentOnPaste: true
+    fontSize: 12
     invisibles: {}
     softTabs: true
     softWrapHangingIndent: 2
