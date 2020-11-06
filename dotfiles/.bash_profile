@@ -102,8 +102,8 @@ alias ipython="ipython --colors linux"
 alias ipython_dev="ipython --colors linux --profile dev"
 alias py='python'
 alias py3='python3'
-alias nb="jupyter-notebook --ip 127.0.0.1"
-alias nb_np='jupyter-notebook --ip 127.0.0.1 ~/main/networkofgraphs/process/notebook/ '
+alias nbh="jupyter-notebook --ip 127.0.0.1"
+alias nbb='jupyter-notebook --ip 127.0.0.1 ~/main/networkofgraphs/process/notebook/ '
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:$(pwd)'
 alias xback='xbacklight'
 #alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
@@ -202,13 +202,13 @@ alias fzf='fzf-slowday.fzf'
 ### XFCE
 #alias locks='s2ram -f -m'
 #alias dodo='s2disk'
-alias ctr='systemctl'
+alias sys='systemctl'
 alias locks='systemctl suspend -i'
 alias dodo='systemctl hibernate'
 alias halt='systemctl poweroff'
-alias ls-service='ctr -t service --state running'
-alias ls-masked-unit='ctr --state masked' # systemctl list-unit-files | grep masked
-alias ls-failed-unit='ctr --state failed' # systemctl --failed
+alias ls-service='systemctl -t service --state running'
+alias ls-masked-unit='systemctl --state masked' # systemctl list-unit-files | grep masked
+alias ls-failed-unit='systemctl --state failed' # systemctl --failed
 
 ### VIM
 #alias vim='vim.nox'
@@ -511,6 +511,7 @@ alias iuc="cd $HOME/src/config/"
 alias iucs="cd $HOME/src/config/snippets"
 alias iut="cd $HOME/Desktop/tt/"
 alias iuk="cd $PX/missions" # mission / kaggle / etc
+alias iua="cd $PX/missions/simplon/data_IA_20" 
 alias iunb="cd $PX/networkofgraphs/process/notebook/"
 alias iup="cd $PX/networkofgraphs/process/pymake/pymake/"
 alias iurp="cd $PX/networkofgraphs/process/repo/"
