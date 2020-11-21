@@ -273,7 +273,11 @@ function curbr
 end
 # Diff between $1 past commit of $2 file. Nice.
 function gitdiff
-    git diff  HEAD~$argv[1]..HEAD -- $argv[2]
+    if [ -z $argv[1] ]
+        git diff HEAD~1
+    else
+        gitdiff  HEAD~$argv[1]..HEAD -- $argv[2]
+    end
 end
 
 # Show fat file in history
@@ -359,7 +363,7 @@ alias tmr='python3 -m tm manager'
 function _cd
     if [ -z "$argv[1]" ]
         # typing just `_cd` will take you $HOME ;)
-        if [ $PWD != $HOME ]
+        if [ "$PWD" != "$HOME" ]
             _cd "$HOME"
         end
     else if [ "$argv[1]" = "-" ]
@@ -441,13 +445,14 @@ alias iurp="cd $PX/networkofgraphs/process/repo/"
 alias iupp="cd $PX/networkofgraphs/process/repo/ml/"
 alias iudoc="cd $PX/networkofgraphs/process/repo/docsearch/"
 alias iutt="cd $PX/networkofgraphs/papers/personal/relational_models/thesis/manuscript/source/"
-alias iub="cd $PX/BaseBlue/"
-alias iubb="cd $PX/BaseBlue/bhp/bhp"
-alias iudd="cd $PX/BaseBlue/bhp/data"
-alias iuww="cd $PX/BaseBlue/bhp/wiki"
-alias iuds="cd $PX/BaseBlue/designspec/"
-alias iutm="cd $PX/BaseBlue/tmr/tm"
-alias iug="cd $PX/BaseBlue/grator/pnp"
+alias iub="cd $PX/Blue/"
+alias iubb="cd $PX/Blue/bhp/bhp"
+alias iudd="cd $PX/Blue/bhp/data"
+alias iuww="cd $PX/Blue/bhp/wiki"
+alias iuds="cd $PX/Blue/designspec/"
+alias iutm="cd $PX/Blue/tmr/tm"
+alias iug="cd $PX/Blue/grator/pnp"
+alias iubots="cd $PX/BaseDump/bots/"
 alias iucm="cd $PX/BaseDump/bots/skopai/common/"
 alias iux="cd $PX/BaseDump/bots/skopai/skopy"
 alias iubg="cd $PX/BaseDump/bots/skopai/bigbangsearch"
@@ -511,7 +516,7 @@ alias x='xmms2'
 alias xinfo='xmms2 info'
 alias xl='xmms2 list'
 alias xls='xmms2 list | command grep --color -C 15 "\->"'
-alias xrm='xmms2 remove (xmms2 list | grep "\->"| grep -o "\[.*/" | grep -wo "[0-9]*") && xmms2 next'
+alias xrm='xmms2 remove (xmms2 list | grep --color=never "\->"| grep --color=never -o "\[.*/" | grep -wo "[0-9]*") && xmms2 next'
 alias xp='xmms2 toggle'
 alias xn='xmms2 next'
 alias xj='xmms2 jump'
