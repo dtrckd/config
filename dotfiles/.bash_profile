@@ -435,7 +435,7 @@ alias tmr='python3 -m tm manager'
 function _cd() {
   if [ -z "$1" ]; then
       # typing just `_cd` will take you $HOME ;)
-      if [ ! $PWD == $HOME ]; then
+      if [ ! "$PWD" == "$HOME" ]; then
         _cd "$HOME"
       fi
 

@@ -160,8 +160,8 @@ _vim:
 # Backup
 # ================================
 
-full_backup: backup_fulldot backapp backbin snapshot folders
-backup: backup_dot backup_atom calendar
+backup: backup_dot backbin backapp calendar #snapshot
+backapp: backup_atom backup_wekan backup_thunderbird
 
 backbin:
 	# Create bin.txt
@@ -175,15 +175,9 @@ snapshot:
 	snap list > configure/snapshots/snap
 	npm list -g --depth 0 > configure/snapshots/npm
 
-backapp: backup_atom backup_wekan backup_thunderbird
-
-folders:
-	echo "TODO -- backsync on -- \
-		main/ \
-		src/config/ \
-		src/data/"
 
 calendar:
+	echo "Backup calendar..."
 	cd ~/.cache/calendar.vim
 	git add *
 	git commit -am "backup"
@@ -199,8 +193,6 @@ backup_dot:
 	@cp -v ~/.vimrc dotfiles/
 	@cp -v ~/.tmux.conf dotfiles/
 	@cp -v ~/.config/fish/aliases.fish dotfiles/.config/fish/
-
-backup_fulldot: backup_dot
 	@echo "TODO: check backup for: "\
 		"~/.config/htop/"\
 		"~/.config/mc/"\
@@ -220,15 +212,10 @@ backup_wekan:
 	cd -
 
 backup_thunderbird:
-	echo "check before"
-	exit
-	# Thnderbird
-	THUNDER_ID="l7nymwge"
+	echo "Backup thunderbird not implemented"
+	#THUNDER_ID="l7nymwge"
 	#find $HOME/.thunderbird/$THUNDER_ID.default/ -name "*.dat" -o -name "*.json" | sed "s~$HOME/~~g" | xargs -I{} rsync -R {} ../app/
 	#find $HOME/.thunderbird/$THUNDER_ID.default/ -name "*.dat" -o -name "*.json" |xargs -I{} rsync $RSYNC_ARGS -R {} ../app/
-
-	# Fireforx bookmakrs (@Debug)
-	sqlite3 ~/.mozilla/firefox/4z2axixj.default/places.sqlite ".backup /home/dtrckd/Desktop/tt/g/bak"
 
 # ================================
 # sync
