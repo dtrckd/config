@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # cat configure_server.sh | ssh user@remote_adrr
+# wget https://raw.githubusercontent.com/dtrckd/config/master/configure/configure_server.sh
 
 USERNAME="admin"
 ##################################
@@ -70,16 +71,16 @@ if [ -f ~/.bash_profile ]; then
 fi
 EOF
 
-su - $USERNAME
+#su - $USERNAME
+cd /home/$USERNAME
 
 # Authorize github
-ssh-keyscan github.com >> ~/.ssh/known_hosts
-#ssh-keygen -lf githubKey
+sudo -H -u $USERNAME bash -c 'ssh-keyscan github.com >> ~/.ssh/known_hosts'
+#sudo -H -u $USERNAME bash -c 'ssh-keygen -lf githubKey'
 
 ##################################
 ###### Setup New User Programmatically
 ##################################
-git clone https://github.com/dtrckd/config.git src/config
-cd src/config/
-make configure_server
+sudo -H -u $USERNAME bash -c 'git clone https://github.com/dtrckd/config.git src/config'
+sudo -H -u $USERNAME bash -c 'cd src/config/ && make configure_server'
 

@@ -140,7 +140,7 @@ noremap <leader>f :NERDTreeFind<cr>
 """ ACK/AG (use AG!)
 let g:ackprg = 'ag-mcphail.ag  --smart-case'
 cnoreabbrev ag Ack
-noremap <leader>s :Ack! "<cword>"<cr>
+"noremap <leader>s :Ack! "<cword>"<cr>
 
 """ Rainbow colors
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
@@ -491,8 +491,14 @@ set nofen               " open all folds. see z[mn] command
 """"""""""""""""""""""""""""""
 """ general
 imap <C-L> <Esc>
-"cnoremap W :w !sudo tee %
-"nnoremap ; :
+" remap C-w to cut the word before the cursor
+inoremap <C-w> <C-o>daw
+" remap C-w to cut the word after the cursor
+inoremap <C-s> <C-o>diw 
+nnoremap ; :
+" vertical help
+"cabbrev vh vert h
+cnoreabbrev vh vert h
 """ Saving
 "nnoremap <C-u> :w<CR>
 "imap <C-u> <C-o><C-u>
@@ -541,8 +547,10 @@ cnoremap $t tabe %:p:h
 cnoremap $s split %:p:h
 cnoremap $v vs %:p:h
 cnoremap cwd lcd %:p:h  " change current working directory(cwd) to the dir of the currenet file
+noremap <Leader>s :split<cr>
 noremap <Leader>v :vs<cr>
 noremap <Leader>t :tabe %<cr>
+noremap <Leader>r :reg<cr>
 """ Mouse map
 "nnoremap <2-LeftMouse> //
 "cno sm set mouse=
@@ -915,6 +923,7 @@ hi ErrorMsg ctermfg=Red ctermbg=None
 hi SignColumn ctermbg=235
 
 """ StatusLine
+set shortmess-=S " show number of matches
 hi GitColor ctermbg=172 ctermfg=black
 
 au BufEnter,BufRead,BufWritePost * call StatuslineGit()
@@ -928,6 +937,13 @@ set statusline+=\ %h
 set statusline+=\ %w
 set statusline+=%=%l/%L:%c\ %05(%p%%%)
 set statusline+=\
+
+" Column viewer
+"highlight ColorColumn ctermbg=gray
+nnoremap <silent> <leader>c :execute "set colorcolumn="
+      \ . (&colorcolumn == "" ? "80" : "")<CR>
+
+
 
 "set background=dark
 noh

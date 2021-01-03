@@ -102,8 +102,8 @@ alias ipython="ipython --colors linux"
 alias ipython_dev="ipython --colors linux --profile dev"
 alias py='python'
 alias py3='python3'
-alias nbh="jupyter-notebook --ip 127.0.0.1"
-alias nbb='jupyter-notebook --ip 127.0.0.1 ~/main/networkofgraphs/process/notebook/ '
+alias nbh="jupyter-notebook"
+alias nbb='jupyter-notebook ~/main/networkofgraphs/process/notebook/ '
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:$(pwd)'
 alias xback='xbacklight'
 #alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
