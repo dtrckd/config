@@ -52,6 +52,9 @@ function qfw_rules {
   /sbin/iptables -t filter -A OUTPUT -p tcp --dport 22 -j ACCEPT
   /sbin/iptables -t filter -A INPUT -p tcp --dport 9000 -j ACCEPT
   /sbin/iptables -t filter -A OUTPUT -p tcp --dport 9000 -j ACCEPT
+  # special ssh ports
+  #/sbin/iptables -t filter -A INPUT -p tcp --dport 29418 -j ACCEPT
+  #/sbin/iptables -t filter -A OUTPUT -p tcp --dport 29418 -j ACCEPT
   echo "     > Authorize SSH"
 
   # DNS in/out
