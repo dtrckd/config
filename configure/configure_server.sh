@@ -11,7 +11,7 @@ apt-get update
 apt-get upgrade -y
 
 apt-get install -y htop git make psmisc vim mc rsync tmux ranger curl wget # basic
-apt-get install -y net-tools # network
+apt-get install -y net-tools nmap # network
 apt-get install -y vim  mc rsync tmux ranger curl wget # edition
 apt-get install -y python3-setuptools python-pip python3-pip # python
 apt-get autoclean -y
