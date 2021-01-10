@@ -83,8 +83,8 @@ BIN_FILES = $(shell cat configure/bin.txt)
 configure_server:
 	# Reset/Configure firewall
 	sudo ./snippets/fw.sh restart
-	sudo ./snippets/fw.sh enable
 	sudo systemctl restart docker
+	sudo ./snippets/fw.sh enable
 
 	# Reset/Configure ssh
 	sudo ./snippets/edit_config_line "PermitEmptyPasswords" "no" /etc/ssh/sshd_config
