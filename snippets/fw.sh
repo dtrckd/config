@@ -5,7 +5,7 @@
 # This is a basic /sbin/iptables firewall script.
 #
 # Usage:
-# ./fw {restart|stop|enable}
+# ./fw {restart|stop|enable|restore}
 #
 # Notes:
 # 1. Comment or uncomment the firewall rules below according to your
@@ -144,7 +144,7 @@ function qfw_rules {
 # ## Other functions
 
 function qfw_help {
-  echo "qFirewall usage: ./fw {restart|stop|enable}"
+  echo "qFirewall usage: ./fw {restart|stop|enable|restore}"
   exit 1
 }
 
@@ -198,6 +198,12 @@ function qfw_enable {
   echo "     > qFirewall enabled"
 }
 
+function qfw_restore {
+  /sbin/iptables-restore /etc/iptables/rules.v4
+  /sbin/ip6tables-restore /etc/iptables/rules.v6
+  echo "     > qFirewall restored"
+}
+
 
 # #######################################################################
 # ## Main
@@ -211,6 +217,9 @@ case "$1" in
   ;;
   enable)
   qfw_enable
+  ;;
+  restore)
+  qfw_restore
   ;;
   *)
   qfw_help
