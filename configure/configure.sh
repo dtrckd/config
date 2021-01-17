@@ -8,9 +8,6 @@ OPTS="-y"
 #
 # Init
 #
-rmdir --ignore-fail-on-non-empty ~/Public/ ~/Templates/
-mkdir -p ~/Music ~/Documents ~/Videos ~/SC ~/Desktop ~/src ~/bin
-#cp blue/* ~
 
 # Base packages (see Makefile)
 #sudo apt-get install -y aptitude make ntfs-3g vim sudo aptitude firmware-linux-nonfree
@@ -117,3 +114,10 @@ if [ $AGGRESSIVE == 1 ]; then
     ~/.linuxbrew/bin/brew install git-delta
 fi
 
+
+######################
+### Init directories
+######################
+rmdir --ignore-fail-on-non-empty ~/Public/ ~/Templates/
+mkdir -p ~/Music ~/Documents ~/Videos ~/SC ~/Desktop ~/src ~/bin
+mkdir ~/.config/calendar.vim
