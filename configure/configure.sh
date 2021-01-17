@@ -20,9 +20,6 @@ mkdir -p ~/Music ~/Documents ~/Videos ~/SC ~/Desktop ~/src ~/bin
 ######################
 sudo aptitude install $OPTS -R sudo aptitude make psmisc python3-setuptools rfkill apt-file apt-show-versions htop strace net-tools python3-pip
 pip3 install --user --upgrade setuptools wheel pip
-if [ $AGGRESSIVE == 1 ]; then
-    sudo aptitude install $OPTS -R snap docker.io
-fi
 
 ######################
 ### Utils
@@ -31,7 +28,7 @@ sudo aptitude install $OPTS -R mc rsync tmux ranger wicd vim git gitk gitg
 ranger --copy-config=all
 # Optionals (but advised !)
 if [ $AGGRESSIVE == 1 ]; then
-    sudo aptitude install $OPTS -R apt-listbugs zip xclip acpi bmon nmap curl wget wireshark elinks w3m ksysguard iotop jq ripgrep fish
+    sudo aptitude install $OPTS -R apt-listbugs zip xclip acpi bmon nmap curl wget wireshark ksysguard iotop jq ripgrep fish
 fi
 
 ######################
@@ -53,7 +50,7 @@ if [ $AGGRESSIVE == 1 ]; then
 fi
 
 if [ $PERS == 1 ]; then
-    sudo aptitude install $OPTS -R firefox thunderbird gimp libreoffice # firefox midori
+    sudo aptitude install $OPTS -R elinks w3m  firefox thunderbird gimp libreoffice hunspell-fr # midori
 fi
 
 ######################
@@ -84,6 +81,14 @@ fi
 
 
 ######################
+### Snap and Docker
+######################
+if [ $AGGRESSIVE == 1 ]; then
+    sudo aptitude install $OPTS -R snapd docker.io
+    snap install mattermost-desktop insomnia signal-desktop telegram-desktop hugo gitter-desktop fractal
+fi
+
+######################
 ### Web Server
 ######################
 if [ $PERS == 1 ]; then
@@ -98,9 +103,17 @@ if [ $PERS == 1 ]; then
     sudo service nginx restart
 fi
 
-# tools
-#./setup-env.sh
+######################
+### Extra
+######################
+if [ $AGGRESSIVE == 1 ]; then
+    ./setup-env.sh npm
+    ./setup-env.sh go
+    ./setup-apps.sh atom
 
-# apps
-#./setup-apps.sh
+    # Brew
+    ./setup-env.sh brew
+    git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
+    ~/.linuxbrew/bin/brew install git-delta
+fi
 
