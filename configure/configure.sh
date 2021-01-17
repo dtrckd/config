@@ -7,7 +7,7 @@ OPTS="-y"
 #
 # Init
 #
-rmdir --ignore-fail-on-non-empty   ~/Public/ ~/Templates/
+rmdir --ignore-fail-on-non-empty ~/Public/ ~/Templates/
 mkdir -p ~/Music ~/Documents ~/Videos ~/SC ~/Desktop ~/src ~/bin
 #cp blue/* ~
 
@@ -17,7 +17,7 @@ mkdir -p ~/Music ~/Documents ~/Videos ~/SC ~/Desktop ~/src ~/bin
 ######################
 ### System
 ######################
-sudo aptitude install $OPTS -R sudo aptitude make psmisc python3-setuptools rfkill apt-file apt-show-versions htop strace net-tools # python3-pip bug in debian !
+sudo aptitude install $OPTS -R sudo aptitude make psmisc python3-setuptools rfkill apt-file apt-show-versions htop strace net-tools python3-pip
 pip3 install --user --upgrade setuptools wheel pip
 
 ######################
@@ -35,7 +35,7 @@ fi
 ######################
 sudo aptitude install $OPTS -R gfortran libopenblas-dev python3-tk
 if [ $AGGRESSIVE == 1 ]; then
-    sudo aptitude install $OPTS -R build-essential autoconf libtool pkg-config  python3-dev cython exuberant-ctags
+    sudo aptitude install $OPTS -R build-essential autoconf libtool pkg-config python3-dev cython3 exuberant-ctags
     pip3 install --user -U cython
 fi
 pip3 install --user -U ipython jupyter matplotlib numpy scipy
