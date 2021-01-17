@@ -2,6 +2,7 @@
 
 AGGRESSIVE=1
 PERS=1
+BLUETOOTH=0
 OPTS="-y"
 
 #
@@ -19,6 +20,9 @@ mkdir -p ~/Music ~/Documents ~/Videos ~/SC ~/Desktop ~/src ~/bin
 ######################
 sudo aptitude install $OPTS -R sudo aptitude make psmisc python3-setuptools rfkill apt-file apt-show-versions htop strace net-tools python3-pip
 pip3 install --user --upgrade setuptools wheel pip
+if [ $AGGRESSIVE == 1 ]; then
+    sudo aptitude install $OPTS -R snap docker.io
+fi
 
 ######################
 ### Utils
@@ -49,7 +53,7 @@ if [ $AGGRESSIVE == 1 ]; then
 fi
 
 if [ $PERS == 1 ]; then
-    sudo aptitude install $OPTS -R thunderbird gimp libreoffice # firefox midori
+    sudo aptitude install $OPTS -R firefox thunderbird gimp libreoffice # firefox midori
 fi
 
 ######################
@@ -73,7 +77,7 @@ fi
 ######################
 ### Bluetooth
 ######################
-if [ $PERS == 1 ]; then
+if [ $BLUETOOTH == 1 ]; then
     sudo aptitude install $OPTS -R  pulseaudio-module-bluetooth blueman
     pactl load-module module-bluetooth-discover
 fi
