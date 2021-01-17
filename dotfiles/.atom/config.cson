@@ -36,6 +36,9 @@
     previewTheme: "gothic.css"
   minimap:
     autoToggle: false
+    plugins:
+      "lens-mode": true
+      "lens-modeDecorationsZIndex": 0
   "project-plus":
     notifications: false
     showPath: true
