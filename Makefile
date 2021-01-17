@@ -139,7 +139,7 @@ _dotfiles:
 _etc:
 	sudo cp etc/rc.local /etc
 	sudo chmod +x /etc/rc.local
-	sudo cp -r  etc/wpa_supplicant/ /etc
+	sudo cp -r etc/wpa_supplicant/ /etc
 	#sudo cat etc/sysctl.conf >> /etc/sysctl.conf
 
 _bin:
@@ -178,11 +178,11 @@ snapshot:
 
 calendar:
 	echo "Backup calendar..."
-	cd ~/.cache/calendar.vim
-	git add *
-	git commit -am "backup"
-	git push
-	cd -
+	cd ~/.cache/calendar.vim && \
+		git add * && \
+		git commit -am "backup" && \
+		git push && \
+		cd -
 
 #
 # Extra setup
@@ -223,9 +223,9 @@ backup_thunderbird:
 
 sync:
 	git pull orgin --rebase
-	cd ~/.cache/calendar.vim
-	git pull origin --rebase
-	cd -
+	cd ~/.cache/calendar.vim && \
+		git pull origin --rebase && \
+		cd -
 
 # ================================
 # Database
