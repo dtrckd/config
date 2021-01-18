@@ -10,10 +10,6 @@ ff02::2 ip6-allrouters
 
 0.0.0.0 0.0.0.0
 
-# Custom host records are listed here.
-
-
-# End of custom host records.
 # Start StevenBlack
 
 #=====================================
