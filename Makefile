@@ -216,6 +216,12 @@ backup_firefox:
 backup_thunderbird:
 	#... | sed "s~$HOME/~~g" | ...
 	find ${HOME}/.thunderbird/l7nymwge.default/ -name "*.dat" -o -name "*.json" | xargs -I{} rsync --progress -R {} ./app/home/thunderbird
+	# Better
+	# copy the profile folder to new folder (new machine for exemple)
+	# then do
+	# 	thunderbird -profilemanager
+	# Create a new profile by selecting the copyed one...its done !
+	# http://kb.mozillazine.org/Moving_your_profile_folder_-_Thunderbird#Use_the_Profile_Manager_to_move_your_profile
 
 	gpg --armor --export > app/home/some_data/pgp-public-keys.asc
 	gpg --armor --export-secret-keys > app/home/some_data/pgp-private-keys.asc
