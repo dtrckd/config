@@ -50,4 +50,4 @@ end
 ## SNAP
 #export PATH="/snap/bin:$PATH"
 
-thefuck --alias | source
+#thefuck --alias | source
