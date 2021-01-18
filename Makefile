@@ -217,6 +217,14 @@ backup_thunderbird:
 	#... | sed "s~$HOME/~~g" | ...
 	find ${HOME}/.thunderbird/l7nymwge.default/ -name "*.dat" -o -name "*.json" | xargs -I{} rsync --progress -R {} ./app/home/thunderbird
 
+	gpg --armor --export > app/home/some_data/pgp-public-keys.asc
+	gpg --armor --export-secret-keys > app/home/some_data/pgp-private-keys.asc
+	gpg --export-ownertrust > app/home/some_data/pgp-ownertrust.asc
+	# Restore
+	# gpg --import pgp-public-keys.asc
+	# gpg --import pgp-private-keys.asc
+	# gpg --import-ownertrust pgp-ownertrust.asc
+
 # ================================
 # sync
 # ================================
