@@ -161,7 +161,7 @@ _vim:
 # ================================
 
 backup: backup_dot backbin backapp calendar #snapshot
-backapp: backup_atom backup_wekan backup_thunderbird
+backapp: backup_atom backup_wekan backup_firefox backup_thunderbird
 
 backbin:
 	# Create bin.txt
@@ -174,7 +174,6 @@ snapshot:
 	pip freeze > configure/snapshots/pip
 	snap list > configure/snapshots/snap
 	npm list -g --depth 0 > configure/snapshots/npm
-
 
 calendar:
 	echo "Backup calendar..."
@@ -211,11 +210,12 @@ backup_wekan:
 	./wekan-backup.sh
 	cd -
 
+backup_firefox:
+	find ${HOME}/.mozilla/firefox/fmhb7ulp.default-esr/ -name logins.json -o -name key[34].db | xargs -I{} rsync --progress -R {} ./app/home/firefox
+
 backup_thunderbird:
-	echo "Backup thunderbird not implemented"
-	#THUNDER_ID="l7nymwge"
-	#find $HOME/.thunderbird/$THUNDER_ID.default/ -name "*.dat" -o -name "*.json" | sed "s~$HOME/~~g" | xargs -I{} rsync -R {} ../app/
-	#find $HOME/.thunderbird/$THUNDER_ID.default/ -name "*.dat" -o -name "*.json" |xargs -I{} rsync $RSYNC_ARGS -R {} ../app/
+	#... | sed "s~$HOME/~~g" | ...
+	find ${HOME}/.thunderbird/l7nymwge.default/ -name "*.dat" -o -name "*.json" | xargs -I{} rsync --progress -R {} ./app/home/thunderbird
 
 # ================================
 # sync
