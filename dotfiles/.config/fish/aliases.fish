@@ -54,8 +54,8 @@ alias ipython="ipython --colors linux"
 alias ipython_dev="ipython --colors linux --profile dev"
 alias py='python'
 alias py3='python3'
-alias nbh="jupyter-notebook --ip 127.0.0.1"
-alias nbb='jupyter-notebook --ip 127.0.0.1 ~/main/networkofgraphs/process/notebook/ '
+alias nbh="jupyter-notebook"
+alias nbb='jupyter-notebook ~/main/networkofgraphs/process/notebook/ '
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:(pwd)'
 alias xback='xbacklight'
 #alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
@@ -121,13 +121,13 @@ alias agy='ag -i --py'
 alias ago='ag -i --go'
 alias agj='ag -i --js --ignore node_modules/'
 alias fzf='fzf-slowday.fzf'
-alias ctr='systemctl'
+alias sys='systemctl'
 alias locks='systemctl suspend -i'
 alias dodo='systemctl hibernate'
 alias halt='systemctl poweroff'
-alias ls-service='ctr -t service --state running'
-alias ls-masked-unit='ctr --state masked' # systemctl list-unit-files | grep masked
-alias ls-failed-unit='ctr --state failed' # systemctl --failed
+alias ls-service='sys -t service --state running'
+alias ls-masked-unit='sys --state masked' # systemctl list-unit-files | grep masked
+alias ls-failed-unit='sys --state failed' # systemctl --failed
 alias octave='octave --silent'
 
 function vims
@@ -468,7 +468,8 @@ alias cdsys="cd $PX/SC/Projects/Informatique/System"
 alias cdrez="cd $PX/SC/Projects/Informatique/Reseau/"
 alias cdid="cd $PX/SC/Papiers/idh/id_ad/"
 alias cdp="cd $PX/SC/Papiers/"
-alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
++#alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
++alias xrandr_setup="xrandr --output eDP-1 --right-of DP-1"
 function cdlk;  cd (dirname (readlink $argv[1])); end
 function grepurl; sed -e  's/.*[hH][rR][eE][fF]=['\"''\'']\([^'\"''\'']*\)['\"''\''].*/\1/' $argv[1]; end
 alias mean="awk '{s+=$argv}END{print \"ave:\",s/NR}' RS=\" \""
