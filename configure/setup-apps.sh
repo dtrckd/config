@@ -9,7 +9,7 @@
 Target="$1"
 
 if [ -z "$Target" ]; then
-    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell) | manta"
+    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell) | manta | protonmail"
     exit
 fi
 
@@ -107,6 +107,11 @@ fi
 if [ "$Target" == "manta" ]; then
     wget https://github.com/hql287/Manta/releases/download/v1.1.4/Manta-1.1.4-x86_64.AppImage -O ~/Downloads/Manta.AppImage
     ~/Download/https://github.com/hql287/Manta/releases/download/v1.1.4/Manta.AppImage
+fi
+if [ "$Target" == "protonmail" ]; then
+    wget https://protonmail.com/download/protonmail-bridge_1.5.7-1_amd64.deb
+    sudo dpkg -i protonmail-bridge_1.5.7-1_amd64.deb
+    rm protonmail-bridge_1.5.7-1_amd64.deb
 fi
 #if [ "$Target" == "pycharm" ]; then
 #    # Pycharm

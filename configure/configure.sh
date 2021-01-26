@@ -25,7 +25,9 @@ sudo aptitude install $OPTS -R mc rsync tmux ranger wicd vim git gitk gitg
 ranger --copy-config=all
 # Optionals (but advised !)
 if [ $AGGRESSIVE == 1 ]; then
-    sudo aptitude install $OPTS -R apt-listbugs zip xclip acpi bmon nmap curl wget wireshark ksysguard iotop jq ripgrep fish autossh
+    sudo aptitude install $OPTS -R apt-listbugs zip xclip acpi bmon nmap curl wget wireshark ksysguard iotop jq ripgrep fish autossh tree wkhtmltopdf
+    # for protonmail bridge on linux
+    sudo aptitude install $OPTS -R debsig-verify debian-keyring gnome-keyring
 fi
 
 ######################
@@ -33,7 +35,7 @@ fi
 ######################
 sudo aptitude install $OPTS -R gfortran libopenblas-dev python3-tk
 if [ $AGGRESSIVE == 1 ]; then
-    sudo aptitude install $OPTS -R build-essential autoconf cmake libtool pkg-config python3-dev cython3 exuberant-ctags
+    sudo aptitude install $OPTS -R build-essential autoconf cmake libtool pkg-config python3-dev cython3 exuberant-ctags parallel
     pip3 install --user -U cython
     pip3 install --user -U ipython jupyter matplotlib numpy scipy seaborn plotly pandas
 fi
@@ -42,20 +44,20 @@ fi
 ### Apps
 ######################
 if [ $AGGRESSIVE == 1 ]; then
-    sudo aptitude install $OPTS pandoc lmodern pandoc-citeproc parallel
+    sudo aptitude install $OPTS pandoc lmodern pandoc-citeproc graphicsmagick-imagemagick-compat xsel
     pip3 install --user pypandoc markdown2ctags pandoc-shortcaption pandoc-eqnos pandoc-fignos pandoc-xnos pandocfilters
     pip3 install --user Scrapy pymongo
 fi
 
 if [ $PERS == 1 ]; then
-    sudo aptitude install $OPTS -R elinks w3m  firefox thunderbird gimp libreoffice hunspell-fr # midori
+    sudo aptitude install $OPTS -R elinks w3m firefox thunderbird gimp libreoffice hunspell-fr # midori
 fi
 
 ######################
 ### Music (xmms2 plugin)
 ######################
 if [ $PERS == 1 ]; then
-    sudo aptitude  install $OPTS -R vlc audacity xmms2 gxmms2 \
+    sudo aptitude  install $OPTS -R vlc audacity xmms2 gxmms2 ffmpeg \
         xmms2-plugin-alsa xmms2-plugin-pulse xmms2-plugin-asf xmms2-plugin-avcodec xmms2-plugin-faad xmms2-plugin-flac xmms2-plugin-id3v2 xmms2-plugin-mad xmms2-plugin-mp4 xmms2-plugin-vorbis
     # (mp3cut) => poc-streamer
 fi
