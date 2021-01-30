@@ -85,6 +85,9 @@ configure_server:
 	sudo ./snippets/fw.sh restart
 	sudo systemctl restart docker
 	sudo ./snippets/fw.sh enable
+	mkdir -p ~/bin
+	ln -s $(pwd)/snippets/fw.sh ~/bin/fw
+	ln -s $(pwd)/snippets/fw6.sh ~/bin/fw6
 
 	# Reset/Configure ssh
 	sudo ./snippets/edit_config_line "PermitEmptyPasswords" "no" /etc/ssh/sshd_config
