@@ -5,7 +5,7 @@
 # This is a basic /sbin/iptables firewall script.
 #
 # Usage:
-# ./fw {restart|stop|enable|restore}
+# ./fw {restart|stop|save|restore}
 #
 # Notes:
 # 1. Comment or uncomment the firewall rules below according to your
@@ -144,7 +144,7 @@ function qfw_rules {
 # ## Other functions
 
 function qfw_help {
-  echo "qFirewall usage: ./fw {restart|stop|enable|restore}"
+  echo "qFirewall usage: ./fw {restart|stop|save|restore}"
   exit 1
 }
 
@@ -189,13 +189,13 @@ function qfw_stop {
   echo "     > qFirewall stopped"
 }
 
-function qfw_enable {
-  echo "     > Enabling qFirewall..."
+function qfw_save {
+  echo "     > Saving qFirewall..."
   DEBIAN_FRONTEND=noninteractive apt-get install -y iptables-persistent
   mkdir -p /etc/iptables
   /sbin/iptables-save > /etc/iptables/rules.v4
   /sbin/ip6tables-save > /etc/iptables/rules.v6
-  echo "     > qFirewall enabled"
+  echo "     > qFirewall saving"
 }
 
 function qfw_restore {
@@ -215,8 +215,8 @@ case "$1" in
   stop)
   qfw_stop
   ;;
-  enable)
-  qfw_enable
+  save)
+  qfw_save
   ;;
   restore)
   qfw_restore
