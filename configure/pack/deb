@@ -112,6 +112,8 @@ wpa-supplicant #wpa making
 wicd # replace the fukin' network-manager
 nethogs # monitor process on the internet
 
+s3cmd # interact with s3 buckets
+
 # proxy
 privoxy
 squid

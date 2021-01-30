@@ -1,5 +1,8 @@
 # A lot of issue resolve in the Arch Wiki:  https://wiki.archlinux.org/index.php/Xfce
 
+# Allow desktop to suspend/hibernate without password
+# https://askubuntu.com/questions/543921/authentication-required-before-suspend
+
 # Make the mouse visible again
 xset dpms force off  
 # or
