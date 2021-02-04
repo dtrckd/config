@@ -9,7 +9,7 @@
 Target="$1"
 
 if [ -z "$Target" ]; then
-    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell) | manta | protonmail"
+    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell) | manta | protonmail | slack"
     exit
 fi
 
@@ -112,6 +112,11 @@ if [ "$Target" == "protonmail" ]; then
     wget https://protonmail.com/download/protonmail-bridge_1.5.7-1_amd64.deb
     sudo dpkg -i protonmail-bridge_1.5.7-1_amd64.deb
     rm protonmail-bridge_1.5.7-1_amd64.deb
+fi
+if [ "$Target" == "slack" ]; then
+    wget https://downloads.slack-edge.com/linux_releases/slack-desktop-4.0.2-amd64.deb && \
+        sudo dpkg -i slack-desktop-4.0.2-amd64.deb && \
+        rm slack-desktop-4.0.2-amd64.deb
 fi
 #if [ "$Target" == "pycharm" ]; then
 #    # Pycharm
