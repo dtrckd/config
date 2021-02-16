@@ -492,7 +492,7 @@ set nofen               " open all folds. see z[mn] command
 """ general
 imap <C-L> <Esc>
 " remap C-w to cut the word before the cursor
-inoremap <C-w> <C-o>daw
+imap <C-w> <C-[>diwi
 " remap C-w to cut the word after the cursor
 inoremap <C-s> <C-o>diw 
 nnoremap ; :
