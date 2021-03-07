@@ -62,13 +62,12 @@ alias xback='xbacklight'
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias j=jobs
 alias pasteclean="xsel | sed 's/ *\$//' | xsel -bi"
-alias evc="evince"
 alias tu="htop -u $USER"
 alias t="htop"
 alias diffd="diff -rq $argv[1] $argv[2]" # show difference files between dir$1 and dir$2
 alias mvspace="rename 's/ /_/g'"
 alias torb="sh -c \"$HOME/src/config/app/tor-browser_en-US/Browser/start-tor-browser\" --detach"
-function pdf; evince $argv[1] 2>/dev/null &; end
+function pdf; atril $argv[1] 2>/dev/null &; end # evince
 function pdfo; okular $argv[1] 2>/dev/null &; end
 alias v="vim"
 alias vls="vim" # use when using with "C-A" and quicly change ls to vls for openin vim
