@@ -17,8 +17,7 @@ dotfiles/.config/xmms2/bindata/*
 .coin
 addr
 # --
-dotfiles/.ssh
-*/.ssh/*
+dotfiles/.ssh/*
 dotfiles/.gethubconfig
 dotfiles/.bash_aliases
 dotfiles/.mutt
