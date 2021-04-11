@@ -104,8 +104,8 @@ alias ipython="ipython --colors linux"
 alias ipython_dev="ipython --colors linux --profile dev"
 alias py='python'
 alias py3='python3'
-alias nbh="jupyter-notebook"
-alias nbb='jupyter-notebook ~/main/networkofgraphs/process/notebook/ '
+alias nbh="jupyter notebook"
+alias nbb='jupyter notebook --path ~/main/networkofgraphs/process/notebook/ '
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:$(pwd)'
 alias xback='xbacklight'
 #alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
@@ -548,7 +548,7 @@ alias cdrez="cd $PX/SC/Projects/Informatique/Reseau/"
 alias cdid="cd $PX/SC/Papiers/idh/id_ad/"
 alias cdp="cd $PX/SC/Papiers/"
 #alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
-alias xrandr_setup="xrandr --output eDP-1 --right-of DP-1"
+alias xrandr_setup="xrandr --output HDMI-2 --left-of eDP-1"
 cdlk () { cd $(dirname $(readlink $1)); }
 grepurl () { sed -e  's/.*[hH][rR][eE][fF]=['\"''\'']\([^'\"''\'']*\)['\"''\''].*/\1/' $1; }
 alias mean="awk '{s+=$1}END{print \"ave:\",s/NR}' RS=\" \""
