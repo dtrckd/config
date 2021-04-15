@@ -485,6 +485,7 @@ set indentkeys-=0#
 
 set foldmethod=indent
 set nofen               " open all folds. see z[mn] command
+set nofoldenable
 
 """"""""""""""""""""""""""""""
 """ Mapping / MOVES
