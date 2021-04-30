@@ -8,9 +8,6 @@
 #if [ -f ~/.bash_profile ]; then
 #    . ~/.bash_profile
 #fi
-#eval "$(thefuck --alias)"
-#eval "$(thefuck --alias fuck)"
-
 
 function _PWD  {
     if [ "$(pwd)" == $HOME ]; then
@@ -70,6 +67,8 @@ alias less='less -S -R'
 alias df='df -TH'
 #alias du='du -csh'
 alias g="grep"
+alias bcat="batcat"
+alias e="exa"
 alias l='ls'
 alias lq='ls'
 alias sls='ls'
@@ -762,20 +761,31 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
-### Vundle
+# Vundle
 #git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-### Tmux Plugin
+# Tmux Plugin
 #git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-### Brew
+# Brew
 #git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
 export PATH="$PATH:$HOME/.linuxbrew/bin"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
-if [ -x $(echo $TMUX |cut -d',' -f1 ) ]; then
+# Thefuck
+if [ -x "$(which thefuck)" ]; then
+    eval "$(thefuck --alias)"
+    alias fk="fuck"
+fi
 
+# Zoxide
+if [ -x "$(which zoxide)" ]; then
+    eval "$(zoxide init bash)"
+fi
+
+
+if [ -x $(echo $TMUX |cut -d',' -f1 ) ]; then
     ### FZF
     [ -f ~/.fzf.bash -a -d ~/.linuxbrew/Cellar/fzf ] && source ~/.fzf.bash
 

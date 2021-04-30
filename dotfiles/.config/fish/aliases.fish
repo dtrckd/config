@@ -21,6 +21,8 @@ alias less='less -S -R'
 alias df="df -Th"
 #alias du="du -sch"
 alias g="grep"
+alias bcat="batcat"
+alias e="exa"
 alias ls="ls --group-directories-first -p --color=always"
 alias l='ls'
 alias lq='ls'
@@ -54,8 +56,8 @@ alias ipython="ipython --colors linux"
 alias ipython_dev="ipython --colors linux --profile dev"
 alias py='python'
 alias py3='python3'
-alias nbh="jupyter-notebook"
-alias nbb='jupyter-notebook ~/main/networkofgraphs/process/notebook/ '
+alias nbh="jupyter notebook"
+alias nbb='jupyter notebook --path ~/main/networkofgraphs/process/notebook/ '
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:(pwd)'
 alias xback='xbacklight'
 #alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
@@ -232,7 +234,11 @@ function gitcpush; git commit -am $argv[1] && git push; end
 function lsgit 
     for d in (find -maxdepth 2 -type d -name ".git" | sed 's/\.git$//' );
         echo $d
-        git -C "$d" status -svb
+        if [ "$argv[1]" = "-r" ]
+            git -C "$d" remote -v
+        else
+            git -C "$d" status -svb
+        end
         echo
     end
 end
@@ -468,7 +474,7 @@ alias cdrez="cd $PX/SC/Projects/Informatique/Reseau/"
 alias cdid="cd $PX/SC/Papiers/idh/id_ad/"
 alias cdp="cd $PX/SC/Papiers/"
 #alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
-alias xrandr_setup="xrandr --output eDP-1 --right-of DP-1"
+alias xrandr_setup="xrandr --output HDMI-2 --left-of eDP-1"
 function cdlk;  cd (dirname (readlink $argv[1])); end
 function grepurl; sed -e  's/.*[hH][rR][eE][fF]=['\"''\'']\([^'\"''\'']*\)['\"''\''].*/\1/' $argv[1]; end
 alias mean="awk '{s+=$argv}END{print \"ave:\",s/NR}' RS=\" \""
@@ -580,4 +586,19 @@ setxkbmap -option "nbsp:none" # disable non-breaking space, accidently genrated 
 alias to_qwerty='setxkbmap us' # QWERTY
 alias to_azerty='setxkbmap fr' # AZERTY
 
+# Thefuck
+function fuck -d "Correct your previous console command"
+  set -l fucked_up_command $history[1]
+  env TF_ALIAS=fuck PYTHONIOENCODING=utf-8 thefuck $fucked_up_command | read -l unfucked_command
+  if [ "$unfucked_command" != "" ]
+	eval $unfucked_command
+	builtin history delete --exact --case-sensitive -- $fucked_up_command
+	builtin history merge ^ /dev/null
+  end
+end
+alias fk="fuck"
 
+# Zoxyde
+if type -q zoxide
+    zoxide init fish | source
+end
