@@ -6,19 +6,30 @@
 
 #oprofile # profiling
 strace # see system call
-htop
 psmisc # killall pstree...
 
 # Utility / Misc
 rsync
-mc
-ranger
 transmission-show caca-utils pdftotext mediainfo elinks atool highlight
 jq # like sed for json data
-thefuck
-ripgrep
-fish
 deepin-calculator
+
+
+# improveed shell
+fish
+zoxide
+exa
+bat
+ripgrep
+thefuck
+mc
+ranger
+htop
+atop
+tldr
+
+# encryption
+ccrypt
 
 # Compilation
 gcc
