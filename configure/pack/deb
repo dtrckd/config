@@ -27,6 +27,8 @@ ranger
 htop
 atop
 tldr
+fzf 
+silversearcher-ag
 
 # encryption
 ccrypt

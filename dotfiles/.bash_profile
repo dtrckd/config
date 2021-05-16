@@ -92,10 +92,8 @@ complete -f lla
 
 ### Utility commands
 alias fuk="fuck"
-alias apti="aptitude"
-alias please='sudo $(fc -ln -1)'
+alias please='sudo $(fuck -ln -1)'
 alias so='source ~/.bashrc'
-alias whoisssd='lsblk  -d -o name,rota'
 alias cleancolors="sed -r 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' $1"
 #alias ipython="python -m IPython"
 alias python="python -O" # basic optimizatio (ignore assert, ..)
@@ -184,6 +182,8 @@ alias netp='netstat -plant | grep -i stab | awk -F/ "{print \$2 \$3}" | sort | u
 alias fetch_debian='wget https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-xfce-CD-1.iso'
 alias ipv4="ip -4 -br a"
 alias ipv6="ip -6 -br a"
+# App
+alias mongoshell="docker exec -it mongodb mongo"
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}' # see also rg
@@ -193,12 +193,12 @@ alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
 alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
 function grepyf(){ find -iname "*.py" |xargs grep --color -m1 "$1" |cut -d: -f1; } # don work :(
 alias grepall='find -type f | xargs grep --color'
-# Snap Alias
-alias ag='ag-mcphail.ag --color-path 32 --color-match "1;40;36"'
+# Ag Alias
+alias ag='ag --color-path 32 --color-match "1;40;36"'
 alias agy='ag -i --py'
 alias ago='ag -i --go'
 alias agj='ag -i --js --ignore node_modules/'
-alias fzf='fzf-slowday.fzf'
+alias fz="fzf"
 ### XFCE
 #alias locks='s2ram -f -m'
 #alias dodo='s2disk'
@@ -206,9 +206,13 @@ alias sys='systemctl'
 alias locks='systemctl suspend -i'
 alias dodo='systemctl hibernate'
 alias halt='systemctl poweroff'
+### List utils
 alias ls-service='systemctl -t service --state running'
 alias ls-masked-unit='systemctl --state masked' # systemctl list-unit-files | grep masked
 alias ls-failed-unit='systemctl --state failed' # systemctl --failed
+alias ls-ssd='lsblk  -d -o name,rota'
+alias ls-marked="apt-mark showhold"
+alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
 
 ### VIM
 #alias vim='vim.nox'
@@ -250,9 +254,23 @@ function upgrademe() {
     #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
     #npm update # -g
 }
-# Show hold/held package
-#alias apt-mark showhold
-alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
+
+function ssh_init() {
+    eval `ssh-agent`
+    ssh-add
+}
+
+restore_alsa() {
+    while [ -z "$(pidof pulseaudio)" ]; do
+        sleep 0.5
+    done
+    alsactl -f /var/lib/alsa/asound.state restore
+}
+
+restore_pulseaudio() {
+    pulseaudio -kv && sudo alsabat force-reload && pulseaudio -Dv
+}
+
 
 ### GIT
 alias gitupdate='git remote update'
@@ -405,22 +423,6 @@ function git_eradicate_purge() {
     git reflog expire --expire=now --all
     git gc --prune=now --aggressive
     #git push origin master --force
-}
-
-function ssh_init() {
-    eval `ssh-agent`
-    ssh-add
-}
-
-restore_alsa() {
-    while [ -z "$(pidof pulseaudio)" ]; do
-        sleep 0.5
-    done
-    alsactl -f /var/lib/alsa/asound.state restore
-}
-
-restore_pulseaudio() {
-    pulseaudio -kv && sudo alsabat force-reload && pulseaudio -Dv
 }
 
 if [ -d $HOME/src/config/credentials/ ]; then
