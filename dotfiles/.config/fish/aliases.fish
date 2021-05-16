@@ -48,7 +48,6 @@ alias fuk="fuck"
 alias apti="aptitude"
 alias please='sudo (fc -ln -1)'
 alias so='source ~/.config/fish/config.fish'
-alias whoisssd='lsblk  -d -o name,rota'
 alias cleancolors="sed -r 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' $1"
 #alias ipython="python -m IPython"
 alias python="python -O" # basic optimizatio (ignore assert, ..)
@@ -60,6 +59,8 @@ alias nbh="jupyter notebook"
 alias nbb='jupyter notebook --path ~/main/networkofgraphs/process/notebook/ '
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:(pwd)'
 alias xback='xbacklight'
+alias octave='octave --silent'
+alias mongoshell="docker exec -it mongodb mongo"
 #alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias j=jobs
@@ -117,11 +118,11 @@ alias rg="rg -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/'"
 alias grepy='find -iname "*.py" | xargs grep --color -n'
 alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
 alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
-alias ag='ag-mcphail.ag --color-path 32 --color-match "1;40;36"'
+alias ag='ag --color-path 32 --color-match "1;40;36"'
 alias agy='ag -i --py'
 alias ago='ag -i --go'
 alias agj='ag -i --js --ignore node_modules/'
-alias fzf='fzf-slowday.fzf'
+alias fz="fzf"
 alias sys='systemctl'
 alias locks='systemctl suspend -i'
 alias dodo='systemctl hibernate'
@@ -129,7 +130,9 @@ alias halt='systemctl poweroff'
 alias ls-service='sys -t service --state running'
 alias ls-masked-unit='sys --state masked' # systemctl list-unit-files | grep masked
 alias ls-failed-unit='sys --state failed' # systemctl --failed
-alias octave='octave --silent'
+alias ls-ssd='lsblk  -d -o name,rota'
+alias ls-marked="apt-mark showhold"
+alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
 
 function vims
     set SessionID (basename (dirname $PWD))-(basename $PWD)
@@ -161,7 +164,6 @@ function upgrademe
     #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
     #npm update # -g
 end
-alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
 
 alias gitupdate='git remote update'
 alias gitg='/bin/gitg --all 1>/dev/null &'

@@ -138,8 +138,9 @@ noremap <leader>f :NERDTreeFind<cr>
 
 
 """ ACK/AG (use AG!)
-let g:ackprg = 'ag-mcphail.ag  --smart-case'
+let g:ackprg = 'ag --smart-case'
 cnoreabbrev ag Ack
+cnoreabbrev ack Ack
 "noremap <leader>s :Ack! "<cword>"<cr>
 
 """ Rainbow colors
@@ -522,10 +523,10 @@ nnoremap <C-k> <C-W>10+
 nnoremap <C-j> <C-W>10-
 nnoremap <C-h> <C-W>10<
 "nnoremap <C-l> <C-W>10>
-noremap <C-S-UP>    :resize +3<cr>
-noremap <C-S-DOWN>  :resize -3<cr>
-noremap <C-S-LEFT>  :vertical resize +3<cr>
-noremap <C-S-RIGHT> :vertical resize -3<cr>
+noremap <C-S-UP>    :resize -3<cr>
+noremap <C-S-DOWN>  :resize +3<cr>
+noremap <C-S-LEFT>  :vertical resize -3<cr>
+noremap <C-S-RIGHT> :vertical resize +3<cr>
 "keycode 113 = Alt_R
 "add mod1 = Alt_R
 "keycode 116 = Meta_R
