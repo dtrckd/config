@@ -122,7 +122,7 @@ alias ag='ag --color-path 32 --color-match "1;40;36"'
 alias agy='ag -i --py'
 alias ago='ag -i --go'
 alias agj='ag -i --js --ignore node_modules/'
-alias fz="fzf"
+alias f="fzf"
 alias sys='systemctl'
 alias locks='systemctl suspend -i'
 alias dodo='systemctl hibernate'
@@ -480,6 +480,7 @@ alias xrandr_setup="xrandr --output HDMI-2 --left-of eDP-1"
 function cdlk;  cd (dirname (readlink $argv[1])); end
 function grepurl; sed -e  's/.*[hH][rR][eE][fF]=['\"''\'']\([^'\"''\'']*\)['\"''\''].*/\1/' $argv[1]; end
 alias mean="awk '{s+=$argv}END{print \"ave:\",s/NR}' RS=\" \""
+alias ntop="/home/dtrckd/.linuxbrew/bin/bandwhich" 
 
 alias amatop='elinks http://zombie-dust.imag.fr:8000/'
 #alias amatop='w3m http://zombie-dust.imag.fr:8000/'
@@ -598,7 +599,7 @@ function fuck -d "Correct your previous console command"
 	builtin history merge ^ /dev/null
   end
 end
-alias fk="fuck"
+alias fuk="fuck"
 
 # Zoxyde
 if type -q zoxide
