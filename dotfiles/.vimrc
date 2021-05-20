@@ -31,6 +31,7 @@ Plugin 'gotcha/vimpdb'
 " File and code Search
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'mileszs/ack.vim'
+"Plugin 'alok/notational-fzf-vim'
 
 " Git
 Plugin 'airblade/vim-gitgutter'

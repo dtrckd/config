@@ -163,7 +163,7 @@ alias pstree='pstree -h'
 alias rmf='shred -zuv -n1' # find <directory> -depth -type f -exec shred -v -n 1 -z -u {} \;
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
-f () { find -iname "*$1*"; } # fuzzy match
+alias f="fzf"
 ff () { find -iname "$1"; } # exact match
 alias jerr='journalctl -p err -b'
 ### Net
@@ -176,6 +176,7 @@ alias myip='curl https://tools.aquilenet.fr/ip/ && echo' # Or: ip.appspot.com'
 alias vpn_aqui='sudo openvpn /etc/openvpn/aqn.conf'                                      
 alias nmapw='nmap -sT -P0 -sV -p80,443 --script=http-headers'
 alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
+alias ntop="/home/dtrckd/.linuxbrew/bin/bandwhich"
 #alias netl='netstat -taupen'
 alias netl='netstat -plant'
 alias netp='netstat -plant | grep -i stab | awk -F/ "{print \$2 \$3}" | sort | uniq'
@@ -198,11 +199,11 @@ alias ag='ag --color-path 32 --color-match "1;40;36"'
 alias agy='ag -i --py'
 alias ago='ag -i --go'
 alias agj='ag -i --js --ignore node_modules/'
-alias fz="fzf"
 ### XFCE
 #alias locks='s2ram -f -m'
 #alias dodo='s2disk'
 alias sys='systemctl'
+complete -f sys
 alias locks='systemctl suspend -i'
 alias dodo='systemctl hibernate'
 alias halt='systemctl poweroff'
@@ -270,7 +271,6 @@ restore_alsa() {
 restore_pulseaudio() {
     pulseaudio -kv && sudo alsabat force-reload && pulseaudio -Dv
 }
-
 
 ### GIT
 alias gitupdate='git remote update'
@@ -502,7 +502,6 @@ function _cd() {
 # replace standard `cd` with enhanced version, ensure tab-completion works
 alias cd=_cd
 complete -f cd
-#complete -D cd
 
 alias xs='cd'
 alias cdl='cd -l'
@@ -785,7 +784,6 @@ fi
 if [ -x "$(which zoxide)" ]; then
     eval "$(zoxide init bash)"
 fi
-
 
 if [ -x $(echo $TMUX |cut -d',' -f1 ) ]; then
     ### FZF
