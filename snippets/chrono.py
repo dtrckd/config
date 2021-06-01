@@ -23,7 +23,7 @@ for i, arg in enumerate(sys.argv):
         is_alarm = True
     else:
         if i == len(sys.argv)-1 and i == 0:
-            print usage
+            print(usage)
             exit()
         elif i > 0:
             if fuck_test:
@@ -41,7 +41,7 @@ def chrono(title):
         seconds = int(chrono)
         minutes = seconds / 60
         hours = minutes / 60
-        print '  %dh %dm %ds\n' % (hours, minutes, seconds)
+        print('  %dh %dm %ds\n' % (hours, minutes, seconds))
 
 def alarm_init(title):
     import re
@@ -50,7 +50,7 @@ def alarm_init(title):
     time_re = re.compile("^([0-9]+)h([0-9]+)$")
     date = title.split(' ')
     if len(date) != 2:
-        print arg_error + ", take 2 argument only !"
+        print(arg_error + ", take 2 argument only !")
         exit(1)
     for d in date:
         day_test = day_re.match(d)
@@ -61,13 +61,13 @@ def alarm_init(title):
             hour = time_test.group(1)
             minute = time_test.group(2)
         else:
-            print arg_error
+            print(arg_error)
             exit(2)
     return day, hour, minute
 
 def alarm(date):
-    print date
-    print "code and explode"
+    print(date)
+    print("code and explode")
 
 try:
     if is_alarm:

@@ -184,9 +184,6 @@ let g:session_autosave_periodic = 120 " minutes
 let g:session_autosave_silent = 1 " true
 let g:session_default_overwrite = 1 " every Vim instance without an explicit session loaded will overwrite the 'default' session (the last Vim instance wins).
 
-"""""""""""""""""""""""""""
-"""" Class list / IDE
-"""""""""""""""""""""""""""
 "" Compilation & Tagbar ! Great
 let g:easytags_cmd = '/usr/bin/ctags'
 let Tlist_Ctags_Cmd = '/usr/bin/ctags'
@@ -270,10 +267,7 @@ let g:tagbar_type_scss = {
       \ ]
       \}
 
-"""""""""""""""""""""""""""
-"""" Git
-"""""""""""""""""""""""""""
-"""" Fugitive
+" Git/Fugitive
 set diffopt+=vertical
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <space>ga :Git add %<CR><CR>
@@ -292,7 +286,7 @@ com! Gadd :Git add %
 "nnoremap <space>gps :VimProcBang git push<CR>
 "nnoremap <space>gpl :VimProcBang git pull<CR>
 
-""" git-gutter
+" git-gutter
 let g:gitgutter_enabled = 0
 let g:gitgutter_map_keys = 1
 set updatetime=4000 " 4 sec
@@ -301,9 +295,7 @@ nmap <leader>n :set invnumber<CR>
 let g:gitgutter_override_sign_column_highlight = 0
 
 
-"""""""""""""""""""""""""""
-""" Linting
-"""""""""""""""""""""""""""
+" Linting
 let g:ale_enabled = 1
 " lint after save only
 let g:ale_lint_on_text_changed = 'never'
@@ -499,6 +491,7 @@ imap <C-w> <C-[>diwi
 " remap C-w to cut the word after the cursor
 inoremap <C-s> <C-o>diw 
 nnoremap ; :
+nnoremap <Esc> :noh<cr>
 " vertical help
 "cabbrev vh vert h
 cnoreabbrev vh vert h
@@ -549,7 +542,7 @@ cnoremap $e e %:p:h
 cnoremap $t tabe %:p:h
 cnoremap $s split %:p:h
 cnoremap $v vs %:p:h
-cnoremap cwd lcd %:p:h  " change current working directory(cwd) to the dir of the currenet file
+cnoremap cwd lcd %:p:h  "change current working directory(cwd) to the dir of the currenet file
 noremap <Leader>s :split<cr>
 noremap <Leader>v :vs<cr>
 noremap <Leader>t :tabe %<cr>
@@ -655,6 +648,7 @@ au BufNewFile,BufRead *.py set formatoptions-=tc " prevent inserting \n. Where d
 """ Search moves
 au BufNewFile,BufRead *.py\> nnoremap _ ?<C-R>='__init__('<CR><CR>
 au BufNewFile,BufRead *.pyx nnoremap _ ?<C-R>='__cinit__('<CR><CR>
+au BufNewFile,BufRead *.go nnoremap _ ?<C-R>='func '<CR><CR>
 
 """ Docstrings
 " To toggle the docstrings in the whole buffer you can use zR and zM, to toggle a single docstring,
