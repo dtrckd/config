@@ -164,7 +164,8 @@ alias rmf='shred -zuv -n1' # find <directory> -depth -type f -exec shred -v -n 
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
 alias f="fzf"
-ff () { find -iname "$1"; } # exact match
+ff () { find -iname "*$1*"; } # exact match
+fff () { find -iname "$1"; } # exact match
 alias jerr='journalctl -p err -b'
 ### Net
 alias curlH='curl -I'
@@ -285,9 +286,10 @@ alias lsgit='for d in $(find -maxdepth 2 -type d -name ".git" | sed "s/\.git$//"
 alias lsissues='for d in $(find -maxdepth 2 -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" bug ls; echo; done'
 alias gitamend='git commit --amend'
 alias gitcommit='git commit'
-alias gitl="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short  --all"
-alias gitll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short"
+alias gitl="git log --oneline --decorate --color"
+alias gitll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short --all"
 alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias gitag="git tag -l --sort=-creatordate --format='%(creatordate:short):  %(refname:short)'"
 alias gr='gitr'
 alias gb='gitb'
 alias gd='gitd'
@@ -456,29 +458,37 @@ function _cd() {
 	dirs | tr ' ' '\n' | grep -v "^\$"
   elif [ "$1" == "-l" ]; then
       # use `_cd -l` to print current stack of folders
-    # remove duplicate consecutive dir
-    dirstack="$(echo $dirstack | tr ' ' '\n' | uniq)"
-    bold=$(tput bold)
-    normal=$(tput sgr0)
-    dirs | tr ' ' '\n' | grep -v "^$" | awk -v normal=$normal -v bold=$bold '{print  "\033[1;32m" NR-1 "\033[0m"  "  " bold $0 normal}' | tac | tail -n 20
+      # remove duplicate consecutive dir
+      dirstack="$(echo $dirstack | tr ' ' '\n' | uniq)"
+      # @debug: unique does not work. We need to delete the history with popd
+      bold=$(tput bold)
+      normal=$(tput sgr0)
+      dirs | tr ' ' '\n' | grep -v "^$" | awk -v normal=$normal -v bold=$bold '{print  "\033[1;32m" NR-1 "\033[0m"  "  " bold $0 normal}' | tac | tail -n 20
   elif [ "$1" == "-c" ]; then
       # clear stack
       dirs -c
 
   elif [ "$1" == "-g" ] && [[ "$2" =~ ^[0-9]+$ ]]; then
-      # use `_cd -g N` to go to the Nth directory in history (pushing)
-    #indexed_path=$(_cd -p | sed -n $(($2+1))p)
-    _cd $indexed_path
-
-  elif [[ "$1" =~ ^+[0-9]+$ ]]; then
-      # use `_cd +N` to go to the Nth directory in history (pushing)
-    _cd -g ${1/+/}
+      # use `_cd -g N` to go to the Nth directory in history (swapping)
+      indexed_path=$(_cd -p | sed -n $(($2+1))p | sed -e "s;~;$HOME;g")
+      _cd $indexed_path
 
   elif [[ "$1" =~ ^-[0-9]+$ ]]; then
-      # use `_cd -N` to go n directories back in history (popping)
-      for i in $(seq 1 ${1/-/}); do
+      # use `_cd -N` to go to the Nth directory in history (swapping)
+      n=${1:1:2}
+      indexed_path=$(_cd -p | sed -n $(($n+1))p | sed -e "s;~;$HOME;g")
+      # remove this occurrence
+      #set dirstack (echo $dirstack | tr ' ' '\n' | sed (string join "" $n "d"))
+      popd -n -$(($n-1)) > /dev/null
+      # move
+      _cd $indexed_path
+
+  elif [[ "$1" =~ ^\+[0-9]+$ ]]; then
+      # use `_cd +N` to go n directories back in history (popping)
+      for i in $(seq 1 ${1/+/}); do
           popd > /dev/null
-    done
+      done
+
 
   elif [ "$1" == "..." ]; then
       cd ..
@@ -491,9 +501,8 @@ function _cd() {
 
   else
     # basic case: move to a dir and add it to history
-    pushd "$@" > /dev/null
-    if [ "$1" == "." ] || [ "$1" == "$PWD" ]; then
-      popd -n > /dev/null
+    if [ "$1" != "." ] && [ "$1" != "$PWD" ]; then
+        pushd "$@" > /dev/null
     fi
   fi
 
