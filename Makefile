@@ -214,7 +214,7 @@ backup_wekan:
 	cd -
 
 backup_firefox:
-	find ${HOME}/.mozilla/firefox/fmhb7ulp.default-esr/ -name logins.json -o -name key[34].db | xargs -I{} rsync --progress -R {} ./app/home/firefox
+	find ${HOME}/.mozilla/firefox/snctzemu.default-esr -name logins.json -o -name key[34].db | xargs -I{} rsync --progress -R {} ./app/home/firefox
 
 backup_thunderbird:
 	#... | sed "s~$HOME/~~g" | ...
