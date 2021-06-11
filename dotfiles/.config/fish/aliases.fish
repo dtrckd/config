@@ -174,9 +174,10 @@ alias gitr='git remote -v'
 alias gitd='git diff'
 alias gitamend='git commit --amend'
 alias gitcommit='git commit'
-alias gitl="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short  --all"
-alias gitll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short"
+alias gitl="git log --oneline --decorate --color"
+alias gitll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short --all"
 alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias gitag="git tag -l --sort=-creatordate --format='%(creatordate:short):  %(refname:short)'"
 alias gr='gitr'
 alias gb='gitb'
 alias gd='gitd'
@@ -402,11 +403,16 @@ function _cd
         # use `_cd -g N` to go to the Nth directory in history (pushing)
         set indexed_path (_cd -p | sed -n (math $argv[2]+1)p | string replace "~" "$HOME")
         _cd $indexed_path
-    else if string match -arq -- "^\+[0-9]+\$" "$argv[1]"
-        # use `_cd +N` to go to the Nth directory in history (pushing)
-        _cd -g (string sub -s 2 $argv[1])
     else if string match -arq -- "^-[0-9]+\$" "$argv[1]"
-        # use `_cd -N` to go n directories back in history (popping)
+        # use `_cd -N` to go to the Nth directory in history (swapping)
+        set n (string sub -s2 -l1 -- $argv[1])
+        set indexed_path (_cd -p | sed -n (math $n+1)p | string replace "~" "$HOME")
+        # remove this occurrence
+        set dirstack (echo $dirstack | tr ' ' '\n' | sed (string join "" $n "d"))
+        # move
+        _cd $indexed_path
+    else if string match -arq -- "^\+[0-9]+\$" "$argv[1]"
+        # use `_cd +N` to go n directories back in history (popping)
         for i in (seq 1 (string sub -s 2 -- $argv[1]))
             popd > /dev/null
         end
@@ -420,7 +426,7 @@ function _cd
         pushd -- "$argv[2]" > /dev/null;
     else
         # basic case: move to a dir and add it to history
-        if [ $argv[1] != $PWD -a $argv[1] != '.' ]
+        if [ $argv[1] != '.' -a $argv[1] != $PWD ]
             pushd "$argv" > /dev/null;
         end
 
