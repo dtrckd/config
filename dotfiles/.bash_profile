@@ -289,7 +289,7 @@ alias gitcommit='git commit'
 alias gitl="git log --oneline --decorate --color"
 alias gitll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short --all"
 alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
-alias gitag="git tag -l --sort=-creatordate --format='%(creatordate:short):  %(refname:short)'"
+alias git-ls-tag="git tag -l --sort=-creatordate --format='%(creatordate:short):  %(refname:short)'"
 alias gr='gitr'
 alias gb='gitb'
 alias gd='gitd'
@@ -760,7 +760,8 @@ export OMP_NUM_THREADS=1  # Number of thread used by numpy
 
 # GOLANG
 export GOPATH=$HOME/.go
-export PATH="$GOPATH/bin:/usr/local/go/bin:$PATH:"
+export PATH=$PATH:$(go env GOROOT)/bin
+export PATH=$PATH:$(go env GOPATH)/bin
 
 # SNAP
 export PATH="/snap/bin:$PATH"
