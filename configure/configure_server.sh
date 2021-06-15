@@ -76,10 +76,10 @@ if [ "$CREATE_USER" == 1 ]; then
     chown -R $USERNAME:$USERNAME $HOMEUSER/.ssh/
 
     cat >> $HOMEUSER/.bashrc << EOF
-    if [ -f ~/.bash_profile ]; then
-        . ~/.bash_profile
-    fi
-    EOF
+if [ -f ~/.bash_profile ]; then
+    . ~/.bash_profile
+fi
+EOF
 
     #su - $USERNAME
     cd /home/$USERNAME
