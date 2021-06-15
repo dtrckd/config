@@ -68,7 +68,9 @@ if [ "$CREATE_USER" == 1 ]; then
     ###### Add New User Programmatically
     ##################################
     useradd --create-home -d /home/$USERNAME --shell /bin/bash  $USERNAME -p $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w ${1:-64} | head -n 1)
-    usermod -aG sudo $USERNAME
+    usermod -aG sudo,adm,docker $USERNAME
+    # authorize dmsg read
+    echo 'kernel.dmesg_restrict = 0' | sudo tee -a /etc/sysctl.conf
 
     HOMEUSER=$(getent passwd $USERNAME | cut -d: -f6) # === /home/USER/
 
