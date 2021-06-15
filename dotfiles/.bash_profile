@@ -761,7 +761,7 @@ if [ -x $(which python) ]; then
 fi
 
 # GOLANG
-if [ -x $(which go) ]; then
+if [ -x "$(which go)" ]; then
     export GOPATH=$HOME/.go
     export PATH=$PATH:$(go env GOROOT)/bin
     export PATH=$PATH:$(go env GOPATH)/bin
