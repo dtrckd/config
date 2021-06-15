@@ -751,17 +751,21 @@ export TERM='xterm-256color'
 cppversion='g++ -dM -E -x c++  /dev/null | grep -F __cplusplus'
 
 # Python
-pythonversion=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
-export PYTHONPATH="$PX/BaseDump/bots/skopai/common/"
-export PYTHONPATH="$PYTHONPATH:$PX/networkofgraphs/process/pymake"
+if [ -x $(which python) ]; then
+    pythonversion=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
+    export PYTHONPATH="$PX/BaseDump/bots/skopai/common/"
+    export PYTHONPATH="$PYTHONPATH:$PX/networkofgraphs/process/pymake"
 
-# Numpy
-export OMP_NUM_THREADS=1  # Number of thread used by numpy
+    # Numpy
+    export OMP_NUM_THREADS=1  # Number of thread used by numpy
+fi
 
 # GOLANG
-export GOPATH=$HOME/.go
-export PATH=$PATH:$(go env GOROOT)/bin
-export PATH=$PATH:$(go env GOPATH)/bin
+if [ -x $(which go) ]; then
+    export GOPATH=$HOME/.go
+    export PATH=$PATH:$(go env GOROOT)/bin
+    export PATH=$PATH:$(go env GOPATH)/bin
+fi
 
 # SNAP
 export PATH="/snap/bin:$PATH"
