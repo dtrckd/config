@@ -84,7 +84,7 @@ fi
 ### Snap and Docker
 ######################
 if [ $AGGRESSIVE == 1 ]; then
-    sudo aptitude install $OPTS -R snapd docker.io
+    sudo aptitude install $OPTS -R snapd docker.io docker-compose
     snap install mattermost-desktop insomnia signal-desktop telegram-desktop hugo gitter-desktop fractal
 fi
 
