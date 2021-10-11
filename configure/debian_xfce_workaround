@@ -1,5 +1,9 @@
 # A lot of issue resolve in the Arch Wiki:  https://wiki.archlinux.org/index.php/Xfce
 
+thunderbird 78.11 dont read gmail error.
+- downgrade to 78.10 (dowlad a deb from archive.debian.org)
+- or try t set `network.http.spdy.enabled.http2` to false in the config editor.
+
 # Allow desktop to suspend/hibernate without password
 # https://askubuntu.com/questions/543921/authentication-required-before-suspend
 
