@@ -143,6 +143,7 @@ let g:ackprg = 'ag --smart-case'
 cnoreabbrev ag Ack
 cnoreabbrev ack Ack
 "noremap <leader>s :Ack! "<cword>"<cr>
+nnoremap <silent> <Leader>z :Ack <C-R><C-W><CR>
 
 """ Rainbow colors
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
