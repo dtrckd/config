@@ -182,8 +182,8 @@ alias ntop="/home/dtrckd/.linuxbrew/bin/bandwhich"
 alias netl='netstat -plant'
 alias netp='netstat -plant | grep -i stab | awk -F/ "{print \$2 \$3}" | sort | uniq'
 alias fetch_debian='wget https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-xfce-CD-1.iso'
-alias ipv4="ip -4 -br a"
-alias ipv6="ip -6 -br a"
+alias ip4="ip -4 -br a"
+alias ip6="ip -6 -br a"
 # App
 alias mongoshell="docker exec -it mongodb mongo"
 # Fuzz
