@@ -170,6 +170,7 @@ alias jerr='journalctl -p err -b'
 ### Net
 alias curlH='curl -I'
 #alias myip='nmap -sC -p80 -n -Pn --script=http-title www.showmemyip.com | grep -i "my IP" | cut -d: -f3 | tr -d " \n" |  xclip -selection clipboard && xclip -o -selection clipboard && echo'
+clipboard() { cat $0 |tr -d " \n" | xclip -selection clipboard; }
 alias myip='curl https://tools.aquilenet.fr/ip/ && echo' # Or: ip.appspot.com'
                                       # curl https://tools.aquilenet.fr/ip/
                                       # curl ifconfig.io
