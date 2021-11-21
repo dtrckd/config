@@ -13,10 +13,10 @@ if [ "$Target" == "go" ]; then
     os=$(uname -s | tr '[:upper:]' '[:lower:]')
     arch=$(case "$(uname -m)" in i*) echo '386' ;; x*) echo 'amd64' ;; *) echo 'armv61'; esac)
 
-    # Go update approach
-    release=$(curl --silent https://golang.org/doc/devel/release.html | grep -Eo 'go[0-9]+(\.[0-9]+)+' | sort -V | uniq | tail -1)
-    echo "lastet found release: $release"
-    release="go1.15.6"
+    ## Go update approach
+    #release=$(curl --silent https://golang.org/doc/devel/release.html | grep -Eo 'go[0-9]+(\.[0-9]+)+' | sort -V | uniq | tail -1)
+    #echo "lastet found release: $release"
+    release="go1.17.3"
 
     VER="$release.$os-$arch"
     sudo mkdir -p "/usr/local/lib/$VER"

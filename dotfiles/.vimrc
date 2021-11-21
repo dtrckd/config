@@ -566,73 +566,53 @@ nnoremap <silent> da diw"0p
 """ Format Json
 noremap <Leader>jf :%!jq .<CR>
 
-" Jump to the next or previous line that has the same level or a lower
-" level of indentation than the current line.
-"
-" exclusive (bool): true: Motion is exclusive
-" false: Motion is inclusive
-" fwd (bool): true: Go to next line
-" false: Go to previous line
-" lowerlevel (bool): true: Go to line with lower indentation level
-" false: Go to line with the same indentation level
-" skipblanks (bool): true: Skip blank lines
-" false: Don't skip blank lines
-function! NextIndent(exclusive, fwd, lowerlevel, skipblanks)
-  let line = line('.')
-  let column = col('.')
-  let lastline = line('$')
-  let indent = indent(line)
-  let stepvalue = a:fwd ? 1 : -1
-  while (line > 0 && line <= lastline)
-    let line = line + stepvalue
-    if ( ! a:lowerlevel && indent(line) == indent ||
-          \ a:lowerlevel && indent(line) < indent)
-      if (! a:skipblanks || strlen(getline(line)) > 0)
-        if (a:exclusive)
-          let line = line - stepvalue
-        endif
-        exe line
-        exe "normal " column . "|"
-        return
-      endif
-    endif
-  endwhile
-endfunction
 
-" Moving back and forth between lines of same or lower indentation.
-nnoremap <silent> [l :call NextIndent(0, 0, 0, 1)<CR>
-nnoremap <silent> ]l :call NextIndent(0, 1, 0, 1)<CR>
-nnoremap <silent> [L :call NextIndent(0, 0, 1, 1)<CR>
-nnoremap <silent> ]L :call NextIndent(0, 1, 1, 1)<CR>
-vnoremap <silent> [l <Esc>:call NextIndent(0, 0, 0, 1)<CR>m'gv''
-vnoremap <silent> ]l <Esc>:call NextIndent(0, 1, 0, 1)<CR>m'gv''
-vnoremap <silent> [L <Esc>:call NextIndent(0, 0, 1, 1)<CR>m'gv''
-vnoremap <silent> ]L <Esc>:call NextIndent(0, 1, 1, 1)<CR>m'gv''
-onoremap <silent> [l :call NextIndent(0, 0, 0, 1)<CR>
-onoremap <silent> ]l :call NextIndent(0, 1, 0, 1)<CR>
-onoremap <silent> [L :call NextIndent(1, 0, 1, 1)<CR>
-onoremap <silent> ]L :call NextIndent(1, 1, 1, 1)<CR>
-
-func! CurrentFileDir(cmd)
-  return a:cmd . " " . expand("%:p:h") . "/"
-endfunc
-
-
-""""""""""""""""""""""""""""""
-"""" => Extra Filetype
-""""""""""""""""""""""""""""""
-au BufNewFile,BufRead *.md set filetype=markdown
-au BufNewFile,BufRead *.load set filetype=html
-au BufNewFile,BufRead *.css,*.scss,*.sass,*.less setf scss
-au BufNewFile,BufRead *.prisma,*.graphql,*.gql setf graphql
-au BufNewFile,BufRead *.nomad,*.consul,*.toml,*.yaml setf conf
-au BufNewFile,BufRead *.fish set filetype=sh
-au BufNewFile,BufRead *.nse set filetype=lua
-au BufNewFile,BufRead *.elm set filetype=elm
-au BufNewFile,BufRead *.vue set filetype=vue
-au BufNewFile,BufRead *.cr set filetype=crystal
-au BufNewFile,BufRead *.plt,*.gnuplot,*.gnu set filetype=gnuplot
-au BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x "<afile>"
+" Jump to the next or previous line that has the same level or a lower                     
+" level of indentation than the current line.                                              
+" https://vi.stackexchange.com/a/12870/23459                                               
+                                                                                           
+function! GoToNextIndent(inc)                                                              
+    " Get the cursor current position                                                      
+    let currentPos = getpos('.')                                                           
+    let currentLine = currentPos[1]                                                        
+    let matchIndent = 0                                                                    
+                                                                                           
+    " Look for a line with the same indent level whithout going out of the buffer          
+    while !matchIndent && currentLine != line('$') + 1 && currentLine != -1                
+        let currentLine += a:inc                                                           
+        let matchIndent = indent(currentLine) == indent('.')                               
+    endwhile                                                                               
+                                                                                           
+    " If a line is found go to this line                                                   
+    if (matchIndent)                                                                       
+        let currentPos[1] = currentLine                                                    
+        call setpos('.', currentPos)                                                       
+    endif                                                                                  
+endfunction                                                                                
+                                                                                           
+nnoremap <silent> ] :call GoToNextIndent(1)<CR>                                            
+nnoremap <silent> [ :call GoToNextIndent(-1)<CR>                                           
+                                                                                           
+func! CurrentFileDir(cmd)                                                                  
+  return a:cmd . " " . expand("%:p:h") . "/"                                               
+endfunc                                                                                    
+                                                                                           
+                                                                                           
+""""""""""""""""""""""""""""""                                                             
+"""" => Extra Filetype                                                                     
+""""""""""""""""""""""""""""""                                                             
+au BufNewFile,BufRead *.md set filetype=markdown                                           
+au BufNewFile,BufRead *.load set filetype=html                                             
+au BufNewFile,BufRead *.css,*.scss,*.sass,*.less setf scss                                 
+au BufNewFile,BufRead *.prisma,*.graphql,*.gql setf graphql                                
+au BufNewFile,BufRead *.nomad,*.consul,*.toml,*.yaml setf conf                             
+au BufNewFile,BufRead *.fish set filetype=sh                                               
+au BufNewFile,BufRead *.nse set filetype=lua                                               
+au BufNewFile,BufRead *.elm set filetype=elm                                               
+au BufNewFile,BufRead *.vue set filetype=vue                                               
+au BufNewFile,BufRead *.cr set filetype=crystal                                            
+au BufNewFile,BufRead *.plt,*.gnuplot,*.gnu set filetype=gnuplot                           
+au BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x "<afile>"                      
 
 """"""""""""""""""""""""""""""
 """" => Conf Files

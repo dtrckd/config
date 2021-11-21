@@ -204,6 +204,7 @@ drawio # like dia, more powerfull, ergonomic
 blender/panda3D # 3D scene image creation
 tesseract # cli to  convert image to text (with ml/rnn)
 gpick # slect find the colors on the screen
+caca-utils # view image in the terminal as asci-art (img2txt)
 
 # audio/sound
 audacity
