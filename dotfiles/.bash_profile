@@ -61,6 +61,11 @@ if [ -x /usr/bin/dircolors ]; then
     alias tree="tree -C"
 fi
 
+if [ -x /usr/bin/dircolors ]; then
+    alias exa="exa --group-directories-first"
+    alias lt="exa -T"
+fi
+
 alias diff="diff -u"
 alias tree="tree -C"
 alias less='less -S -R'
