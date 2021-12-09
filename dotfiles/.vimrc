@@ -61,7 +61,8 @@ Plugin 'plasticboy/vim-markdown'
 " Misc
 Plugin 'xolox/vim-session'
 Plugin 'itchyny/calendar.vim'
-Plugin 'troydm/zoomwintab.vim'
+"Plugin 'troydm/zoomwintab.vim'
+Plugin 'dhruvasagar/vim-zoom'
 Plugin 'ciaranm/detectindent'
 Plugin 'editorconfig/editorconfig-vim' " Read .editorconfig in project
 "Plugin 'jceb/vim-orgmode'
@@ -322,6 +323,7 @@ let g:ale_fixers = { 'python': ['autopep8' ] }
 let g:ale_python_pylint_options = '--rcfile ~/src/config/configure/linters/.pylintrc'
 let g:ale_python_autopep8_options = '--global-config ~/src/config/configure/linters/.pycodestyle'
 let g:ale_python_autopep8_global = 1
+let g:ale_python_mypy_options = '--ignore-missing-imports'
 
 """ Elm @depends: elm-format
 "let g:elm_format_autosave = 0
@@ -414,6 +416,7 @@ set wildmenu                            " show list instead of just completing
 set hlsearch                            " hilighting resarch matches
 set incsearch                           " Incremental search
 set ignorecase                          " Do case insensitive matching
+set fileignorecase                      " see also wildignorecase
 set smartcase                           " sensitive if capital letter
 set report=0                            " show number of modification if they are
 "set nu                                  " View numbers lines
@@ -512,7 +515,7 @@ nnoremap <S-RIGHT> <C-W>l
 nnoremap à <C-W>w
 nnoremap ù <C-W>W
 """ Window Zoom
-nnoremap <C-W>z :ZoomWinTabToggle<cr>
+nnoremap <C-W>z :call zoom#toggle()<cr>
 """ windows resize
 nnoremap <C-k> <C-W>10+
 nnoremap <C-j> <C-W>10-
@@ -530,6 +533,9 @@ noremap <C-S-RIGHT> :vertical resize +3<cr>
 """ Move between Tab
 nnoremap <C-UP> gT
 nnoremap <C-DOWN> gt
+" @debug: don't work !
+"nnoremap <C-Home-LEFT> :tabn1<cr>
+"nnoremap <C-End-RIGHT> :tabn$<cr>
 """ Move Tab
 nnoremap <C-S-PageUp> :tabm-<cr>
 nnoremap <C-S-PageDown> :tabm+<cr>
@@ -877,8 +883,6 @@ endif
 colo dracula
 "colo one
 
-
-
 """ Custom Colors & Highlights
 
 hi Title ctermfg=39  " affect the number of windows in the tabline and filname in nerdtab
@@ -914,7 +918,7 @@ set statusline+=\ %r
 set statusline+=\ %h
 set statusline+=\ %w
 set statusline+=%=%l/%L:%c\ %05(%p%%%)
-set statusline+=\
+set statusline+=\ %{\zoom#statusline()}
 
 " Column viewer
 "highlight ColorColumn ctermbg=gray
