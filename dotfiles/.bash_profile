@@ -110,7 +110,6 @@ alias nbh="jupyter notebook"
 alias nbb='jupyter notebook --path ~/main/networkofgraphs/process/notebook/ '
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:$(pwd)'
 alias xback='xbacklight'
-#alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias j=jobs
 alias pasteclean="xsel | sed 's/ *$//' | xsel -bi"
@@ -192,6 +191,7 @@ alias ip4="ip -4 -br a"
 alias ip6="ip -6 -br a"
 # App
 alias mongoshell="docker exec -it mongodb mongo"
+alias station="ferdi &"
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}' # see also rg
@@ -352,7 +352,9 @@ alias git_excludf='git update-index --assume-unchanged'
 alias gitcount='echo "$(git rev-list --count master) commits'
 function gitls() {
     branch="$(git rev-parse --abbrev-ref HEAD)"
-    if [ -n "$1" ]; then
+    if [ -z "$1" ]; then
+        branch="HEAD"
+    else
         branch="$1"
     fi
     git ls-tree -r ${branch} --name-only
@@ -461,12 +463,12 @@ function _cd() {
 
   elif [ "$1" == "-p" ]; then
       # list stack
-	dirs | tr ' ' '\n' | grep -v "^\$"
+      dirs | tr ' ' '\n' | grep -v "^\$"
   elif [ "$1" == "-l" ]; then
       # use `_cd -l` to print current stack of folders
-      # remove duplicate consecutive dir
-      dirstack="$(echo $dirstack | tr ' ' '\n' | uniq)"
-      # @debug: unique does not work. We need to delete the history with popd
+      # remove duplicate dir
+      # @debug: no distack in bash
+      #dirstack="$(echo $dirstack | tr ' ' '\n' | awk '!seen[$0]++')"
       bold=$(tput bold)
       normal=$(tput sgr0)
       dirs | tr ' ' '\n' | grep -v "^$" | awk -v normal=$normal -v bold=$bold '{print  "\033[1;32m" NR-1 "\033[0m"  "  " bold $0 normal}' | tac | tail -n 20
@@ -507,8 +509,10 @@ function _cd() {
 
   else
     # basic case: move to a dir and add it to history
-    if [ "$1" != "." ] && [ "$1" != "$PWD" ]; then
+    if [ "$1" != "." ] && [ "$1" != "$PWD" ] && [ -d $1 ]; then
         pushd "$@" > /dev/null
+    else
+        command cd "$@"
     fi
   fi
 
@@ -524,7 +528,7 @@ alias d='cd -l'
 alias cd-='cd -'
 
 PX="${HOME}/main"
-alias cdf="cd $HOME/main/missions/fractal/"
+alias cdf="cd $HOME/main/missions/fractale/"
 alias iu="cd $PX"
 alias ium="cd $HOME/Music/"
 alias iuc="cd $HOME/src/config/"
