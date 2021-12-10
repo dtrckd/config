@@ -1,7 +1,6 @@
 runtime! debian.vim
 let mapleader = ','
 
-
 """"""""""""""""""""""""""""""
 """ Vundle
 """"""""""""""""""""""""""""""
@@ -52,7 +51,6 @@ Plugin 'posva/vim-vue' " syntaxic coloration for Vue.js
 Plugin 'elmcast/elm-vim' " Vim plugin for Elm
 Plugin 'rhysd/vim-crystal' " Vim plugin for Crystal
 Plugin 'jparise/vim-graphql'
-"Plugin 'fatih/vim-go' " use ale and revivre instead
 
 " fix markdown highlight
 Plugin 'godlygeek/tabular'
@@ -60,6 +58,7 @@ Plugin 'plasticboy/vim-markdown'
 
 " Misc
 Plugin 'xolox/vim-session'
+"Plugin romgrk/vim-session  " Community fork, to try
 Plugin 'itchyny/calendar.vim'
 "Plugin 'troydm/zoomwintab.vim'
 Plugin 'dhruvasagar/vim-zoom'
@@ -425,8 +424,8 @@ set cursorline                          " hilight current line - cul
 "set hidden                             " Hide buffers when they are abandoned
 "set mouse=a                            " Enable mouse usage (all modes) in terminals
 "set textwidth=0                         " disable textwith
-"set fo+=1cro fo-=t tw=0 " break comment at tw $size
-set fo+=1ro fo-=tc tw=0 " break comment at tw $size
+set fo+=1ro fo-=tc tw=0   " break comment at tw $size
+"set fo+=1cro fo-=t tw=0  " break comment at tw $size
 "set colorcolumn=-1
 set scrolloff=4                         " visible line at the top or bottom from cursor
 set linebreak                           " don't wrap word
@@ -505,8 +504,8 @@ cnoreabbrev vh vert h
 """ Navigate
 noremap <F4> :tabe %<CR>
 """ Folding
-"noremap zR " Open all folds
-"noremap zM " close all folds
+"noremap zR ? "Open all folds
+"noremap zM ? "close all folds
 """ Window moves
 nnoremap <S-UP>    <C-W>k
 nnoremap <S-DOWN>  <C-W>j
@@ -884,7 +883,6 @@ colo dracula
 "colo one
 
 """ Custom Colors & Highlights
-
 hi Title ctermfg=39  " affect the number of windows in the tabline and filname in nerdtab
 hi Normal ctermbg=233
 hi Comment ctermfg=blue
@@ -926,6 +924,14 @@ nnoremap <silent> <leader>c :execute "set colorcolumn="
       \ . (&colorcolumn == "" ? "80" : "")<CR>
 
 
+" Fix color regression when unzooming with vim-zoom.
+augroup Zoom
+  au!
+
+  autocmd User ZoomPost hi Title ctermfg=39
+  autocmd User ZoomPost hi Normal ctermbg=233
+  autocmd User ZoomPost hi Comment ctermfg=blue
+augroup END
 
 "set background=dark
 noh
