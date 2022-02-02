@@ -21,9 +21,9 @@ if [ "$Target" == "go" ]; then
     VER="$release.$os-$arch"
     sudo mkdir -p "/usr/local/lib/$VER"
     #URL="https://storage.googleapis.com/golang/$VER.tar.gz"
-    URL="https://dl.google.com/go/$VER.tar.gz"
+    URL="https://go.dev/dl/$VER.tar.gz"
     echo "downloading: $URL"
-    curl $URL | sudo tar -vxz --strip-components 1 -C "/usr/local/lib/$VER"
+    curl -sL $URL | sudo tar -vxz --strip-components 1 -C "/usr/local/lib/$VER"
     sudo rm -f /usr/local/bin/go
     sudo rm -f /usr/local/bin/gofmt
     sudo ln -s "/usr/local/lib/$VER/bin/go" /usr/local/bin/go
@@ -67,6 +67,15 @@ if [ "$Target" == "crystal" ]; then
 fi
 if [ "$Target" == "brew" ]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+fi
+if [ "$Target" == "virtualbox" ]; then
+    VERSION="6.1"
+    wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+    echo "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian bullseye contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
+    sudo apt-get update
+    # Dependencies
+    #apt install libssl-dev libxml2-dev libyaml-dev libgmp-dev libreadline-dev libz-dev
+    sudo apt install virtualbox-$VERSION
 fi
 
 source ~/.bashrc
