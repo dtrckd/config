@@ -24,7 +24,6 @@ Plugin 'xolox/vim-easytags'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'gotcha/vimpdb'
-"Plugin 'yhat/vim-docstring'
 "Plugin 'mozilla/doctorjs' " for javascript
 
 " File and code Search
@@ -47,14 +46,19 @@ Plugin 'ycm-core/YouCompleteMe'
 "Plugin 'ervandew/supertab'
 
 " File Format / Extra Language
-Plugin 'posva/vim-vue' " syntaxic coloration for Vue.js
-Plugin 'elmcast/elm-vim' " Vim plugin for Elm
-Plugin 'rhysd/vim-crystal' " Vim plugin for Crystal
+Plugin 'posva/vim-vue' 
+Plugin 'elmcast/elm-vim' 
+Plugin 'rhysd/vim-crystal' 
 Plugin 'jparise/vim-graphql'
 
 " fix markdown highlight
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+
+" Fold and docstring
+"Plugin 'Konfekt/FastFold'
+"Plugin 'tmhedberg/simpylfold'
+"Plugin 'yhat/vim-docstring'
 
 " Misc
 Plugin 'xolox/vim-session'
@@ -101,8 +105,9 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 " Disable popu preview (dont fakin work !)
 "let g:ycm_auto_hover = ""
-"let g:ycm_add_preview_to_completeopt = 0
-"set completeopt-=preview
+" Disable preview window popping up
+" https://github.com/ycm-core/YouCompleteMe/issues/2015
+set completeopt-=preview  "let g:ycm_add_preview_to_completeopt = 0
 "let g:ycm_disable_signature_help=1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif " more general but wont be able to switch/scroll the preview...
 autocmd FileType vim let b:vcm_tab_complete = 'vim'
@@ -135,15 +140,49 @@ endfunction
 
 "noremap <TAB><TAB> :NERDTreeToggle<CR> " Problem with <C-i> that get map and delayed
 nnoremap <C-p> :call NERDTreeToggleFind()<cr>
-noremap <leader>f :NERDTreeFind<cr>
+"noremap <leader>f :NERDTreeFind<cr>
+noremap <leader>f :FZF<cr>
 
 
-""" ACK/AG (use AG!)
-let g:ackprg = 'ag --smart-case'
-cnoreabbrev ag Ack
-cnoreabbrev ack Ack
-"noremap <leader>s :Ack! "<cword>"<cr>
+""" Fuzzy search > fzf, ack, ag, ripgrep familly !
 nnoremap <silent> <Leader>z :Ack <C-R><C-W><CR>
+" ack.vim --- {{{
+
+" Use ripgrep for searching ⚡️
+" Options include:
+" --vimgrep -> Needed to parse the rg response properly for ack.vim
+" --type-not sql -> Avoid huge sql file dumps as it slows down the search
+" --smart-case -> Search case insensitive if all lowercase pattern, Search case sensitively otherwise
+let g:ackprg = 'rg --vimgrep --type-not sql --smart-case'
+"let g:ackprg = 'ag --smart-case'
+" see https://github.com/mileszs/ack.vim/issues/18
+set shellpipe=>
+
+" Auto close the Quickfix list after pressing '<enter>' on a list item
+let g:ack_autoclose = 1
+" Tou can alos use :cclose
+
+" Any empty ack search will search for the work the cursor is on
+let g:ack_use_cword_for_empty_search = 1
+
+" Don't jump to first match
+cnoreabbrev Ack Ack!
+"cnoreabbrev ag Ack
+"cnoreabbrev ack Ack
+
+" Maps <leader>/ so we're ready to type the search keyword
+nnoremap <Leader>/ :Ack!<Space>
+
+" Or the keyword under cursor
+noremap <leader>a :Ack! "<cword>"<cr>
+" }}}
+
+" Navigate quickfix list with ease
+"nnoremap <silent> [q :cprevious<CR>
+"nnoremap <silent> ]q :cnext<CR>
+
+
+
 
 """ Rainbow colors
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
@@ -206,6 +245,8 @@ let g:tagbar_autofocus = 1
 nnoremap tf :TlistShowTag<CR>
 nnoremap tc :TagbarShowTag<CR>
 
+" See available kinds: ctags --list-kinds=<language_name>
+
 " Markdown tagbar
 let g:tagbar_type_markdown = {
     \ 'ctagstype': 'markdown',
@@ -222,26 +263,6 @@ let g:tagbar_type_markdown = {
     \ 'sort': 0,
 \ }
 
-" Makefile tagbar
-let g:tagbar_type_make = { 'kinds':[ 'm:macros', 't:targets' ] }
-
-
-"let g:tagbar_type_javascript = {
-"      \ 'ctagstype': 'javascript',
-"      \ 'kinds': [
-"      \ 'A:arrays',
-"      \ 'P:properties',
-"      \ 'T:tags',
-"      \ 'O:objects',
-"      \ 'G:generator functions',
-"      \ 'F:functions',
-"      \ 'C:constructors/classes',
-"      \ 'M:methods',
-"      "\ 'V:variables',
-"      \ 'I:imports',
-"      \ 'E:exports',
-"      \ 'S:styled components'
-"      \ ]}
 
 " Elm tagbar
 let g:tagbar_type_elm = {
@@ -267,6 +288,30 @@ let g:tagbar_type_scss = {
       \ 'c:class:0:0',
       \ ]
       \}
+
+" Makefile tagbar
+let g:tagbar_type_make = { 'kinds':[ 'm:Macros', 't:Targets' ] }
+
+" Graphql tagbar
+let g:tagbar_type_graphql = { 'kinds':[ 't:Types', 'e:Enums' ] }
+
+
+"let g:tagbar_type_javascript = {
+"      \ 'ctagstype': 'javascript',
+"      \ 'kinds': [
+"      \ 'A:arrays',
+"      \ 'P:properties',
+"      \ 'T:tags',
+"      \ 'O:objects',
+"      \ 'G:generator functions',
+"      \ 'F:functions',
+"      \ 'C:constructors/classes',
+"      \ 'M:methods',
+"      "\ 'V:variables',
+"      \ 'I:imports',
+"      \ 'E:exports',
+"      \ 'S:styled components'
+"      \ ]}
 
 " Git/Fugitive
 set diffopt+=vertical
@@ -343,8 +388,27 @@ nmap <leader>e :ALEToggle<CR>
 nmap <leader>en :ALENext<CR>
 nmap <leader>ep :ALEPrevious<CR>
 
+
+"
+" FastFold and symply fold
+"
+let g:markdown_folding = 1
+let g:tex_fold_enabled = 1
+let g:vimsyn_folding = 'af'
+let g:xml_syntax_folding = 1
+let g:javaScript_fold = 1
+let g:sh_fold_enabled= 7
+let g:ruby_fold = 1
+let g:perl_fold = 1
+let g:perl_fold_blocks = 1
+let g:r_syntax_folding = 1
+let g:rust_fold = 1
+let g:php_folding = 1
+
+
+
 " #######################################
-" #######################################
+" #### PLugion ends
 " #######################################
 
 """""""""""""""""""""""""""
@@ -549,7 +613,7 @@ cnoremap $t tabe %:p:h
 cnoremap $s split %:p:h
 cnoremap $v vs %:p:h
 cnoremap cwd lcd %:p:h  "change current working directory(cwd) to the dir of the currenet file
-noremap <Leader>s :split<cr>
+"noremap <Leader>s :split<cr>
 noremap <Leader>v :vs<cr>
 noremap <Leader>t :tabe %<cr>
 noremap <Leader>r :reg<cr>
@@ -636,12 +700,6 @@ au BufNewFile,BufRead *.py\> nnoremap _ ?<C-R>='__init__('<CR><CR>
 au BufNewFile,BufRead *.pyx nnoremap _ ?<C-R>='__cinit__('<CR><CR>
 au BufNewFile,BufRead *.go nnoremap _ ?<C-R>='func '<CR><CR>
 
-""" Docstrings
-" To toggle the docstrings in the whole buffer you can use zR and zM, to toggle a single docstring,
-" use za (I also mapped <space> to za, so I can toggle it pressing the space bar in normal mode)
-" Note that this code should be only triggered when editing a Python buffer (autocommand python call ...).
-autocmd FileType python setlocal foldenable foldmethod=syntax
-nnoremap <space> za
 
 func! DeleteTrailingWS()
   let l:save = winsaveview()
@@ -649,9 +707,16 @@ func! DeleteTrailingWS()
   call winrestview(l:save)
 endfunc
 
-autocmd BufWrite *.py,*.pyx,*.pyd,*.c,*.cpp,*.h,*.sh,*.txt,*.js,*.html,*.css :call DeleteTrailingWS()
+autocmd BufWrite *.py,*.pyx,*.pyd,*.c,*.cpp,*.h,*.sh,*.txt,*.js,*.html,*.css,*.go,*.graphql :call DeleteTrailingWS()
 " for tab invisible bug (caused by set paste); try :%retab
 
+
+""""""""""""""""""""""""""""""
+"""" => Docstrings
+""""""""""""""""""""""""""""""
+" To toggle the docstrings in the whole buffer you can use zR and zM, to toggle a single docstring, use za .
+au BufNewFile,BufRead *.graphql,*.py setlocal foldenable foldmethod=syntax 
+"nnoBufNewFile,BufReadremap <space> za
 
 """"""""""""""""""""""""""""""
 """" => Latex Files
@@ -837,13 +902,12 @@ com! RedrawTab :call RedrawTab()
 
 fu! MkSession()
     execute 'SaveSession '. Last2Dir()
-
+endfunction
+com! MkSession :call MkSession()
 """ Old
 "bufdo execute 'NERDTreeClose'
 "bufdo execute 'TagbarClose'
 "execute 'mksession! ' . getcwd() . '/.session.vim'
-endfunction
-com! MkSession :call MkSession()
 
 
 
@@ -882,41 +946,45 @@ endif
 colo dracula
 "colo one
 
-""" Custom Colors & Highlights
-hi Title ctermfg=39  " affect the number of windows in the tabline and filname in nerdtab
-hi Normal ctermbg=233
-hi Comment ctermfg=blue
-"hi Comment guifg=DarkGrey ctermfg=brown " like; green, white, brown, cyan(=string)
-hi Search ctermfg=white ctermbg=105 cterm=NONE
-hi SpellBad ctermbg=red cterm=underline
-hi StatusLine ctermfg=white ctermbg=25 cterm=bold
-hi StatusLineNC ctermfg=black ctermbg=242
-hi CursorLine term=underline ctermbg=235
-hi TabLine ctermbg=7 ctermfg=black
-hi TabLineSel ctermfg=blue ctermbg=green
-"hi TabLineSel ctermfg=Blue ctermbg=Green
-"hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
+fu! SetHi()
 
-hi ErrorMsg ctermfg=Red ctermbg=None
+  """ Custom Colors & Highlights
+  hi Title ctermfg=39  " affect the number of windows in the tabline and filname in nerdtab
+  hi Normal ctermbg=233
+  hi Comment ctermfg=blue
+  "hi Comment guifg=DarkGrey ctermfg=brown " like; green, white, brown, cyan(=string)
+  hi Search ctermfg=white ctermbg=105 cterm=NONE
+  hi SpellBad ctermbg=red cterm=underline
+  hi StatusLine ctermfg=white ctermbg=25 cterm=bold
+  hi StatusLineNC ctermfg=black ctermbg=242
+  hi CursorLine term=underline ctermbg=235
+  hi TabLine ctermbg=7 ctermfg=black
+  hi TabLineSel ctermfg=blue ctermbg=green
+  "hi TabLineSel ctermfg=Blue ctermbg=Green
+  "hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
 
-" Gutter
-hi SignColumn ctermbg=235
+  hi ErrorMsg ctermfg=Red ctermbg=None
 
-""" StatusLine
-set shortmess-=S " show number of matches
-hi GitColor ctermbg=172 ctermfg=black
+  " Gutter
+  hi SignColumn ctermbg=235
 
-au BufEnter,BufRead,BufWritePost * call StatuslineGit()
+  """ StatusLine
+  set shortmess-=S " show number of matches
+  hi GitColor ctermbg=172 ctermfg=black
 
-set statusline=""
-set statusline+=%#GitColor#%{g:gitbranch}%*
-set statusline+=\ %<%f\ %{g:gitstatus}
-set statusline+=%m
-set statusline+=\ %r
-set statusline+=\ %h
-set statusline+=\ %w
-set statusline+=%=%l/%L:%c\ %05(%p%%%)
-set statusline+=\ %{\zoom#statusline()}
+  au BufEnter,BufRead,BufWritePost * call StatuslineGit()
+  set statusline=""
+  set statusline+=%#GitColor#%{g:gitbranch}%*
+  set statusline+=\ %<%f\ %{g:gitstatus}
+  set statusline+=%m
+  set statusline+=\ %r
+  set statusline+=\ %h
+  set statusline+=\ %w
+  set statusline+=%=%l/%L:%c\ %05(%p%%%)
+  set statusline+=\ %{\zoom#statusline()}
+endfunction
+
+call SetHi()
 
 " Column viewer
 "highlight ColorColumn ctermbg=gray
@@ -928,9 +996,7 @@ nnoremap <silent> <leader>c :execute "set colorcolumn="
 augroup Zoom
   au!
 
-  autocmd User ZoomPost hi Title ctermfg=39
-  autocmd User ZoomPost hi Normal ctermbg=233
-  autocmd User ZoomPost hi Comment ctermfg=blue
+  autocmd User ZoomPost call SetHi()
 augroup END
 
 "set background=dark

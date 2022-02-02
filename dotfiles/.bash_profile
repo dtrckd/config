@@ -73,6 +73,7 @@ alias df='df -TH'
 #alias du='du -csh'
 alias g="grep"
 alias bcat="batcat"
+alias lsd="lsd -l"
 alias e="exa"
 alias l='ls'
 alias lq='ls'
@@ -144,7 +145,7 @@ function make_graph_python(){
     popd
 }
 
-alias v="vim"
+alias v="vim (fzf --height 40%)"
 alias vls="vim" # use when using with "C-A" and quicly change ls to vls for openin vim
 alias vcd="vim" # use when using with "C-A" and quicly change ls to vls for openin vim
 alias vdiff='vimdiff'
@@ -299,6 +300,7 @@ alias git-ls-tag="git tag -l --sort=-creatordate --format='%(creatordate:short):
 alias gr='gitr'
 alias gb='gitb'
 alias gd='gitd'
+alias gdc='gitd --cached'
 alias gs='gits'
 alias gl="gitl"
 alias ga="git add"
@@ -797,6 +799,9 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$PATH:$HOME/.linuxbrew/bin"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+
+# Poetry
+export PATH="$PATH:$HOME/.poetry/bin"
 
 # Thefuck
 if [ -x "$(which thefuck)" ]; then
