@@ -218,7 +218,7 @@ let g:rainbow_conf = {
 " Don't save hidden and unloaded buffers in sessions.
 set sessionoptions-=buffers
 set sessionoptions-=help " dont want help windows to be restored
-let g:session_autoload = 'yes' " see https://github.com/xolox/vim-session
+let g:session_autoload = 'no' " see https://github.com/xolox/vim-session
 let g:session_autosave = 'no' " save on quit
 let g:session_autosave_periodic = 120 " minutes
 let g:session_autosave_silent = 1 " true
