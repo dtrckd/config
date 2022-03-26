@@ -80,40 +80,44 @@ function qfw_rules {
   # HTTP + HTTPS In
   /sbin/iptables -t filter -A INPUT -p tcp --dport 80 -j ACCEPT
   /sbin/iptables -t filter -A INPUT -p tcp --dport 443 -j ACCEPT
-  # /sbin/iptables -t filter -A INPUT -p tcp --dport 8443 -j ACCEPT
   # /sbin/iptables -t filter -A INPUT -p tcp --dport 8080 -j ACCEPT
   echo "     > Authorize http and https"
 
-  # FTP Out
-  /sbin/iptables -t filter -A OUTPUT -p tcp --dport 21 -j ACCEPT
-  /sbin/iptables -t filter -A OUTPUT -p tcp --dport 20 -j ACCEPT
+  ## FTP Out
+  #/sbin/iptables -t filter -A OUTPUT -p tcp --dport 21 -j ACCEPT
+  #/sbin/iptables -t filter -A OUTPUT -p tcp --dport 20 -j ACCEPT
 
-  # FTP In
-  /sbin/iptables -t filter -A INPUT -p tcp --dport 20 -j ACCEPT
-  /sbin/iptables -t filter -A INPUT -p tcp --dport 21 -j ACCEPT
-  /sbin/iptables -t filter -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-  echo "     > Authorize FTP"
+  ## FTP In
+  #/sbin/iptables -t filter -A INPUT -p tcp --dport 20 -j ACCEPT
+  #/sbin/iptables -t filter -A INPUT -p tcp --dport 21 -j ACCEPT
+  #/sbin/iptables -t filter -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+  #echo "     > Authorize FTP"
 
   # Mail SMTP
-  /sbin/iptables -t filter -A INPUT -p tcp --dport 25 -j ACCEPT
-  /sbin/iptables -t filter -A OUTPUT -p tcp --dport 25 -j ACCEPT
-  /sbin/iptables -t filter -A INPUT -p tcp --dport 587 -j ACCEPT
-  /sbin/iptables -t filter -A OUTPUT -p tcp --dport 587 -j ACCEPT
-  /sbin/iptables -t filter -A INPUT -p tcp --dport 465 -j ACCEPT
-  /sbin/iptables -t filter -A OUTPUT -p tcp --dport 465 -j ACCEPT
+  #/sbin/iptables -t filter -A INPUT -p tcp --dport 25 -j ACCEPT
+  #/sbin/iptables -t filter -A OUTPUT -p tcp --dport 25 -j ACCEPT
+  #/sbin/iptables -t filter -A INPUT -p tcp --dport 587 -j ACCEPT
+  #/sbin/iptables -t filter -A OUTPUT -p tcp --dport 587 -j ACCEPT
+  #/sbin/iptables -t filter -A INPUT -p tcp --dport 465 -j ACCEPT
+  #/sbin/iptables -t filter -A OUTPUT -p tcp --dport 465 -j ACCEPT
 
-  # Mail POP3:110
-  /sbin/iptables -t filter -A INPUT -p tcp --dport 110 -j ACCEPT
-  /sbin/iptables -t filter -A OUTPUT -p tcp --dport 110 -j ACCEPT
+  ## Mail POP3:110
+  #/sbin/iptables -t filter -A INPUT -p tcp --dport 110 -j ACCEPT
+  #/sbin/iptables -t filter -A OUTPUT -p tcp --dport 110 -j ACCEPT
 
-  # Mail IMAP:143
-  /sbin/iptables -t filter -A INPUT -p tcp --dport 143 -j ACCEPT
-  /sbin/iptables -t filter -A OUTPUT -p tcp --dport 143 -j ACCEPT
+  ## Mail IMAP:143
+  #/sbin/iptables -t filter -A INPUT -p tcp --dport 143 -j ACCEPT
+  #/sbin/iptables -t filter -A OUTPUT -p tcp --dport 143 -j ACCEPT
 
-  # Mail POP3S:995
-  /sbin/iptables -t filter -A INPUT -p tcp --dport 995 -j ACCEPT
-  /sbin/iptables -t filter -A OUTPUT -p tcp --dport 995 -j ACCEPT
-  echo "     > Authorize mail"
+  ## Mail POP3S:995
+  #/sbin/iptables -t filter -A INPUT -p tcp --dport 995 -j ACCEPT
+  #/sbin/iptables -t filter -A OUTPUT -p tcp --dport 995 -j ACCEPT
+  #echo "     > Authorize mail"
+
+  # Node exporter
+  #/sbin/iptables -t filter -A INPUT -p tcp --dport 9100 -j ACCEPT
+  #/sbin/iptables -t filter -A OUTPUT -p tcp --dport 9100 -j ACCEPT
+  #echo "     > Authorize Node exporter"
 
   # OpenVZ Web Pannel
   # /sbin/iptables -t filter -A OUTPUT -p tcp --dport 3000 -j ACCEPT
