@@ -7,6 +7,3 @@ language-graphql@1.0.0
 markdown-preview-enhanced@0.18.5
 minimap@4.39.1
 minimap-lens@0.8.1
-open-terminal-here@2.3.2
-project-plus@1.0.0
-terminal-panel-uoa@0.5.12
