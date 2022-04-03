@@ -214,7 +214,7 @@ backup_wekan:
 	cd -
 
 backup_firefox:
-	find ${HOME}/.mozilla/firefox/snctzemu.default-esr -name logins.json -o -name key[34].db -o search.json* | xargs -I{} rsync --progress -R {} ./app/home/firefox
+	find ${HOME}/.mozilla/firefox/snctzemu.default-esr -name "logins.json" -o -name "key[34].db" -o -name "search.json*" | xargs -I{} rsync --progress -R {} ./app/home/firefox
 
 backup_thunderbird:
 	#... | sed "s~$HOME/~~g" | ...
@@ -223,7 +223,7 @@ backup_thunderbird:
 	# copy the profile folder to new folder (new machine for exemple)
 	# then do
 	# 	thunderbird -profilemanager
-	# Create a new profile by selecting the copyed one...its done !
+	# Create a new profile by selecting the copied one...its done !
 	# http://kb.mozillazine.org/Moving_your_profile_folder_-_Thunderbird#Use_the_Profile_Manager_to_move_your_profile
 
 	gpg --armor --export > app/home/some_data/pgp-public-keys.asc
