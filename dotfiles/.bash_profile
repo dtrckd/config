@@ -629,7 +629,6 @@ function pdfcompress {
 #alias unmute='amixer set Master unmute'
 #alias mute_toggle='amixer set Master toggle'
 alias x='xmms2'
-alias xinfo='xmms2 info'
 alias xl='xmms2 list'
 alias xls='xmms2 list | command grep --color -C 15 "\->"'
 #xls () {
@@ -652,7 +651,6 @@ alias xss='xmms2 status'
 alias xrpone='xmms2 server config playlist.repeat_one 1'
 alias xrpall='xmms2 server config playlist.repeat_all 1'
 alias xrpclr='xmms2 server config playlist.repeat_one  0; xmms2 server config playlist.repeat_all 0'
-alias xadd='xmms2 add .'
 alias xcd='cd "$(xmms2 info | command grep file:// |cut -d: -f2  |xargs -0 dirname |python3 -c "import sys,urllib.parse;sys.stdout.write(urllib.parse.unquote_plus(sys.stdin.read()))")"'
 alias xll='ls "$(xmms2 info | command grep file:// |cut -d: -f2  |xargs -0 dirname |python3 -c "import sys,urllib.parse;sys.stdout.write(urllib.parse.unquote_plus(sys.stdin.read()))")"'
 xshuff () {
