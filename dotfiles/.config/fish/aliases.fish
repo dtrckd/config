@@ -22,6 +22,7 @@ alias df="df -Th"
 #alias du="du -sch"
 alias g="grep"
 alias bcat="batcat"
+alias lsd="lsd -l"
 alias e="exa"
 alias ls="ls --group-directories-first -p --color=always"
 alias l='ls'
@@ -42,6 +43,8 @@ function lla
         popd
     end
 end
+alias exa="exa --group-directories-first"
+alias lt="exa -T"
 
 ### Utility commands
 alias fuk="fuck"
@@ -61,7 +64,7 @@ alias ppath_python='export PYTHONPATH=$PYTHONPATH:(pwd)'
 alias xback='xbacklight'
 alias octave='octave --silent'
 alias mongoshell="docker exec -it mongodb mongo"
-#alias bb="[ -f tmux.sh ] && ./tmux.sh || tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
+alias station="ferdi &"
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias j=jobs
 alias pasteclean="xsel | sed 's/ *\$//' | xsel -bi"
@@ -72,7 +75,7 @@ alias mvspace="rename 's/ /_/g'"
 alias torb="sh -c \"$HOME/src/config/app/tor-browser_en-US/Browser/start-tor-browser\" --detach"
 function pdf; atril $argv[1] 2>/dev/null &; end # evince
 function pdfo; okular $argv[1] 2>/dev/null &; end
-alias v="vim"
+alias v="vim (fzf --height 40%)"
 alias vls="vim" # use when using with "C-A" and quicly change ls to vls for openin vim
 alias vcd="vim" # use when using with "C-A" and quicly change cd to vcd for openin vim
 alias vdiff='vimdiff'
@@ -108,6 +111,7 @@ function ffdelete; find -name "$argv[1]" -delete ; end # exact match
 alias jerr='journalctl -p err -b'
 alias curlH='curl -I'
 alias myip='curl https://tools.aquilenet.fr/ip/ && echo'
+function clipboard; cat $argv[1] |tr -d " \n" | xclip -selection clipboard; end
 alias netl='netstat -plant'
 alias netp='netstat -plant | grep -i stab | awk -F/ "{print \$argv[2] \$argv[3]}" | sort | uniq'
 alias fetch_debian='wget https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-xfce-CD-1.iso'
@@ -181,6 +185,7 @@ alias git-ls-tag="git tag -l --sort=-creatordate --format='%(creatordate:short):
 alias gr='gitr'
 alias gb='gitb'
 alias gd='gitd'
+alias gdc='gitd --cached'
 alias gs='gits'
 alias gl="gitl"
 alias ga="git add"
@@ -255,6 +260,8 @@ end
 function gitls
     set branch (git rev-parse --abbrev-ref HEAD)
     if [ -n $argv[1] ]
+        set branch HEAD
+    else
         set branch $argv[1]
     end
     git ls-tree -r $branch --name-only
@@ -390,8 +397,8 @@ function _cd
         dirs | tr ' ' '\n' | grep -v "^\$"
     else if [ "$argv[1]" = "-l" ]
         # use `_cd -l` to print current stack of folders
-        # remove duplicate consecutive dir
-        set dirstack (echo $dirstack | tr ' ' '\n' | uniq)
+        # remove duplicate dir
+        set dirstack (echo $dirstack | tr ' ' '\n' | awk '!seen[$0]++')
         set bold (tput bold)
         set normal (tput sgr0)
         dirs | tr ' ' '\n' | grep -v "^\$" | awk -v normal=$normal -v bold=$bold '{print  "\033[1;32m" NR-1 "\033[0m"  "  " bold $0 normal}' | tac | tail -n 20
@@ -426,8 +433,10 @@ function _cd
         pushd -- "$argv[2]" > /dev/null;
     else
         # basic case: move to a dir and add it to history
-        if [ $argv[1] != '.' -a $argv[1] != $PWD ]
+        if [ $argv[1] != '.' -a $argv[1] != $PWD -a -d $argv[1] ]
             pushd "$argv" > /dev/null;
+        else
+            builtin cd "$argv"
         end
 
     end
@@ -444,7 +453,7 @@ alias d="cd -l"
 alias cd-="cd -"
 
 set PX "$HOME/main"
-alias cdf="cd $HOME/main/missions/fractal/"
+alias cdf="cd $HOME/main/missions/fractale/"
 alias iu="cd $PX"
 alias ium="cd $HOME/Music/"
 alias iuc="cd $HOME/src/config/"
@@ -528,7 +537,6 @@ end
 
 
 alias x='xmms2'
-alias xinfo='xmms2 info'
 alias xl='xmms2 list'
 alias xls='xmms2 list | command grep --color -C 15 "\->"'
 alias xrm='xmms2 remove (xmms2 list | grep --color=never "\->"| grep --color=never -o "\[.*/" | grep -wo "[0-9]*") && xmms2 next'
@@ -544,7 +552,6 @@ alias xss='xmms2 status'
 alias xrpone='xmms2 server config playlist.repeat_one 1'
 alias xrpall='xmms2 server config playlist.repeat_all 1'
 alias xrpclr='xmms2 server config playlist.repeat_one  0; xmms2 server config playlist.repeat_all 0'
-alias xadd='xmms2 add .'
 alias xcd='cd (xmms2 info | grep file:// |cut -d: -f2  |xargs -0 dirname |python3 -c "import sys,urllib.parse;sys.stdout.write(urllib.parse.unquote_plus(sys.stdin.read()))")'
 alias xll='ls (xmms2 info | grep file:// |cut -d: -f2  |xargs -0 dirname |python3 -c "import sys,urllib.parse;sys.stdout.write(urllib.parse.unquote_plus(sys.stdin.read()))")'
 function xshuff
