@@ -1,9 +1,0 @@
-[Unit]
-Description=XMMS2 Service
-#After=NetworkManager.service
-
-[Service]
-ExecStart=/bin/bash -c "sleep 3; /usr/bin/xmms2d --conf=/home/dtrckd/.config/xmms2/xmms2.conf"
-
-[Install]
-WantedBy=multi-user.target
