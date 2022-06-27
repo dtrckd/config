@@ -154,8 +154,7 @@ nnoremap <silent> <Leader>z :Ack <C-R><C-W><CR>
 " --type-not sql -> Avoid huge sql file dumps as it slows down the search
 " --smart-case -> Search case insensitive if all lowercase pattern, Search case sensitively otherwise
 let g:ackprg = 'rg --vimgrep --type-not sql --smart-case'
-"let g:ackprg = 'ag --smart-case'
-" see https://github.com/mileszs/ack.vim/issues/18
+" Fix ack output leaks to the terminal https://github.com/mileszs/ack.vim/issues/18
 set shellpipe=>
 
 " Auto close the Quickfix list after pressing '<enter>' on a list item
@@ -744,13 +743,13 @@ au BufNewFile,BufRead  *.html,*.css set tabstop=2 softtabstop=2 shiftwidth=2 now
 au Filetype html :call TextEnableCodeSnip('python', '{{#py', '}}', 'SpecialComment')
 au Filetype html :call TextEnableCodeSnip('python', '<script>', '</script>', 'SpecialComment')
 
-" Comment / filtetype named doesnt work!
-au BufNewFile,BufRead *.html  noremap # :s/\([^ ].*\)$/<!--\1-->/<CR>:noh<CR>
-au BufNewFile,BufRead *.html  noremap ~ :s/<!--\(.*\)-->/\1/<CR>:noh<CR>
-au BufNewFile,BufRead *.css   noremap # :s/\([^ ].*\)$/\/\*\1\*\//<CR>:noh<CR>
-au BufNewFile,BufRead *.css   noremap ~ :s/\/\*\(.*\)\*\//\1/<CR>:noh<CR>
-au BufNewFile,BufRead *.js    noremap # :s/\([^ ].*\)$/\/\*\1\*\//<CR>:noh<CR>
-au BufNewFile,BufRead *.js    noremap ~ :s/\/\*\(.*\)\*\//\1/<CR>:noh<CR>
+" Special Comment shortcut
+au BufNewFile,BufRead *.html  noremap ## :s/\([^ ].*\)$/<!--\1-->/<CR>:noh<CR>
+au BufNewFile,BufRead *.html  noremap ~~ :s/<!--\(.*\)-->/\1/<CR>:noh<CR>
+au BufNewFile,BufRead *.css   noremap ## :s/\([^ ].*\)$/\/\*\1\*\//<CR>:noh<CR>
+au BufNewFile,BufRead *.css   noremap ~~ :s/\/\*\(.*\)\*\//\1/<CR>:noh<CR>
+au BufNewFile,BufRead *.js    noremap ## :s/\([^ ].*\)$/\/\*\1\*\//<CR>:noh<CR>
+au BufNewFile,BufRead *.js    noremap ~~ :s/\/\*\(.*\)\*\//\1/<CR>:noh<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ => Spell checking
