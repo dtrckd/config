@@ -28,7 +28,7 @@
 function qfw_rules {
   # Block everything
   /sbin/iptables -t filter -P INPUT DROP
-  /sbin/iptables -t filter -P FORWARD DROP
+  #/sbin/iptables -t filter -P FORWARD DROP
   /sbin/iptables -t filter -P OUTPUT DROP
   echo "     > Block everything"
 
