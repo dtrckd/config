@@ -42,14 +42,14 @@ grep -q  $(cat /etc/hostname) /etc/hosts || echo "127.0.0.1 $(cat  /etc/hostname
 cat > /etc/cron.weekly/aptupgrade <<END
 #!/bin/sh
 apt-get update
-apt-getp upgrade -y >> /var/log/aptupgrade
+apt-get upgrade -y >> /var/log/aptupgrade
 apt-get autoclean -y
 apt-get clean -y
 
 systemctl reload nginx
 END
 
-if [ "$INSTALL_USER" == 1 ]; then
+if [ "$INSTALL_NGINX" == 1 ]; then
     ##################################
     ###### Install Server | nginx/certbot/security ######
     ##################################
