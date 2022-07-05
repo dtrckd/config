@@ -9,7 +9,7 @@
 Target="$1"
 
 if [ -z "$Target" ]; then
-    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell) | manta | protonmail | slack"
+    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell) | manta | proton | slack"
     exit
 fi
 
@@ -108,10 +108,17 @@ if [ "$Target" == "manta" ]; then
     wget https://github.com/hql287/Manta/releases/download/v1.1.4/Manta-1.1.4-x86_64.AppImage -O ~/Downloads/Manta.AppImage
     ~/Download/https://github.com/hql287/Manta/releases/download/v1.1.4/Manta.AppImage
 fi
-if [ "$Target" == "protonmail" ]; then
+if [ "$Target" == "proton" ]; then
+    # Bridge
     wget https://protonmail.com/download/protonmail-bridge_1.5.7-1_amd64.deb
     sudo dpkg -i protonmail-bridge_1.5.7-1_amd64.deb
     rm protonmail-bridge_1.5.7-1_amd64.deb
+    # VPN
+    wget https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
+    sudo dpkg -i protonvpn-stable-release_1.0.1-1_all.deb
+    sudo apt-get update
+    rm protonvpn-stable-release_1.0.1-1_all.deb
+    sudo apt-get install protonvpn-cli
 fi
 if [ "$Target" == "slack" ]; then
     wget https://downloads.slack-edge.com/linux_releases/slack-desktop-4.0.2-amd64.deb && \
