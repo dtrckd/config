@@ -73,6 +73,7 @@ alias df='df -TH'
 #alias du='du -csh'
 alias g="grep"
 alias bcat="batcat"
+alias mdcat="mdcat -p"
 alias lsd="lsd -l"
 alias e="exa"
 alias l='ls'
@@ -222,6 +223,8 @@ alias ls-failed-unit='systemctl --state failed' # systemctl --failed
 alias ls-ssd='lsblk  -d -o name,rota'
 alias ls-marked="apt-mark showhold"
 alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
+### Dev
+alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Update}}{{.}}{{end}}{{end}}' all"
 
 ### VIM
 #alias vim='vim.nox'
