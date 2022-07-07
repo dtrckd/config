@@ -22,6 +22,7 @@ alias df="df -Th"
 #alias du="du -sch"
 alias g="grep"
 alias bcat="batcat"
+alias mdcat="mdcat -p"
 alias lsd="lsd -l"
 alias e="exa"
 alias ls="ls --group-directories-first -p --color=always"
@@ -137,6 +138,7 @@ alias ls-failed-unit='sys --state failed' # systemctl --failed
 alias ls-ssd='lsblk  -d -o name,rota'
 alias ls-marked="apt-mark showhold"
 alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
+alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Update}}{{.}}{{end}}{{end}}' all"
 
 function vims
     set SessionID (basename (dirname $PWD))-(basename $PWD)
