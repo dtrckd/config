@@ -26,15 +26,8 @@ dotfiles/.muttrc
 etc/wpa_supplicant/**
 configure/snapshots/**
 credentials/*
-
-# Project
-webmain
-webmain/
-mixtures/
-mixtures
-mixtures/
+# --
 app/
-
 
 # Security
 
