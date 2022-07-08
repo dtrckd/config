@@ -159,6 +159,7 @@ alias vif="vim ~/.config/fish/aliases.fish"
 alias vimrc="vim ~/.vimrc"
 alias vimtmux="vim ~/.tmux.conf"
 alias vig="vim ~/.gitconfig"
+alias vign="vim .gitignore"
 
 _PWD="/home/ama/adulac/main/networkofgraphs/process/repo/ml/"
 _NDL="$HOME/src/config/configure/nodeslist"
