@@ -89,6 +89,7 @@ alias vif="vim ~/.config/fish/aliases.fish"
 alias vimrc="vim ~/.vimrc"
 alias vimtmux="vim ~/.tmux.conf"
 alias vig="vim ~/.gitconfig"
+alias vign="vim .gitignore"
 
 alias vi='vim'
 alias ci='vim'
