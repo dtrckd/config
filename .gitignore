@@ -10,25 +10,22 @@ tags
 *.byobu
 
 # tmp
-dotfiles/.config/xmms2/bindata/*
+/dotfiles/.config/xmms2/bindata/
 
 # Private
-.free
-.coin
-addr
+/.free
+/.coin
+/addr
 # --
-dotfiles/.ssh/*
-dotfiles/.gethubconfig
-dotfiles/.bash_aliases
-dotfiles/.mutt
-dotfiles/.muttrc
+/dotfiles/.ssh/
+/dotfiles/.gethubconfig
+/dotfiles/.bash_aliases
+/dotfiles/.mutt
+/dotfiles/.muttrc
 # --
-etc/wpa_supplicant/**
-configure/snapshots/**
-credentials/*
+/etc/wpa_supplicant/
+/configure/snapshots/
+/credentials/
 # --
-app/
+/app/
 
-# Security
-
-!*/
