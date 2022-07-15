@@ -578,6 +578,7 @@ nnoremap à <C-W>w
 nnoremap ù <C-W>W
 """ Window Zoom
 nnoremap <C-W>z :call zoom#toggle()<cr>
+nnoremap <C-W>o :call zoom#toggle()<cr>
 """ windows resize
 nnoremap <C-k> <C-W>10+
 nnoremap <C-j> <C-W>10-

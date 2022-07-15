@@ -111,9 +111,14 @@ function ff; find -iname "$argv[1]" ; end # exact match
 function fdelete; find -name "*$argv[1]*" -delete; end # fuzzy match
 function ffdelete; find -name "$argv[1]" -delete ; end # exact match
 alias jerr='journalctl -p err -b'
+function clipboard; cat $argv[1] |tr -d " \n" | xclip -selection clipboard; end
 alias curlH='curl -I'
 alias myip='curl https://tools.aquilenet.fr/ip/ && echo'
-function clipboard; cat $argv[1] |tr -d " \n" | xclip -selection clipboard; end
+alias vpn_aqui='sudo openvpn /etc/openvpn/aqn.conf'                                      
+alias pvpn="protonvpn-cli"
+alias nmapw='nmap -sT -P0 -sV -p80,443 --script=http-headers'
+alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
+alias ntop="/home/dtrckd/.linuxbrew/bin/bandwhich" 
 alias netl='netstat -plant'
 alias netp='netstat -plant | grep -i stab | awk -F/ "{print \$argv[2] \$argv[3]}" | sort | uniq'
 alias fetch_debian='wget https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-xfce-CD-1.iso'
@@ -485,7 +490,7 @@ alias iuw="cd $PX/webmain/"
 alias iumd="cd $PX/webmain/mixtures/md"
 alias iuscrapy="cd $HOME/.local/lib/python3.7/site-packages/scrapy/"
 alias cdoc="cd $PX/doc"
-alias iud="cd $PX/PlanD/"
+alias iud="cd $PX/planD/"
 alias cdpapers="cd $PX/networkofgraphs/papers"
 alias cdwww="cd $PX/perso/Projects/Informatique/Reseau/www"
 alias cdsys="cd $PX/perso/Projects/Informatique/System"
@@ -497,7 +502,6 @@ alias xrandr_setup="xrandr --output HDMI-2 --left-of eDP-1"
 function cdlk;  cd (dirname (readlink $argv[1])); end
 function grepurl; sed -e  's/.*[hH][rR][eE][fF]=['\"''\'']\([^'\"''\'']*\)['\"''\''].*/\1/' $argv[1]; end
 alias mean="awk '{s+=$argv}END{print \"ave:\",s/NR}' RS=\" \""
-alias ntop="/home/dtrckd/.linuxbrew/bin/bandwhich" 
 
 alias amatop='elinks http://zombie-dust.imag.fr:8000/'
 #alias amatop='w3m http://zombie-dust.imag.fr:8000/'
