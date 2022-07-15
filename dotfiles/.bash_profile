@@ -356,7 +356,8 @@ function gi_clean_remote_identity() {
 alias gitfilelog="git log --pretty=oneline -u dotfiles/.vimrc"
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
-alias gitcount='echo "$(git rev-list --count master) commits'
+alias gitcount_line='git diff --shortstat (git hash-object -t tree /dev/null)'
+alias gitcount_commits='echo "$(git rev-list --count master) commits'
 function gitls() {
     branch="$(git rev-parse --abbrev-ref HEAD)"
     if [ -z "$1" ]; then

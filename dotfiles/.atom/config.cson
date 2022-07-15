@@ -8,6 +8,7 @@
       ".swp"
       "node_modules"
       "vendor"
+      "elm-stuff"
     ]
     telemetryConsent: "no"
     themes: [
@@ -49,6 +50,7 @@
     ]
   "tree-view":
     hideIgnoredNames: true
+    hideVcsIgnoredFiles: true
   welcome:
     showOnStartup: false
 ".python.source":
