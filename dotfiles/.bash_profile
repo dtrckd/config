@@ -174,15 +174,16 @@ alias f="fzf"
 ff () { find -iname "*$1*"; } # exact match
 fff () { find -iname "$1"; } # exact match
 alias jerr='journalctl -p err -b'
-### Net
+clipboard() { cat $0 |tr -d " \n" | xclip -selection clipboard; }
+### Network
 alias curlH='curl -I'
 #alias myip='nmap -sC -p80 -n -Pn --script=http-title www.showmemyip.com | grep -i "my IP" | cut -d: -f3 | tr -d " \n" |  xclip -selection clipboard && xclip -o -selection clipboard && echo'
-clipboard() { cat $0 |tr -d " \n" | xclip -selection clipboard; }
 alias myip='curl https://tools.aquilenet.fr/ip/ && echo' # Or: ip.appspot.com'
                                       # curl https://tools.aquilenet.fr/ip/
                                       # curl ifconfig.io
                                       # curl ifconfig.me
 alias vpn_aqui='sudo openvpn /etc/openvpn/aqn.conf'                                      
+alias pvpn="protonvpn-cli"
 alias nmapw='nmap -sT -P0 -sV -p80,443 --script=http-headers'
 alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
 alias ntop="/home/dtrckd/.linuxbrew/bin/bandwhich"
@@ -564,7 +565,7 @@ alias iumd="cd $PX/webmain/mixtures/md"
 alias iumm="cd $HOME/src/config/app/mm/ && set +o history && unset HISTFILE"
 alias iuscrapy="cd $HOME/.local/lib/python3.7/site-packages/scrapy/"
 alias cdoc="cd $PX/doc"
-alias iud="cd $PX/PlanD/"
+alias iud="cd $PX/mlanD/"
 alias cdpapers="cd $PX/networkofgraphs/papers"
 alias cdwww="cd $PX/perso/Projects/Informatique/Reseau/www"
 alias cdsys="cd $PX/perso/Projects/Informatique/System"
