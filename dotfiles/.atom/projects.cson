@@ -1,15 +1,20 @@
-"fractal-spec":
+"fractale-spec":
   title: "fractal-spec"
   paths: [
     "/home/dtrckd/main/networkofgraphs/missions/fractal"
   ]
-"fractal-schema":
+"fractale-schema":
   title: "fractal-schema"
   paths: [
-    "/home/dtrckd/Desktop/main/networkofgraphs/missions/fractal/fractal6/schema"
+    "/home/dtrckd/main/missions/fractale/fractalschema"
   ]
-"fractal-elm":
-  title: "fractal-elm"
+"fractale-ui-elm":
+  title: "fractal-ui-elm"
   paths: [
-    "/home/dtrckd/Desktop/main/networkofgraphs/missions/fractal/fractal6/fractal6-ui.elm"
+    "/home/dtrckd/main/missions/fractale/fractal6/fractal6-ui.elm"
+  ]
+"fractale-go":
+  title: "fractale-go"
+  paths: [
+    "/home/dtrckd/main/missions/fractale/fractal6/fractal6.go"
   ]
