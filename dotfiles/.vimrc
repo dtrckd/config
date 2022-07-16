@@ -498,8 +498,9 @@ set whichwrap=<,>,[,]                   " enable line return with pad
 "set ff=unix                            " remove ^M
 "set termencoding=UTF-8
 set encoding=utf-8
-" Don't use Ex mode, use Q for formatting
-"nnoremap Q gq
+" Fix for: syntax highlighting breaks for big file after jump or search 
+" https://github.com/vim/vim/issues/2790
+syntax sync minlines=3000
 """ Last position
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif

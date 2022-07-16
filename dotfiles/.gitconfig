@@ -13,8 +13,7 @@
 	rebase = true
 [core]
 	excludesfile = /home/dtrckd/.gitignore
-    #pager = delta --dark --plus-style=syntax 17 --minus-style=normal 53 --hunk-header-style=3 --syntax-theme="TwoDark" --file-style=226
-    pager = delta --dark  --syntax-theme="Dracula" --file-style=226  
+    pager = delta --dark --syntax-theme="Dracula" --file-style='bold 201' --plus-style='syntax 17'
 [delta]
     side-by-side = true
 [init]
