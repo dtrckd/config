@@ -79,9 +79,7 @@ function pdfo; okular $argv[1] 2>/dev/null &; end
 alias v="vim (fzf --height 40%)"
 alias vls="vim" # use when using with "C-A" and quicly change ls to vls for openin vim
 alias vcd="vim" # use when using with "C-A" and quicly change cd to vcd for openin vim
-alias vdiff='vimdiff'
-alias vidiff='vimdiff'
-alias vid='vimdiff'
+alias vd='vimdiff'
 alias vip='vim -p'
 alias vis='vim -S'  
 alias vib="vim ~/.bash_profile"
@@ -93,6 +91,7 @@ alias vign="vim .gitignore"
 
 alias vi='vim'
 alias ci='vim'
+alias bi='vim'
 alias vcal='vim -c "Calendar -view=month"' # get calendar
 alias vitodo='vim -p (find -iname todo -type f)'
 
@@ -180,7 +179,7 @@ end
 alias gitupdate='git remote update'
 alias gitg='/bin/gitg --all 1>/dev/null &'
 alias gitk='/bin/gitk &'
-alias gitb='git branch -av'
+alias gitb='git branch -v'
 alias gits='git status -sb'
 alias gitr='git remote -v'
 alias gitd='git diff'
@@ -201,6 +200,7 @@ alias gll="gitll"
 alias glt="gitlt"
 alias gi="git bug"
 alias gil="git bug ls -s open"
+alias gilc="git bug ls -s closed"
 alias gilb="git bug ls-label"
 alias gilid="git bug ls-id"
 alias gir="gi bridge auth"

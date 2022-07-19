@@ -132,8 +132,8 @@ _vim:
 # Backup
 # ================================
 
-backup: backup_dot backbin backapp calendar #snapshot
-backapp: backup_atom backup_wekan backup_firefox backup_thunderbird
+backup: backbin snapshot calendar backup_dot #backapp 
+backapp: backup_wekan backup_firefox backup_thunderbird
 
 backbin:
 	# Create bin.txt
@@ -146,14 +146,16 @@ snapshot:
 	pip freeze > configure/snapshots/pip
 	snap list > configure/snapshots/snap
 	npm list -g --depth 0 > configure/snapshots/npm
+	brew list > configure/snapshots/brew
 
 calendar:
-	echo "Backup calendar..."
-	cd ~/.cache/calendar.vim && \
-		git add * && \
-		git commit -am "backup" && \
-		git push && \
-		cd -
+	# Deprecated (we use thunderbiar calendar)
+	#echo "Backup calendar..."
+	#cd ~/.cache/calendar.vim && \
+	#	git add * && \
+	#	git commit -am "backup" && \
+	#	git push && \
+	#	cd -
 
 #
 # Extra setup
@@ -164,18 +166,19 @@ backup_dot:
 	@cp -v ~/.vimrc dotfiles/
 	@cp -v ~/.tmux.conf dotfiles/
 	@cp -v ~/.config/fish/aliases.fish dotfiles/.config/fish/
-	@echo "TODO: check backup for: "\
-		"~/.config/htop/"\
-		"~/.config/mc/"\
-		"~/.config/user-dirs.dirs"\
-		"~/.config/xmms2/"\
-		"~/.config/xfce4/"
+	@cp -v	~/.config/user-dirs.dirs
 
-backup_atom:
+	# Backup Atom file and package
 	@cp -v ~/.atom/config.cson dotfiles/.atom
 	@cp -v ~/.atom/keymap.cson dotfiles/.atom
 	@cp -v ~/.atom/projects.cson dotfiles/.atom
-	apm-beta list --installed --bare > dotfiles/.atom/package-list.txt
+	apm list --installed --bare > dotfiles/.atom/package-list.txt
+
+	@echo "TODO: check backup for: "\
+		"~/.config/htop/"\
+		"~/.config/mc/"\
+		"~/.config/xmms2/"\
+		"~/.config/xfce4/"
 
 backup_wekan:
 	cd $(HOME)/main/conf/wekan
