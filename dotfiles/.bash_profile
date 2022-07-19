@@ -232,6 +232,7 @@ alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Upd
 #alias vim='vim.nox'
 alias vi='vim'
 alias ci='vim'
+alias bi='vim'
 alias vcal='vim -c "Calendar -view=month"' # get calendar
 #alias vcal='vim -c Calendar -c on' # Matsumoto calendar
 #alias vcal='vim -c "Calendar -view=year" -c tabe -c "Calendar -view=month"' # get calendar
@@ -289,7 +290,7 @@ restore_pulseaudio() {
 alias gitupdate='git remote update'
 alias gitg='gitg --all 1>/dev/null &'
 alias gitk='gitk &'
-alias gitb='git branch -av'
+alias gitb='git branch -v'
 alias gits='git status -sb'
 alias gitr='git remote -v'
 alias gitd='git diff'
@@ -313,6 +314,7 @@ alias gll="gitll"
 alias glt="gitlt"
 alias gi="git bug"
 alias gil="git bug ls -s open"
+alias gilc="git bug ls -s closed"
 alias gilb="git bug ls-label"
 alias gilid="git bug ls-id"
 alias gir="gi bridge auth"
