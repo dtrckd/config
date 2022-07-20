@@ -149,9 +149,7 @@ function make_graph_python(){
 alias v="vim (fzf --height 40%)"
 alias vls="vim" # use when using with "C-A" and quicly change ls to vls for openin vim
 alias vcd="vim" # use when using with "C-A" and quicly change ls to vls for openin vim
-alias vdiff='vimdiff'
-alias vidiff='vimdiff'
-alias vid='vimdiff'
+alias vd='vimdiff'
 alias vip='vim -p'
 alias vis='vim -S'
 alias vib="vim ~/.bash_profile"
