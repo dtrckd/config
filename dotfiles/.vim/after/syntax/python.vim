@@ -31,7 +31,7 @@ function! DocstringFold()
     let indent_len = indent(v:foldstart)
     let folded_lines = v:foldend-v:foldstart
     let indent = repeat(' ', indent_len)
-    let prefix = '""" '
+    let prefix = first_line
     let end_filler = ' (+'. folded_lines . ')  '
     let offset = 4
     let max_len = winwidth(0) - (indent_len + len(prefix) + len(end_filler) + offset)
