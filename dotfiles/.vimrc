@@ -76,11 +76,12 @@ Plugin 'editorconfig/editorconfig-vim' " Read .editorconfig in project
 "msanders/snipmate.vim  # tons of snippet
 
 " Theme
-Plugin 'darkburn'
 Plugin 'uguu-org/vim-matrix-screensaver'
-Plugin 'jnurmine/zenburn'
 Plugin 'dracula/vim'
-Plugin 'rakr/vim-one'
+"Plugin 'darkburn'
+"Plugin 'jnurmine/zenburn'
+"Plugin 'rakr/vim-one'
+"Plugin 'sonph/onehalf', { 'rtp': 'vim' }
 
 """""""""""""""""""""""""""
 """" Plugin conf
@@ -462,40 +463,40 @@ endfunction
 """"""""""""""""""""""""""""""
 syntax on
 set backspace=indent,eol,start
-set noequalalways  "prevent automatically resizing windows
 set tabpagemax=50
-set pastetoggle=£ " toggle paste mode
-"set clipboard=unnamed " dont support C-S V
-"set title "update window title for X and tmux
-"set autochdir " set current cwd to the current file
-set ruler   "show current position
+set noequalalways                   " prevent automatically resizing windows
+set pastetoggle=£                   " toggle paste mode
+"set clipboard=unnamed              " dont support C-S V
+"set title                          " update window title for X and tmux
+"set autochdir                      " set current cwd to the current file
+set ruler                           " show current position
 set laststatus=2
-set mat=1 "How many tenths of a second to blink
-set novb                                  " no beep, visualbell
-set showcmd                             " Show (partial) command in status line.
-set showmatch                           " Show matching brackets
-set wildmenu                            " show list instead of just completing
-set hlsearch                            " hilighting resarch matches
-set incsearch                           " Incremental search
-set ignorecase                          " Do case insensitive matching
-set fileignorecase                      " see also wildignorecase
-set smartcase                           " sensitive if capital letter
-set report=0                            " show number of modification if they are
-"set nu                                  " View numbers lines
-set cursorline                          " hilight current line - cul
-"set autowrite                          " Automatically save before commands like :next and :make
-"set hidden                             " Hide buffers when they are abandoned
-"set mouse=a                            " Enable mouse usage (all modes) in terminals
-"set textwidth=0                         " disable textwith
-set fo+=1ro fo-=tc tw=0   " break comment at tw $size
-"set fo+=1cro fo-=t tw=0  " break comment at tw $size
+set mat=1                          " How many tenths of a second to blink
+set novb                           " no beep, visualbell
+set showcmd                        " Show (partial) command in status line.
+set showmatch                      " Show matching brackets
+set wildmenu                       " show list instead of just completing
+set hlsearch                       " hilighting resarch matches
+set incsearch                      " Incremental search
+set ignorecase                     " Do case insensitive matching
+set fileignorecase                 " see also wildignorecase
+set smartcase                      " sensitive if capital letter
+set report=0                       " show number of modification if they are
+"set nu                            " View numbers lines
+set cursorline                     " hilight current line - cul
+"set autowrite                     " Automatically save before commands like :next and :make
+"set hidden                        " Hide buffers when they are abandoned
+"set mouse=a                       " Enable mouse usage (all modes) in terminals
+"set textwidth=0                   " disable textwith
+set fo+=1ro fo-=tc tw=0            " break comment at tw $size
+"set fo+=1cro fo-=t tw=0           " break comment at tw $size
 "set colorcolumn=-1
-set scrolloff=4                         " visible line at the top or bottom from cursor
-set linebreak                           " don't wrap word
-"set nowrap                             " don't wrap line too long
-set nostartofline                       " try keep the column with line moves
-set whichwrap=<,>,[,]                   " enable line return with pad
-"set ff=unix                            " remove ^M
+set scrolloff=4                    " visible line at the top or bottom from cursor
+set linebreak                      " don't wrap word
+set nowrap                         " don't wrap line too long
+set nostartofline                  " try keep the column with line moves
+set whichwrap=<,>,[,]              " enable line return with pad
+"set ff=unix                       " remove ^M
 "set termencoding=UTF-8
 set encoding=utf-8
 " Fix for: syntax highlighting breaks for big file after jump or search 
@@ -562,14 +563,8 @@ nnoremap <Esc> :noh<cr>
 " vertical help
 "cabbrev vh vert h
 cnoreabbrev vh vert h
-""" Saving
-"nnoremap <C-u> :w<CR>
-"imap <C-u> <C-o><C-u>
 """ Navigate
 noremap <F4> :tabe %<CR>
-""" Folding
-"noremap zR ? "Open all folds
-"noremap zM ? "close all folds
 """ Window moves
 nnoremap <S-UP>    <C-W>k
 nnoremap <S-DOWN>  <C-W>j
@@ -618,9 +613,6 @@ cnoremap cwd lcd %:p:h  "change current working directory(cwd) to the dir of the
 noremap <Leader>v :vs<cr>
 noremap <Leader>t :tabe %<cr>
 noremap <Leader>r :reg<cr>
-""" Mouse map
-"nnoremap <2-LeftMouse> //
-"cno sm set mouse=
 """" Edit
 nnoremap <silent> dw diwi
 nnoremap <silent> da diWa
@@ -946,6 +938,7 @@ endif
 "colo darkburn
 colo dracula
 "colo one
+"colo onehalfdark
 
 fu! SetHi()
 
