@@ -44,6 +44,7 @@ Plugin 'ycm-core/YouCompleteMe'
 "Plugin 'ajh17/VimCompletesMe'
 ""Plugin 'maxboisvert/vim-simple-complete'
 "Plugin 'ervandew/supertab'
+Plugin 'rstacruz/vim-closer'
 
 " File Format / Extra Language
 Plugin 'posva/vim-vue' 
@@ -51,7 +52,7 @@ Plugin 'elmcast/elm-vim'
 Plugin 'rhysd/vim-crystal' 
 Plugin 'jparise/vim-graphql'
 
-" fix markdown highlight
+" Fix markdown highlight
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
@@ -369,7 +370,7 @@ let g:ale_python_autopep8_options = '--global-config ~/src/config/configure/lint
 let g:ale_python_autopep8_global = 1
 let g:ale_python_mypy_options = '--ignore-missing-imports'
 
-""" Elm @depends: elm-format
+""" Elm  disable elm-format (auto format on save)
 "let g:elm_format_autosave = 0
 
 " Go @depends: go get github.com/mgechev/revive
@@ -405,6 +406,13 @@ let g:r_syntax_folding = 1
 let g:rust_fold = 1
 let g:php_folding = 1
 
+
+"
+" Vim closer
+"
+au FileType elm
+  \ let b:closer = 1 |
+  \ let b:closer_flags = '(['
 
 
 " #######################################
