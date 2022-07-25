@@ -1,38 +1,38 @@
- /home/dtrckd/main/SC/Projects/Informatique/Reseau/Script/auth-wpa
+ /home/dtrckd/main/perso/projects_old/Informatique/Reseau/Script/auth-wpa
  /home/dtrckd/src/config/snippets/backsync/backsync
  /home/dtrckd/src/config/snippets/backsync/backsync_light
  /home/dtrckd/src/config/snippets/chrono.py
- /home/dtrckd/main/SC/Projects/Informatique/Reseau/Script/con
- /home/dtrckd/main/SC/Projects/Informatique/System/convert-flac
- /home/dtrckd/main/SC/Projects/Informatique/System/convert-m4a
- /home/dtrckd/main/SC/Projects/Informatique/System/convert-mp4
- /home/dtrckd/main/SC/Projects/Informatique/System/convert-wma
+ /home/dtrckd/main/perso/projects_old/Informatique/Reseau/Script/con
+ /home/dtrckd/main/perso/projects_old/Informatique/System/convert-flac
+ /home/dtrckd/main/perso/projects_old/Informatique/System/convert-m4a
+ /home/dtrckd/main/perso/projects_old/Informatique/System/convert-mp4
+ /home/dtrckd/main/perso/projects_old/Informatique/System/convert-wma
  /home/dtrckd/main/missions/fractale/fractal6/fractal6-db/dg.py
  /home/dtrckd/main/BaseDump/bots/dict/dict
- /home/dtrckd/main/SC/Projects/Informatique/Reseau/Firewalls/firewall-strict.sh
+ /home/dtrckd/main/perso/projects_old/Informatique/Reseau/Firewalls/firewall-strict.sh
  /home/dtrckd/src/config/snippets/fw.sh
  /home/dtrckd/src/config/snippets/fw6.sh
- /home/dtrckd/main/SC/Projects/Informatique/Reseau/Mapping/GeoL/geoip
- /home/dtrckd/main/SC/Projects/Informatique/Reseau/Mapping/GeoL/geoipdata-update
- /home/dtrckd/main/SC/Projects/Informatique/System/get_bookmarks_addr
+ /home/dtrckd/main/perso/projects_old/Informatique/Reseau/Mapping/GeoL/geoip
+ /home/dtrckd/main/perso/projects_old/Informatique/Reseau/Mapping/GeoL/geoipdata-update
+ /home/dtrckd/main/perso/projects_old/Informatique/System/get_bookmarks_addr
  /home/dtrckd/main/BaseDump/bots/getl/getl
  /home/dtrckd/src/config/snippets/github_user_repos.sh
- /home/dtrckd/main/SC/Projects/Informatique/System/gzvim
- /home/dtrckd/main/SC/Projects/Informatique/Reseau/Script/hotspot
- /home/dtrckd/main/SC/Projects/Informatique/Reseau/Script/iwonf/iwonf
+ /home/dtrckd/main/perso/projects_old/Informatique/System/gzvim
+ /home/dtrckd/main/perso/projects_old/Informatique/Reseau/Script/hotspot
+ /home/dtrckd/main/perso/projects_old/Informatique/Reseau/Script/iwonf/iwonf
  /usr/local/MATLAB/R2019b/bin/matlab
  /usr/local/MATLAB/R2019b/bin/mex
  /home/dtrckd/src/config/snippets/sound/mute
  /home/dtrckd/src/config/snippets/sound/mute_toggle
- /home/dtrckd/main/BaseBlue/devops/ipban/nobanme.py
- /home/dtrckd/main/SC/Projects/Informatique/System/pass-file-merge
- /home/dtrckd/main/SC/Projects/Informatique/System/pdnsd-pull
- /home/dtrckd/main/SC/Projects/Informatique/System/power/power-save
+ /home/dtrckd/main/Blue/devops/ipban/nobanme.py
+ /home/dtrckd/main/perso/projects_old/Informatique/System/pass-file-merge
+ /home/dtrckd/main/perso/projects_old/Informatique/System/pdnsd-pull
+ /home/dtrckd/main/perso/projects_old/Informatique/System/power/power-save
  /home/dtrckd/src/config/snippets/print_16colors.sh
  /home/dtrckd/src/config/snippets/print_256colors.sh
- /home/dtrckd/main/SC/Projects/Informatique/Reseau/Script/pritorgle
+ /home/dtrckd/main/perso/projects_old/Informatique/Reseau/Script/pritorgle
  /home/dtrckd/src/config/snippets/purge.sh
- /home/dtrckd/main/SC/Projects/Informatique/Reseau/Firewalls/reset-firewall.sh
+ /home/dtrckd/main/perso/projects_old/Informatique/Reseau/Firewalls/reset-firewall.sh
  /home/dtrckd/Downloads/robo3t-1.4.4-linux-x86_64-e6ac9ec/bin/robo3t
  /home/dtrckd/src/config/snippets/rwget.sh
  /home/dtrckd/src/config/snippets/sound/sound_switch
@@ -40,7 +40,7 @@
  /home/dtrckd/src/web3/uplink
  /home/dtrckd/src/config/snippets/urlencode.sh
  /home/dtrckd/Downloads/VictronConnect-x86_64-v5.47.AppImage
- /home/dtrckd/main/SC/Projects/Informatique/System/vimr
+ /home/dtrckd/main/perso/projects_old/Informatique/System/vimr
  /home/dtrckd/src/config/snippets/sound/vol_dec
  /home/dtrckd/src/config/snippets/sound/vol_inc
  /home/dtrckd/main/BaseDump/bots/wikask/wikask.py
