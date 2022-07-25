@@ -13,6 +13,17 @@ end
 
 #set LS_COLORS dxfxcxdxbxegedabagacad
 
+if test -x /bin/exa
+    alias e="exa -l"
+    alias exa="exa --group-directories-first"
+    alias lt="exa -T"
+end
+
+if test -x /bin/batcat
+    alias cat="batcat"
+    alias bcat="batcat"
+    alias mdcat="mdcat -p"
+end
 
 # basic
 alias diff="diff -u"
@@ -21,10 +32,8 @@ alias less='less -S -R'
 alias df="df -Th"
 #alias du="du -sch"
 alias g="grep"
-alias bcat="batcat"
 alias mdcat="mdcat -p"
 alias lsd="lsd -l"
-alias e="exa"
 alias ls="ls --group-directories-first -p --color=always"
 alias l='ls'
 alias lq='ls'
@@ -44,8 +53,6 @@ function lla
         popd
     end
 end
-alias exa="exa --group-directories-first"
-alias lt="exa -T"
 
 ### Utility commands
 alias fuk="fuck"
@@ -121,8 +128,9 @@ alias ntop="/home/dtrckd/.linuxbrew/bin/bandwhich"
 alias netl='netstat -plant'
 alias netp='netstat -plant | grep -i stab | awk -F/ "{print \$argv[2] \$argv[3]}" | sort | uniq'
 alias fetch_debian='wget https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-xfce-CD-1.iso'
-alias ipv4="ip -4 -br a"
-alias ipv6="ip -6 -br a"
+alias ip="ip --color"
+alias ip4="ip -4 -br a"
+alias ip6="ip -6 -br a"
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}'
 alias rg="rg -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/'"
 alias grepy='find -iname "*.py" | xargs grep --color -n'

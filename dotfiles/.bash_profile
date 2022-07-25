@@ -61,10 +61,18 @@ if [ -x /usr/bin/dircolors ]; then
     alias tree="tree -C"
 fi
 
-if [ -x /usr/bin/dircolors ]; then
+if [ -x /bin/exa ]; then
+    alias e="exa -l"
     alias exa="exa --group-directories-first"
     alias lt="exa -T"
 fi
+
+if [ -x /bin/batcat ]; then
+    alias cat="batcat"
+    alias bcat="batcat"
+    alias mdcat="mdcat -p"
+fi
+
 
 alias diff="diff -u"
 alias tree="tree -C"
@@ -72,10 +80,7 @@ alias less='less -S -R'
 alias df='df -TH'
 #alias du='du -csh'
 alias g="grep"
-alias bcat="batcat"
-alias mdcat="mdcat -p"
 alias lsd="lsd -l"
-alias e="exa"
 alias l='ls'
 alias lq='ls'
 alias sls='ls'
@@ -189,6 +194,7 @@ alias ntop="/home/dtrckd/.linuxbrew/bin/bandwhich"
 alias netl='netstat -plant'
 alias netp='netstat -plant | grep -i stab | awk -F/ "{print \$2 \$3}" | sort | uniq'
 alias fetch_debian='wget https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/debian-testing-amd64-xfce-CD-1.iso'
+alias ip="ip --color"
 alias ip4="ip -4 -br a"
 alias ip6="ip -6 -br a"
 # App
