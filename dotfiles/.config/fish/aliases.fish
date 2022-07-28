@@ -116,7 +116,7 @@ function f; find -iname "*$argv[1]*"; end # fuzzy match
 function ff; find -iname "$argv[1]" ; end # exact match
 function fdelete; find -name "*$argv[1]*" -delete; end # fuzzy match
 function ffdelete; find -name "$argv[1]" -delete ; end # exact match
-alias jerr='journalctl -p err -b'
+alias jerr='journalctl -r -p err -b'
 function clipboard; cat $argv[1] |tr -d " \n" | xclip -selection clipboard; end
 alias curlH='curl -I'
 alias myip='curl https://tools.aquilenet.fr/ip/ && echo'

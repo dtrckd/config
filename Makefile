@@ -163,15 +163,15 @@ calendar:
 # Not all dotfile are backed up
 backup_dot:
 	@cp -v ~/.bash_profile dotfiles/
+	@cp -v ~/.config/fish/aliases.fish dotfiles/.config/fish/
 	@cp -v ~/.vimrc dotfiles/
 	@cp -v ~/.tmux.conf dotfiles/
-	@cp -v ~/.config/fish/aliases.fish dotfiles/.config/fish/
-	@cp -v	~/.config/user-dirs.dirs
+	@cp -v	~/.config/user-dirs.dirs dotfiles/.config/
 
 	# Backup Atom file and package
-	@cp -v ~/.atom/config.cson dotfiles/.atom
-	@cp -v ~/.atom/keymap.cson dotfiles/.atom
-	@cp -v ~/.atom/projects.cson dotfiles/.atom
+	@cp -v ~/.atom/config.cson dotfiles/.atom/
+	@cp -v ~/.atom/keymap.cson dotfiles/.atom/
+	@cp -v ~/.atom/projects.cson dotfiles/.atom/
 	apm list --installed --bare > dotfiles/.atom/package-list.txt
 
 	@echo "TODO: check backup for: "\
