@@ -176,7 +176,7 @@ alias eog='ristretto'
 alias f="fzf"
 ff () { find -iname "*$1*"; } # exact match
 fff () { find -iname "$1"; } # exact match
-alias jerr='journalctl -p err -b'
+alias jerr='journalctl -r -p err -b'
 clipboard() { cat $0 |tr -d " \n" | xclip -selection clipboard; }
 ### Network
 alias curlH='curl -I'

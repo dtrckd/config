@@ -84,6 +84,8 @@ editor_stop_format_chars=-+*\\,.;:&>
 mcview_eof=
 skin=default
 
+shadows=true
+
 [Layout]
 message_visible=true
 keybar_visible=true
@@ -94,7 +96,7 @@ menubar_visible=true
 free_space=true
 horizontal_split=false
 vertical_equal=true
-left_panel_size=75
+left_panel_size=105
 horizontal_equal=true
 top_panel_size=1
 
