@@ -133,6 +133,7 @@ alias ip4="ip -4 -br a"
 alias ip6="ip -6 -br a"
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}'
 alias rg="rg -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/'"
+alias rgi="rg -i"
 alias grepy='find -iname "*.py" | xargs grep --color -n'
 alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
 alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
