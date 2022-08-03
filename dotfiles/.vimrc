@@ -683,6 +683,7 @@ au BufNewFile,BufRead *.vue set filetype=vue
 au BufNewFile,BufRead *.cr set filetype=crystal                                            
 au BufNewFile,BufRead *.plt,*.gnuplot,*.gnu set filetype=gnuplot                           
 au BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x "<afile>"                      
+au FileType make setlocal noexpandtab
 
 """"""""""""""""""""""""""""""
 """" => Conf Files
