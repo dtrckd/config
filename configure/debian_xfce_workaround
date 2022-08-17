@@ -89,6 +89,10 @@ xfce4-panel -r
 rfkill unblock wifi
 rfkill unblock all
 
+# Install manuall Realtek wifi driver
+#   https://easylinuxtipsproject.blogspot.com/p/realtek.html#ID10
+#   https://askubuntu.com/questions/1352731/ubuntu-20-04-no-wifi-adapter-found-lenovo-ideapad-realtek
+
 # better touchpad thinkpad (X220,), synclient -l # error, cant figure it out ?
 aptitude install xserver-xorg-input-synaptics xserver-xorg-input-libinput
 #gsettings set org.gnome.desktop.peripherals.touchpad send-events 'enabled'
