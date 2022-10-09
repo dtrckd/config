@@ -96,6 +96,13 @@ function lla() {
         popd >/dev/null
     fi
 }
+function lsth() {
+    P="${1%/}"
+    if [ -z "$P" ]; then
+        P="."
+    fi
+    command ls -th "$P" | sed "s/^/$P\//" | xargs du -sh
+}
 alias lr='ls -R'
 alias lmd='ls *.md'
 alias mkdit='mkdir'
