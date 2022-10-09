@@ -6,7 +6,7 @@ ipfs
 # App
 opera
 wekan
-hugo
+hugo --channel=extended
 insomnia
 mattermost-desktop
 telegram-desktop  

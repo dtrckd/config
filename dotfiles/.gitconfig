@@ -18,3 +18,5 @@
     side-by-side = true
 [init]
 	defaultBranch = main
+[alias]
+    find = log --all --pretty=\"format:%Cgreen%H %Cred%s\"  --grep
