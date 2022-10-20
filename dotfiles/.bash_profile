@@ -74,13 +74,13 @@ if [ -x /bin/batcat ]; then
 fi
 
 
-alias diff="diff -u"
-alias tree="tree -C"
+alias diff='diff -u'
+alias tree='tree -C'
 alias less='less -S -R'
 alias df='df -TH'
 #alias du='du -csh'
 alias g="grep"
-alias lsd="lsd -l"
+alias lsd='lsd -l'
 alias l='ls'
 alias lq='ls'
 alias sls='ls'
@@ -110,12 +110,11 @@ complete -f l
 complete -f lla
 
 ### Utility commands
-alias fuk="fuck"
+alias fuk='fuck'
 alias please='sudo $(fuck -ln -1)'
 alias so='source ~/.bashrc'
 alias cleancolors="sed -r 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' $1"
-#alias ipython="python -m IPython"
-alias python="python -O" # basic optimizatio (ignore assert, ..)
+alias python="python -O" # basic optimization (ignore assert, ..)
 alias ipython="ipython --colors linux"
 alias ipython_dev="ipython --colors linux --profile dev"
 alias py='python'
@@ -160,7 +159,7 @@ function make_graph_python(){
 
 alias v="vim (fzf --height 40%)"
 alias vls="vim" # use when using with "C-A" and quicly change ls to vls for openin vim
-alias vcd="vim" # use when using with "C-A" and quicly change ls to vls for openin vim
+alias vcd="vim" # use when using with "C-A" and quicly change cd to vcd for openin vim
 alias vd='vimdiff'
 alias vip='vim -p'
 alias vis='vim -S'
@@ -180,7 +179,7 @@ alias pstree='pstree -h'
 alias rmf='shred -zuv -n1' # find <directory> -depth -type f -exec shred -v -n 1 -z -u {} \;
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
-alias f="fzf"
+alias f='fzf'
 ff () { find -iname "*$1*"; } # exact match
 fff () { find -iname "$1"; } # exact match
 alias jerr='journalctl -r -p err -b'
@@ -338,6 +337,7 @@ function gip() {
 }
 alias gia="git bug add"
 alias giui="git bug termui"
+alias giw="git bug webui"
 function girm(){
     bugid=$(git bug ls-id $1)
     rm .git/refs/bugs/$bugid
@@ -371,7 +371,7 @@ alias gitfilelog="git log --pretty=oneline -u dotfiles/.vimrc"
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
 alias gitcount_line='git diff --shortstat (git hash-object -t tree /dev/null)'
-alias gitcount_commits='echo "$(git rev-list --count master) commits'
+alias gitcount_commit='echo "$(git rev-list --count master) commits'
 function gitls() {
     branch="$(git rev-parse --abbrev-ref HEAD)"
     if [ -z "$1" ]; then
@@ -557,7 +557,7 @@ alias iuc="cd $HOME/src/config/"
 alias iucs="cd $HOME/src/config/snippets"
 alias iut="cd $HOME/Desktop/tt/"
 alias iuk="cd $PX/missions" # mission / kaggle / etc
-alias iua="cd $PX/missions/simplon/data_IA_20" 
+alias iua="cd $PX/missions/simplon/data_IA_20"
 alias iunb="cd $PX/networkofgraphs/process/notebook/"
 alias iup="cd $PX/networkofgraphs/process/pymake/pymake/"
 alias iurp="cd $PX/networkofgraphs/process/repo/"
@@ -580,7 +580,7 @@ alias iumd="cd $PX/webmain/mixtures/md"
 alias iumm="cd $HOME/src/config/app/mm/ && set +o history && unset HISTFILE"
 alias iuscrapy="cd $HOME/.local/lib/python3.7/site-packages/scrapy/"
 alias cdoc="cd $PX/doc"
-alias iud="cd $PX/mlanD/"
+alias iud="cd $PX/planD/"
 alias cdpapers="cd $PX/networkofgraphs/papers"
 alias cdwww="cd $PX/perso/Projects/Informatique/Reseau/www"
 alias cdsys="cd $PX/perso/Projects/Informatique/System"
