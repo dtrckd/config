@@ -410,9 +410,9 @@ let g:php_folding = 1
 "
 " Vim closer
 "
-au FileType elm
-  \ let b:closer = 1 |
-  \ let b:closer_flags = '(['
+"au FileType elm
+"  \ let b:closer = 1 |
+"  \ let b:closer_flags = '(['
 
 
 " #######################################
@@ -569,8 +569,9 @@ inoremap <C-s> <C-o>diw
 nnoremap ; :
 nnoremap <Esc> :noh<cr>
 " vertical help
-"cabbrev vh vert h
 cnoreabbrev vh vert h
+cnoreabbrev vs botright vs
+cnoreabbrev t tabe
 """ Navigate
 noremap <F4> :tabe %<CR>
 """ Window moves
@@ -615,7 +616,7 @@ cnoremap $h e ~/
 cnoremap $e e %:p:h
 cnoremap $t tabe %:p:h
 cnoremap $s split %:p:h
-cnoremap $v vs %:p:h
+cnoremap $v botright vs %:p:h
 cnoremap cwd lcd %:p:h  "change current working directory(cwd) to the dir of the currenet file
 "noremap <Leader>s :split<cr>
 noremap <Leader>v :vs<cr>
