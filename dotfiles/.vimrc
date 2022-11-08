@@ -536,28 +536,6 @@ set t_BE=  " disable bracketed paste mode.  https://gitlab.com/gnachman/iterm2/i
 map <Esc>[B <Down>
 
 """"""""""""""""""""""""""""""
-""" Tabulations / Indentation
-""""""""""""""""""""""""""""""
-set softtabstop=4
-set shiftwidth=4
-set tabstop=4
-set expandtab
-"set preserveindent " ?
-set smarttab " trivial
-
-set autoindent "keep indentation over line
-
-"set smartindent " <= mess up indent !
-" replacement:
-set cindent
-set cinkeys-=0#
-set indentkeys-=0#
-
-set foldmethod=indent
-set nofen               " open all folds. see z[mn] command
-set nofoldenable
-
-""""""""""""""""""""""""""""""
 """ Mapping / MOVES
 """"""""""""""""""""""""""""""
 """ general
@@ -636,38 +614,28 @@ nnoremap <silent> da diw"0p
 
 """ Format Json
 noremap <Leader>jf :%!jq .<CR>
+                                                                                           
 
+""""""""""""""""""""""""""""""
+""" Tabulations / Indentation
+""""""""""""""""""""""""""""""
+set softtabstop=4
+set shiftwidth=4
+set tabstop=4
+set expandtab
+"set preserveindent " ?
+set smarttab " trivial
+set autoindent "keep indentation over line
 
-" Jump to the next or previous line that has the same level or a lower                     
-" level of indentation than the current line.                                              
-" https://vi.stackexchange.com/a/12870/23459                                               
-                                                                                           
-function! GoToNextIndent(inc)                                                              
-    " Get the cursor current position                                                      
-    let currentPos = getpos('.')                                                           
-    let currentLine = currentPos[1]                                                        
-    let matchIndent = 0                                                                    
-                                                                                           
-    " Look for a line with the same indent level whithout going out of the buffer          
-    while !matchIndent && currentLine != line('$') + 1 && currentLine != -1                
-        let currentLine += a:inc                                                           
-        let matchIndent = indent(currentLine) == indent('.')                               
-    endwhile                                                                               
-                                                                                           
-    " If a line is found go to this line                                                   
-    if (matchIndent)                                                                       
-        let currentPos[1] = currentLine                                                    
-        call setpos('.', currentPos)                                                       
-    endif                                                                                  
-endfunction                                                                                
-                                                                                           
-nnoremap <silent> ] :call GoToNextIndent(1)<CR>                                            
-nnoremap <silent> [ :call GoToNextIndent(-1)<CR>                                           
-                                                                                           
-func! CurrentFileDir(cmd)                                                                  
-  return a:cmd . " " . expand("%:p:h") . "/"                                               
-endfunc                                                                                    
-                                                                                           
+"set smartindent " <= mess up indent !
+" replacement:
+set cindent
+set cinkeys-=0#
+set indentkeys-=0#
+
+set foldmethod=indent
+set nofen               " open all folds. see z[mn] command
+set nofoldenable
                                                                                            
 """"""""""""""""""""""""""""""                                                             
 """" => Extra Filetype                                                                     
@@ -684,7 +652,12 @@ au BufNewFile,BufRead *.vue set filetype=vue
 au BufNewFile,BufRead *.cr set filetype=crystal                                            
 au BufNewFile,BufRead *.plt,*.gnuplot,*.gnu set filetype=gnuplot                           
 au BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x "<afile>"                      
-au FileType make setlocal noexpandtab
+
+
+""""""""""""""""""""""""""""""
+"""" => Makefile Files
+""""""""""""""""""""""""""""""
+au filetype make set noexpandtab softtabstop=0
 
 """"""""""""""""""""""""""""""
 """" => Conf Files
@@ -713,7 +686,6 @@ endfunc
 autocmd BufWrite *.py,*.pyx,*.pyd,*.c,*.cpp,*.h,*.sh,*.txt,*.js,*.html,*.css,*.go,*.graphql :call DeleteTrailingWS()
 " for tab invisible bug (caused by set paste); try :%retab
 
-
 """"""""""""""""""""""""""""""
 """" => Docstrings
 """"""""""""""""""""""""""""""
@@ -729,7 +701,6 @@ au Filetype tex set wrap tw=90
 au Filetype tex set indentkeys="    "
 "au BufRead,BufNewFile *.md set mouse=
 au BufRead,BufNewFile *.md set wrap tw=0
-
 
 """"""""""""""""""""""""""""""
 """" => C, C++, Java Files
@@ -818,6 +789,35 @@ let g:calendar_first_day = 'monday'
 """"""""""""""""""""""""""""""
 """" => Snippet & Commands
 """"""""""""""""""""""""""""""
+
+" Jump to the next or previous line that has the same level or a lower                     
+" level of indentation than the current line.                                              
+" https://vi.stackexchange.com/a/12870/23459                                               
+function! GoToNextIndent(inc)                                                              
+    " Get the cursor current position                                                      
+    let currentPos = getpos('.')                                                           
+    let currentLine = currentPos[1]                                                        
+    let matchIndent = 0                                                                    
+                                                                                           
+    " Look for a line with the same indent level whithout going out of the buffer          
+    while !matchIndent && currentLine != line('$') + 1 && currentLine != -1                
+        let currentLine += a:inc                                                           
+        let matchIndent = indent(currentLine) == indent('.')                               
+    endwhile                                                                               
+                                                                                           
+    " If a line is found go to this line                                                   
+    if (matchIndent)                                                                       
+        let currentPos[1] = currentLine                                                    
+        call setpos('.', currentPos)                                                       
+    endif                                                                                  
+endfunction                                                                                
+                                                                                           
+nnoremap <silent> ] :call GoToNextIndent(1)<CR>                                            
+nnoremap <silent> [ :call GoToNextIndent(-1)<CR>                                           
+                                                                                           
+func! CurrentFileDir(cmd)                                                                  
+  return a:cmd . " " . expand("%:p:h") . "/"                                               
+endfunc                                                                                    
 
 """ Template
 "http://vim.wikia.com/wiki/Different_syntax_highlighting_within_regions_of_a_file

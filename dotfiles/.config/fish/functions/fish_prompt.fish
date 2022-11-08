@@ -2,6 +2,7 @@ function fish_prompt --description 'Write out the prompt'
     set laststatus $status
 
     if set -l git_branch (command git symbolic-ref HEAD 2>/dev/null | string replace refs/heads/ '')
+        set git_status ""
         set git_branch (set_color -o purple)"$git_branch"
         if command git diff-index --quiet HEAD --
             if set -l count (command git rev-list --count --left-right $upstream...HEAD 2>/dev/null)

@@ -74,6 +74,7 @@ if [ -x /bin/batcat ]; then
 fi
 
 
+alias gf="fg"
 alias diff='diff -u'
 alias tree='tree -C'
 alias less='less -S -R'
@@ -110,6 +111,7 @@ complete -f l
 complete -f lla
 
 ### Utility commands
+alias c="command"
 alias fuk='fuck'
 alias please='sudo $(fuck -ln -1)'
 alias so='source ~/.bashrc'
@@ -301,28 +303,23 @@ restore_pulseaudio() {
 alias gitupdate='git remote update'
 alias gitg='gitg --all 1>/dev/null &'
 alias gitk='gitk &'
-alias gitb='git branch -v'
-alias gits='git status -sb'
-alias gitr='git remote -v'
-alias gitd='git diff'
-gitcpush () { git commit -am "$1" && git push; }
 alias lsgit='for d in $(find -maxdepth 2 -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" status -svb; echo; done'
 alias lsissues='for d in $(find -maxdepth 2 -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" bug ls; echo; done'
 alias gitamend='git commit --amend'
-alias gitcommit='git commit'
-alias gitl="git log --oneline --decorate --color"
-alias gitll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short --all"
-alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
-alias git-ls-tag="git tag -l --sort=-creatordate --format='%(creatordate:short):  %(refname:short)'"
-alias gr='gitr'
-alias gb='gitb'
-alias gd='gitd'
-alias gdc='gitd --cached'
-alias gs='gits'
-alias gl="gitl"
+alias git-ls-tag="git tag -l --sort=-creatordate --format='%(creatordate:short): %(objectname:short) - %(refname:short)'"
+alias gtl='git-ls-tag'
+alias gm='git commit -m'
+alias gr='git remote -v'
+alias gb='git branch -v'
+alias gp='git push'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gs='git status -sb'
 alias ga="git add"
-alias gll="gitll"
-alias glt="gitlt"
+alias gl="git log --oneline --decorate --color"
+alias gll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short --all"
+alias glt="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --graph  --abbrev-commit --date=relative"
+alias gsl="git stash list"
 alias gi="git bug"
 alias gil="git bug ls -s open"
 alias gilc="git bug ls -s closed"
@@ -368,10 +365,10 @@ function gi_clean_remote_identity() {
 #alias gil='git issue list -l "%i | %T| %D"'
 #alias gis='git issue show'
 alias gitfilelog="git log --pretty=oneline -u dotfiles/.vimrc"
-alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
+gitcpush () { git commit -am "$1" && git push; }
 alias gitcount_line='git diff --shortstat (git hash-object -t tree /dev/null)'
-alias gitcount_commit='echo "$(git rev-list --count master) commits'
+alias gitcount_commit='echo "$(git rev-list --count master) commits"'
 function gitls() {
     branch="$(git rev-parse --abbrev-ref HEAD)"
     if [ -z "$1" ]; then
@@ -585,7 +582,7 @@ alias cdpapers="cd $PX/networkofgraphs/papers"
 alias cdwww="cd $PX/perso/Projects/Informatique/Reseau/www"
 alias cdsys="cd $PX/perso/Projects/Informatique/System"
 alias cdrez="cd $PX/perso/Projects/Informatique/Reseau/"
-alias cdid="cd $PX/perso/Papiers/idh/id_ad/"
+alias cdid="cd $PX/perso/Papiers/me/"
 alias cdp="cd $PX/perso/Papiers/"
 #alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
 alias xrandr_setup="xrandr --output HDMI-2 --left-of eDP-1"

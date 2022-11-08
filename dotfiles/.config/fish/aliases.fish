@@ -26,15 +26,15 @@ if test -x /bin/batcat
 end
 
 # basic
-alias diff="diff -u"
-alias tree="tree -C"
+alias gf="fg"
+alias diff='diff -u'
+alias tree='tree -C'
 alias less='less -S -R'
-alias df="df -Th"
+alias df='df -Th'
 #alias du="du -sch"
-alias g="grep"
-alias mdcat="mdcat -p"
-alias lsd="lsd -l"
-alias ls="ls --group-directories-first -p --color=always"
+alias g='grep'
+alias lsd='lsd -l'
+alias ls='ls --group-directories-first -p --color=always'
 alias l='ls'
 alias lq='ls'
 alias sls='ls'
@@ -53,14 +53,20 @@ function lla
         popd
     end
 end
+function lsth
+    set P (string trim -r --chars "/" $argv[1])
+    if [ -z "$P" ]
+        set P "."
+    end
+    command ls -th "$P" | sed "s/^/$P\//" | xargs du -sh
+end
 
 ### Utility commands
-alias fuk="fuck"
-alias apti="aptitude"
+alias c="command"
+alias fuk='fuck'
 alias please='sudo (fc -ln -1)'
 alias so='source ~/.config/fish/config.fish'
 alias cleancolors="sed -r 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' $1"
-#alias ipython="python -m IPython"
 alias python="python -O" # basic optimizatio (ignore assert, ..)
 alias ipython="ipython --colors linux"
 alias ipython_dev="ipython --colors linux --profile dev"
@@ -112,7 +118,7 @@ alias pstree='pstree -h'
 alias rmf='shred -zuv -n1'
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
-function f; find -iname "*$argv[1]*"; end # fuzzy match
+alias f='fzf'
 function ff; find -iname "$argv[1]" ; end # exact match
 function fdelete; find -name "*$argv[1]*" -delete; end # fuzzy match
 function ffdelete; find -name "$argv[1]" -delete ; end # exact match
@@ -131,7 +137,8 @@ alias fetch_debian='wget https://cdimage.debian.org/cdimage/weekly-builds/amd64/
 alias ip="ip --color"
 alias ip4="ip -4 -br a"
 alias ip6="ip -6 -br a"
-alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}'
+alias xagrep='find -type f -print0 | xargs -0  grep --color'
+alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}' # see also rg
 alias rg="rg -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/'"
 alias rgi="rg -i"
 alias grepy='find -iname "*.py" | xargs grep --color -n'
@@ -141,14 +148,13 @@ alias ag='ag --color-path 32 --color-match "1;40;36"'
 alias agy='ag -i --py'
 alias ago='ag -i --go'
 alias agj='ag -i --js --ignore node_modules/'
-alias f="fzf"
 alias sys='systemctl'
 alias locks='systemctl suspend -i'
 alias dodo='systemctl hibernate'
 alias halt='systemctl poweroff'
-alias ls-service='sys -t service --state running'
-alias ls-masked-unit='sys --state masked' # systemctl list-unit-files | grep masked
-alias ls-failed-unit='sys --state failed' # systemctl --failed
+alias ls-service='systemctl -t service --state running'
+alias ls-masked-unit='systemctl --state masked' # systemctl list-unit-files | grep masked
+alias ls-failed-unit='systemctl --state failed' # systemctl --failed
 alias ls-ssd='lsblk  -d -o name,rota'
 alias ls-marked="apt-mark showhold"
 alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
@@ -186,27 +192,24 @@ function upgrademe
 end
 
 alias gitupdate='git remote update'
-alias gitg='/bin/gitg --all 1>/dev/null &'
-alias gitk='/bin/gitk &'
-alias gitb='git branch -v'
-alias gits='git status -sb'
-alias gitr='git remote -v'
-alias gitd='git diff'
+alias gitg='gitg --all 1>/dev/null &'
+alias gitk='gitk &'
 alias gitamend='git commit --amend'
 alias gitcommit='git commit'
-alias gitl="git log --oneline --decorate --color"
-alias gitll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short --all"
-alias gitlt="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
-alias git-ls-tag="git tag -l --sort=-creatordate --format='%(creatordate:short):  %(refname:short)'"
-alias gr='gitr'
-alias gb='gitb'
-alias gd='gitd'
-alias gdc='gitd --cached'
-alias gs='gits'
-alias gl="gitl"
+alias git-ls-tag="git tag -l --sort=-creatordate --format='%(creatordate:short): %(objectname:short) - %(refname:short)'"
+alias gtl='git-ls-tag'
+alias gm='git commit -m'
+alias gr='git remote -v'
+alias gb='git branch -v'
+alias gp='git push'
+alias gd='git diff'
+alias gdc='git diff --cached'
+alias gs='git status -sb'
 alias ga="git add"
-alias gll="gitll"
-alias glt="gitlt"
+alias gl="git log --oneline --decorate --color"
+alias gll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short --all"
+alias glt="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --graph  --abbrev-commit --date=relative"
+alias gsl="git stash list"
 alias gi="git bug"
 alias gil="git bug ls -s open"
 alias gilc="git bug ls -s closed"
@@ -262,6 +265,9 @@ function lsgit
         echo $d
         if [ "$argv[1]" = "-r" ]
             git -C "$d" remote -v
+        else if [ "$argv[1]" = "-b" ]
+            git -C "$d" branch
+        else if [ "$argv[1]" = "-b" ]
         else
             git -C "$d" status -svb
         end
@@ -467,8 +473,8 @@ complete -c _cd -w cd
 
 alias xs='cd'
 alias cdl='cd -l'
-alias d="cd -l"
-alias cd-="cd -"
+alias d='cd -l'
+alias cd-='cd -'
 
 set PX "$HOME/main"
 alias cdf="cd $HOME/main/missions/fractale/"
@@ -505,7 +511,7 @@ alias cdpapers="cd $PX/networkofgraphs/papers"
 alias cdwww="cd $PX/perso/Projects/Informatique/Reseau/www"
 alias cdsys="cd $PX/perso/Projects/Informatique/System"
 alias cdrez="cd $PX/perso/Projects/Informatique/Reseau/"
-alias cdid="cd $PX/perso/Papiers/idh/id_ad/"
+alias cdid="cd $PX/perso/Papiers/me/"
 alias cdp="cd $PX/perso/Papiers/"
 #alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
 alias xrandr_setup="xrandr --output HDMI-2 --left-of eDP-1"
@@ -586,7 +592,7 @@ function xshuff
     set fls (find "$Path" -type f -iname "*.ogg" -o -iname "*.mp4" -o -iname "*.mp3" -o -iname "*.flac")
     set NB (printf '%s\n' $fls | wc -l)
 
-    set RANDL (python3 -c "import sys;import random;\
+    set RANDL (python3 -c "import sys, random, time;\
         random.seed(int(time.time()));\
         nbf = min($NB, $NBF);\
         sys.stdout.write(' '.join(map(str, random.sample(range(1,$NB+1), nbf))))")
@@ -628,7 +634,6 @@ function fuck -d "Correct your previous console command"
 	builtin history merge ^ /dev/null
   end
 end
-alias fuk="fuck"
 
 # Zoxyde
 if type -q zoxide
