@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# use jq -Rsa
+
 url="$1"
 urlquote="$2"
 
