@@ -1,6 +1,14 @@
 --regex-make=/^([^# \t]*):/\1/t,target/
 
 
+
+--langdef=dc
+--langmap=dc:.yml
+--regex-dc=/^  ([^:]*):/\1/t,target/
+--regex-dc=/^\t([^:]*):/\1/t,target/
+
+
+
 --langdef=Elm
 --langmap=Elm:.elm
 --regex-Elm=/^ *([[:lower:]][[:alnum:]_]+)[[:blank:]]*:[^:].*->.*/\1/f,function,functions/
@@ -13,11 +21,11 @@
 --regex-Elm=/^(port )?[:blank:]*module[[:blank:]](\.?([[:upper:]][[:alnum:]_]+))+/\3/m,module,modules/
 
 
+
 --langdef=css
 --langmap=css:.css
 --langmap=css:+.scss
 --langmap=css:+.sass
---langmap=css:+.styl
 --langmap=css:+.less
 --regex-css=/^([A-Za-z0-9_-]*)*\.([A-Za-z0-9_-]+) *[,{]/\2/c,class,classes/
 --regex-css=/^(.*)*\#([A-Za-z0-9_-]+) *[,{]/\2/i,id,ids/
@@ -25,8 +33,11 @@
 --regex-css=/(^([^\/\/])*)[ \t]+([A-Za-z0-9_-]+)) *[,|\{]/\3/t,tag,tags/
 --regex-css=/(^(.*, *)([A-Za-z0-9_-]+)) *[,|\{]/\3/t,tag,tags/
 
+
+
 --langdef=graphql
 --langmap=graphql:.graphql
+--langmap=graphql:+.gql
 --regex-graphql=/^[ \t]*enum[ \t]+([_A-Za-z][_0-9A-Za-z]*)/\1/e,enum/
 --regex-graphql=/^[ \t]*query[ \t]+([_A-Za-z][_0-9A-Za-z]*)/\1/q,query/
 --regex-graphql=/^[ \t]*fragment[ \t]+([_A-Za-z][_0-9A-Za-z]*)/\1/f,fragment/
