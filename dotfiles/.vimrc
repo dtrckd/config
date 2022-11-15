@@ -105,10 +105,9 @@ let g:SuperTabNoCompleteAfter = ['^', '\s', '#', "'", '"', '%', '/']
 let g:SuperTabClosePreviewOnPopupClose = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
-" Disable popu preview (dont fakin work !)
-"let g:ycm_auto_hover = ""
-" Disable preview window popping up
-" https://github.com/ycm-core/YouCompleteMe/issues/2015
+let g:ycm_auto_hover = ''  " Disable auto tooltip preview 
+nmap <space> <plug>(YCMHover)
+" Disable preview window popping up: https://github.com/ycm-core/YouCompleteMe/issues/2015
 set completeopt-=preview  "let g:ycm_add_preview_to_completeopt = 0
 "let g:ycm_disable_signature_help=1
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif " more general but wont be able to switch/scroll the preview...
