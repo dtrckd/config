@@ -93,6 +93,17 @@ update_conf_server:
 	# Uncomment the next line (recursive)
 	sed -i '/# @SERVER/{n;s/^.//}' ~/.tmux.conf
 	sed -i '/# @SERVER/{n;s/^.//}' ~/.bash_profile
+	# ---
+	# Root conf
+	# Reset/Configure Profile
+	sudo cp -r dotfiles/{.bash_profile,.tmux.conf} /root/
+	sudo cp dotfiles/.vimshortrc ~/.vimrc
+	# Delete the matched and the next line (recursive)
+	awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' ~/.tmux.conf > ~/.tmux.conf.temp && sudo mv ~/.tmux.conf.temp /root/.tmux.conf
+	awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' ~/.bash_profile > ~/.bash_profile.temp && sudo mv ~/.bash_profile.temp /root/.bash_profile
+	# Uncomment the next line (recursive)
+	sed -i '/# @ROOT/{n;s/^.//}' ~/.tmux.conf
+	sed -i '/# @ROOT/{n;s/^.//}' ~/.bash_profile
 
 configure_laptop: _dotfiles _etc _bin _configure _vim
 
