@@ -99,8 +99,8 @@ update_conf_server:
 	sudo cp -r dotfiles/{.bash_profile,.tmux.conf} /root/
 	sudo cp dotfiles/.vimshortrc /root/.vimrc
 	# Delete the matched and the next line (recursive)
-	sudo awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' /root/.tmux.conf > /root/.tmux.conf.temp && sudo mv /root/.tmux.conf.temp /root/.tmux.conf
-	sudo awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' /root/.bash_profile > /root/.bash_profile.temp && sudo mv /root/.bash_profile.temp /root/.bash_profile
+	sudo awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' /root/.tmux.conf > .tmux.conf.temp && sudo mv .tmux.conf.temp /root/.tmux.conf
+	sudo awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' /root/.bash_profile > .bash_profile.temp && sudo mv .bash_profile.temp /root/.bash_profile
 	# Uncomment the next line (recursive)
 	sudo sed -i '/# @ROOT/{n;s/^.//}' /root/.tmux.conf
 	sudo sed -i '/# @ROOT/{n;s/^.//}' /root/.bash_profile
