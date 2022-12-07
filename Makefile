@@ -102,8 +102,8 @@ update_conf_server:
 	sudo awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' /root/.tmux.conf > /root/.tmux.conf.temp && sudo mv /root/.tmux.conf.temp /root/.tmux.conf
 	sudo awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' /root/.bash_profile > /root/.bash_profile.temp && sudo mv /root/.bash_profile.temp /root/.bash_profile
 	# Uncomment the next line (recursive)
-	sudo sed -i '/# @ROOT/{n;s/^.//}' ~/.tmux.conf
-	sudo sed -i '/# @ROOT/{n;s/^.//}' ~/.bash_profile
+	sudo sed -i '/# @ROOT/{n;s/^.//}' /root/.tmux.conf
+	sudo sed -i '/# @ROOT/{n;s/^.//}' /root/.bash_profile
 
 configure_laptop: _dotfiles _etc _bin _configure _vim
 
