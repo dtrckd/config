@@ -32,7 +32,7 @@ cp dotfiles/.vimshortrc ~/.vimrc
 # Delete the matched and the next line (recursive)
 awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' ~/.tmux.conf > ~/.tmux.conf.temp && mv ~/.tmux.conf.temp ~/.tmux.conf
 awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' ~/.bash_profile > ~/.bash_profile.temp && mv ~/.bash_profile.temp ~/.bash_profile
-# Delete the next line (recursive)
+# Uncomment the next line (recursive)
 sed -i '/# @SERVER/{n;s/^.//}' ~/.tmux.conf
 sed -i '/# @SERVER/{n;s/^.//}' ~/.bash_profile
 # Install plugins
