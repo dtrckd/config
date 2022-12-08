@@ -48,7 +48,8 @@ Plugin 'rstacruz/vim-closer'
 
 " File Format / Extra Language
 Plugin 'posva/vim-vue' 
-Plugin 'elmcast/elm-vim' 
+"Plugin 'elmcast/elm-vim'  "https://github.com/elm-tooling/elm-vim
+Plugin 'zaptic/elm-vim' 
 Plugin 'rhysd/vim-crystal' 
 Plugin 'jparise/vim-graphql'
 
@@ -613,7 +614,10 @@ nnoremap <silent> da diw"0p
 
 """ Format Json
 noremap <Leader>jf :%!jq .<CR>
-                                                                                           
+noremap <Leader>je :%!sed 's/\\n/\n/g'<CR>
+
+" Copy the line selection into the clipboard (not the selection, the line, 
+":1,7w !xclip -selection clipboard 
 
 """"""""""""""""""""""""""""""
 """ Tabulations / Indentation
@@ -643,7 +647,7 @@ au BufNewFile,BufRead *.md set filetype=markdown
 au BufNewFile,BufRead *.load set filetype=html                                             
 au BufNewFile,BufRead *.css,*.scss,*.sass,*.less setf scss                                 
 au BufNewFile,BufRead *.prisma,*.graphql,*.gql setf graphql                                
-au BufNewFile,BufRead *.nomad,*.consul,*.toml,*.yaml setf conf                             
+au BufNewFile,BufRead *.nomad,*.consul,*.toml,*.yaml,*.yml setf conf                             
 au BufNewFile,BufRead *.fish set filetype=sh                                               
 au BufNewFile,BufRead *.nse set filetype=lua                                               
 au BufNewFile,BufRead *.elm set filetype=elm                                               
@@ -652,6 +656,8 @@ au BufNewFile,BufRead *.cr set filetype=crystal
 au BufNewFile,BufRead *.plt,*.gnuplot,*.gnu set filetype=gnuplot                           
 au BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x "<afile>"                      
 
+" prevent changin the indentation when commenting
+autocmd FileType yaml,yaml.ansible setlocal indentkeys-=0#
 
 """"""""""""""""""""""""""""""
 """" => Makefile Files
@@ -742,7 +748,6 @@ noremap <leader>s? z=
 """
 """ Other Leader Map
 """
-noremap <leader>e :!. % &<CR>
 """switch header <-> .c # or a.vim
 noremap <Leader>h <ESC>:AV<CR>
 noremap <Leader>ht <ESC>:AT<CR>
@@ -758,6 +763,8 @@ nnoremap <leader>mm :set mouse=<CR>
 nnoremap <leader>c :.w !xclip -selection clipboard<CR>
 """ Copy all file to clipboard
 nnoremap <leader>cf :%w !xclip -selection clipboard<CR>
+""" Execute
+"noremap <leader>e :!. % &<CR>
 
 
 autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownIgnore "\$.*_.*\$"
