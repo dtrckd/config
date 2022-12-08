@@ -205,6 +205,7 @@ alias fetch_debian='wget https://cdimage.debian.org/cdimage/weekly-builds/amd64/
 alias ip="ip --color"
 alias ip4="ip -4 -br a"
 alias ip6="ip -6 -br a"
+alias fail2ban-ls='sudo fail2ban-client status | sed -n "s/,//g;s/.*Jail list://p" | xargs -n1 sudo fail2ban-client status'
 # App
 alias mongoshell="docker exec -it mongodb mongo"
 alias station="ferdi &"
