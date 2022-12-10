@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Exec=/snap/bin/signal-desktop
+Icon=/usr/share/icons/vendor/signal-logo.png
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Utility;X-XFCE;
+Name=Signal
+Comment=Signal app messaging
+Keywords=program;applications;bookmarks;
+X-XFCE-Source=file:///usr/share/applications/xfce4-appfinder.desktop
+Path=

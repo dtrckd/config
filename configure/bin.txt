@@ -27,6 +27,7 @@
  /home/dtrckd/main/Blue/devops/ipban/nobanme.py
  /home/dtrckd/main/perso/projects_old/Informatique/System/pass-file-merge
  /home/dtrckd/main/perso/projects_old/Informatique/System/pdnsd-pull
+ /usr/lib/pentablet/pentablet
  /home/dtrckd/main/perso/projects_old/Informatique/System/power/power-save
  /home/dtrckd/src/config/snippets/print_16colors.sh
  /home/dtrckd/src/config/snippets/print_256colors.sh

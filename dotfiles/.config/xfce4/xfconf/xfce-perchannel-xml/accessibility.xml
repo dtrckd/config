@@ -2,4 +2,5 @@
 
 <channel name="accessibility" version="1.0">
   <property name="StickyKeys" type="bool" value="false"/>
+  <property name="FindCursor" type="bool" value="true"/>
 </channel>
