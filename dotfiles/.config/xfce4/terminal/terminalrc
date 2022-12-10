@@ -25,4 +25,10 @@ MiscUseShiftArrowsToScroll=FALSE
 MiscSlimTabs=FALSE
 ScrollingLines=200000
 FontName=Monospace 11
+RunCustomCommand=TRUE
+MiscShowRelaunchDialog=TRUE
+MiscNewTabAdjacent=FALSE
+MiscSearchDialogOpacity=100
+MiscShowUnsafePasteDialog=TRUE
+CustomCommand=/usr/bin/bash
 

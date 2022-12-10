@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Exodus
+Comment=Secure, manage, and trade blockchain assets.
+GenericName=Exodus
+Exec=exodus %U
+Icon=exodus
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Utility;
+MimeType=x-scheme-handler/exodus;
+X-XFCE-Source=file:///usr/share/applications/exodus.desktop

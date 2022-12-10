@@ -89,5 +89,10 @@
       <value type="string" value="Workspace 9"/>
       <value type="string" value="Workspace 10"/>
     </property>
+    <property name="cycle_raise" type="bool" value="true"/>
+    <property name="cycle_minimized" type="bool" value="false"/>
+    <property name="frame_border_top" type="int" value="0"/>
+    <property name="vblank_mode" type="string" value="auto"/>
+    <property name="zoom_pointer" type="bool" value="true"/>
   </property>
 </channel>

@@ -1,9 +1,9 @@
 [Settings]
 ShowAllProcesses=FALSE
+ShowLegend=TRUE
 MorePrecision=FALSE
 FullCommandLine=FALSE
 ShowStatusIcon=FALSE
-ShowMemoryInXBytes=FALSE
 MonitorPaintBox=TRUE
 ShowApplicationIcons=TRUE
 ToolbarStyle=DEFAULT
