@@ -146,6 +146,8 @@ function fw_reset {
   /sbin/iptables -P OUTPUT ACCEPT
   /sbin/iptables -t filter -F
   /sbin/iptables -t filter -X
+
+  echo "WARNING: you may want to restart fail2ban and docker service as they set their own rules."
 }
 
 function fw_start {
@@ -161,12 +163,10 @@ function fw_stop {
 }
 
 function fw_restart {
-  echo "     > Starting Firewall..."
+  echo "     > Restarting Firewall..."
   fw_reset
-  echo "     > Loading the rules..."
   fw_rules
-  echo "     > Rules loaded"
-  echo "     > Firewall started"
+  echo "     > Firewall restarted"
 }
 
 function fw_save {
@@ -175,10 +175,11 @@ function fw_save {
   mkdir -p /etc/iptables
   /sbin/iptables-save > /etc/iptables/rules.v4
   /sbin/ip6tables-save > /etc/iptables/rules.v6
-  echo "     > Firewall saving"
+  echo "     > Firewall saved"
 }
 
 function fw_restore {
+  echo "     > Restoring Firewall..."
   /sbin/iptables-restore /etc/iptables/rules.v4
   /sbin/ip6tables-restore /etc/iptables/rules.v6
   echo "     > Firewall restored"
