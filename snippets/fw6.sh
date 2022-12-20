@@ -1,11 +1,11 @@
 #! /bin/bash
 
-# ######################### qFirewall (qfw) 0.1 ########################
+# ######################### Firewall (fw) ########################
 #
 # This is a basic /sbin/ip6tables firewall script.
 #
 # Usage:
-# ./fw {restart|stop}
+# ./fw6 {start|stop|restart}
 #
 # Notes:
 # 1. Comment or uncomment the firewall rules below according to your
@@ -25,64 +25,55 @@
 # #######################################################################
 # ## Rules function -- edit this according to your needs
 
-function qfw_rules {
+function fw_rules {
   # Block everything
   /sbin/ip6tables -t filter -P INPUT DROP
   #/sbin/ip6tables -t filter -P FORWARD DROP
   /sbin/ip6tables -t filter -P OUTPUT DROP
-  echo "     > Block everything"
 
   # Don't break established connections
   /sbin/ip6tables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
   /sbin/ip6tables -A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
-  echo "     > Don't break established connections"
 
   # Authorize loopback (127.0.0.1)
   /sbin/ip6tables -t filter -A INPUT -i lo -j ACCEPT
   /sbin/ip6tables -t filter -A OUTPUT -o lo -j ACCEPT
-  echo "     > Authorize Loopback"
 
   # ICMP (ping)
   /sbin/ip6tables -t filter -A INPUT -p icmp -j ACCEPT
   /sbin/ip6tables -t filter -A OUTPUT -p icmp -j ACCEPT
-  echo "     > Authorize ICMP (ping)"
+  /sbin/ip6tables -t filter -A INPUT -p icmpv6 -j ACCEPT
+  /sbin/ip6tables -t filter -A OUTPUT -p icmpv6 -j ACCEPT
 
   # SSH in/out
   /sbin/ip6tables -t filter -A INPUT -p tcp --dport 22 -j ACCEPT
   /sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 22 -j ACCEPT
-  /sbin/ip6tables -t filter -A INPUT -p tcp --dport 9000 -j ACCEPT
-  /sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 9000 -j ACCEPT
   # special ssh ports
   #/sbin/ip6tables -t filter -A INPUT -p tcp --dport 29418 -j ACCEPT
   #/sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 29418 -j ACCEPT
-  echo "     > Authorize SSH"
 
   # DNS in/out
   /sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 53 -j ACCEPT
-  /sbin/ip6tables -t filter -A OUTPUT -p udp --dport 53 -j ACCEPT
   /sbin/ip6tables -t filter -A INPUT -p tcp --dport 53 -j ACCEPT
+  /sbin/ip6tables -t filter -A OUTPUT -p udp --dport 53 -j ACCEPT
   /sbin/ip6tables -t filter -A INPUT -p udp --dport 53 -j ACCEPT
-  echo "     > Authorize DNS"
 
   # DHCP
   /sbin/ip6tables -t filter -A OUTPUT -p udp --dport 67:68 --sport 67:68 -j ACCEPT
   /sbin/ip6tables -t filter -A INPUT  -p udp --dport 67:68 --sport 67:68 -j ACCEPT
-  echo "     > Authorize DHCP"
 
   # NTP Out
   /sbin/ip6tables -t filter -A OUTPUT -p udp --dport 123 -j ACCEPT
-  echo "     > Authorize NTP outbound"
 
   # HTTP + HTTPS Out
   /sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 80 -j ACCEPT
   /sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 443 -j ACCEPT
-  # /sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 8080 -j ACCEPT
+  #/sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 8080 -j ACCEPT
 
   # HTTP + HTTPS In
   /sbin/ip6tables -t filter -A INPUT -p tcp --dport 80 -j ACCEPT
   /sbin/ip6tables -t filter -A INPUT -p tcp --dport 443 -j ACCEPT
-  # /sbin/ip6tables -t filter -A INPUT -p tcp --dport 8080 -j ACCEPT
-  echo "     > Authorize http and https"
+  #/sbin/ip6tables -t filter -A INPUT -p tcp --dport 8080 -j ACCEPT
 
   # FTP Out
   #/sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 21 -j ACCEPT
@@ -92,56 +83,47 @@ function qfw_rules {
   #/sbin/ip6tables -t filter -A INPUT -p tcp --dport 20 -j ACCEPT
   #/sbin/ip6tables -t filter -A INPUT -p tcp --dport 21 -j ACCEPT
   #/sbin/ip6tables -t filter -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-  #echo "     > Authorize FTP"
 
   # Mail SMTP
   #/sbin/ip6tables -t filter -A INPUT -p tcp --dport 25 -j ACCEPT
   #/sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 25 -j ACCEPT
-  /sbin/ip6tables -t filter -A INPUT -p tcp --dport 587 -j ACCEPT
-  /sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 587 -j ACCEPT
-  /sbin/ip6tables -t filter -A INPUT -p tcp --dport 465 -j ACCEPT
-  /sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 465 -j ACCEPT
+  #/sbin/ip6tables -t filter -A INPUT -p tcp --dport 587 -j ACCEPT
+  #/sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 587 -j ACCEPT
+  #/sbin/ip6tables -t filter -A INPUT -p tcp --dport 465 -j ACCEPT
+  #/sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 465 -j ACCEPT
+
+  # Mail IMAP:143
+  #/sbin/ip6tables -t filter -A INPUT -p tcp --dport 143 -j ACCEPT
+  #/sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 143 -j ACCEPT
 
   # Mail POP3:110
   #/sbin/ip6tables -t filter -A INPUT -p tcp --dport 110 -j ACCEPT
   #/sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 110 -j ACCEPT
 
-  # Mail IMAP:143
-  /sbin/ip6tables -t filter -A INPUT -p tcp --dport 143 -j ACCEPT
-  /sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 143 -j ACCEPT
-
   # Mail POP3S:995
-  /sbin/ip6tables -t filter -A INPUT -p tcp --dport 995 -j ACCEPT
-  /sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 995 -j ACCEPT
-  echo "     > Authorize mail"
+  #/sbin/ip6tables -t filter -A INPUT -p tcp --dport 995 -j ACCEPT
+  #/sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 995 -j ACCEPT
 
   # Node exporter
   #/sbin/ip6tables -t filter -A INPUT -p tcp --dport 9100 -j ACCEPT
   #/sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 9100 -j ACCEPT
-  #echo "     > Authorize Node exporter"
-
 
   # OpenVZ Web Pannel
   # /sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 3000 -j ACCEPT
   # /sbin/ip6tables -t filter -A INPUT -p tcp --dport 3000 -j ACCEPT
-  # echo "     > Authorize OpenVZ panel"
 
   # Allow WMs
   # /sbin/ip6tables -P FORWARD ACCEPT
   # /sbin/ip6tables -F FORWARD
-  # echo "WMs ok"
-  # echo "     > Authorize WMs"
 
   # Saltstack
   # /sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 4505 -j ACCEPT
   # /sbin/ip6tables -t filter -A INPUT -p tcp --dport 4505 -j ACCEPT
   # /sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 4506 -j ACCEPT
   # /sbin/ip6tables -t filter -A INPUT -p tcp --dport 4506 -j ACCEPT
-  # echo "     > Authorize Saltstack"
 
   # Block UDP attack
   # /sbin/ip6tables -A INPUT -m state --state INVALID -j DROP
-  # echo "     > Block UDP attack"
 
 }
 
@@ -149,18 +131,12 @@ function qfw_rules {
 # #######################################################################
 # ## Other functions
 
-function qfw_help {
-  echo "qFirewall usage: ./fw {restart|stop}"
+function fw_help {
+  echo "Firewall usage: ./fw {start|stop|restart}"
   exit 1
 }
 
-function qfw_seeya {
-  echo "     > Thanks for using qFirewall (fw6) v2. Have a good day."
-  echo ""
-}
-
-
-function qfw_reset {
+function fw_reset {
   /sbin/ip6tables -F
   /sbin/ip6tables -X
   /sbin/ip6tables -t nat -F
@@ -174,43 +150,46 @@ function qfw_reset {
   /sbin/ip6tables -t filter -X
 }
 
-function qfw_restart {
-  echo "     > Starting qFirewall..."
-  qfw_clean
+function fw_start {
+  echo "     > Starting Firewall..."
+  fw_rules
+  echo "     > Firewall started"
+}
+
+function fw_stop {
+  echo "     > Stopping Firewall..."
+  fw_reset
+  echo "     > Firewall stopped"
+}
+
+function fw_restart {
+  echo "     > Starting Firewall..."
+  fw_reset
   echo "     > Loading the rules..."
-  qfw_rules
+  fw_rules
   echo "     > Rules loaded"
-  echo "     > qFirewall started"
+  echo "     > Firewall started"
 }
 
-function qfw_clean {
-  echo "     > Cleaning rules..."
-  qfw_reset
-  echo "     > Rules cleaned"
-}
-
-function qfw_stop {
-  echo "     > Stopping qFirewall..."
-  qfw_clean
-  echo "     > qFirewall stopped"
-}
 
 
 # #######################################################################
 # ## Main
 
 case "$1" in
-  restart)
-  qfw_restart
+  start)
+  fw_start
   ;;
   stop)
-  qfw_stop
+  fw_stop
+  ;;
+  restart)
+  fw_restart
   ;;
   *)
-  qfw_help
+  fw_help
   exit 1
   ;;
 esac
 
-qfw_seeya
 exit 0
