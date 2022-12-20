@@ -1,6 +1,6 @@
 #! /bin/bash
 
-# ######################### Firewall (fw) ########################
+# ######################### Firewall (fw6) ########################
 #
 # This is a basic /sbin/ip6tables firewall script.
 #
@@ -148,6 +148,8 @@ function fw_reset {
   /sbin/ip6tables -P OUTPUT ACCEPT
   /sbin/ip6tables -t filter -F
   /sbin/ip6tables -t filter -X
+
+  echo "WARNING: you may want to restart fail2ban and docker service as they set their own rules."
 }
 
 function fw_start {
@@ -163,12 +165,10 @@ function fw_stop {
 }
 
 function fw_restart {
-  echo "     > Starting Firewall..."
+  echo "     > Restarting Firewall..."
   fw_reset
-  echo "     > Loading the rules..."
   fw_rules
-  echo "     > Rules loaded"
-  echo "     > Firewall started"
+  echo "     > Firewall restarted"
 }
 
 
