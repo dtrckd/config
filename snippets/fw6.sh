@@ -5,7 +5,7 @@
 # This is a basic /sbin/ip6tables firewall script.
 #
 # Usage:
-# ./fw {restart|stop|enable}
+# ./fw {restart|stop}
 #
 # Notes:
 # 1. Comment or uncomment the firewall rules below according to your
@@ -52,6 +52,9 @@ function qfw_rules {
   /sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 22 -j ACCEPT
   /sbin/ip6tables -t filter -A INPUT -p tcp --dport 9000 -j ACCEPT
   /sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 9000 -j ACCEPT
+  # special ssh ports
+  #/sbin/ip6tables -t filter -A INPUT -p tcp --dport 29418 -j ACCEPT
+  #/sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 29418 -j ACCEPT
   echo "     > Authorize SSH"
 
   # DNS in/out
@@ -60,6 +63,11 @@ function qfw_rules {
   /sbin/ip6tables -t filter -A INPUT -p tcp --dport 53 -j ACCEPT
   /sbin/ip6tables -t filter -A INPUT -p udp --dport 53 -j ACCEPT
   echo "     > Authorize DNS"
+
+  # DHCP
+  /sbin/ip6tables -t filter -A OUTPUT -p udp --dport 67:68 --sport 67:68 -j ACCEPT
+  /sbin/ip6tables -t filter -A INPUT  -p udp --dport 67:68 --sport 67:68 -j ACCEPT
+  echo "     > Authorize DHCP"
 
   # NTP Out
   /sbin/ip6tables -t filter -A OUTPUT -p udp --dport 123 -j ACCEPT
@@ -73,7 +81,6 @@ function qfw_rules {
   # HTTP + HTTPS In
   /sbin/ip6tables -t filter -A INPUT -p tcp --dport 80 -j ACCEPT
   /sbin/ip6tables -t filter -A INPUT -p tcp --dport 443 -j ACCEPT
-  # /sbin/ip6tables -t filter -A INPUT -p tcp --dport 8443 -j ACCEPT
   # /sbin/ip6tables -t filter -A INPUT -p tcp --dport 8080 -j ACCEPT
   echo "     > Authorize http and https"
 
@@ -108,6 +115,12 @@ function qfw_rules {
   /sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 995 -j ACCEPT
   echo "     > Authorize mail"
 
+  # Node exporter
+  #/sbin/ip6tables -t filter -A INPUT -p tcp --dport 9100 -j ACCEPT
+  #/sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 9100 -j ACCEPT
+  #echo "     > Authorize Node exporter"
+
+
   # OpenVZ Web Pannel
   # /sbin/ip6tables -t filter -A OUTPUT -p tcp --dport 3000 -j ACCEPT
   # /sbin/ip6tables -t filter -A INPUT -p tcp --dport 3000 -j ACCEPT
@@ -137,7 +150,7 @@ function qfw_rules {
 # ## Other functions
 
 function qfw_help {
-  echo "qFirewall usage: ./fw {restart|stop|enable}"
+  echo "qFirewall usage: ./fw {restart|stop}"
   exit 1
 }
 
@@ -187,7 +200,7 @@ function qfw_stop {
 # ## Main
 
 case "$1" in
-  start)
+  restart)
   qfw_restart
   ;;
   stop)
