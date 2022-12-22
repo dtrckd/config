@@ -963,17 +963,17 @@ fu! SetHi()
   hi Normal ctermbg=233
   hi Comment ctermfg=blue
   "hi Comment guifg=DarkGrey ctermfg=brown " like; green, white, brown, cyan(=string)
-  hi Search ctermfg=white ctermbg=105 cterm=NONE
+  hi Search ctermfg=white ctermbg=105 cterm=none
   hi SpellBad ctermbg=red cterm=underline
   hi StatusLine ctermfg=white ctermbg=25 cterm=bold
   hi StatusLineNC ctermfg=black ctermbg=242
-  hi CursorLine term=underline ctermbg=235
+  hi CursorLine cterm=none term=underline ctermbg=235
   hi TabLine ctermbg=7 ctermfg=black
   hi TabLineSel ctermfg=blue ctermbg=green
   "hi TabLineSel ctermfg=Blue ctermbg=Green
   "hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
 
-  hi ErrorMsg ctermfg=Red ctermbg=None
+  hi ErrorMsg ctermfg=red ctermbg=none
 
   " Gutter
   hi SignColumn ctermbg=235
