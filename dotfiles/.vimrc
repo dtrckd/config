@@ -18,12 +18,12 @@ Plugin 'luochen1990/rainbow'
 Plugin 'a.vim'
 Plugin 'Align'
 Plugin 'taglist.vim'
-Plugin 'majutsushi/tagbar'
+Plugin 'preservim/tagbar'
+Plugin 'preservim/nerdcommenter'
+Plugin 'preservim/nerdtree'
+Plugin 'gotcha/vimpdb'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'gotcha/vimpdb'
 "Plugin 'mozilla/doctorjs' " for javascript
 
 " File and code Search
@@ -62,14 +62,17 @@ Plugin 'plasticboy/vim-markdown'
 "Plugin 'tmhedberg/simpylfold'
 "Plugin 'yhat/vim-docstring'
 
-" Misc
-Plugin 'xolox/vim-session'
-"Plugin romgrk/vim-session  " Community fork, to try
-Plugin 'itchyny/calendar.vim'
-"Plugin 'troydm/zoomwintab.vim'
+" Session
+Plugin 'mhinz/vim-startify'
+"Plugin 'romgrk/vim-session'
+"Plugin 'xolox/vim-session'
 Plugin 'dhruvasagar/vim-zoom'
+"Plugin 'troydm/zoomwintab.vim'
+
+" Misc
+Plugin 'itchyny/calendar.vim'
 Plugin 'ciaranm/detectindent'
-Plugin 'editorconfig/editorconfig-vim' " Read .editorconfig in project
+Plugin 'editorconfig/editorconfig-vim'  " Read .editorconfig in project
 "Plugin 'jceb/vim-orgmode'
 "Plugin 'cskeeters/vim-smooth-scroll'   " interesting scroll property
 "Plugin 'rargo/vim-line-jump'
@@ -168,6 +171,7 @@ let g:ack_use_cword_for_empty_search = 1
 
 " Don't jump to first match
 cnoreabbrev Ack Ack!
+"cnoreabbrev Ack Ack!
 "cnoreabbrev ag Ack
 "cnoreabbrev ack Ack
 
@@ -265,19 +269,31 @@ let g:tagbar_type_markdown = {
 \ }
 
 
+" Elm tagbar (old)
+"let g:tagbar_type_elm = {
+"      \ 'kinds' : [
+"      \ 'f:function:1:0',
+"      \ 'm:modules:0:0',
+"      \ 'i:imports:0:0',
+"      \ 't:types:1:0',
+"      \ 'a:type aliases:0:0',
+"      \ 'c:type constructors:0:0',
+"      \ 'p:ports:0:0',
+"      \ 's:functions:0:0',
+"      \ ]
+"      \}
 " Elm tagbar
+" see https://github.com/preservim/tagbar/wiki#elm
+" for the script elmtags.py
 let g:tagbar_type_elm = {
-      \ 'kinds' : [
-      \ 'f:function:0:0',
-      \ 'm:modules:0:0',
-      \ 'i:imports:1:0',
-      \ 't:types:1:0',
-      \ 'a:type aliases:0:0',
-      \ 'c:type constructors:0:0',
-      \ 'p:ports:0:0',
-      \ 's:functions:0:0',
-      \ ]
-      \}
+          \   'ctagstype':'elm'
+          \ , 'kinds':['h:header', 't:type', 'f:function']
+          \ , 'sro':'&&&'
+          \ , 'kind2scope':{ 'h':'header', 'i':'import'}
+          \ , 'sort':0
+          \ , 'ctagsbin':$HOME.'/.local/bin/elmtags.py'
+          \ , 'ctagsargs': ''
+          \ }
 
 " CSS tagbar
 let g:tagbar_type_scss = {
@@ -910,7 +926,8 @@ endfunction
 com! RedrawTab :call RedrawTab()
 
 fu! MkSession()
-    execute 'SaveSession '. Last2Dir()
+    "execute 'SaveSession '. Last2Dir()
+    execute 'SSave! '. Last2Dir()
 endfunction
 com! MkSession :call MkSession()
 """ Old
