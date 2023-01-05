@@ -101,6 +101,7 @@ alias vimrc="vim ~/.vimrc"
 alias vimtmux="vim ~/.tmux.conf"
 alias vig="vim ~/.gitconfig"
 alias vign="vim .gitignore"
+alias vikitty="vim ~/.config/kitty/kitty.conf"
 
 alias vi='vim'
 alias ci='vim'
@@ -163,8 +164,12 @@ alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Upd
 
 function vims
     set SessionID (basename (dirname $PWD))-(basename $PWD)
-    if [ -f "$HOME/.vim/sessions/$SessionID.vim" ]
-        vim -c "OpenSession $SessionID"
+    # vim-session way
+    #if [ -f "$HOME/.vim/sessions/$SessionID.vim" ]
+    #    vim -c "OpenSession $SessionID"
+    # vim-startify way
+    if [ -f "$HOME/.vim/session/$SessionID" ]
+        vim -c "SLoad $SessionID"
     else
         echo "no vim session file found for $SessionID."
     end
@@ -193,7 +198,7 @@ function upgrademe
 end
 
 alias gitupdate='git remote update'
-alias gitg='gitg --all 1>/dev/null &'
+alias gitg="gitg --all 1>/dev/null &"
 alias gitk='gitk &'
 alias gitamend='git commit --amend'
 alias gitcommit='git commit'
@@ -640,3 +645,6 @@ end
 if type -q zoxide
     zoxide init fish | source
 end
+
+# Kitty...
+export TERM="xterm-kitty"
