@@ -17,7 +17,6 @@ Plugin 'tpope/vim-surround'
 Plugin 'luochen1990/rainbow'
 Plugin 'a.vim'
 Plugin 'Align'
-Plugin 'taglist.vim'
 Plugin 'preservim/tagbar'
 Plugin 'preservim/nerdcommenter'
 Plugin 'preservim/nerdtree'
@@ -73,12 +72,12 @@ Plugin 'dhruvasagar/vim-zoom'
 Plugin 'itchyny/calendar.vim'
 Plugin 'ciaranm/detectindent'
 Plugin 'editorconfig/editorconfig-vim'  " Read .editorconfig in project
-"Plugin 'jceb/vim-orgmode'
-"Plugin 'cskeeters/vim-smooth-scroll'   " interesting scroll property
+Plugin 'psliwka/vim-smoothie'
 "Plugin 'rargo/vim-line-jump'
 "Plugin 'sirver/ultisnips' ' py >=2.7
 "Plugin rstacruz/sparkup  # Zn writing HTLM
 "msanders/snipmate.vim  # tons of snippet
+"Plugin 'jceb/vim-orgmode'
 
 " Theme
 Plugin 'uguu-org/vim-matrix-screensaver'
@@ -104,7 +103,7 @@ let g:go_fmt_command = "goimports"
 let g:ycm_show_diagnostics_ui = 1
 let g:ycm_enable_diagnostic_signs = 0
 let g:ycm_enable_diagnostic_highlighting = 0
-"
+
 let g:SuperTabNoCompleteAfter = ['^', '\s', '#', "'", '"', '%', '/']
 let g:SuperTabClosePreviewOnPopupClose = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -151,7 +150,6 @@ noremap <leader>f :FZF<cr>
 
 """ Fuzzy search > fzf, ack, ag, ripgrep familly !
 nnoremap <silent> <Leader>z :Ack <C-R><C-W><CR>
-" ack.vim --- {{{
 
 " Use ripgrep for searching ⚡️
 " Options include:
@@ -163,8 +161,7 @@ let g:ackprg = 'rg --vimgrep --type-not sql --smart-case'
 set shellpipe=>
 
 " Auto close the Quickfix list after pressing '<enter>' on a list item
-let g:ack_autoclose = 1
-" Tou can alos use :cclose
+let g:ack_autoclose = 1  " You can alos use :cclose
 
 " Any empty ack search will search for the work the cursor is on
 let g:ack_use_cword_for_empty_search = 1
@@ -180,14 +177,6 @@ nnoremap <Leader>/ :Ack!<Space>
 
 " Or the keyword under cursor
 noremap <leader>a :Ack! "<cword>"<cr>
-" }}}
-
-" Navigate quickfix list with ease
-"nnoremap <silent> [q :cprevious<CR>
-"nnoremap <silent> ]q :cnext<CR>
-
-
-
 
 """ Rainbow colors
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
@@ -231,26 +220,16 @@ let g:session_default_overwrite = 1 " every Vim instance without an explicit ses
 
 "" Compilation & Tagbar ! Great
 let g:easytags_cmd = '/usr/bin/ctags'
-let Tlist_Ctags_Cmd = '/usr/bin/ctags'
-let Tlist_WinWidth = 30
-let Tlist_Exit_OnlyWindow = 1
-let Tlist_File_Fold_Auto_Close = 1
-noremap <Leader>to :TlistAddFiles %<CR>
-noremap <C-n> :TlistToggle<CR>
+" See available kinds: ctags --list-kinds=<language_name>
+"noremap <Leader>mctags :!/usr/bin/ctags -R  --fields=+iaS --extra=+q .<CR>
+"noremap <Leader>mctags :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 noremap <C-m> :TagbarToggle<CR>
-noremap <Leader>tup :TlistUpdate<CR>
-noremap <Leader>mctags :!/usr/bin/ctags -R  --fields=+iaS --extra=+q .<CR>
-noremap <Leader>mctags :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-
-" tagbar of taglist, ???
 let g:tagbar_sort = 0
 let g:tagbar_compact = 1
 let g:tagbar_singleclick = 1
 let g:tagbar_autofocus = 1
-nnoremap tf :TlistShowTag<CR>
 nnoremap tc :TagbarShowTag<CR>
 
-" See available kinds: ctags --list-kinds=<language_name>
 
 " Markdown tagbar
 let g:tagbar_type_markdown = {
@@ -422,13 +401,8 @@ let g:r_syntax_folding = 1
 let g:rust_fold = 1
 let g:php_folding = 1
 
-
-"
-" Vim closer
-"
-"au FileType elm
-"  \ let b:closer = 1 |
-"  \ let b:closer_flags = '(['
+" Disabled vim-smoothie
+"let g:smoothie_enabled = 0
 
 
 " #######################################
