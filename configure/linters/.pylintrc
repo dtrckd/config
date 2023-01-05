@@ -1,3 +1,5 @@
+# http://pylint-messages.wikidot.com/all-codes
+
 [MESSAGES CONTROL]
 
 disable=C0111,  # missing docstring

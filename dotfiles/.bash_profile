@@ -171,6 +171,7 @@ alias vimrc="vim ~/.vimrc"
 alias vimtmux="vim ~/.tmux.conf"
 alias vig="vim ~/.gitconfig"
 alias vign="vim .gitignore"
+alias vikitty="vim ~/.config/kitty/kitty.conf"
 
 _PWD="/home/ama/adulac/main/networkofgraphs/process/repo/ml/"
 _NDL="$HOME/src/config/configure/nodeslist"
@@ -764,15 +765,15 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 # To work with opencv and cam
 #LD_PRELOAD=/usr/lib/libv4l/v4l2convert.so
 
-### IF XFCE4
-printf "\e[?2004l" # to avoid Copy-Paste in xfce4-terminal adds 0~ and 1~
-### For vim color
-if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-    export TERM='xterm-256color'
-else
-    export TERM='xterm-color'
-fi
-export TERM='xterm-256color'
+### IF XFCE4 (@debug Kitty)
+#printf "\e[?2004l" # to avoid Copy-Paste in xfce4-terminal adds 0~ and 1~
+#### For vim color
+#if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+#    export TERM='xterm-256color'
+#else
+#    export TERM='xterm-color'
+#fi
+export TERM='xterm-kitty'
 
 # C
 cppversion='g++ -dM -E -x c++  /dev/null | grep -F __cplusplus'

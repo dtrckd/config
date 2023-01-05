@@ -934,7 +934,9 @@ if &term =~ '256color'
     " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
     set t_ut=
 endif
-"set term=xterm-256color
+
+" https://sw.kovidgoyal.net/kitty/faq/#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim
+let &t_ut=''
 
 " Vim TMUX
 "set t_8b=^[[48;2;%lu;%lu;%lum
@@ -954,13 +956,13 @@ fu! SetHi()
   hi Normal ctermbg=233
   hi Comment ctermfg=blue
   "hi Comment guifg=DarkGrey ctermfg=brown " like; green, white, brown, cyan(=string)
+  hi CursorLine cterm=none term=underline ctermbg=235
   hi Search ctermfg=white ctermbg=105 cterm=none
   hi SpellBad ctermbg=red cterm=underline
   hi StatusLine ctermfg=white ctermbg=25 cterm=bold
-  hi StatusLineNC ctermfg=black ctermbg=242
-  hi CursorLine cterm=none term=underline ctermbg=235
-  hi TabLine ctermbg=7 ctermfg=black
-  hi TabLineSel ctermfg=blue ctermbg=green
+  hi StatusLineNC ctermfg=black ctermbg=245
+  hi TabLine ctermfg=black ctermbg=245 cterm=none
+  hi TabLineSel ctermfg=white ctermbg=25
   "hi TabLineSel ctermfg=Blue ctermbg=Green
   "hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
 
