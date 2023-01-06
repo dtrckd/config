@@ -950,12 +950,11 @@ colo dracula
 "colo onehalfdark
 
 fu! SetHi()
-
   """ Custom Colors & Highlights
   hi Title ctermfg=39  " affect the number of windows in the tabline and filname in nerdtab
   hi Normal ctermbg=233
   hi Comment ctermfg=blue
-  "hi Comment guifg=DarkGrey ctermfg=brown " like; green, white, brown, cyan(=string)
+  "hi Comment guifg=DarkGrey ctermfg=brown 
   hi CursorLine cterm=none term=underline ctermbg=235
   hi Search ctermfg=white ctermbg=105 cterm=none
   hi SpellBad ctermbg=red cterm=underline
@@ -963,18 +962,17 @@ fu! SetHi()
   hi StatusLineNC ctermfg=black ctermbg=245
   hi TabLine ctermfg=black ctermbg=245 cterm=none
   hi TabLineSel ctermfg=white ctermbg=25
-  "hi TabLineSel ctermfg=Blue ctermbg=Green
-  "hi TabLineFill ctermfg=LightGreen ctermbg=DarkGreen
+  "hi TabLineFill ctermfg=black
 
   hi ErrorMsg ctermfg=red ctermbg=none
 
-  " Gutter
+  """ Gutter
   hi SignColumn ctermbg=235
 
-  """ StatusLine
   set shortmess-=S " show number of matches
   hi GitColor ctermbg=172 ctermfg=black
 
+  """ StatusLine
   au BufEnter,BufRead,BufWritePost * call StatuslineGit()
   set statusline=""
   set statusline+=%#GitColor#%{g:gitbranch}%*
