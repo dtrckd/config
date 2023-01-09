@@ -4,6 +4,7 @@ let mapleader = ','
 """"""""""""""""""""""""""""""
 """ Vundle
 """"""""""""""""""""""""""""""
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -88,7 +89,7 @@ Plugin 'dracula/vim'
 "Plugin 'sonph/onehalf', { 'rtp': 'vim' }
 
 """""""""""""""""""""""""""
-"""" Plugin conf
+""" Plugin conf
 """""""""""""""""""""""""""
 
 """ Editorconfig
@@ -382,6 +383,7 @@ call ale#linter#Define('go', {
 
 nmap <leader>e :ALEToggle<CR>
 nmap <leader>en :ALENext<CR>
+nmap <leader>eN :ALEPrevious<CR>
 nmap <leader>ep :ALEPrevious<CR>
 
 
@@ -406,11 +408,11 @@ let g:php_folding = 1
 
 
 " #######################################
-" #### PLugion ends
+" #### PLugin ends
 " #######################################
 
 """""""""""""""""""""""""""
-"""" Helper Functions
+""" Helper Functions
 """""""""""""""""""""""""""
 
 " remove trainling newline ans spaces
@@ -456,19 +458,20 @@ function! StatuslineGit()
   let g:gitstatus = strlen(status) > 0 ? '('.status.')' : ''
 endfunction
 
+
 """"""""""""""""""""""""""""""
 """ General / Interface
 """"""""""""""""""""""""""""""
 syntax on
 set backspace=indent,eol,start
 set tabpagemax=50
-set noequalalways                   " prevent automatically resizing windows
-set pastetoggle=£                   " toggle paste mode
-"set clipboard=unnamed              " dont support C-S V
-"set title                          " update window title for X and tmux
-"set autochdir                      " set current cwd to the current file
-set ruler                           " show current position
-set laststatus=2
+set noequalalways                  " prevent automatically resizing windows
+set pastetoggle=£                  " toggle paste mode
+"set clipboard=unnamed             " dont support C-S V
+"set title                         " update window title for X and tmux
+"set autochdir                     " set current cwd to the current file
+set ruler                          " show current position
+set laststatus=2                   " always show the statusline
 set mat=1                          " How many tenths of a second to blink
 set novb                           " no beep, visualbell
 set showcmd                        " Show (partial) command in status line.
@@ -484,12 +487,12 @@ set report=0                       " show number of modification if they are
 set cursorline                     " hilight current line - cul
 "set autowrite                     " Automatically save before commands like :next and :make
 "set hidden                        " Hide buffers when they are abandoned
-"set mouse=a                       " Enable mouse usage (all modes) in terminals
+set mouse=a                        " Enable mouse usage (all modes) in terminals
 "set textwidth=0                   " disable textwith
 set fo+=1ro fo-=tc tw=0            " break comment at tw $size
 "set fo+=1cro fo-=t tw=0           " break comment at tw $size
 "set colorcolumn=-1
-set scrolloff=4                    " visible line at the top or bottom from cursor
+set scrolloff=4                   " visible line at the top or bottom from cursor
 set linebreak                      " don't wrap word
 set nowrap                         " don't wrap line too long
 set nostartofline                  " try keep the column with line moves
@@ -510,12 +513,24 @@ endif
 set ttyfast
 "set lazyredraw " weird behavious (statuslines is black...)
 
-" unmap K
-map <S-k> <Nop>
+""" Tabulations / Indentation
+set softtabstop=4
+set shiftwidth=4
+set tabstop=4
+set expandtab
+"set preserveindent " ?
+set smarttab " trivial
+set autoindent "keep indentation over line
 
-"""
-""" Terminal hacks
-"""
+"set smartindent " <= mess up indent !
+" replacement:
+set cindent
+set cinkeys-=0#
+set indentkeys-=0#
+
+set foldmethod=indent
+set nofen               " open all folds. see z[mn] command
+set nofoldenable
 
 "" Magic pasting
 "" Toggle paste/nopaste automatically when copy/paste with right click in insert mode:
@@ -523,25 +538,18 @@ map <S-k> <Nop>
 "let &t_EI .= "\<Esc>[?2004l"
 set t_BE=  " disable bracketed paste mode.  https://gitlab.com/gnachman/iterm2/issues/5698
 
-map <Esc>[B <Down>
 
 """"""""""""""""""""""""""""""
-""" Mapping / MOVES
+""" MAPPING
 """"""""""""""""""""""""""""""
-""" general
+
+""" NORMAL MAP
+map <Esc>[B <Down>
 imap <C-L> <Esc>
-" remap C-w to cut the word before the cursor
-imap <C-w> <C-[>diwi
-" remap C-w to cut the word after the cursor
-inoremap <C-s> <C-o>diw 
 nnoremap ; :
 nnoremap <Esc> :noh<cr>
-" vertical help
-cnoreabbrev vh vert h
-cnoreabbrev vs botright vs
-cnoreabbrev t tabe
-""" Navigate
-noremap <F4> :tabe %<CR>
+" unmap K
+map <S-k> <Nop>
 """ Window moves
 nnoremap <S-UP>    <C-W>k
 nnoremap <S-DOWN>  <C-W>j
@@ -576,63 +584,52 @@ nnoremap <C-DOWN> gt
 nnoremap <C-S-PageUp> :tabm-<cr>
 nnoremap <C-S-PageDown> :tabm+<cr>
 """ Insert Mode
-imap <C-a> <Esc>^^i
-imap <C-e> <Esc>$a
+inoremap <C-a> <Esc>^^i
+inoremap <C-e> <Esc>$a
 "imap <C-s> <Esc>:w<CR> " don't work ?
-""" Command Mode
+" Format Json
+noremap <Leader>jf :%!jq .<CR>
+noremap <Leader>je :%!sed 's/\\n/\n/g'<CR>
+
+""" VISUAL MAP
+" Paste in Clipboard in mouse=a mode
+" https://stackoverflow.com/questions/4608161/copying-text-outside-of-vim-with-set-mouse-a-enabled
+" Note: it seems that with "nore" mapping is slightly slower.
+vmap <C-c> "+y
+vmap <C-x> "+x
+imap <C-v> <C-[>"+pa
+
+" Word delete
+nnoremap <silent> dw ciw
+" remap C-w to cut the word before the cursor
+inoremap <C-w> <C-[>dawa
+" remap C-w to cut the word after the cursor
+inoremap <C-s> <C-o>diw 
+" Prevent delay when using <C-w> in normal mode
+"tno <c-w><c-w> <c-w><c-w>
+noremap <C-w> daw
+
+""" COMMAND MAP
 cnoremap $h e ~/
 cnoremap $e e %:p:h
 cnoremap $t tabe %:p:h
 cnoremap $s split %:p:h
 cnoremap $v botright vs %:p:h
 cnoremap cwd lcd %:p:h  "change current working directory(cwd) to the dir of the currenet file
+" vertical help
+cnoreabbrev vh vert h
+cnoreabbrev vs botright vs
+cnoreabbrev t tabe
 "noremap <Leader>s :split<cr>
 noremap <Leader>v :vs<cr>
 noremap <Leader>t :tabe %<cr>
 noremap <Leader>r :reg<cr>
-"""" Edit
-nnoremap <silent> dw diwi
-nnoremap <silent> da diWa
-nnoremap <silent> da diw"0p
 
-" indent under block, and come back (zo?)
-"noremap <TAB>) m9<S-v>)='9  " Equal to '=)'
-
-""" Remap unsefull one that get remap (if <TAB> get mapped)
-"unmap <C-i>
-"unmap <C-i><C-i>
-
-""" Format Json
-noremap <Leader>jf :%!jq .<CR>
-noremap <Leader>je :%!sed 's/\\n/\n/g'<CR>
-
-" Copy the line selection into the clipboard (not the selection, the line, 
-":1,7w !xclip -selection clipboard 
 
 """"""""""""""""""""""""""""""
-""" Tabulations / Indentation
+""" Filetypes
 """"""""""""""""""""""""""""""
-set softtabstop=4
-set shiftwidth=4
-set tabstop=4
-set expandtab
-"set preserveindent " ?
-set smarttab " trivial
-set autoindent "keep indentation over line
 
-"set smartindent " <= mess up indent !
-" replacement:
-set cindent
-set cinkeys-=0#
-set indentkeys-=0#
-
-set foldmethod=indent
-set nofen               " open all folds. see z[mn] command
-set nofoldenable
-                                                                                           
-""""""""""""""""""""""""""""""                                                             
-"""" => Extra Filetype                                                                     
-""""""""""""""""""""""""""""""                                                             
 au BufNewFile,BufRead *.md set filetype=markdown                                           
 au BufNewFile,BufRead *.load set filetype=html                                             
 au BufNewFile,BufRead *.css,*.scss,*.sass,*.less setf scss                                 
@@ -650,18 +647,18 @@ au BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x "<afile>"
 autocmd FileType yaml,yaml.ansible setlocal indentkeys-=0#
 
 """"""""""""""""""""""""""""""
-"""" => Makefile Files
+""" Makefile Files
 """"""""""""""""""""""""""""""
 au filetype make set noexpandtab softtabstop=0
 
 """"""""""""""""""""""""""""""
-"""" => Conf Files
+""" Conf Files
 """"""""""""""""""""""""""""""
 au BufNewFile,BufRead *.*rc set tw=0
 au filetype vim set ts=2 sts=2 sw=2
 
 """"""""""""""""""""""""""""""
-"""" => Python Files
+""" Python Files
 """"""""""""""""""""""""""""""
 au BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent fileformat=unix
 au BufNewFile,BufRead *.py set formatoptions-=tc " prevent inserting \n. Where does it come from ????
@@ -682,30 +679,29 @@ autocmd BufWrite *.py,*.pyx,*.pyd,*.c,*.cpp,*.h,*.sh,*.txt,*.js,*.html,*.css,*.g
 " for tab invisible bug (caused by set paste); try :%retab
 
 """"""""""""""""""""""""""""""
-"""" => Docstrings
+""" Docstrings
 """"""""""""""""""""""""""""""
 " To toggle the docstrings in the whole buffer you can use zR and zM, to toggle a single docstring, use za .
 au BufNewFile,BufRead *.graphql,*.py setlocal foldenable foldmethod=syntax 
 "nnoBufNewFile,BufReadremap <space> za
 
 """"""""""""""""""""""""""""""
-"""" => Latex Files
+""" Latex Files
 """"""""""""""""""""""""""""""
 au filetype tex set ts=2 sts=2 sw=2
 au Filetype tex set wrap tw=90
 au Filetype tex set indentkeys="    "
-"au BufRead,BufNewFile *.md set mouse=
 au BufRead,BufNewFile *.md set wrap tw=0
 
 """"""""""""""""""""""""""""""
-"""" => C, C++, Java Files
+""" C, C++, Java Files
 """"""""""""""""""""""""""""""
 "au filetype cpp, java  set ts=8 sts=8 sw=8
 au filetype cpp set fdm=syntax
 "au filetype cpp set cinoptions=>s,e0,f0,{0,}0,^0,:s,=s,l0,gs,hs,ps,ts,+s,c3,C0,(2s,us,U0,w0,j0,)20,*30
 
 """"""""""""""""""""""""""""""
-"""" => HTML Files
+""" HTML Files
 """"""""""""""""""""""""""""""
 au BufNewFile,BufRead  *.html,*.css set tabstop=2 softtabstop=2 shiftwidth=2 nowrap
 
@@ -722,14 +718,12 @@ au BufNewFile,BufRead *.js    noremap ## :s/\([^ ].*\)$/\/\*\1\*\//<CR>:noh<CR>
 au BufNewFile,BufRead *.js    noremap ~~ :s/\/\*\(.*\)\*\//\1/<CR>:noh<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" => Spell checking
+""" Spell checking
 """ get dict from : ftp://ftp.vim.org/pub/vim/runtime/spell/
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pressing ,ss will toggle and untoggle spell checking
 noremap <leader>ss :setlocal spell! spelllang=en<CR>
 noremap <leader>ssfr :setlocal spell! spelllang=fr<CR>
-
-" Shortcuts using <leader>
 noremap z] ]s
 noremap z[ [s
 noremap <leader>sa zg
@@ -747,8 +741,8 @@ nnoremap <leader>, :set wrap!<CR>
 " save session
 nnoremap <leader>w :mks! .session.vim<CR>
 """ set mouse mode
-nnoremap <leader>m :set mouse=a<CR>
-nnoremap <leader>mm :set mouse=<CR>
+nnoremap <leader>ma :set mouse=a<CR>
+nnoremap <leader>mo :set mouse=<CR>
 """ Copy current line to clipboard
 nnoremap <leader>c :.w !xclip -selection clipboard<CR>
 """ Copy all file to clipboard
@@ -756,13 +750,12 @@ nnoremap <leader>cf :%w !xclip -selection clipboard<CR>
 """ Execute
 "noremap <leader>e :!. % &<CR>
 
-
 autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownIgnore "\$.*_.*\$"
 "autocmd BufNewFile,BufRead,BufEnter *.md :syn match markdownIgnore "\\begin.*\*.*\\end" " don't work?
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""" => Calendar
+""" Calendar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Setup
@@ -783,7 +776,7 @@ let g:calendar_first_day = 'monday'
 "autocmd FileType calendar if !has('gui_running') | set t_Co=256 | endif
 
 """"""""""""""""""""""""""""""
-"""" => Snippet & Commands
+""" Snippet & Commands
 """"""""""""""""""""""""""""""
 
 " Jump to the next or previous line that has the same level or a lower                     
@@ -914,6 +907,7 @@ com! MkSession :call MkSession()
 """"""""""""""""""""""""""""""
 """ Theme/Colors
 """"""""""""""""""""""""""""""
+
 " Make Vim recognize XTerm escape sequences for Page and Arrow
 " keys combined with modifiers such as Shift, Control, and Alt.
 " See http://www.reddit.com/r/vim/comments/1a29vk/_/c8tze8p
