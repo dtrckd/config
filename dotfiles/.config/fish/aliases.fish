@@ -103,6 +103,7 @@ alias vig="vim ~/.gitconfig"
 alias vign="vim .gitignore"
 alias vikitty="vim ~/.config/kitty/kitty.conf"
 
+alias vim='nvim'
 alias vi='vim'
 alias ci='vim'
 alias bi='vim'
