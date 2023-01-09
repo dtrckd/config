@@ -245,6 +245,7 @@ alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Upd
 
 ### VIM
 #alias vim='vim.nox'
+alias vim='nvim'
 alias vi='vim'
 alias ci='vim'
 alias bi='vim'
@@ -750,7 +751,7 @@ export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S "
 export EDITOR="/usr/bin/vim"
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
-export PATH="/usr/local/bin:$HOME/.local/bin:$HOME/bin:/bin:/sbin:/usr/sbin:/opt/bin:/usr/bin"
+export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:/opt/bin:/usr/bin:/usr/sbin:/bin:/sbin"
 
 ### Man Pages
 # Less Colors for Man Pages
@@ -791,8 +792,8 @@ fi
 # GOLANG
 if [ -x "$(which go)" ]; then
     export GOPATH=$HOME/.go
-    export PATH=$PATH:$(go env GOROOT)/bin
-    export PATH=$PATH:$(go env GOPATH)/bin
+    export PATH="$(go env GOROOT)/bin:$PATH"
+    export PATH="$(go env GOPATH)/bin:$PATH"
 fi
 
 # SNAP
@@ -812,12 +813,12 @@ export NVM_DIR="$HOME/.nvm"
 
 # Brew
 #git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
-export PATH="$PATH:$HOME/.linuxbrew/bin"
+export PATH="$HOME/.linuxbrew/bin:$PATH"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
 # Poetry
-export PATH="$PATH:$HOME/.poetry/bin"
+export PATH="$HOME/.poetry/bin:$PATH"
 
 # Thefuck
 if [ -x "$(which thefuck)" ]; then
