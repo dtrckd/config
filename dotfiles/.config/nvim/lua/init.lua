@@ -17,5 +17,5 @@ vim.keymap.set("c", "<up>", function()
     if vim.fn.pumvisible() == 1 then
         return '<left>'
     end
-    return '<down>'
+    return '<up>'
 end, { expr = true })
