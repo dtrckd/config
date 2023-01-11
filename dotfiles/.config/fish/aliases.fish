@@ -83,7 +83,7 @@ alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias j=jobs
 alias pasteclean="xsel | sed 's/ *\$//' | xsel -bi"
 alias tu="htop -u $USER"
-alias t="htop"
+alias iotop="sudo TERM=xterm iotop -o -a -d 2 -h"
 alias diffd="diff -rq $argv[1] $argv[2]" # show difference files between dir$1 and dir$2
 alias mvspace="rename 's/ /_/g'"
 alias torb="sh -c \"$HOME/src/config/app/tor-browser_en-US/Browser/start-tor-browser\" --detach"

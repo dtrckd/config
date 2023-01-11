@@ -25,7 +25,7 @@ sudo aptitude install $OPTS -R mc rsync tmux ranger wicd vim git gitk gitg
 ranger --copy-config=all
 # Optionals (but advised !)
 if [ $AGGRESSIVE == 1 ]; then
-    sudo aptitude install $OPTS -R apt-listbugs zip xclip acpi bmon nmap curl wget wireshark ksysguard iotop jq ripgrep fish autossh tree wkhtmltopdf
+    sudo aptitude install $OPTS -R apt-listbugs zip xclip acpi bmon nmap curl wget wireshark ksysguard jq ripgrep fish autossh tree wkhtmltopdf
     # for protonmail bridge on linux
     sudo aptitude install $OPTS -R debsig-verify debian-keyring gnome-keyring
 fi
