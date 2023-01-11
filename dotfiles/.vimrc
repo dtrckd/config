@@ -607,7 +607,8 @@ inoremap <C-w> <C-[>dawa
 inoremap <C-s> <C-o>diw 
 " Prevent delay when using <C-w> in normal mode
 "tno <c-w><c-w> <c-w><c-w>
-noremap <C-w> daw
+" breaks window movement
+"nmap <C-w> daw
 
 """ COMMAND MAP
 cnoremap $h e ~/
@@ -624,6 +625,7 @@ cnoreabbrev t tabe
 noremap <Leader>v :vs<cr>
 noremap <Leader>t :tabe %<cr>
 noremap <Leader>r :reg<cr>
+command Bufno :echo bufnr('%') " print the current buffer number
 
 
 """"""""""""""""""""""""""""""
