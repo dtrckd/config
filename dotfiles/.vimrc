@@ -645,7 +645,7 @@ au BufNewFile,BufRead *.cr set filetype=crystal
 au BufNewFile,BufRead *.plt,*.gnuplot,*.gnu set filetype=gnuplot                           
 au BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x "<afile>"                      
 
-" prevent changin the indentation when commenting
+" prevent changing the indentation when commenting
 autocmd FileType yaml,yaml.ansible setlocal indentkeys-=0#
 
 """"""""""""""""""""""""""""""
