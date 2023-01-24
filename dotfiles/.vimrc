@@ -264,7 +264,7 @@ let g:tagbar_type_markdown = {
 "      \}
 " Elm tagbar
 " see https://github.com/preservim/tagbar/wiki#elm
-" for the script elmtags.py
+" for the script elmtags.py (WARN: It has been customized)
 let g:tagbar_type_elm = {
           \   'ctagstype':'elm'
           \ , 'kinds':['h:header', 't:type', 'f:function']
@@ -458,6 +458,14 @@ function! StatuslineGit()
   let g:gitstatus = strlen(status) > 0 ? '('.status.')' : ''
 endfunction
 
+function! AleStatus()
+  " https://github.com/benknoble/Dotfiles/blob/3a55b757e4eafb8b33a00c0336f6ddf20ce463a7/links/vim/vimrc#L198
+  let ale = ale#statusline#Count(bufnr('%'))
+  let g:error_len = ale.error > 0 ? 'E:'.ale.error : ''
+  let g:warning_len = ale.warning > 0 ? 'W:'.ale.warning : ''
+endfunction
+
+
 
 """"""""""""""""""""""""""""""
 """ General / Interface
@@ -625,7 +633,8 @@ cnoreabbrev t tabe
 noremap <Leader>v :vs<cr>
 noremap <Leader>t :tabe %<cr>
 noremap <Leader>r :reg<cr>
-command Bufno :echo bufnr('%') " print the current buffer number
+" print the current buffer number
+command Bufno :echo bufnr('%') 
 
 
 """"""""""""""""""""""""""""""
@@ -967,9 +976,14 @@ fu! SetHi()
 
   set shortmess-=S " show number of matches
   hi GitColor ctermbg=172 ctermfg=black
+  hi ErrColor ctermfg=red ctermbg=25
+  hi WarnColor ctermfg=226 ctermbg=25
 
   """ StatusLine
   au BufEnter,BufRead,BufWritePost * call StatuslineGit()
+  " @debug: how to run this after ale status change ?
+  au BufEnter,BufRead,BufWritePost * call AleStatus()
+
   set statusline=""
   set statusline+=%#GitColor#%{g:gitbranch}%*
   set statusline+=\ %<%f\ %{g:gitstatus}
@@ -977,6 +991,8 @@ fu! SetHi()
   set statusline+=\ %r
   set statusline+=\ %h
   set statusline+=\ %w
+  set statusline+=\ %#ErrColor#%{g:error_len}%*
+  set statusline+=\ %#WarnColor#%{g:warning_len}%*
   set statusline+=%=%l/%L:%c\ %05(%p%%%)
   set statusline+=\ %{\zoom#statusline()}
 endfunction
