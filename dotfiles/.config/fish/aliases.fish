@@ -164,12 +164,17 @@ alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
 alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Update}}{{.}}{{end}}{{end}}' all"
 
 function vims
+    # VIM
+    #set CONFDIR "$HOME/.vim/session"
+    # NEOVIM
+    set CONFDIR "$HOME/.local/share/nvim/session"
+
     set SessionID (basename (dirname $PWD))-(basename $PWD)
-    # vim-session way
-    #if [ -f "$HOME/.vim/sessions/$SessionID.vim" ]
+    #### vim-session way
+    #if [ -f "$CONFDIR/$SessionID.vim" ]
     #    vim -c "OpenSession $SessionID"
-    # vim-startify way
-    if [ -f "$HOME/.vim/session/$SessionID" ]
+    #### vim-startify way
+    if [ -f "$CONFDIR/$SessionID" ]
         vim -c "SLoad $SessionID"
     else
         echo "no vim session file found for $SessionID."
