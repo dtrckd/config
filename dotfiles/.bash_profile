@@ -257,9 +257,18 @@ alias vitodo='vim -p $(find -iname todo -type f)'
 alias octave='octave --silent'
 
 function vims() {
+    # VIM
+    #CONFDIR="$HOME/.vim/session"
+    # NEOVIM
+    CONFDIR="$HOME/.local/share/nvim/session"
+
     SessionID="$(basename $(dirname $PWD))-$(basename $PWD)"
-    if [ -f "$HOME/.vim/sessions/${SessionID}.vim" ]; then
-        vim -c "OpenSession ${SessionID}"
+    # vim-session way
+    #if [ -f "$CONFDIR/$SessionID.vim" ]
+    #    vim -c "OpenSession $SessionID"
+    # vim-startify way
+    if [ -f "$CONFDIR/$SessionID" ]; then
+        vim -c "SLoad $SessionID"
     else
         echo "no vim session file found for ${SessionID}."
     fi
