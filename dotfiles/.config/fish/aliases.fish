@@ -195,9 +195,9 @@ function vimss
 end
 
 function upgrademe
-    snap refresh
+    sudo snap refresh
     brew update && brew upgrade
-    aptitude update && aptitude upgrade
+    sudo aptitude update && sudo aptitude upgrade
     vim -c "PluginUpdate"
     #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
     #npm update # -g
@@ -617,6 +617,30 @@ function xshuff
     xmms2 clear
     printf '%s\n' $Songs | xargs -I {} -d "\n" xmms2 add "{}"
     xmms2 jump 1 && xmms2 play
+end
+
+function fip
+    ## National
+    #https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance
+    ##FIP Rock
+    #http://direct.fipradio.fr/live/fip-webradio1.mp3
+    ##FIP Jazz
+    #http://direct.fipradio.fr/live/fip-webradio2.mp3
+    ##FIP Groove
+    #http://direct.fipradio.fr/live/fip-webradio3.mp3
+    ##FIP Monde
+    #http://direct.fipradio.fr/live/fip-webradio4.mp3
+    ##FIP Nouveautés
+    #http://direct.fipradio.fr/live/fip-webradio5.mp3
+    ##FIP Reggae
+    #http://direct.fipradio.fr/live/fip-webradio6.mp3
+    ##FIP Pop
+    #http://direct.fipradio.fr/live/fip-webradio7.mp3
+    ##FIP Electro
+    #http://direct.fipradio.fr/live/fip-webradio8.mp3
+
+    #vlc -I curses "https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance" "http://direct.fipradio.fr/live/fip-webradio1.mp3" "http://direct.fipradio.fr/live/fip-webradio2.mp3" "http://direct.fipradio.fr/live/fip-webradio3.mp3" "http://direct.fipradio.fr/live/fip-webradio4.mp3" "http://direct.fipradio.fr/live/fip-webradio5.mp3" "http://direct.fipradio.fr/live/fip-webradio6.mp3" "http://direct.fipradio.fr/live/fip-webradio7.mp3" "http://direct.fipradio.fr/live/fip-webradio8.mp3"
+    vlc -I curses "https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipjazz/fipjazz_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fiphiphop/fiphiphop_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipelectro/fipelectro.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipreggea/fipreggea.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipgroove/fipgroove.m2u8?id=radiofrance" "https://stream.radiofrance.fr/fipreggea/fipreggea.m3u8?id=radiofrance"
 end
 
 alias katai-struct-compiler='kaitai-struct-compiler -no-version-check'
