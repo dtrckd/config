@@ -211,6 +211,7 @@ alias fail2ban-ls='sudo fail2ban-client status | sed -n "s/,//g;s/.*Jail list://
 # App
 alias mongoshell="docker exec -it mongodb mongo"
 alias station="ferdi &"
+alias youtube-dl="yt-dlp"
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}' # see also rg
@@ -714,6 +715,9 @@ xshuff () {
 }
 
 function fip() {
+    vlc -I curses "https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipjazz/fipjazz_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fiphiphop/fiphiphop_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipelectro/fipelectro_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipreggae/fipreggae_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipgroove/fipgroove_hifi.m3u8?id=radiofrance"
+}
+function fip2 {
     ## National
     #https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance
     ##FIP Rock
@@ -732,9 +736,6 @@ function fip() {
     #http://direct.fipradio.fr/live/fip-webradio7.mp3
     ##FIP Electro
     #http://direct.fipradio.fr/live/fip-webradio8.mp3
-    vlc -I curses "https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipjazz/fipjazz_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fiphiphop/fiphiphop_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipelectro/fipelectro.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipreggea/fipreggea.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipgroove/fipgroove.m2u8?id=radiofrance" "https://stream.radiofrance.fr/fipreggea/fipreggea.m3u8?id=radiofrance"
-}
-function fip2 {
     vlc -I curses "https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance" "http://direct.fipradio.fr/live/fip-webradio1.mp3" "http://direct.fipradio.fr/live/fip-webradio2.mp3" "http://direct.fipradio.fr/live/fip-webradio3.mp3" "http://direct.fipradio.fr/live/fip-webradio4.mp3" "http://direct.fipradio.fr/live/fip-webradio5.mp3" "http://direct.fipradio.fr/live/fip-webradio6.mp3" "http://direct.fipradio.fr/live/fip-webradio7.mp3" "http://direct.fipradio.fr/live/fip-webradio8.mp3"
 }
 
