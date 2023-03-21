@@ -58,6 +58,7 @@ function lsth
     if [ -z "$P" ]
         set P "."
     end
+    echo $P
     command ls -th "$P" | sed "s/^/$P\//" | xargs du -sh
 end
 
@@ -619,7 +620,10 @@ function xshuff
     xmms2 jump 1 && xmms2 play
 end
 
-function fip
+function fip 
+    vlc -I curses "https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipjazz/fipjazz_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fiphiphop/fiphiphop_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipelectro/fipelectro_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipreggae/fipreggae_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipgroove/fipgroove_hifi.m3u8?id=radiofrance"
+end
+function fip2
     ## National
     #https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance
     ##FIP Rock
@@ -638,9 +642,7 @@ function fip
     #http://direct.fipradio.fr/live/fip-webradio7.mp3
     ##FIP Electro
     #http://direct.fipradio.fr/live/fip-webradio8.mp3
-
-    #vlc -I curses "https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance" "http://direct.fipradio.fr/live/fip-webradio1.mp3" "http://direct.fipradio.fr/live/fip-webradio2.mp3" "http://direct.fipradio.fr/live/fip-webradio3.mp3" "http://direct.fipradio.fr/live/fip-webradio4.mp3" "http://direct.fipradio.fr/live/fip-webradio5.mp3" "http://direct.fipradio.fr/live/fip-webradio6.mp3" "http://direct.fipradio.fr/live/fip-webradio7.mp3" "http://direct.fipradio.fr/live/fip-webradio8.mp3"
-    vlc -I curses "https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipjazz/fipjazz_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fiphiphop/fiphiphop_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipelectro/fipelectro.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipreggea/fipreggea.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipgroove/fipgroove.m2u8?id=radiofrance" "https://stream.radiofrance.fr/fipreggea/fipreggea.m3u8?id=radiofrance"
+    vlc -I curses "https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance" "http://direct.fipradio.fr/live/fip-webradio1.mp3" "http://direct.fipradio.fr/live/fip-webradio2.mp3" "http://direct.fipradio.fr/live/fip-webradio3.mp3" "http://direct.fipradio.fr/live/fip-webradio4.mp3" "http://direct.fipradio.fr/live/fip-webradio5.mp3" "http://direct.fipradio.fr/live/fip-webradio6.mp3" "http://direct.fipradio.fr/live/fip-webradio7.mp3" "http://direct.fipradio.fr/live/fip-webradio8.mp3"
 end
 
 alias katai-struct-compiler='kaitai-struct-compiler -no-version-check'
