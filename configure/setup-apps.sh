@@ -9,7 +9,7 @@
 Target="$1"
 
 if [ -z "$Target" ]; then
-    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell) | manta | proton | slack"
+    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell) | manta | proton | slack | kitty"
     exit
 fi
 
@@ -130,6 +130,9 @@ if [ "$Target" == "slack" ]; then
     wget https://downloads.slack-edge.com/linux_releases/slack-desktop-4.0.2-amd64.deb && \
         sudo dpkg -i slack-desktop-4.0.2-amd64.deb && \
         rm slack-desktop-4.0.2-amd64.deb
+fi
+if [ "$Target" == "kitty" ]; then
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 fi
 #if [ "$Target" == "pycharm" ]; then
 #    # Pycharm
