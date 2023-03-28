@@ -833,7 +833,9 @@ if [ -x "$(which go)" ]; then
 fi
 
 # SNAP
-export PATH="/snap/bin:$PATH"
+if [ -x "$(which snap)" ]; then
+    export PATH="/snap/bin:$PATH"
+fi
 
 # NVM
 export NVM_DIR="$HOME/.nvm"
@@ -849,12 +851,19 @@ export NVM_DIR="$HOME/.nvm"
 
 # Brew
 #git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
-export PATH="$HOME/.linuxbrew/bin:$PATH"
-export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+if [ -x "$HOME/.linuxbrew/bin/brew" ]; then
+    export PATH="$HOME/.linuxbrew/bin:$PATH"
+    export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+    export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+fi
 
 # Poetry
 export PATH="$HOME/.poetry/bin:$PATH"
+
+# Kitty
+if [ -x "$HOME/.local/kitty.app/bin/kitty" ]; then
+    export PATH=$PATH:$HOME/.local/kitty.app/bin
+fi
 
 # Thefuck
 if [ -x "$(which thefuck)" ]; then
