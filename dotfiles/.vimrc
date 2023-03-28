@@ -508,6 +508,7 @@ set whichwrap=<,>,[,]              " enable line return with pad
 "set ff=unix                       " remove ^M
 "set termencoding=UTF-8
 set encoding=utf-8
+set nohidden                       " Do not keep a buffer open (swp file) if the file is not open in a window.
 " Fix for: syntax highlighting breaks for big file after jump or search 
 " https://github.com/vim/vim/issues/2790
 syntax sync minlines=3000
