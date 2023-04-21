@@ -1,77 +1,65 @@
 [xfdesktop-version-4.10.3+-rcfile_format]
 4.10.3+=true
 
+[/home/dtrckd/Desktop/f6-overview-light.png]
+row=6
+col=8
+
 [/home/dtrckd/Desktop/Covid-19-resultats-par-age-et-statut-vac_12-12-2021 (1).ods]
+row=6
+col=22
+
+[/home/dtrckd/Desktop/idh]
+row=1
+col=0
+
+[/home/dtrckd/Desktop/sku.md]
+row=11
+col=0
+
+[/home/dtrckd/Desktop/manifesto.txt]
+row=4
+col=3
+
+[/home/dtrckd/Desktop/dgraph.pdf]
 row=9
+col=0
+
+[/home/dtrckd/Desktop/video5970032213914292559.mp4]
+row=4
+col=0
+
+[/home/dtrckd/Desktop/MEP_GUIDE_V7.pdf]
+row=3
+col=12
+
+[/home/dtrckd/Desktop/f6-overview-dark.png]
+row=6
+col=7
+
+[/home/dtrckd/Desktop/fixing social media.pdf]
+row=3
 col=0
 
 [/home/dtrckd/Desktop/tt]
 row=8
 col=0
 
-[/home/dtrckd/Desktop/298823_markdown_icon.svg]
-row=6
-col=1
-
-[/home/dtrckd/Desktop/manifesto.txt]
-row=5
-col=0
-
-[/home/dtrckd/Desktop/Screenshot_2022-09-28_19-17-05.png]
-row=7
-col=1
-
-[/home/dtrckd/Desktop/tecnochoc.txt]
-row=8
-col=1
-
-[/home/dtrckd/Desktop/MEP_GUIDE_V7.pdf]
-row=2
-col=1
-
-[/home/dtrckd/Desktop/fixing social media.pdf]
-row=3
-col=0
-
-[/home/dtrckd/Desktop/fractal6-light.png]
-row=4
-col=0
-
-[/home/dtrckd/Desktop/idh]
-row=1
-col=0
-
 [/home/dtrckd/Desktop/Candy_Etude_de_la_transposition_didactique_du_concept_d'ideale.pdf]
-row=3
-col=1
-
-[/home/dtrckd/Desktop/dgraph.pdf]
-row=11
-col=0
+row=7
+col=15
 
 [/home/dtrckd/Desktop/TheorieRelativedelaMonnaie.epub]
-row=1
-col=1
+row=9
+col=7
 
-[/home/dtrckd/Desktop/peage-paiment-toremove.pdf]
-row=5
-col=1
-
-[/home/dtrckd/Desktop/welcome-fractale.txt]
-row=7
-col=0
+[/home/dtrckd/Desktop/todo.txt]
+row=2
+col=6
 
 [/home/dtrckd/Desktop/the case for alternative social media.pdf]
 row=10
 col=0
-
-[/home/dtrckd/Desktop/temppp]
-row=4
-col=1
-
-[/home/dtrckd/Desktop/temp_clara_traduction.txt]
-row=4
-col=6
 
 [/home/dtrckd/Desktop/fractale_manifesto]
 row=0
@@ -80,10 +68,6 @@ col=1
 [/home/dtrckd/Desktop/main]
 row=0
 col=0
-
-[/home/dtrckd/Desktop/todo.txt]
-row=2
-col=6
 
 [/home/dtrckd/Desktop/sos]
 row=6

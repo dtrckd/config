@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Element
+Exec=/opt/Element/element-desktop %U
+Terminal=false
+Type=Application
+Icon=element-desktop
+StartupWMClass=Element
+Comment=A feature-rich client for Matrix.org
+MimeType=x-scheme-handler/element;
+Categories=Network;InstantMessaging;Chat;
+X-XFCE-Source=file:///usr/share/applications/element-desktop.desktop

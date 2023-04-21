@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Exec=/snap/bin/ferdium
-Icon=/home/dtrckd/Pictures/icon_/elemen-logo.png
+Icon=/home/dtrckd/Pictures/icon_/graph.png
 StartupNotify=true
 Terminal=false
 Categories=Utility;X-XFCE;X-Xfce-Toplevel;

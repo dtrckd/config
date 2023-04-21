@@ -132,6 +132,8 @@ if [ "$Target" == "slack" ]; then
         rm slack-desktop-4.0.2-amd64.deb
 fi
 if [ "$Target" == "kitty" ]; then
+    # Install or update kitty.
+    # https://sw.kovidgoyal.net/kitty/binary/
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 fi
 #if [ "$Target" == "pycharm" ]; then
