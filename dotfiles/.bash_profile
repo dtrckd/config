@@ -74,6 +74,7 @@ if [ -x /bin/batcat ]; then
 fi
 
 
+alias t="thunar"
 alias gf="fg"
 alias diff='diff -u'
 alias tree='tree -C'

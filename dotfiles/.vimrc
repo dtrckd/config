@@ -80,6 +80,11 @@ Plugin 'psliwka/vim-smoothie'
 "msanders/snipmate.vim  # tons of snippet
 "Plugin 'jceb/vim-orgmode'
 
+" Gpt
+Plugin 'nvim-lua/plenary.nvim'
+Plugin 'MunifTanjim/nui.nvim'
+Plugin 'dpayne/CodeGPT.nvim'
+
 " Theme
 Plugin 'uguu-org/vim-matrix-screensaver'
 Plugin 'dracula/vim'
@@ -230,6 +235,11 @@ let g:tagbar_compact = 1
 let g:tagbar_singleclick = 1
 let g:tagbar_autofocus = 1
 nnoremap tc :TagbarShowTag<CR>
+"" ctags alias
+" Ctrl+\ - Open the definition in a new tab
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+" Alt+] - Open the definition in a vertical split
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 
 " Markdown tagbar

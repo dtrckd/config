@@ -1,61 +1,65 @@
 [xfdesktop-version-4.10.3+-rcfile_format]
 4.10.3+=true
 
+[/home/dtrckd/Desktop/f6-overview-light.png]
+row=6
+col=8
+
+[/home/dtrckd/Desktop/Covid-19-resultats-par-age-et-statut-vac_12-12-2021 (1).ods]
+row=6
+col=22
+
 [/home/dtrckd/Desktop/idh]
 row=1
 col=0
 
-[/home/dtrckd/Desktop/schema-ed.png]
-row=1
-col=1
+[/home/dtrckd/Desktop/sku.md]
+row=11
+col=0
 
-[/home/dtrckd/Desktop/DEVIS-I-20-07-1-SIMPLON.CO.pdf]
+[/home/dtrckd/Desktop/manifesto.txt]
 row=4
+col=3
+
+[/home/dtrckd/Desktop/dgraph.pdf]
+row=9
 col=0
 
-[/home/dtrckd/Desktop/TICKET_GL210643642.pdf]
-row=7
-col=17
+[/home/dtrckd/Desktop/MEP_GUIDE_V7.pdf]
+row=3
+col=12
 
-[/home/dtrckd/Desktop/tt]
-row=8
-col=0
+[/home/dtrckd/Desktop/f6-overview-dark.png]
+row=6
+col=7
 
 [/home/dtrckd/Desktop/fixing social media.pdf]
 row=3
 col=0
 
-[/home/dtrckd/Desktop/La lutte climatique demeure encore très blanche et hétérocentrée.pdf]
-row=2
-col=1
-
-[/home/dtrckd/Desktop/Deep Learning with Python by Francois Chollet (z-lib.org).pdf]
+[/home/dtrckd/Desktop/tt]
 row=8
-col=6
-
-[/home/dtrckd/Desktop/alloc-ass.pdf]
-row=2
-col=10
-
-[/home/dtrckd/Desktop/Machine Learning with Python Cookbook Practical Solutions from Preprocessing to Deep Learning by Chris Albon (z-lib.org).pdf]
-row=7
-col=5
-
-[/home/dtrckd/Desktop/the case for alternative social media.pdf]
-row=10
 col=0
+
+[/home/dtrckd/Desktop/Candy_Etude_de_la_transposition_didactique_du_concept_d'ideale.pdf]
+row=7
+col=15
+
+[/home/dtrckd/Desktop/TheorieRelativedelaMonnaie.epub]
+row=9
+col=7
 
 [/home/dtrckd/Desktop/todo.txt]
 row=2
 col=6
 
+[/home/dtrckd/Desktop/the case for alternative social media.pdf]
+row=10
+col=0
+
 [/home/dtrckd/Desktop/fractale_manifesto]
 row=0
 col=1
-
-[/home/dtrckd/Desktop/kuku.txt]
-row=2
-col=5
 
 [/home/dtrckd/Desktop/main]
 row=0
@@ -63,14 +67,6 @@ col=0
 
 [/home/dtrckd/Desktop/sos]
 row=6
-col=0
-
-[/home/dtrckd/Desktop/temp_clara_traduction.txt]
-row=4
-col=6
-
-[34 MB Volume]
-row=7
 col=0
 
 [Trash]

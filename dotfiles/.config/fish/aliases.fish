@@ -103,6 +103,7 @@ alias vimtmux="vim ~/.tmux.conf"
 alias vig="vim ~/.gitconfig"
 alias vign="vim .gitignore"
 alias vikitty="vim ~/.config/kitty/kitty.conf"
+alias t="thunar"
 
 alias vim='nvim'
 alias vi='vim'
