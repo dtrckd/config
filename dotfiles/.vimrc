@@ -639,7 +639,6 @@ cnoremap cwd lcd %:p:h  "change current working directory(cwd) to the dir of the
 " vertical help
 cnoreabbrev vh vert h
 cnoreabbrev vs botright vs
-cnoreabbrev t tabe
 "noremap <Leader>s :split<cr>
 noremap <Leader>v :vs<cr>
 noremap <Leader>t :tabe %<cr>
