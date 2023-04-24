@@ -348,8 +348,6 @@ function gip() {
     done
 }
 alias gia="git bug add"
-alias giui="git bug termui"
-alias giw="git bug webui"
 function girm(){
     bugid=$(git bug ls-id $1)
     rm .git/refs/bugs/$bugid
