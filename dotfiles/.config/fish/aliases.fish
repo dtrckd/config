@@ -99,6 +99,7 @@ alias vis='vim -S'
 alias vib="vim ~/.bash_profile"
 alias vif="vim ~/.config/fish/aliases.fish"
 alias vimrc="vim ~/.vimrc"
+alias vilua="vim ~/.config/nvim/init.vim"
 alias vimtmux="vim ~/.tmux.conf"
 alias vig="vim ~/.gitconfig"
 alias vign="vim .gitignore"
@@ -237,8 +238,6 @@ function gip
     end
 end
 alias gia="git bug add"
-alias giui="git bug termui"
-alias giw="git bug webui"
 function girm
     set bugid  (git bug ls-id $argv[1])
     rm .git/refs/bugs/$bugid
@@ -519,7 +518,7 @@ alias iubg="cd $PX/BaseDump/bots/skopai/bigbangsearch"
 alias iuw="cd $PX/webmain/"
 alias iumd="cd $PX/webmain/mixtures/md"
 alias iuscrapy="cd $HOME/.local/lib/python3.7/site-packages/scrapy/"
-alias cdoc="cd $PX/doc"
+alias cddoc="cd $PX/doc"
 alias iud="cd $PX/planD/"
 alias cdpapers="cd $PX/networkofgraphs/papers"
 alias cdwww="cd $PX/perso/Projects/Informatique/Reseau/www"
