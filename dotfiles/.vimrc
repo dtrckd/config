@@ -154,6 +154,11 @@ let g:coq_settings = { 'auto_start': 'shut-up' }
 "https://github.com/rstacruz/vim-closer/issues/37
 " DO NOT wORK
 inoremap <expr> <cr> pumvisible() ? '<c-y>' : '<cr>'
+"function! HandleCRKey() abort
+"  return pumvisible() ? "\<C-E>\n" : "\n"
+"endfunction
+"" vim-closer can extend this correctly
+"inoremap <silent> <CR> <C-R>=HandleCRKey()<CR>
 
 """ ctags
 let g:easytags_updatetime_min = 180000
@@ -222,9 +227,6 @@ let g:chadtree_settings = {
 
 
 
-""" Fuzzy search > fzf, ack, ag, ripgrep familly !
-noremap <leader>f :FZF<cr>
-nnoremap <silent> <Leader>z :Ack <C-R><C-W><CR>
 
 " Use ripgrep for searching ⚡️
 " Options include:
@@ -246,12 +248,14 @@ cnoreabbrev Ack Ack!
 "cnoreabbrev Ack Ack!
 "cnoreabbrev ag Ack
 "cnoreabbrev ack Ack
-
+""" Fuzzy search > fzf, ack, ag, ripgrep familly !
+noremap f :FZF<cr>
+noremap ! :FZF<cr>
+" Search the word under cursor
+noremap <leader>a :Ack! "<cword>"<cr>
 " Maps <leader>/ so we're ready to type the search keyword
 nnoremap <Leader>/ :Ack!<Space>
 
-" Or the keyword under cursor
-noremap <leader>a :Ack! "<cword>"<cr>
 
 """ Rainbow colors
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
@@ -392,21 +396,21 @@ let g:tagbar_type_graphql = { 'kinds':[ 't:Types', 'e:Enums' ] }
 " Git/Fugitive
 set diffopt+=vertical
 nnoremap <leader>gd :Gdiff<CR>
-nnoremap <space>ga :Git add %<CR><CR>
+nnoremap <leader>ga :Git add %<CR><CR>
 com! Gadd :Git add %
-"nnoremap <space>gs :Gstatus<CR>
-"nnoremap <space>gc :Gcommit -v -q<CR>
-"nnoremap <space>gt :Gcommit -v -q %:p<CR>
-"nnoremap <space>ge :Gedit<CR>
-"nnoremap <space>gr :Gread<CR>
-"nnoremap <space>gw :Gwrite<CR><CR>
-"nnoremap <space>gl :silent! Glog<CR>:bot copen<CR>
-"nnoremap <space>gp :Ggrep<Space>
-"nnoremap <space>gm :Gmove<Space>
-"nnoremap <space>gb :Git branch<Space>
-"nnoremap <space>go :Git checkout<Space>
-"nnoremap <space>gps :VimProcBang git push<CR>
-"nnoremap <space>gpl :VimProcBang git pull<CR>
+"nnoremap <leader>gs :Gstatus<CR>
+"nnoremap <leader>gc :Gcommit -v -q<CR>
+"nnoremap <leader>gt :Gcommit -v -q %:p<CR>
+"nnoremap <leader>ge :Gedit<CR>
+"nnoremap <leader>gr :Gread<CR>
+"nnoremap <leader>gw :Gwrite<CR><CR>
+"nnoremap <leader>gl :silent! Glog<CR>:bot copen<CR>
+"nnoremap <leader>gp :Ggrep<Space>
+"nnoremap <leader>gm :Gmove<Space>
+"nnoremap <leader>gb :Git branch<Space>
+"nnoremap <leader>go :Git checkout<Space>
+"nnoremap <leader>gps :VimProcBang git push<CR>
+"nnoremap <leader>gpl :VimProcBang git pull<CR>
 
 " git-gutter
 let g:gitgutter_enabled = 0
@@ -594,9 +598,10 @@ set whichwrap=<,>,[,]              " Enable line return with pad
 "set ff=unix                       " Remove ^M
 set encoding=UTF-8
 set nohidden                       " Do not keep a buffer open (swp file) if the file is not open in a window.
-" Fix for: syntax highlighting breaks for big file after jump or search 
+" Fix for color syntax highlighting breaks for big file after jump or search 
 " https://github.com/vim/vim/issues/2790
-syntax sync minlines=3000
+syntax sync minlines=2000
+" manually fix :syntax sync fromstart
 """ Last position
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -640,9 +645,9 @@ set t_BE=  " disable bracketed paste mode.  https://gitlab.com/gnachman/iterm2/i
 """ NORMAL MAP
 map <Esc>[B <Down>
 imap <C-L> <Esc>
-nnoremap ; :
+nnoremap ; /
 "nnoremap <Esc> :noh \| pclose<cr>
-nnoremap <Esc> :noh<cr>
+nnoremap <silent> <Esc> :noh<cr>
 " Close preview
 "nnoremap <Esc> :noh \| pclose<cr>
 nnoremap q :pclose<cr>
@@ -767,6 +772,7 @@ au BufNewFile,BufRead *.py set formatoptions-=tc " prevent inserting \n. Where d
 au BufNewFile,BufRead *.py\> nnoremap _ ?<C-R>='__init__('<CR><CR>
 au BufNewFile,BufRead *.pyx nnoremap _ ?<C-R>='__cinit__('<CR><CR>
 au BufNewFile,BufRead *.go nnoremap _ ?<C-R>='func '<CR><CR>
+au BufNewFile,BufRead *.elm nnoremap _ ?<C-R>='init : '<CR><CR>
 
 
 func! DeleteTrailingWS()
@@ -783,7 +789,6 @@ autocmd BufWrite *.py,*.pyx,*.pyd,*.c,*.cpp,*.h,*.sh,*.txt,*.js,*.html,*.css,*.g
 """"""""""""""""""""""""""""""
 " To toggle the docstrings in the whole buffer you can use zR and zM, to toggle a single docstring, use za .
 au BufNewFile,BufRead *.graphql,*.py setlocal foldenable foldmethod=syntax 
-"nnoBufNewFile,BufReadremap <space> za
 
 """"""""""""""""""""""""""""""
 """ Latex Files
@@ -833,13 +838,10 @@ noremap <leader>s? z=
 """ Other Leader Map
 """
 """switch header <-> .c # or a.vim
-noremap <Leader>h <ESC>:AV<CR>
-noremap <Leader>ht <ESC>:AT<CR>
-"noremap <leader>h :vs %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+"noremap <Leader>h <ESC>:AV<CR>
+"noremap <Leader>ht <ESC>:AT<CR>
 " toggle wrap line
 nnoremap <leader>, :set wrap!<CR>
-" save session
-nnoremap <leader>w :mks! .session.vim<CR>
 """ set mouse mode
 nnoremap <leader>ma :set mouse=a<CR>
 nnoremap <leader>mo :set mouse=<CR>
@@ -973,7 +975,7 @@ function! HeadSwitch(com)
 endfun
 
 " C/Cython Header find/open
-nmap <leader>h :call HeadSwitch('tabe')<CR>
+"nmap <leader>h :call HeadSwitch('tabe')<CR>
 
 
 " use `ctags -R -f .tags` to create ctags file.
