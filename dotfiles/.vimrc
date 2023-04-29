@@ -20,11 +20,12 @@ Plugin 'a.vim'
 Plugin 'Align'
 Plugin 'preservim/tagbar'
 Plugin 'preservim/nerdcommenter'
-Plugin 'preservim/nerdtree'
+"Plugin 'preservim/nerdtree'
+Plugin 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 Plugin 'gotcha/vimpdb'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-easytags'
-"Plugin 'mozilla/doctorjs' " for javascript
+
 
 " File and code Search
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -35,27 +36,34 @@ Plugin 'mileszs/ack.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 
-" Linting
-Plugin 'dense-analysis/ale'
+" Linting / LSP
+"Plugin 'dense-analysis/ale'
 "Plugin 'vim-syntastic/syntastic'
+"Plugin 'mozilla/doctorjs'
+Plugin 'neovim/nvim-lspconfig'
 
 " Code completion
-Plugin 'ycm-core/YouCompleteMe'
+"Plugin 'ycm-core/YouCompleteMe'
+Plugin 'ms-jpq/coq_nvim', {'branch': 'coq'}
+" 9000+ Snippets
+Plugin 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 "Plugin 'ajh17/VimCompletesMe'
 ""Plugin 'maxboisvert/vim-simple-complete'
 "Plugin 'ervandew/supertab'
 Plugin 'rstacruz/vim-closer'
+"--
+Plugin 'godlygeek/tabular'
+Plugin 'honza/vim-snippets'
+Plugin 'L3MON4D3/LuaSnip', {'tag': 'v1', 'do': 'make install_jsregexp'} " Replace <CurrentMajor> by the latest released major (first number of latest release)
 
 " File Format / Extra Language
 Plugin 'posva/vim-vue' 
 "Plugin 'elmcast/elm-vim'  "https://github.com/elm-tooling/elm-vim
-Plugin 'zaptic/elm-vim' 
+"Plugin 'zaptic/elm-vim' 
 Plugin 'rhysd/vim-crystal' 
 Plugin 'jparise/vim-graphql'
-
-" Fix markdown highlight
-Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+
 
 " Fold and docstring
 "Plugin 'Konfekt/FastFold'
@@ -72,12 +80,10 @@ Plugin 'dhruvasagar/vim-zoom'
 " Misc
 Plugin 'itchyny/calendar.vim'
 Plugin 'ciaranm/detectindent'
-Plugin 'editorconfig/editorconfig-vim'  " Read .editorconfig in project
+Plugin 'editorconfig/editorconfig-vim'
 Plugin 'psliwka/vim-smoothie'
 "Plugin 'rargo/vim-line-jump'
-"Plugin 'sirver/ultisnips' ' py >=2.7
-"Plugin rstacruz/sparkup  # Zn writing HTLM
-"msanders/snipmate.vim  # tons of snippet
+"Plugin 'rstacruz/sparkup'  # Zn writing HTLM
 "Plugin 'jceb/vim-orgmode'
 
 " Gpt
@@ -93,6 +99,7 @@ Plugin 'dracula/vim'
 "Plugin 'rakr/vim-one'
 "Plugin 'sonph/onehalf', { 'rtp': 'vim' }
 
+Plugin 'ryanoasis/vim-devicons'
 """""""""""""""""""""""""""
 """ Plugin conf
 """""""""""""""""""""""""""
@@ -104,24 +111,49 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 " intall dependancuse with (if not it stucks!)  :GoInstallBinaries
 let g:go_fmt_command = "goimports"
 
-""" Autocompletion
-"let g:loaded_youcompleteme = 1
-let g:ycm_show_diagnostics_ui = 1
-let g:ycm_enable_diagnostic_signs = 0
-let g:ycm_enable_diagnostic_highlighting = 0
+""" YCM Autocompletion
+" --
+""let g:loaded_youcompleteme = 1
+"let g:ycm_show_diagnostics_ui = 1
+"let g:ycm_enable_diagnostic_signs = 0
+"let g:ycm_enable_diagnostic_highlighting = 0
+"
+"let g:SuperTabNoCompleteAfter = ['^', '\s', '#', "'", '"', '%', '/']
+"let g:SuperTabClosePreviewOnPopupClose = 1
+"let g:ycm_autoclose_preview_window_after_insertion = 1
+"let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_auto_hover = ''  " Disable auto tooltip preview 
+"nmap <space> <plug>(YCMHover)
+"" Disable preview window popping up: https://github.com/ycm-core/YouCompleteMe/issues/2015
+"set completeopt-=preview  "let g:ycm_add_preview_to_completeopt = 0
+""let g:ycm_disable_signature_help=1
+"autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif " more general but wont be able to switch/scroll the preview...
+"autocmd FileType vim let b:vcm_tab_complete = 'vim'
+"let g:ycm_semantic_triggers = { 'elm' : ['.'], }
 
-let g:SuperTabNoCompleteAfter = ['^', '\s', '#', "'", '"', '%', '/']
-let g:SuperTabClosePreviewOnPopupClose = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_auto_hover = ''  " Disable auto tooltip preview 
-nmap <space> <plug>(YCMHover)
-" Disable preview window popping up: https://github.com/ycm-core/YouCompleteMe/issues/2015
-set completeopt-=preview  "let g:ycm_add_preview_to_completeopt = 0
-"let g:ycm_disable_signature_help=1
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif " more general but wont be able to switch/scroll the preview...
-autocmd FileType vim let b:vcm_tab_complete = 'vim'
-let g:ycm_semantic_triggers = { 'elm' : ['.'], }
+""" Snippets completion
+" press <Tab> to expand or jump in a snippet. These can also be mapped separately
+" via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
+"-->imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
+" -1 for jumping backwards.
+"-->inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
+
+"-->snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+"-->snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+
+" For changing choices in choiceNodes (not strictly necessary for a basic setup).
+"imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+"smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+
+""" COQ autocompletion
+" --
+" Autostart
+let g:coq_settings = { 'auto_start': 'shut-up' }
+
+""" Fix vim-closer imcompatibility with COQ
+"https://github.com/rstacruz/vim-closer/issues/37
+" DO NOT wORK
+inoremap <expr> <cr> pumvisible() ? '<c-y>' : '<cr>'
 
 """ ctags
 let g:easytags_updatetime_min = 180000
@@ -130,7 +162,7 @@ let g:easytags_auto_update = 0
 """ NerdTree
 :let g:NERDTreeWinSize=22
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.swp$']
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "let NERDTreeMinimalUI = 1
 "let NERDTreeDirArrows = 1
 "let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
@@ -148,13 +180,50 @@ function! NERDTreeToggleFind()
     endif
 endfunction
 
-"noremap <TAB><TAB> :NERDTreeToggle<CR> " Problem with <C-i> that get map and delayed
-nnoremap <C-p> :call NERDTreeToggleFind()<cr>
-"noremap <leader>f :NERDTreeFind<cr>
-noremap <leader>f :FZF<cr>
+"nnoremap <C-p> :call NERDTreeToggleFind()<cr>
+""noremap <TAB><TAB> :NERDTreeToggle<CR> " Problem with <C-i> that get map and delayed
+
+" ChadTree
+" @requirement:
+" install nerdfont ```
+" mkdir -p ~/.local/share/fonts && cd ~/.local/share/fonts
+" curl -fLo "Droid Sans Mono Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf 
+" fc-cache -fv # try opening a new terminal if you don't see anything
+" ```
+nnoremap <C-p> <cmd>CHADopen<cr>
+autocmd bufenter * if (winnr("$") == 1 && &buftype == "nofile" && &filetype == "CHADTree") | q! | endif
+let g:chadtree_settings = {
+      \  'options.polling_rate': 1900,
+      \  'view': {'width': 26},
+      \  'keymap': {
+      \    'v_split': ["v", "s"],
+      \    'h_split': ["V"],
+      \    'tertiary': ["<m-enter>", "<middlemouse>", "t"],
+      \    'new': ["a", "n"],
+      \    'copy': ["p", "c"],
+      \    'cut': ["x", "m"],
+      \    'delete': ["d"],
+      \    'trash': [],
+      \    'open_sys': ["o"],
+      \    'collapse': ["`", "s-o"],
+      \    'select': ["<space>"],
+      \    'change_focus': ["b"],
+      \    'change_focus_up': ["u"],
+      \    'change_dir': ["w"],
+      \    'toggle_follow': ["U"],
+      \    'toggle_hidden': [".", "h"],
+      \  },
+      \  'ignore': {
+      \    'name_exact': [".DS_Store", ".directory", "thumbs.db", ".git"],
+      \    'name_glob': ['*.pyc$', '*.pyo$', '*.swp$'],
+      \  },
+      "\ 'theme.icon_glyph_set': 'ascii',
+      \}
+
 
 
 """ Fuzzy search > fzf, ack, ag, ripgrep familly !
+noremap <leader>f :FZF<cr>
 nnoremap <silent> <Leader>z :Ack <C-R><C-W><CR>
 
 " Use ripgrep for searching ⚡️
@@ -187,29 +256,29 @@ noremap <leader>a :Ack! "<cword>"<cr>
 """ Rainbow colors
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 let g:rainbow_conf = {
-            \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-            \   'ctermfgs': ['white','lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-            \   'operators': '_,_',
-            \   'parentheses': [['(',')'], ['\[','\]'], ['{','}']],
-            \   'separately': {
-            \       '*': {},
-            \       'lisp': {
-            \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-            \           'ctermfgs': ['darkgray', 'darkblue', 'darkmagenta', 'darkcyan', 'darkred', 'darkgreen'],
-            \       },
-            \       'vim': {
-            \           'parentheses': [['fu\w* \s*.*)','endfu\w*'], ['for','endfor'], ['while', 'endwhile'], ['if','_elseif\|else_','endif'], ['(',')'], ['\[','\]'], ['{','}']],
-            \       },
-            \       'tex': {
-            \           'parentheses': [['(',')'], ['\[','\]'], ['\\begin{.*}','\\end{.*}']],
-            \       },
-            \       'html': {
-            \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-            \       },
-            \       'css': 0,
-            \       'stylus': 0,
-            \   }
-            \}
+      \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+      \   'ctermfgs': ['white','lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+      \   'operators': '_,_',
+      \   'parentheses': [['(',')'], ['\[','\]'], ['{','}']],
+      \   'separately': {
+      \       '*': {},
+      \       'lisp': {
+      \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+      \           'ctermfgs': ['darkgray', 'darkblue', 'darkmagenta', 'darkcyan', 'darkred', 'darkgreen'],
+      \       },
+      \       'vim': {
+      \           'parentheses': [['fu\w* \s*.*)','endfu\w*'], ['for','endfor'], ['while', 'endwhile'], ['if','_elseif\|else_','endif'], ['(',')'], ['\[','\]'], ['{','}']],
+      \       },
+      \       'tex': {
+      \           'parentheses': [['(',')'], ['\[','\]'], ['\\begin{.*}','\\end{.*}']],
+      \       },
+      \       'html': {
+      \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+      \       },
+      \       'css': 0,
+      \       'stylus': 0,
+      \   }
+      \}
 " wget the dict at http://ftp.vim.org/vim/runtime/spell/
 """ Activate vim-docstring
 "autocmd FileType python PyDocHide
@@ -348,53 +417,60 @@ nmap <leader>n :set invnumber<CR>
 let g:gitgutter_override_sign_column_highlight = 0
 
 
-" Linting
-let g:ale_enabled = 1
-" lint after save only
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
-let g:ale_lint_on_enter = 0
-
-" fix after save
-let g:ale_fix_on_save = 1
-
-" prettier
-let g:ale_sign_error = '●'
-let g:ale_sign_warning = '.'
-"hi ALEWarning ctermbg=236
-hi ALEStyleWarningSign ctermbg=235
-hi ALEStyleErrorSign ctermbg=235
-
-""" Python @depends: pylint, autopep8
-" see ~/.vim/bundle/ale/autoload/ale/linter.vim
-let g:ale_fixers = {
-      \   'go': ['gofmt', 'golint', 'go vet'],
-      \}
-let g:ale_fixers = { 'python': ['autopep8' ] }
-let g:ale_python_pylint_options = '--rcfile ~/src/config/configure/linters/.pylintrc'
-let g:ale_python_autopep8_options = '--global-config ~/src/config/configure/linters/.pycodestyle'
-let g:ale_python_autopep8_global = 1
-let g:ale_python_mypy_options = '--ignore-missing-imports'
-
-""" Elm  disable elm-format (auto format on save)
-"let g:elm_format_autosave = 0
-
-" Go @depends: go get github.com/mgechev/revive
-" * Don't work, watch PR on ALE about revive
-" * diable golint ?
-call ale#linter#Define('go', {
-      \   'name': 'revive',
-      \   'output_stream': 'both',
-      \   'executable': 'revive',
-      \   'read_buffer': 0,
-      \   'command': 'revive ~/src/config/configure/linters/.golint_revive_config.toml %t',
-      \   'callback': 'ale#handlers#unix#HandleAsWarning',
-      \})
-
-nmap <leader>e :ALEToggle<CR>
-nmap <leader>en :ALENext<CR>
-nmap <leader>eN :ALEPrevious<CR>
-nmap <leader>ep :ALEPrevious<CR>
+"--
+"-- ALE config
+"--
+"let g:ale_enabled = 1
+"let g:ale_lint_on_save = 1
+"let g:ale_fix_on_save = 0
+"" lint after save only
+"let g:ale_lint_on_text_changed = 'never'
+"let g:ale_lint_on_insert_leave = 0
+"let g:ale_lint_on_enter = 0
+"" prettier
+"let g:ale_sign_error = '●'
+"let g:ale_sign_warning = '.'
+""hi ALEWarning ctermbg=236
+"hi ALEStyleWarningSign ctermbg=235
+"hi ALEStyleErrorSign ctermbg=235
+"
+"""" Ale language conf
+"" see ~/.vim/bundle/ale/autoload/ale/linter.vim
+"" see also [FIX conf !] ~/.config/nvim/lua/init.lua
+"let g:ale_fixers = { 
+"      \  'python': ['autopep8'],
+"      \  'go': [],
+"      \}
+"
+"" Python 
+"" @requirements: pylint, autopep8
+"let g:ale_python_pylint_options = '--rcfile ~/src/config/configure/linters/.pylintrc'
+"let g:ale_python_autopep8_options = '--global-config ~/src/config/configure/linters/.pycodestyle'
+"let g:ale_python_autopep8_global = 1
+"let g:ale_python_mypy_options = '--ignore-missing-imports'
+"
+"" Golang
+"" @requirements: go get github.com/mgechev/revive
+"" * Don't work, watch PR on ALE about revive
+"" * diable golint ?
+"call ale#linter#Define('go', {
+"      \   'name': 'revive',
+"      \   'output_stream': 'both',
+"      \   'executable': 'revive',
+"      \   'read_buffer': 0,
+"      \   'command': 'revive ~/src/config/configure/linters/.golint_revive_config.toml %t',
+"      \   'callback': 'ale#handlers#unix#HandleAsWarning',
+"      \})
+"
+"""" Elm 
+""let g:elm_format_autosave = 0
+""let g:elm_make_show_warnings = 0
+"
+"""" ALE Mappings
+"nmap <leader>e :ALEToggle<CR>
+"nmap <leader>en :ALENext<CR>
+"nmap <leader>eN :ALEPrevious<CR>
+"nmap <leader>ep :ALEPrevious<CR>
 
 
 "
@@ -476,48 +552,47 @@ function! AleStatus()
 endfunction
 
 
-
 """"""""""""""""""""""""""""""
-""" General / Interface
+""" General configuration
 """"""""""""""""""""""""""""""
 syntax on
 set backspace=indent,eol,start
-set tabpagemax=50
-set noequalalways                  " prevent automatically resizing windows
-set pastetoggle=£                  " toggle paste mode
-"set clipboard=unnamed             " dont support C-S V
-"set title                         " update window title for X and tmux
-"set autochdir                     " set current cwd to the current file
-set ruler                          " show current position
-set laststatus=2                   " always show the statusline
+set tabpagemax=50                  " Maximum of opened tab
+set noequalalways                  " Prevent automatically resizing windows
+set pastetoggle=£                  " Toggle paste mode
+"set clipboard=unnamed             " Dont support C-S V
+"set title                         " Update window title for X and tmux
+"set autochdir                     " Set current cwd to the current file
+set ruler                          " Show current position
+set laststatus=2                   " Always show the statusline
 set mat=1                          " How many tenths of a second to blink
-set novb                           " no beep, visualbell
+set novb                           " No beep, visualbell
 set showcmd                        " Show (partial) command in status line.
 set showmatch                      " Show matching brackets
-set wildmenu                       " show list instead of just completing
-set hlsearch                       " hilighting resarch matches
+set wildmenu                       " Show list instead of just completing
+set hlsearch                       " Hilighting resarch matches
 set incsearch                      " Incremental search
 set ignorecase                     " Do case insensitive matching
-set fileignorecase                 " see also wildignorecase
-set smartcase                      " sensitive if capital letter
-set report=0                       " show number of modification if they are
+set fileignorecase                 " See also wildignorecase
+set smartcase                      " Sensitive if capital letter
+set report=0                       " Show number of modification if they are
 "set nu                            " View numbers lines
-set cursorline                     " hilight current line - cul
-"set autowrite                     " Automatically save before commands like :next and :make
+set cursorline                     " Hilight current line - cul
+"set autowrite                     " automatically save before commands like :next and :make
 "set hidden                        " Hide buffers when they are abandoned
 set mouse=a                        " Enable mouse usage (all modes) in terminals
-"set textwidth=0                   " disable textwith
-set fo+=1ro fo-=tc tw=0            " break comment at tw $size
-"set fo+=1cro fo-=t tw=0           " break comment at tw $size
+"set textwidth=0                   " Disable textwith
+set fo+=1ro fo-=tc tw=0            " Break comment at tw $size
+"set fo+=1cro fo-=t tw=0           " Break comment at tw $size
 "set colorcolumn=-1
-set scrolloff=4                   " visible line at the top or bottom from cursor
-set linebreak                      " don't wrap word
-set nowrap                         " don't wrap line too long
-set nostartofline                  " try keep the column with line moves
-set whichwrap=<,>,[,]              " enable line return with pad
-"set ff=unix                       " remove ^M
-"set termencoding=UTF-8
-set encoding=utf-8
+set scrolloff=4                    " Line of context: mininum visible lines at the top or bottom of the screen.
+set sidescrolloff=8                " Columns of context
+set linebreak                      " Don't wrap word
+set nowrap                         " Don't wrap line too long
+set nostartofline                  " Try keep the column with line moves
+set whichwrap=<,>,[,]              " Enable line return with pad
+"set ff=unix                       " Remove ^M
+set encoding=UTF-8
 set nohidden                       " Do not keep a buffer open (swp file) if the file is not open in a window.
 " Fix for: syntax highlighting breaks for big file after jump or search 
 " https://github.com/vim/vim/issues/2790
@@ -566,7 +641,11 @@ set t_BE=  " disable bracketed paste mode.  https://gitlab.com/gnachman/iterm2/i
 map <Esc>[B <Down>
 imap <C-L> <Esc>
 nnoremap ; :
+"nnoremap <Esc> :noh \| pclose<cr>
 nnoremap <Esc> :noh<cr>
+" Close preview
+"nnoremap <Esc> :noh \| pclose<cr>
+nnoremap q :pclose<cr>
 " unmap K
 map <S-k> <Nop>
 """ Window moves
@@ -991,8 +1070,8 @@ fu! SetHi()
 
   """ StatusLine
   au BufEnter,BufRead,BufWritePost * call StatuslineGit()
-  " @debug: how to run this after ale status change ?
-  au BufEnter,BufRead,BufWritePost * call AleStatus()
+  " @DEBUG: how to run this after ale status change ?
+  "au BufEnter,BufRead,BufWritePost * call AleStatus()
 
   set statusline=""
   set statusline+=%#GitColor#%{g:gitbranch}%*
@@ -1001,8 +1080,8 @@ fu! SetHi()
   set statusline+=\ %r
   set statusline+=\ %h
   set statusline+=\ %w
-  set statusline+=\ %#ErrColor#%{g:error_len}%*
-  set statusline+=\ %#WarnColor#%{g:warning_len}%*
+  "set statusline+=\ %#ErrColor#%{g:error_len}%*
+  "set statusline+=\ %#WarnColor#%{g:warning_len}%*
   set statusline+=%=%l/%L:%c\ %05(%p%%%)
   set statusline+=\ %{\zoom#statusline()}
 endfunction

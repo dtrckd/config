@@ -29,4 +29,3 @@ elif [ -z $Verbose ]; then
 else
     echo "$Help"
 fi
-
