@@ -249,7 +249,7 @@ cnoreabbrev Ack Ack!
 "cnoreabbrev ag Ack
 "cnoreabbrev ack Ack
 """ Fuzzy search > fzf, ack, ag, ripgrep familly !
-noremap f :FZF<cr>
+noremap F :FZF<cr>
 noremap ! :FZF<cr>
 " Search the word under cursor
 noremap <leader>a :Ack! "<cword>"<cr>
@@ -397,26 +397,21 @@ let g:tagbar_type_graphql = { 'kinds':[ 't:Types', 'e:Enums' ] }
 set diffopt+=vertical
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>ga :Git add %<CR><CR>
+" log of the current file
+nnoremap <leader>gl :Git log %<CR><CR>
+" Browsing through the history of a file (:lnext :lprev to navigate)
+nnoremap <leader>gL :0Gllog<CR><CR>
 com! Gadd :Git add %
-"nnoremap <leader>gs :Gstatus<CR>
-"nnoremap <leader>gc :Gcommit -v -q<CR>
-"nnoremap <leader>gt :Gcommit -v -q %:p<CR>
-"nnoremap <leader>ge :Gedit<CR>
-"nnoremap <leader>gr :Gread<CR>
-"nnoremap <leader>gw :Gwrite<CR><CR>
-"nnoremap <leader>gl :silent! Glog<CR>:bot copen<CR>
 "nnoremap <leader>gp :Ggrep<Space>
-"nnoremap <leader>gm :Gmove<Space>
-"nnoremap <leader>gb :Git branch<Space>
-"nnoremap <leader>go :Git checkout<Space>
-"nnoremap <leader>gps :VimProcBang git push<CR>
-"nnoremap <leader>gpl :VimProcBang git pull<CR>
+" Other cool stuff :
+" - https://jeancharles.quillet.org/posts/2022-03-02-Practical-introduction-to-fugitive.html
+" - https://github.com/tpope/vim-fugitive
 
 " git-gutter
 let g:gitgutter_enabled = 0
 let g:gitgutter_map_keys = 1
 set updatetime=4000 " 4 sec
-nmap <leader>d :GitGutterToggle<CR>
+nmap <leader>G :GitGutterToggle<CR>
 nmap <leader>n :set invnumber<CR>
 let g:gitgutter_override_sign_column_highlight = 0
 
@@ -724,8 +719,8 @@ cnoremap cwd lcd %:p:h  "change current working directory(cwd) to the dir of the
 cnoreabbrev vh vert h
 cnoreabbrev vs botright vs
 "noremap <Leader>s :split<cr>
-noremap <Leader>v :vs<cr>
-noremap <Leader>t :tabe %<cr>
+"noremap <Leader>v :vs<cr>
+"noremap <Leader>t :tabe %<cr>
 noremap <Leader>r :reg<cr>
 " print the current buffer number
 command Bufno :echo bufnr('%') 
