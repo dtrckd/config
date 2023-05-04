@@ -100,11 +100,15 @@ alias vib="vim ~/.bash_profile"
 alias vif="vim ~/.config/fish/aliases.fish"
 alias vimrc="vim ~/.vimrc"
 alias vilua="vim ~/.config/nvim/init.vim"
+alias vilsp="vim ~/.config/nvim/lua/lsp_config.lua"
 alias vimtmux="vim ~/.tmux.conf"
 alias vig="vim ~/.gitconfig"
 alias vign="vim .gitignore"
 alias vikitty="vim ~/.config/kitty/kitty.conf"
 alias t="thunar"
+alias vimk="vim Makefile"
+alias vmk="vim Makefile"
+alias vime="vim (find . -maxdepth 1 -iname 'readme*' -print -quit)"
 
 alias vim='nvim'
 alias vi='vim'

@@ -10,4 +10,4 @@ disable=C0111,  # missing docstring
     R1705,       # no else return
     W0621,       # redefined-outer-name)
     F0401,       # unable to import
-    W0401        # wildcar import 
+    W0401,       # wildcar import 
