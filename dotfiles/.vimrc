@@ -53,11 +53,11 @@ Plugin 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plugin 'rstacruz/vim-closer'
 "--
 Plugin 'godlygeek/tabular'
-Plugin 'honza/vim-snippets'
-Plugin 'L3MON4D3/LuaSnip', {'tag': 'v1', 'do': 'make install_jsregexp'} " Replace <CurrentMajor> by the latest released major (first number of latest release)
+"Plugin 'honza/vim-snippets'
+"Plugin 'L3MON4D3/LuaSnip', {'tag': 'v1', 'do': 'make install_jsregexp'} " Replace <CurrentMajor> by the latest released major (first number of latest release)
 
 " File Format / Extra Language
-Plugin 'posva/vim-vue' 
+"Plugin 'posva/vim-vue' 
 "Plugin 'elmcast/elm-vim'  "https://github.com/elm-tooling/elm-vim
 "Plugin 'zaptic/elm-vim' 
 Plugin 'rhysd/vim-crystal' 
@@ -123,7 +123,7 @@ let g:go_fmt_command = "goimports"
 "let g:ycm_autoclose_preview_window_after_insertion = 1
 "let g:ycm_autoclose_preview_window_after_completion = 1
 "let g:ycm_auto_hover = ''  " Disable auto tooltip preview 
-"nmap <space> <plug>(YCMHover)
+"nnoremap <space> <plug>(YCMHover)
 "" Disable preview window popping up: https://github.com/ycm-core/YouCompleteMe/issues/2015
 "set completeopt-=preview  "let g:ycm_add_preview_to_completeopt = 0
 ""let g:ycm_disable_signature_help=1
@@ -134,7 +134,7 @@ let g:go_fmt_command = "goimports"
 """ Snippets completion
 " press <Tab> to expand or jump in a snippet. These can also be mapped separately
 " via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
-"-->imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
+"-->inoremap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
 " -1 for jumping backwards.
 "-->inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
 
@@ -142,13 +142,17 @@ let g:go_fmt_command = "goimports"
 "-->snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
 
 " For changing choices in choiceNodes (not strictly necessary for a basic setup).
-"imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+"inoremap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
 "smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
 
 """ COQ autocompletion
 " --
 " Autostart
-let g:coq_settings = { 'auto_start': 'shut-up' }
+let g:coq_settings = {
+      \ 'auto_start': 'shut-up', 
+      \ 'keymap.eval_snips': '<leader>j',
+      \}
+
 
 """ Fix vim-closer imcompatibility with COQ
 "https://github.com/rstacruz/vim-closer/issues/37
@@ -210,7 +214,7 @@ let g:chadtree_settings = {
       \    'delete': ["d"],
       \    'trash': [],
       \    'open_sys': ["o"],
-      \    'collapse': ["`", "s-o"],
+      \    'collapse': ["`", "s-o", "C"],
       \    'select': ["<space>"],
       \    'change_focus': ["b"],
       \    'change_focus_up': ["u"],
@@ -411,8 +415,8 @@ com! Gadd :Git add %
 let g:gitgutter_enabled = 0
 let g:gitgutter_map_keys = 1
 set updatetime=4000 " 4 sec
-nmap <leader>G :GitGutterToggle<CR>
-nmap <leader>n :set invnumber<CR>
+nnoremap <leader>G :GitGutterToggle<CR>
+nnoremap <leader>n :set invnumber<CR>
 let g:gitgutter_override_sign_column_highlight = 0
 
 
@@ -466,10 +470,10 @@ let g:gitgutter_override_sign_column_highlight = 0
 ""let g:elm_make_show_warnings = 0
 "
 """" ALE Mappings
-"nmap <leader>e :ALEToggle<CR>
-"nmap <leader>en :ALENext<CR>
-"nmap <leader>eN :ALEPrevious<CR>
-"nmap <leader>ep :ALEPrevious<CR>
+"nnoremap <leader>e :ALEToggle<CR>
+"nnoremap <leader>en :ALENext<CR>
+"nnoremap <leader>eN :ALEPrevious<CR>
+"nnoremap <leader>ep :ALEPrevious<CR>
 
 
 "
@@ -639,7 +643,7 @@ set t_BE=  " disable bracketed paste mode.  https://gitlab.com/gnachman/iterm2/i
 
 """ NORMAL MAP
 map <Esc>[B <Down>
-imap <C-L> <Esc>
+inoremap <C-L> <Esc>
 nnoremap ; /
 "nnoremap <Esc> :noh \| pclose<cr>
 nnoremap <silent> <Esc> :noh<cr>
@@ -684,7 +688,7 @@ nnoremap <C-S-PageDown> :tabm+<cr>
 """ Insert Mode
 inoremap <C-a> <Esc>^^i
 inoremap <C-e> <Esc>$a
-"imap <C-s> <Esc>:w<CR> " don't work ?
+"inoremap <C-s> <Esc>:w<CR> " don't work ?
 " Format Json
 noremap <Leader>jf :%!jq .<CR>
 noremap <Leader>je :%!sed 's/\\n/\n/g'<CR>
@@ -693,9 +697,9 @@ noremap <Leader>je :%!sed 's/\\n/\n/g'<CR>
 " Paste in Clipboard in mouse=a mode
 " https://stackoverflow.com/questions/4608161/copying-text-outside-of-vim-with-set-mouse-a-enabled
 " Note: it seems that with "nore" mapping is slightly slower.
-vmap <C-c> "+y
-vmap <C-x> "+x
-imap <C-v> <C-[>"+pa
+vnoremap <C-c> "+y
+vnoremap <C-x> "+x
+inoremap <C-v> <C-[>"+pa
 
 " Word delete
 nnoremap <silent> dw ciw
@@ -718,12 +722,22 @@ cnoremap cwd lcd %:p:h  "change current working directory(cwd) to the dir of the
 " vertical help
 cnoreabbrev vh vert h
 cnoreabbrev vs botright vs
-"noremap <Leader>s :split<cr>
-"noremap <Leader>v :vs<cr>
-"noremap <Leader>t :tabe %<cr>
-noremap <Leader>r :reg<cr>
+command T tabe
 " print the current buffer number
 command Bufno :echo bufnr('%') 
+
+" Fix the issue: enter in quifix list open tagbartoggle instead of file (lsp references)
+" see also :tab copen
+" qf == quickfix
+autocmd FileType qf nnoremap <buffer> <Enter> <C-W><Enter><C-W>T
+" CLose quickfix with q
+autocmd FileType qf nnoremap <buffer> q :cclose<cr>
+"set switchbuf+=newtab
+" Ensure we go to the last active after closing a tab
+autocmd TabClosed * tabprevious
+
+" Insert and jump to newline before the cursor, in insert mode
+inoremap <A-Enter> <Esc>O
 
 
 """"""""""""""""""""""""""""""
@@ -841,9 +855,9 @@ nnoremap <leader>, :set wrap!<CR>
 nnoremap <leader>ma :set mouse=a<CR>
 nnoremap <leader>mo :set mouse=<CR>
 """ Copy current line to clipboard
-nnoremap <leader>c :.w !xclip -selection clipboard<CR>
+nnoremap <leader>C :.w !xclip -selection clipboard<CR>
 """ Copy all file to clipboard
-nnoremap <leader>cf :%w !xclip -selection clipboard<CR>
+nnoremap <leader>Cf :%w !xclip -selection clipboard<CR>
 """ Execute
 "noremap <leader>e :!. % &<CR>
 
@@ -970,7 +984,7 @@ function! HeadSwitch(com)
 endfun
 
 " C/Cython Header find/open
-"nmap <leader>h :call HeadSwitch('tabe')<CR>
+"nnoremap <leader>h :call HeadSwitch('tabe')<CR>
 
 
 " use `ctags -R -f .tags` to create ctags file.
