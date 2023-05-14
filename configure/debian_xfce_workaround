@@ -20,6 +20,9 @@ echo 1 > /sys/block/sda/device/queue_depth
 #aptitude  install  firmware-linux-nonfree
 ### !!! comment amd64-microcode in modprobe blacklist !!!
 
+# battery issue on thinkpad X260 and fix treshold
+https://linrunner.de/tlp/faq/battery.html#erratic-battery-behavior-on-thinkpad-t420-s-t520-w520-x220-and-all-later-models
+
 
 # If using xfce4-power-manager to control ACPI events, and not systemd >> /etc/systemd/logind.conf:
 HandlePowerKey=ignore
