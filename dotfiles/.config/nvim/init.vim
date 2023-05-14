@@ -6,3 +6,4 @@ lua require("basics")
 lua require("lsp_config")
 lua require("code_gpt")
 
+lua require("autocop_coq")

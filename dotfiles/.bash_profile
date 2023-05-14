@@ -295,12 +295,12 @@ function vimss() {
 }
 
 function upgrademe() {
-    sudo snap refresh
-    brew update && upgrade
     sudo aptitude update && sudo aptitude upgrade
+    sudo snap refresh
+    npm update -g
+    brew update && brew upgrade
     vim -c "PluginUpdate"
     #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
-    #npm update # -g
 }
 
 function ssh_init() {

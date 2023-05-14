@@ -78,7 +78,7 @@ local configs = {
     elmls = {
         init_options = {
             --elmReviewDiagnostics = "error",
-            elmAnalyseTrigger = "change",
+            elmAnalyseTrigger = "save",
             onlyUpdateDiagnosticsOnSave = true,
         },
         --
@@ -90,11 +90,12 @@ local configs = {
             --    }
             --)
             -- Trying to fix erratic behavior with elm-format, on save...
-            if client.config.flags then
-                client.config.flags.allow_incremental_sync = true
-            end
+            --if client.config.flags then
+            --    client.config.flags.allow_incremental_sync = true
+            --end
             -- Auto format on save
-            vim.cmd [[autocmd BufWritePre *.elm lua vim.lsp.buf.format()]]
+            -- @DEBUG: still use zaptic/elm-format becaus format with lsp is so slow :(
+            --vim.cmd [[autocmd BufWritePre *.elm lua vim.lsp.buf.format()]]
             -- Tame diagnostics (https://github.com/neovim/nvim-lspconfig/issues/127)
             --vim.api.nvim_command [[autocmd InsertLeave <buffer> lua publish_diagnostics()]]
         end
@@ -259,6 +260,7 @@ map('n', '<leader>s', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 map('n', '<leader>i', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 map('n', '<leader>ii', '<cmd>lua vim.lsp.buf.implementation()<CR>')
 map('n', '<leader>h', '<cmd>lua vim.lsp.buf.hover()<CR>')
+map('n', '<leader>l', '<cmd>lua vim.lsp.buf.hover()<CR>')
 map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n', '<leader>f', '<cmd>lua vim.lsp.buf.format({async=true})<CR>')
 map('n', '<leader>a', '<cmd>lua vim.lsp.buf.references()<CR>')

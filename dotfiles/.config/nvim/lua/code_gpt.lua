@@ -10,11 +10,11 @@ vim.g["codegpt_commands"] = {
     callback_type = "replace_lines",
   },
   ['completion'] = {
-    model = "code-davinci-002",
+    -- model = "code-davinci-002",
     temperature = 0.3,
   },
   ["code_edit"] = {
-    model = "code-davinci-002",
+    -- model = "code-davinci-002",
     temperature = 0.3,
   },
   ["explain"] = {
@@ -24,11 +24,11 @@ vim.g["codegpt_commands"] = {
   ["debug"] = {
   },
   ["opt"] = {
-    model = "code-davinci-002",
+    -- model = "code-davinci-002",
     temperature = 0.3,
   },
   ["tests"] = {
-    model = "code-davinci-002",
+    -- model = "code-davinci-002",
     temperature = 0.3,
   },
   -- Custom command

@@ -43,10 +43,12 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'neovim/nvim-lspconfig'
 
 " Code completion
-"Plugin 'ycm-core/YouCompleteMe'
 Plugin 'ms-jpq/coq_nvim', {'branch': 'coq'}
 " 9000+ Snippets
 Plugin 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+Plugin 'ms-jpq/coq.thirdparty', {'branch': '3p'}
+" --
+"Plugin 'ycm-core/YouCompleteMe'
 "Plugin 'ajh17/VimCompletesMe'
 ""Plugin 'maxboisvert/vim-simple-complete'
 "Plugin 'ervandew/supertab'
@@ -59,7 +61,7 @@ Plugin 'godlygeek/tabular'
 " File Format / Extra Language
 "Plugin 'posva/vim-vue' 
 "Plugin 'elmcast/elm-vim'  "https://github.com/elm-tooling/elm-vim
-"Plugin 'zaptic/elm-vim' 
+Plugin 'zaptic/elm-vim' 
 Plugin 'rhysd/vim-crystal' 
 Plugin 'jparise/vim-graphql'
 Plugin 'plasticboy/vim-markdown'
@@ -151,6 +153,7 @@ let g:go_fmt_command = "goimports"
 let g:coq_settings = {
       \ 'auto_start': 'shut-up', 
       \ 'keymap.eval_snips': '<leader>j',
+      \ 'clients.tabnine.enabled': v:false,
       \}
 
 
@@ -415,7 +418,7 @@ com! Gadd :Git add %
 let g:gitgutter_enabled = 0
 let g:gitgutter_map_keys = 1
 set updatetime=4000 " 4 sec
-nnoremap <leader>G :GitGutterToggle<CR>
+nnoremap <leader>g :GitGutterToggle<CR>
 nnoremap <leader>n :set invnumber<CR>
 let g:gitgutter_override_sign_column_highlight = 0
 
@@ -645,11 +648,11 @@ set t_BE=  " disable bracketed paste mode.  https://gitlab.com/gnachman/iterm2/i
 map <Esc>[B <Down>
 inoremap <C-L> <Esc>
 nnoremap ; /
-"nnoremap <Esc> :noh \| pclose<cr>
 nnoremap <silent> <Esc> :noh<cr>
-" Close preview
-"nnoremap <Esc> :noh \| pclose<cr>
-nnoremap q :pclose<cr>
+" Close preview & quickfix list
+nnoremap <silent> q :pclose<cr>
+"nnoremap <silent> q :pclose \| cclose <cr>
+autocmd FileType qf nnoremap <buffer> q :cclose<cr>
 " unmap K
 map <S-k> <Nop>
 """ Window moves
@@ -712,6 +715,9 @@ inoremap <C-s> <C-o>diw
 " breaks window movement
 "nmap <C-w> daw
 
+""" Surround
+nnoremap <silent> ys ysiw
+
 """ COMMAND MAP
 cnoremap $h e ~/
 cnoremap $e e %:p:h
@@ -730,8 +736,6 @@ command Bufno :echo bufnr('%')
 " see also :tab copen
 " qf == quickfix
 autocmd FileType qf nnoremap <buffer> <Enter> <C-W><Enter><C-W>T
-" CLose quickfix with q
-autocmd FileType qf nnoremap <buffer> q :cclose<cr>
 "set switchbuf+=newtab
 " Ensure we go to the last active after closing a tab
 autocmd TabClosed * tabprevious
@@ -995,6 +999,13 @@ fu! DoCtags()
   let res=system(cmd)
 endfunction
 com! Ctags :call DoCtags()
+
+
+fu! FixSyntax()
+  let cmd = 'syntax sync fromstart'
+  let res=system(cmd)
+endfunction
+com! FixSyntax :call FixSyntax()
 
 
 """ Workaround for the refresh problem (partial)!
