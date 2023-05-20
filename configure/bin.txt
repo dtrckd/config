@@ -36,13 +36,13 @@
  /home/dtrckd/src/config/snippets/purge.sh
  /home/dtrckd/main/perso/projects_old/Informatique/Reseau/Firewalls/reset-firewall.sh
  /home/dtrckd/Downloads/robo3t-1.4.4-linux-x86_64-e6ac9ec/bin/robo3t
+ /home/dtrckd/main/perso/projects_old/Informatique/System/rvim
  /home/dtrckd/src/config/snippets/rwget.sh
  /home/dtrckd/src/config/snippets/sound/sound_switch
  /home/dtrckd/src/config/snippets/sound/unmute
  /home/dtrckd/src/web3/uplink
  /home/dtrckd/src/config/snippets/urlencode.sh
  /home/dtrckd/Downloads/VictronConnect-x86_64-v5.47.AppImage
- /home/dtrckd/main/perso/projects_old/Informatique/System/vimr
  /home/dtrckd/src/config/snippets/sound/vol_dec
  /home/dtrckd/src/config/snippets/sound/vol_inc
  /home/dtrckd/main/BaseDump/bots/wikask/wikask.py
