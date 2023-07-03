@@ -193,7 +193,8 @@ alias f='fzf'
 ff () { find -iname "*$1*"; } # exact match
 fff () { find -iname "$1"; } # exact match
 alias jerr='journalctl -r -p err -b'
-clipboard() { cat $0 |tr -d " \n" | xclip -selection clipboard; }
+clipboard() { cat "$0" | xclip -selection clipboard; }
+#clipboard() { cat $0 |tr -d " \n" | xclip -selection clipboard; }
 ### Network
 alias curlH='curl -I'
 #alias myip='nmap -sC -p80 -n -Pn --script=http-title www.showmemyip.com | grep -i "my IP" | cut -d: -f3 | tr -d " \n" |  xclip -selection clipboard && xclip -o -selection clipboard && echo'
