@@ -91,6 +91,7 @@ vim-addon-manager
 # pdf viewer / manipulator
 evince
 pdftk
+xournal
 #epdfview #mupdf
 #zathura
 
