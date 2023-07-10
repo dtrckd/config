@@ -163,10 +163,23 @@ local configs = {
                 plugins = {
                     --autopep8 = { enabled = true },
                     pycodestyle = {
-                        ignore = { 'W391', "E401", "E124", "E26", "E265", "E731", "E226", "E402" },
-                        maxLineLength = 120
+                        ignore = { 'w391', "e401", "e124", "e26", "e265", "e731", "e226", "e402" },
+                        maxlinelength = 125
                     },
                     flake8 = {},
+                }
+            }
+        }
+    },
+    pyright = {
+        settings = {
+            python = {
+                analysis = {
+                    --reportGeneralTypeIssues = "off", no...
+                    diagnosticSeverityOverrides = {
+                        reportGeneralTypeIssues = "warning", -- or anything
+                        reportOptionalMemberAccess = "warning",
+                    },
                 }
             }
         }
@@ -252,7 +265,7 @@ map('n', '<leader>x', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 map('n', '<leader>d', '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>v', '<cmd>vsplit | lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>b', '<cmd>belowright split | lua vim.lsp.buf.definition()<CR>')
-map('n', '<leader>t', '<cmd>tabnew | lua vim.lsp.buf.definition()<CR>')
+map('n', '<leader>t', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>D', '<cmd>lua vim.lsp.buf.declaration()<CR>')
 --map('n', 'gd'         , '<cmd>lua vim.lsp.buf.definition()<CR>')
 --map('n', 'gD'         , '<cmd>lua vim.lsp.buf.declaration()<CR>')

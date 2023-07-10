@@ -132,7 +132,7 @@ function ff; find -iname "$argv[1]" ; end # exact match
 function fdelete; find -name "*$argv[1]*" -delete; end # fuzzy match
 function ffdelete; find -name "$argv[1]" -delete ; end # exact match
 alias jerr='journalctl -r -p err -b'
-function clipboard; cat $argv[1] |tr -d " \n" | xclip -selection clipboard; end
+function clipboard; cat $argv[1] |string trim -c "\n" | xclip -selection clipboard; end
 alias curlH='curl -I'
 alias myip='curl https://tools.aquilenet.fr/ip/ && echo'
 alias vpn_aqui='sudo openvpn /etc/openvpn/aqn.conf'                                      
@@ -593,6 +593,7 @@ alias xrpall='xmms2 server config playlist.repeat_all 1'
 alias xrpclr='xmms2 server config playlist.repeat_one  0; xmms2 server config playlist.repeat_all 0'
 alias xcd='cd (xmms2 info | grep file:// |cut -d: -f2  |xargs -0 dirname |python3 -c "import sys,urllib.parse;sys.stdout.write(urllib.parse.unquote_plus(sys.stdin.read()))")'
 alias xll='ls (xmms2 info | grep file:// |cut -d: -f2  |xargs -0 dirname |python3 -c "import sys,urllib.parse;sys.stdout.write(urllib.parse.unquote_plus(sys.stdin.read()))")'
+alias youtube-dl="yt-dlp"
 function xshuff
     # Add random files in xmms2
     if [ "$argv[1]" = "" ]
