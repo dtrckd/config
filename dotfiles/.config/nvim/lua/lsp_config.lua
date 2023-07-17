@@ -66,6 +66,7 @@ local servers = {
     'lua_ls',
     'pylsp',
     'pyright',
+    'tsserver',
     'yamlls',
 }
 
@@ -184,6 +185,8 @@ local configs = {
             }
         }
     },
+    -- Typescript/Javascript
+    --tsserver = { },
 }
 
 for _, lsp in ipairs(servers) do

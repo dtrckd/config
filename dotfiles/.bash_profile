@@ -604,7 +604,8 @@ alias cdrez="cd $PX/perso/Projects/Informatique/Reseau/"
 alias cdid="cd $PX/perso/Papiers/me/"
 alias cdp="cd $PX/perso/Papiers/"
 #alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
-alias xrandr_setup="xrandr --output HDMI-2 --left-of eDP-1"
+#alias xrandr_setup="xrandr --output HDMI-2 --left-of eDP-1"
+alias xrandr_setup="xrandr --output DP-2-1 --left-of eDP-1"
 cdlk () { cd $(dirname $(readlink $1)); }
 grepurl () { sed -e  's/.*[hH][rR][eE][fF]=['\"''\'']\([^'\"''\'']*\)['\"''\''].*/\1/' $1; }
 alias mean="awk '{s+=$1}END{print \"ave:\",s/NR}' RS=\" \""
