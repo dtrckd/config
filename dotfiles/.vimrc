@@ -383,6 +383,7 @@ let g:tagbar_type_make = { 'kinds':[ 'm:Macros', 't:Targets' ] }
 let g:tagbar_type_graphql = { 'kinds':[ 't:Types', 'e:Enums' ] }
 
 
+" JS tagbar
 "let g:tagbar_type_javascript = {
 "      \ 'ctagstype': 'javascript',
 "      \ 'kinds': [
