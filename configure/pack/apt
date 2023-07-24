@@ -95,6 +95,8 @@ xournal
 #epdfview #mupdf
 #zathura
 
+at
+
 ####################
 ### IA, Signal, Simulation/Emulation
 ####################
@@ -103,7 +105,7 @@ xournal
 wordnet
 artha
 
-octave
+#octave
 #gnuplot
 #R
 #scilab
