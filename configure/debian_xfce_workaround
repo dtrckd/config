@@ -169,3 +169,6 @@ fuser /dev/snd/*
 
 # No suitable archive found issue
 apt install file-roller # At the moment it uses file-roller but will use xarchiver in the future.
+
+# Launcher not found in descktop panel. The case of opera :
+ln -s /var/lib/snapd/desktop/applications/opera_opera.desktop /usr/share/applications/opera.desktop
