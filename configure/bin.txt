@@ -22,6 +22,7 @@
  /home/dtrckd/main/perso/projects_old/Informatique/Reseau/Script/hotspot
  /home/dtrckd/main/perso/projects_old/Informatique/Reseau/Script/iwonf/iwonf
  /usr/local/MATLAB/R2019b/bin/matlab
+ /home/dtrckd/src/config/snippets/maximize_win.sh
  /usr/local/MATLAB/R2019b/bin/mex
  /home/dtrckd/src/config/snippets/sound/mute
  /home/dtrckd/src/config/snippets/sound/mute_toggle
@@ -34,6 +35,7 @@
  /home/dtrckd/src/config/snippets/print_256colors.sh
  /home/dtrckd/main/perso/projects_old/Informatique/Reseau/Script/pritorgle
  /home/dtrckd/src/config/snippets/purge.sh
+ /home/dtrckd/src/config/snippets/remind.sh
  /home/dtrckd/main/perso/projects_old/Informatique/Reseau/Firewalls/reset-firewall.sh
  /home/dtrckd/Downloads/robo3t-1.4.4-linux-x86_64-e6ac9ec/bin/robo3t
  /home/dtrckd/main/perso/projects_old/Informatique/System/rvim

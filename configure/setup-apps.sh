@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # -- Personnal Distribution --
 #
 #   Unofficial Packages
@@ -9,7 +11,7 @@
 Target="$1"
 
 if [ -z "$Target" ]; then
-    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell) | manta | proton | slack | kitty"
+    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell) | manta | proton | slack | kitty | gdrive"
     exit
 fi
 
@@ -135,6 +137,13 @@ if [ "$Target" == "kitty" ]; then
     # Install or update kitty.
     # https://sw.kovidgoyal.net/kitty/binary/
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+fi
+if [ "$Target" == "gdrive" ]; then
+    URL="https://github.com/glotlabs/gdrive/releases/download/3.9.0/gdrive_linux-x64.tar.gz"
+    wget $URL
+    rm gdrive_linux-x64.tar.gz
+    tar zxvf $(basename $URL)
+    mv gdrive ~/bin/gdrive
 fi
 #if [ "$Target" == "pycharm" ]; then
 #    # Pycharm
