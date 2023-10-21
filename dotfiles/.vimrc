@@ -23,8 +23,7 @@ Plugin 'preservim/nerdcommenter'
 "Plugin 'preservim/nerdtree'
 Plugin 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 Plugin 'gotcha/vimpdb'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
+"Plugin 'ludovicchabant/vim-gutentags'
 
 
 " File and code Search
@@ -75,7 +74,6 @@ Plugin 'plasticboy/vim-markdown'
 " Session
 Plugin 'mhinz/vim-startify'
 "Plugin 'romgrk/vim-session'
-"Plugin 'xolox/vim-session'
 Plugin 'dhruvasagar/vim-zoom'
 "Plugin 'troydm/zoomwintab.vim'
 
@@ -170,6 +168,8 @@ inoremap <expr> <cr> pumvisible() ? '<c-y>' : '<cr>'
 """ ctags
 let g:easytags_updatetime_min = 180000
 let g:easytags_auto_update = 0
+let g:easytags_cmd = '/usr/bin/ctags'
+let g:gutentags_cache_dir = "~/.cache/gutentags/"
 
 """ NerdTree
 :let g:NERDTreeWinSize=22
@@ -208,8 +208,8 @@ let g:chadtree_settings = {
       \  'options.polling_rate': 1900,
       \  'view': {'width': 26},
       \  'keymap': {
-      \    'v_split': ["v", "s"],
-      \    'h_split': ["V"],
+      \    'v_split': ["v"],
+      \    'h_split': ["s"],
       \    'tertiary': ["<m-enter>", "<middlemouse>", "t"],
       \    'new': ["a", "n"],
       \    'copy': ["p", "c"],
@@ -304,8 +304,6 @@ let g:session_autosave_periodic = 120 " minutes
 let g:session_autosave_silent = 1 " true
 let g:session_default_overwrite = 1 " every Vim instance without an explicit session loaded will overwrite the 'default' session (the last Vim instance wins).
 
-"" Compilation & Tagbar ! Great
-let g:easytags_cmd = '/usr/bin/ctags'
 " See available kinds: ctags --list-kinds=<language_name>
 "noremap <Leader>mctags :!/usr/bin/ctags -R  --fields=+iaS --extra=+q .<CR>
 "noremap <Leader>mctags :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
@@ -694,8 +692,9 @@ inoremap <C-a> <Esc>^^i
 inoremap <C-e> <Esc>$a
 "inoremap <C-s> <Esc>:w<CR> " don't work ?
 " Format Json
-noremap <Leader>jf :%!jq .<CR>
 noremap <Leader>je :%!sed 's/\\n/\n/g'<CR>
+noremap <Leader>fj :%!jq %<CR>
+noremap <Leader>fx :%!xmllint --format %<CR>
 
 """ VISUAL MAP
 " Paste in Clipboard in mouse=a mode
