@@ -46,8 +46,44 @@ fi
 prompt_short
 #prompt_long
 
-#### Colors results
+alias t="thunar"
+alias gf="fg"
+alias diff='diff -u'
+alias tree='tree -C'
+alias less='less -S -R'
+alias df='df -TH'
+#alias du='du -csh'
+alias g="grep"
+alias lsd='lsd -l'
+alias l='ls'
+alias lq='ls'
+alias sls='ls'
+alias sl='ls'
+alias ll='ls -lh'
+alias la='ls -A'
+alias lr='ls -R'
+alias lmd='ls *.md'
+alias mkdit='mkdir'
+
+function lla() {
+    if [ ! -z $1 ]; then
+        pushd "$1" >/dev/null
+    fi
+    find -maxdepth 2 -mindepth 1  -not -name "." | cut -d/ -f2 | uniq -c | sort -nr | awk  '{rc=system("ls --color -pldh " $2 " | tr -d \"\n\""); print  " \t "  $1-1 }'
+    if [ ! -z $1 ]; then
+        popd >/dev/null
+    fi
+}
+function lsth() {
+    P="${1%/}"
+    if [ -z "$P" ]; then
+        P="."
+    fi
+    command ls -th "$P" | sed "s/^/$P\//" | xargs du -sh
+}
+
 if [ -x /usr/bin/dircolors ]; then
+    # Colors results
     #COLOR_OPT="auto"
     COLOR_OPT="always"
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -65,6 +101,7 @@ if [ -x /bin/exa ]; then
     alias e="exa -l"
     alias exa="exa --group-directories-first"
     alias lt="exa -T"
+    alias ll="exa -l"
 fi
 
 if [ -x /bin/batcat ]; then
@@ -73,41 +110,6 @@ if [ -x /bin/batcat ]; then
     alias mdcat="mdcat -p"
 fi
 
-
-alias t="thunar"
-alias gf="fg"
-alias diff='diff -u'
-alias tree='tree -C'
-alias less='less -S -R'
-alias df='df -TH'
-#alias du='du -csh'
-alias g="grep"
-alias lsd='lsd -l'
-alias l='ls'
-alias lq='ls'
-alias sls='ls'
-alias sl='ls'
-alias ll='ls -lh'
-alias la='ls -A'
-function lla() {
-    if [ ! -z $1 ]; then
-        pushd "$1" >/dev/null
-    fi
-    find -maxdepth 2 -mindepth 1  -not -name "." | cut -d/ -f2 | uniq -c | sort -nr | awk  '{rc=system("ls --color -pldh " $2 " | tr -d \"\n\""); print  " \t "  $1-1 }'
-    if [ ! -z $1 ]; then
-        popd >/dev/null
-    fi
-}
-function lsth() {
-    P="${1%/}"
-    if [ -z "$P" ]; then
-        P="."
-    fi
-    command ls -th "$P" | sed "s/^/$P\//" | xargs du -sh
-}
-alias lr='ls -R'
-alias lmd='ls *.md'
-alias mkdit='mkdir'
 complete -f l
 complete -f lla
 
@@ -118,13 +120,11 @@ alias fuk='fuck'
 alias please='sudo $(fuck -ln -1)'
 alias so='source ~/.bashrc'
 alias cleancolors="sed -r 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' $1"
-alias python="python -O" # basic optimization (ignore assert, ..)
+#alias python="python -O" # basic optimization (ignore assert, ..)
 alias ipython="ipython --colors linux"
-alias ipython_dev="ipython --colors linux --profile dev"
-alias py='python'
+alias ipython_dev="ipython --profile dev"
 alias py3='python3'
-alias nbh="jupyter notebook"
-alias nbb='jupyter notebook --path ~/main/networkofgraphs/process/notebook/ '
+alias nbb='jupyter notebook --path ~/main/research/process/notebook/ '
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:$(pwd)'
 alias xback='xbacklight'
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
@@ -180,7 +180,7 @@ alias vimk="vim Makefile"
 alias vmk="vim Makefile"
 alias vime="vim $(find . -maxdepth 1 -iname 'readme*' -print -quit)"
 
-_PWD="/home/ama/adulac/main/networkofgraphs/process/repo/ml/"
+_PWD="/home/ama/adulac/main/research/process/repo/ml/"
 _NDL="$HOME/src/config/configure/nodeslist"
 alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
 
@@ -224,6 +224,7 @@ alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}' # see also rg
 alias rg="rg -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/'"
 alias rgi="rg -i"
+alias grepi="grep -i"
 alias grepy='find -iname "*.py" | xargs grep --color -n'
 alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
 alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
@@ -254,6 +255,7 @@ alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Upd
 
 ### VIM
 #alias vim='vim.nox'
+# @LOCAL
 alias vim='nvim'
 alias vi='vim'
 alias ci='vim'
@@ -264,6 +266,8 @@ alias vcal='vim -c "Calendar -view=month"' # get calendar
 alias vitodo='vim -p $(find -iname todo -type f)'
 ### Octave
 alias octave='octave --silent'
+alias air='ai -r'
+alias ai4='ai -m gpt-4'
 
 function vims() {
     # VIM
@@ -302,6 +306,9 @@ function upgrademe() {
     brew update && brew upgrade
     vim -c "PluginUpdate"
     #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+}
+function upgradevim() {
+    vim -c "PluginUpdate"
 }
 
 function ssh_init() {
@@ -574,12 +581,12 @@ alias iucs="cd $HOME/src/config/snippets"
 alias iut="cd $HOME/Desktop/tt/"
 alias iuk="cd $PX/missions" # mission / kaggle / etc
 alias iua="cd $PX/missions/simplon/data_IA_20"
-alias iunb="cd $PX/networkofgraphs/process/notebook/"
-alias iup="cd $PX/networkofgraphs/process/pymake/pymake/"
-alias iurp="cd $PX/networkofgraphs/process/repo/"
-alias iupp="cd $PX/networkofgraphs/process/repo/ml/"
-alias iudoc="cd $PX/networkofgraphs/process/repo/docsearch/"
-alias iutt="cd $PX/networkofgraphs/papers/personal/relational_models/thesis/manuscript/source/"
+alias iunb="cd $PX/research/process/notebook/"
+alias iup="cd $PX/research/process/pymake/pymake/"
+alias iurp="cd $PX/research/process/repo/"
+alias iupp="cd $PX/research/process/repo/ml/"
+alias iudoc="cd $PX/research/process/repo/docsearch/"
+alias iutt="cd $PX/research/papers/personal/relational_models/thesis/manuscript/source/"
 alias iub="cd $PX/Blue/"
 alias iubb="cd $PX/Blue/bhp/bhp"
 alias iudd="cd $PX/Blue/bhp/data"
@@ -597,7 +604,7 @@ alias iumm="cd $HOME/src/config/app/mm/ && set +o history && unset HISTFILE"
 alias iuscrapy="cd $HOME/.local/lib/python3.7/site-packages/scrapy/"
 alias cddoc="cd $PX/doc"
 alias iud="cd $PX/planD/"
-alias cdpapers="cd $PX/networkofgraphs/papers"
+alias cdpapers="cd $PX/research/papers"
 alias cdwww="cd $PX/perso/Projects/Informatique/Reseau/www"
 alias cdsys="cd $PX/perso/Projects/Informatique/System"
 alias cdrez="cd $PX/perso/Projects/Informatique/Reseau/"
@@ -811,12 +818,11 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 ### IF XFCE4 (@debug Kitty)
 #printf "\e[?2004l" # to avoid Copy-Paste in xfce4-terminal adds 0~ and 1~
 #### For vim color
-#if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-#    export TERM='xterm-256color'
-#else
-#    export TERM='xterm-color'
-#fi
-export TERM='xterm-kitty'
+if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+    export TERM='xterm-256color'
+else
+    export TERM='xterm-color'
+fi
 
 # C
 cppversion='g++ -dM -E -x c++  /dev/null | grep -F __cplusplus'
@@ -825,7 +831,7 @@ cppversion='g++ -dM -E -x c++  /dev/null | grep -F __cplusplus'
 if [ -x $(which python) ]; then
     pythonversion=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
     export PYTHONPATH="$PX/BaseDump/bots/skopai/common/"
-    export PYTHONPATH="$PYTHONPATH:$PX/networkofgraphs/process/pymake"
+    export PYTHONPATH="$PYTHONPATH:$PX/research/process/pymake"
 
     # Numpy
     export OMP_NUM_THREADS=1  # Number of thread used by numpy
@@ -869,6 +875,7 @@ export PATH="$HOME/.poetry/bin:$PATH"
 # Kitty
 if [ -x "$HOME/.local/kitty.app/bin/kitty" ]; then
     export PATH=$PATH:$HOME/.local/kitty.app/bin
+	export TERM='xterm-kitty'
 fi
 
 # Thefuck
