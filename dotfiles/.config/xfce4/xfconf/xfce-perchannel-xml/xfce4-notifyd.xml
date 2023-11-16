@@ -4,18 +4,23 @@
   <property name="applications" type="empty">
     <property name="known_applications" type="array">
       <value type="string" value="/snap/ferdium/244/ferdium"/>
+      <value type="string" value="blueman"/>
       <value type="string" value="Blueman"/>
       <value type="string" value="chromium-browser"/>
       <value type="string" value="discord"/>
+      <value type="string" value="discord_discord"/>
       <value type="string" value="Electron"/>
+      <value type="string" value="Element"/>
       <value type="string" value="ferdi"/>
       <value type="string" value="ferdium"/>
       <value type="string" value="Firefox"/>
       <value type="string" value="io.snapcraft.SessionAgent"/>
+      <value type="string" value="kitty"/>
       <value type="string" value="Mattermost"/>
       <value type="string" value="mattermost-desktop_Mattermost"/>
       <value type="string" value="needrestart"/>
       <value type="string" value="nm-applet"/>
+      <value type="string" value="notify-send"/>
       <value type="string" value="nw"/>
       <value type="string" value="signal"/>
       <value type="string" value="Signal"/>

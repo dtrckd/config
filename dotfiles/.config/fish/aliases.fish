@@ -13,18 +13,6 @@ end
 
 #set LS_COLORS dxfxcxdxbxegedabagacad
 
-if test -x /bin/exa
-    alias e="exa -l"
-    alias exa="exa --group-directories-first"
-    alias lt="exa -T"
-end
-
-if test -x /bin/batcat
-    alias cat="batcat"
-    alias bcat="batcat"
-    alias mdcat="mdcat -p"
-end
-
 # basic
 alias gf="fg"
 alias diff='diff -u'
@@ -62,6 +50,19 @@ function lsth
     command ls -th "$P" | sed "s/^/$P\//" | xargs du -sh
 end
 
+if test -x /bin/exa
+    alias e="exa -l"
+    alias exa="exa --group-directories-first"
+    alias lt="exa -T"
+    alias ll="exa -l"
+end
+
+if test -x /bin/batcat
+    alias cat="batcat"
+    alias bcat="batcat"
+    alias mdcat="mdcat -p"
+end
+
 ### Utility commands
 alias c="command"
 alias fuk='fuck'
@@ -70,14 +71,15 @@ alias so='source ~/.config/fish/config.fish'
 alias cleancolors="sed -r 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' $1"
 alias python="python -O" # basic optimizatio (ignore assert, ..)
 alias ipython="ipython --colors linux"
-alias ipython_dev="ipython --colors linux --profile dev"
+alias ipython_dev="ipython --profile dev"
 alias py='python'
 alias py3='python3'
-alias nbh="jupyter notebook"
-alias nbb='jupyter notebook --path ~/main/networkofgraphs/process/notebook/ '
+alias nbb='jupyter notebook --path ~/main/research/process/notebook/ '
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:(pwd)'
 alias xback='xbacklight'
 alias octave='octave --silent'
+alias air='ai -r'
+alias ai4='ai -m gpt-4'
 alias mongoshell="docker exec -it mongodb mongo"
 alias station="ferdi &"
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
@@ -117,7 +119,7 @@ alias bi='vim'
 alias vcal='vim -c "Calendar -view=month"' # get calendar
 alias vitodo='vim -p (find -iname todo -type f)'
 
-set _PWD "/home/ama/adulac/main/networkofgraphs/process/repo/ml/"
+set _PWD "/home/ama/adulac/main/research/process/repo/ml/"
 set _NDL "$HOME/src/config/configure/nodeslist"
 alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
 
@@ -151,6 +153,7 @@ alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}' # see also rg
 alias rg="rg -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/'"
 alias rgi="rg -i"
+alias grepi="grep -i"
 alias grepy='find -iname "*.py" | xargs grep --color -n'
 alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
 alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
@@ -208,6 +211,10 @@ function upgrademe
     brew update && brew upgrade
     vim -c "PluginUpdate"
     #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+end
+
+function upgradevim
+    vim -c "PluginUpdate"
 end
 
 alias gitupdate='git remote update'
@@ -502,12 +509,12 @@ alias iucs="cd $HOME/src/config/snippets"
 alias iut="cd $HOME/Desktop/tt/"
 alias iuk="cd $PX/missions" # mission / kaggle / etc
 alias iua="cd $PX/missions/simplon/data_IA_20" 
-alias iunb="cd $PX/networkofgraphs/process/notebook/"
-alias iup="cd $PX/networkofgraphs/process/pymake/pymake/"
-alias iurp="cd $PX/networkofgraphs/process/repo/"
-alias iupp="cd $PX/networkofgraphs/process/repo/ml/"
-alias iudoc="cd $PX/networkofgraphs/process/repo/docsearch/"
-alias iutt="cd $PX/networkofgraphs/papers/personal/relational_models/thesis/manuscript/source/"
+alias iunb="cd $PX/research/process/notebook/"
+alias iup="cd $PX/research/process/pymake/pymake/"
+alias iurp="cd $PX/research/process/repo/"
+alias iupp="cd $PX/research/process/repo/ml/"
+alias iudoc="cd $PX/research/process/repo/docsearch/"
+alias iutt="cd $PX/research/papers/personal/relational_models/thesis/manuscript/source/"
 alias iub="cd $PX/Blue/"
 alias iubb="cd $PX/Blue/bhp/bhp"
 alias iudd="cd $PX/Blue/bhp/data"
@@ -524,7 +531,7 @@ alias iumd="cd $PX/webmain/mixtures/md"
 alias iuscrapy="cd $HOME/.local/lib/python3.7/site-packages/scrapy/"
 alias cddoc="cd $PX/doc"
 alias iud="cd $PX/planD/"
-alias cdpapers="cd $PX/networkofgraphs/papers"
+alias cdpapers="cd $PX/research/papers"
 alias cdwww="cd $PX/perso/Projects/Informatique/Reseau/www"
 alias cdsys="cd $PX/perso/Projects/Informatique/System"
 alias cdrez="cd $PX/perso/Projects/Informatique/Reseau/"
