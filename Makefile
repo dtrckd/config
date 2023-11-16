@@ -191,10 +191,10 @@ backup_dot:
 	@cp -v	~/.config/user-dirs.dirs dotfiles/.config/
 
 	# Backup Atom file and package
-	@cp -v ~/.atom/config.cson dotfiles/.atom/
-	@cp -v ~/.atom/keymap.cson dotfiles/.atom/
-	@cp -v ~/.atom/projects.cson dotfiles/.atom/
-	apm list --installed --bare > dotfiles/.atom/package-list.txt
+	#@cp -v ~/.atom/config.cson dotfiles/.atom/
+	#@cp -v ~/.atom/keymap.cson dotfiles/.atom/
+	#@cp -v ~/.atom/projects.cson dotfiles/.atom/
+	#apm list --installed --bare > dotfiles/.atom/package-list.txt
 
 	@echo "TODO: check backup for: "\
 		"~/.config/htop/"\
