@@ -154,8 +154,7 @@ _vim:
 # Backup
 # ================================
 
-backup: backbin snapshot calendar backup_dot #backapp 
-backapp: backup_wekan backup_firefox backup_thunderbird
+backup: backbin snapshot calendar backup_dot backup_firefox backup_thunderbird #backup_wekan
 
 backbin:
 	# Create bin.txt
