@@ -124,7 +124,7 @@ alias cleancolors="sed -r 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' $1"
 alias ipython="ipython --colors linux"
 alias ipython_dev="ipython --profile dev"
 alias py3='python3'
-alias nbb='jupyter notebook --path ~/main/research/process/notebook/ '
+alias nbb='jupyter notebook --path ~/main/thesis/notebook/ '
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:$(pwd)'
 alias xback='xbacklight'
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
@@ -180,7 +180,7 @@ alias vimk="vim Makefile"
 alias vmk="vim Makefile"
 alias vime="vim $(find . -maxdepth 1 -iname 'readme*' -print -quit)"
 
-_PWD="/home/ama/adulac/main/research/process/repo/ml/"
+_PWD="/home/ama/adulac/main/thesis/repo/ml/"
 _NDL="$HOME/src/config/configure/nodeslist"
 alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
 
@@ -580,14 +580,15 @@ alias iuc="cd $HOME/src/config/"
 alias iucs="cd $HOME/src/config/snippets"
 alias iut="cd $HOME/Desktop/tt/"
 alias iuk="cd $PX/missions" # mission / kaggle / etc
-alias iua="cd $PX/missions/simplon/data_IA_20"
-alias iunb="cd $PX/research/process/notebook/"
-alias iup="cd $PX/research/process/pymake/pymake/"
-alias iurp="cd $PX/research/process/repo/"
-alias iupp="cd $PX/research/process/repo/ml/"
-alias iudoc="cd $PX/research/process/repo/docsearch/"
-alias iutt="cd $PX/research/papers/personal/relational_models/thesis/manuscript/source/"
+alias iunb="cd $PX/thesis/notebook/"
+alias iurp="cd $PX/thesis/repo/"
+alias iuds="cd $PX/thesis/repo/docsearch/"
 alias iub="cd $PX/Blue/"
+alias iup="cd $PX/papers"
+alias iud="cd $PX/planD/"
+alias iudoc="cd $PX/planD/doc"
+alias iuw="cd $PX/webmain/"
+alias iumd="cd $PX/webmain/mixtures/md"
 alias iubb="cd $PX/Blue/bhp/bhp"
 alias iudd="cd $PX/Blue/bhp/data"
 alias iuww="cd $PX/Blue/bhp/wiki"
@@ -598,24 +599,19 @@ alias iubots="cd $PX/BaseDump/bots/"
 alias iucm="cd $PX/BaseDump/bots/skopai/common/"
 alias iux="cd $PX/BaseDump/bots/skopai/skopy"
 alias iubg="cd $PX/BaseDump/bots/skopai/bigbangsearch"
-alias iuw="cd $PX/webmain/"
-alias iumd="cd $PX/webmain/mixtures/md"
-alias iumm="cd $HOME/src/config/app/mm/ && set +o history && unset HISTFILE"
 alias iuscrapy="cd $HOME/.local/lib/python3.7/site-packages/scrapy/"
-alias cddoc="cd $PX/doc"
-alias iud="cd $PX/planD/"
-alias cdpapers="cd $PX/research/papers"
 alias cdwww="cd $PX/perso/Projects/Informatique/Reseau/www"
 alias cdsys="cd $PX/perso/Projects/Informatique/System"
 alias cdrez="cd $PX/perso/Projects/Informatique/Reseau/"
 alias cdid="cd $PX/perso/Papiers/me/"
 alias cdp="cd $PX/perso/Papiers/"
-#alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
-#alias xrandr_setup="xrandr --output HDMI-2 --left-of eDP-1"
-alias xrandr_setup="xrandr --output DP-2-1 --left-of eDP-1"
 cdlk () { cd $(dirname $(readlink $1)); }
 grepurl () { sed -e  's/.*[hH][rR][eE][fF]=['\"''\'']\([^'\"''\'']*\)['\"''\''].*/\1/' $1; }
 alias mean="awk '{s+=$1}END{print \"ave:\",s/NR}' RS=\" \""
+
+#alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
+#alias xrandr_setup="xrandr --output HDMI-2 --left-of eDP-1"
+alias xrandr_setup="xrandr --output DP-2-1 --left-of eDP-1"
 
 #alias grepurl='xidel --extract "//a/@href"'
 
@@ -831,7 +827,7 @@ cppversion='g++ -dM -E -x c++  /dev/null | grep -F __cplusplus'
 if [ -x $(which python) ]; then
     pythonversion=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
     export PYTHONPATH="$PX/BaseDump/bots/skopai/common/"
-    export PYTHONPATH="$PYTHONPATH:$PX/research/process/pymake"
+    export PYTHONPATH="$PYTHONPATH:$PX/thesis/pymake"
 
     # Numpy
     export OMP_NUM_THREADS=1  # Number of thread used by numpy
