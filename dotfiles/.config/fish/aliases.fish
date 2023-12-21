@@ -78,8 +78,10 @@ alias nbb='jupyter notebook --path ~/main/thesis/notebook/ '
 alias ppath_python='export PYTHONPATH=$PYTHONPATH:(pwd)'
 alias xback='xbacklight'
 alias octave='octave --silent'
+alias ai="ai -s"
 alias air='ai -r'
-alias ai4='ai -m gpt-4'
+alias ai4='ai -m openai:gpt-4'
+alias ai3='ai -m openai:gpt-3.5-turbo'
 alias mongoshell="docker exec -it mongodb mongo"
 alias station="ferdi &"
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"

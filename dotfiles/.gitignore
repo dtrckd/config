@@ -2,3 +2,4 @@
 *.swo
 .session.vim
 __pycache__/
+.virtual_documents/
