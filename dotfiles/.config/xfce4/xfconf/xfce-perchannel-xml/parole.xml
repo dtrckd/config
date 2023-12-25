@@ -5,15 +5,15 @@
     <property name="font" type="string" value="Sans Bold 20"/>
   </property>
   <property name="folders" type="empty">
-    <property name="last-used-media" type="string" value="/home/dtrckd/Pictures/Google Photos"/>
+    <property name="last-used-media" type="string" value="/home/dtrckd/Desktop/New Folder/Viaggionelviaggionelviaggio"/>
   </property>
   <property name="window" type="empty">
     <property name="maximized" type="bool" value="false"/>
-    <property name="width" type="int" value="1277"/>
-    <property name="height" type="int" value="655"/>
+    <property name="width" type="int" value="1400"/>
+    <property name="height" type="int" value="798"/>
   </property>
   <property name="audio" type="empty">
-    <property name="volume" type="int" value="100"/>
+    <property name="volume" type="int" value="69"/>
   </property>
   <property name="playlist" type="empty">
     <property name="show-playlist" type="bool" value="true"/>
