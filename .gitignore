@@ -22,6 +22,7 @@ tags
 /dotfiles/.bash_aliases
 /dotfiles/.mutt
 /dotfiles/.muttrc
+/dotfiles/.config/xfce4/desktop/
 # --
 /etc/wpa_supplicant/
 /configure/snapshots/
