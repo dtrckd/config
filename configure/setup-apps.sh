@@ -11,7 +11,7 @@ set -e
 Target="$1"
 
 if [ -z "$Target" ]; then
-    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell) | manta | proton | slack | kitty | gdrive"
+    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell) | manta | proton | slack | kitty | gdrive | aichat"
     exit
 fi
 
@@ -141,20 +141,17 @@ fi
 if [ "$Target" == "gdrive" ]; then
     URL="https://github.com/glotlabs/gdrive/releases/download/3.9.0/gdrive_linux-x64.tar.gz"
     wget $URL
-    rm gdrive_linux-x64.tar.gz
     tar zxvf $(basename $URL)
+    rm $(basename $URL)
     mv gdrive ~/bin/gdrive
 fi
-#if [ "$Target" == "pycharm" ]; then
-#    # Pycharm
-#    pushd ~/Downloads/
-#    PAKNAME="pycharm"
-#    URLTARG="https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=linux"
-#    PAKURL=$(phantomjs djs.js $URLTARG | grep -oiE href=.*${PAK}.*tar.gz[\'\"] | cut -d= -f 2 | tr -d '"')
-#    wget $PAKURL
-#    tar zxvf $(basename $PAKURL)
-#    popd
-#fi
+if [ "$Target" == "aichat" ]; then
+    URL="https://github.com/sigoden/aichat/releases/download/v0.12.0/aichat-v0.12.0-x86_64-unknown-linux-musl.tar.gz"
+    wget $URL
+    tar zxvf $(basename $URL)
+    rm $(basename $URL)
+    mv aichat ~/bin/ai
+fi
 
 
 ### TODO

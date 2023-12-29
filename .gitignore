@@ -24,6 +24,7 @@ tags
 /dotfiles/.mutt
 /dotfiles/.muttrc
 /dotfiles/.config/xfce4/desktop/
+/dotfiles/.config/aichat/
 # --
 /etc/wpa_supplicant/
 /configure/snapshots/
