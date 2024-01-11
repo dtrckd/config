@@ -46,6 +46,7 @@ Plugin 'ms-jpq/coq_nvim', {'branch': 'coq'}
 " 9000+ Snippets
 Plugin 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plugin 'ms-jpq/coq.thirdparty', {'branch': '3p'}
+"Plugin 'metakirby5/codi.vim'
 " --
 "Plugin 'ycm-core/YouCompleteMe'
 "Plugin 'ajh17/VimCompletesMe'

@@ -284,7 +284,7 @@ alias gitfilelog="git log --pretty=oneline -u dotfiles/.vimrc"
 alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
 alias gitcount_line='git diff --shortstat (git hash-object -t tree /dev/null)'
-alias gitcount_commit='echo (git rev-list --count master) commits'
+alias gitcount_commit='git rev-list --count'
 function gitcpush; git commit -am $argv[1] && git push; end
 function lsgit 
     for d in (find -maxdepth 2 -type d -name ".git" | sed 's/\.git$//' );
