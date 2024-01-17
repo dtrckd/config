@@ -1,0 +1,5 @@
+[tool.ruff]
+#select = ["E", "F", "B", "W", "Q"]
+select = ["E4", "E7", "E9", "F"]
+fix = false
+line-length = 100
