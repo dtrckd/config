@@ -1,4 +1,3 @@
- /home/dtrckd/src/gpt/aichat
  /home/dtrckd/main/perso/projects_old/Informatique/Reseau/Script/auth-wpa
  /home/dtrckd/src/config/snippets/backsync/backsync
  /home/dtrckd/src/config/snippets/backsync/backsync_light
