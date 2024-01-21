@@ -105,6 +105,12 @@ update_conf_server:
 	sudo sed -i '/# @ROOT/{n;s/^.//}' /root/.tmux.conf
 	sudo sed -i '/# @ROOT/{n;s/^.//}' /root/.bash_profile
 
+get_pip:
+	curl https://bootstrap.pypa.io/get-pip.py -o ~/bin/get-pip.py
+
+get_docker_compose:
+	curl -L "https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-$(uname -s)-$(uname -m)" -o ~/bin/docker-compose
+
 configure_laptop: _dotfiles _etc _bin _configure _vim
 
 _install_init:
