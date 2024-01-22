@@ -11,6 +11,6 @@ wget --recursive \
 
 # See -m /mirror?
 
-# Dowload all pdf a page
+# Download all pdf a page
 #wget -r -A "*.pdf" "http://blabla.."
 
