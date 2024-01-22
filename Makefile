@@ -28,7 +28,7 @@ MD2WIKI = webmain/tez/md2wiki.py
 
 # Files to compile
 ### Make a rule to downlad the content instead
-# Dowload the content
+# Download the content
 TAG := $(wildcard $(BD_WEB)/$(BD_MIXT)/md/*.md)
 TEZ := $(wildcard $(BD_WEB)/$(BD_TEZ)/md/*.md)
 PAPERS := $(foreach file,$(PAPERS_NAME), $(BD_PAPER)/$(file))
