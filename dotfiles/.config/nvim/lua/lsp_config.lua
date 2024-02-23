@@ -64,9 +64,9 @@ local servers = {
     'golangci_lint_ls',
     'jsonls',
     'lua_ls',
-    --'pylsp',
-    --'pyright',
+    'pylsp',
     'ruff_lsp',
+    --'pyright',
     'tsserver',
     'yamlls',
 }
@@ -116,6 +116,7 @@ local configs = {
         on_attach = function(client, bufnr)
             -- Auto format on save
             vim.cmd [[autocmd BufWritePre *.go lua vim.lsp.buf.format()]]
+            -- Auto import sort on save
             --vim.api.nvim_create_autocmd('BufWritePre',
             --    { pattern = '*.go', callback = function() vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true }) end })
         end
@@ -163,33 +164,39 @@ local configs = {
         init_options = {
             settings = {
                 -- Any extra CLI arguments for `ruff` go here.
-                args = {'--ignore-noqa'},
+                args = { '--ignore-noqa' },
+            }
+        },
+        --
+        on_attach = function(client, bufnr)
+            -- Auto import sort on save
+            vim.api.nvim_create_autocmd('BufWritePre',
+                { pattern = '*.py', callback = function() vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true }) end })
+        end
+    },
+    pylsp = {
+        settings = {
+            pylsp = {
+                plugins = {
+                    -- Linting
+                    pycodestyle = {
+                        enabled = false,
+                        ignore = { 'W391', "E401", "E124", "E26", "E265", "E731", "E226", "E402", "E501", "E303" },
+                        maxlinelength = 125
+                    },
+                    flake8 = { enabled = false, maxLineLength = 125 },
+                    pylint = { enabled = false },
+                    pyflakes = { enabled = false },
+                    -- Type checker
+                    pylsp_mypy = { enabled = false },
+                    -- formating
+                    black = { enabled = false, line_length = 125 },
+                    autopep8 = { enabled = false },
+                    yapf = { enabled = false },
+                }
             }
         }
     },
-    --pylsp = {
-    --    settings = {
-    --        pylsp = {
-    --            plugins = {
-    --                -- Linting
-    --                pycodestyle = {
-    --                    enabled = true,
-    --                    ignore = { 'W391', "E401", "E124", "E26", "E265", "E731", "E226", "E402", "E501", "E303" },
-    --                    maxlinelength = 125
-    --                },
-    --                flake8 = { enabled = false, maxLineLength = 125 },
-    --                pylint = { enabled = false },
-    --                pyflakes = { enabled = false },
-    --                -- Type checker
-    --                pylsp_mypy = { enabled = false },
-    --                -- formating
-    --                black = { enabled = true, line_length = 125 },
-    --                autopep8 = { enabled = false },
-    --                yapf = { enabled = false },
-    --            }
-    --        }
-    --    }
-    --},
     --pyright = {
     --    settings = {
     --        python = {
