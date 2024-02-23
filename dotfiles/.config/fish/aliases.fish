@@ -19,6 +19,7 @@ alias diff='diff -u'
 alias tree='tree -C'
 alias less='less -S -R'
 alias df='df -Th'
+alias dff='df -TH | grep -vE "loop|squashfs"'
 #alias du="du -sch"
 alias g='grep'
 alias lsd='lsd -l'
@@ -128,7 +129,7 @@ alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --prog
 
 alias psa="ps -aux | grep -i --color"
 alias pstree='pstree -h'
-alias rmf='shred -zuv -n1'
+alias riprm='shred -zuv -n1'
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
 alias f='fzf'
@@ -153,7 +154,7 @@ alias ip6="ip -6 -br a"
 alias fail2ban-ls='sudo fail2ban-client status | sed -n "s/,//g;s/.*Jail list://p" | xargs -n1 sudo fail2ban-client status'
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}' # see also rg
-alias rg="rg -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/'"
+alias rg="rg --hidden -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/'"
 alias rgi="rg -i"
 alias grepi="grep -i"
 alias grepy='find -iname "*.py" | xargs grep --color -n'
@@ -235,8 +236,8 @@ alias gdc='git diff --cached'
 alias gs='git status -sb'
 alias ga="git add"
 alias gl="git log --oneline --decorate --color"
-alias gll="git log --format='%C(yellow)%d%Creset %Cgreen%h%Creset %Cblue%ad%Creset %C(cyan)%an%Creset  : %s  ' --graph --date=short --all"
-alias glt="git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --graph  --abbrev-commit --date=relative"
+alias glt="git log --pretty='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%Creset %C(magenta)%an%Creset' --graph --date=relative --abbrev-commit"
+alias gla="git log --format='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%Creset %C(magenta)%an%Creset' --graph --date=relative --abbrev-commit --all"
 alias gsl="git stash list"
 alias gi="git bug"
 alias gil="git bug ls -s open"
