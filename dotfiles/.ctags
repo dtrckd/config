@@ -1,14 +1,6 @@
 --regex-make=/^([^# \t]*):/\1/t,target/
 
 
-
---langdef=dc
---langmap=dc:.yml
---regex-dc=/^  ([^:]*):/\1/t,target/
---regex-dc=/^\t([^:]*):/\1/t,target/
-
-
-
 --langdef=Elm
 --langmap=Elm:.elm
 --regex-Elm=/^ *([[:lower:]][[:alnum:]_]+)[[:blank:]]*:[^:].*->.*/\1/f,function,functions/
@@ -44,3 +36,12 @@
 --regex-graphql=/^[ \t]*type[ \t]+([_A-Za-z][_0-9A-Za-z]*)/\1/t,type/
 --regex-graphql=/^[ \t]*input[ \t]+([_A-Za-z][_0-9A-Za-z]*)/\1/i,input/
 --regex-graphql=/^[ \t]*mutation[ \t]+([_A-Za-z][_0-9A-Za-z]*)/\1/m,mutation/
+
+
+--langdef=yaml
+--langmap=yaml:.yml
+--langmap=yaml:+.yaml
+--kinddef-yaml=s,section,sections
+--kinddef-yaml=e,entry,entries
+--regex-yaml=/^([a-zA-Z0-9_\/-]+):/\1/s/{scope=set}
+--regex-yaml=/^ *- (name: .*)$/\1/e/{scope=ref}

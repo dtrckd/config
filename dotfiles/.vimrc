@@ -193,6 +193,14 @@ function! NERDTreeToggleFind()
     endif
 endfunction
 
+" Nerdcommenter
+" --
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = "left"
+
+" Add your own custom formats or override the defaults
+"let g:NERDCustomDelimiters = { "c": { "left": "/**", "right": "*/" }}
+
 "nnoremap <C-p> :call NERDTreeToggleFind()<cr>
 ""noremap <TAB><TAB> :NERDTreeToggle<CR> " Problem with <C-i> that get map and delayed
 
@@ -322,6 +330,7 @@ map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 
 " Markdown tagbar
+let g:tagbar_ctags_bin = "/usr/bin/ctags"
 let g:tagbar_type_markdown = {
     \ 'ctagstype': 'markdown',
     \ 'ctagsbin' : $HOME.'/.local/bin/markdown2ctags',
@@ -375,11 +384,32 @@ let g:tagbar_type_scss = {
       \ ]
       \}
 
+" Yaml tagbar
+let g:tagbar_type_yaml = {
+    \ 'ctagstype' : 'yaml',
+    \ 'kinds' : [
+        \ 'a:anchors',
+        \ 's:section',
+        \ 'e:entry'
+    \ ],
+  \ 'sro' : '.',
+    \ 'scope2kind': {
+      \ 'section': 's',
+      \ 'entry': 'e'
+    \ },
+    \ 'kind2scope': {
+      \ 's': 'section',
+      \ 'e': 'entry'
+    \ },
+    \ 'sort' : 0
+    \ }
+
 " Makefile tagbar
 let g:tagbar_type_make = { 'kinds':[ 'm:Macros', 't:Targets' ] }
 
 " Graphql tagbar
 let g:tagbar_type_graphql = { 'kinds':[ 't:Types', 'e:Enums' ] }
+
 
 
 " JS tagbar
