@@ -146,7 +146,7 @@ if [ "$Target" == "gdrive" ]; then
     mv gdrive ~/bin/gdrive
 fi
 if [ "$Target" == "aichat" ]; then
-    URL="https://github.com/sigoden/aichat/releases/download/v0.12.0/aichat-v0.12.0-x86_64-unknown-linux-musl.tar.gz"
+    URL="https://github.com/sigoden/aichat/releases/download/v0.13.0/aichat-v0.13.0-x86_64-unknown-linux-musl.tar.gz"
     wget $URL
     tar zxvf $(basename $URL)
     rm $(basename $URL)
