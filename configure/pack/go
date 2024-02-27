@@ -1,9 +1,15 @@
-# go get $@
+# use go install {url}
+
+# utils
+github.com/jesseduffield/lazydocker@latest 
+github.com/jesseduffield/lazygit@latest
+
+# misc
 github.com/pearkes/gethub
 github.com/wit-ai/wit-go
 
-# Template
+# template
 github.com/mholt/sprig
 
 # git
-GO111MODULE=off  go get github.com/MichaelMure/git-bug
+github.com/MichaelMure/git-bug
