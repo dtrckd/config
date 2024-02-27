@@ -60,11 +60,11 @@
       <property name="&lt;Super&gt;k" type="string" value="/bin/ksysguard"/>
       <property name="&lt;Alt&gt;p" type="string" value="xmms2 seek -10"/>
       <property name="&lt;Super&gt;e" type="string" value="mousepad"/>
-      <property name="&lt;Super&gt;a" type="string" value="deepin-calculator"/>
       <property name="&lt;Super&gt;t" type="string" value="/home/dtrckd/.local/kitty.app/bin/kitty"/>
-      <property name="&lt;Super&gt;z" type="string" value="xfce4-find-cursor"/>
-      <property name="Print" type="string" value=" xfce4-screenshooter"/>
       <property name="&lt;Super&gt;c" type="string" value="xfce4-settings-manager"/>
+      <property name="Print" type="string" value="/usr/bin/screengrab"/>
+      <property name="&lt;Super&gt;a" type="string" value="/usr/bin/deepin-calculator"/>
+      <property name="&lt;Super&gt;z" type="string" value="xfce4-find-cursor"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
