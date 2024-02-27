@@ -22,6 +22,7 @@
       <value type="string" value="nm-applet"/>
       <value type="string" value="notify-send"/>
       <value type="string" value="nw"/>
+      <value type="string" value="Screen Grab"/>
       <value type="string" value="signal"/>
       <value type="string" value="Signal"/>
       <value type="string" value="signal-desktop_signal"/>
