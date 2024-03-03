@@ -139,7 +139,7 @@ if [ "$Target" == "kitty" ]; then
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 fi
 if [ "$Target" == "gdrive" ]; then
-    URL="https://github.com/glotlabs/gdrive/releases/download/3.9.0/gdrive_linux-x64.tar.gz"
+    URL="https://github.com/glotlabs/gdrive/releases/download/3.9.1/gdrive_linux-x64.tar.gz"
     wget $URL
     tar zxvf $(basename $URL)
     rm $(basename $URL)
