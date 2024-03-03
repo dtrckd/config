@@ -194,6 +194,7 @@ backup_dot:
 	@cp -v ~/.vimrc dotfiles/
 	@cp -v ~/.tmux.conf dotfiles/
 	@cp -v	~/.config/user-dirs.dirs dotfiles/.config/
+	@cp -vr	~/.config/aichat dotfiles/.config/
 
 	# Backup Atom file and package
 	#@cp -v ~/.atom/config.cson dotfiles/.atom/

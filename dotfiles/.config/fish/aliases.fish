@@ -80,6 +80,8 @@ alias ppath_python='export PYTHONPATH=$PYTHONPATH:(pwd)'
 alias xback='xbacklight'
 alias octave='octave --silent'
 alias ai="ai -s"
+alias aic="command ai"
+alias ai4c='command ai -m openai:gpt-4'
 alias air='ai -r'
 alias ai4='ai -m openai:gpt-4'
 alias ai3='ai -m openai:gpt-3.5-turbo'
@@ -160,7 +162,7 @@ alias ip6="ip -6 -br a"
 alias fail2ban-ls='sudo fail2ban-client status | sed -n "s/,//g;s/.*Jail list://p" | xargs -n1 sudo fail2ban-client status'
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}' # see also rg
-alias rg="rg --hidden -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/'"
+alias rg="rg --hidden -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/'"
 alias rgi="rg -i"
 alias grepi="grep -i"
 alias grepy='find -iname "*.py" | xargs grep --color -n'
@@ -181,6 +183,10 @@ alias ls-ssd='lsblk  -d -o name,rota'
 alias ls-marked="apt-mark showhold"
 alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
 alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Update}}{{.}}{{end}}{{end}}' all"
+
+function show
+    functions $argv[1] | grep "^ "
+end
 
 function vims
     # VIM
