@@ -229,7 +229,7 @@ alias youtube-dl="yt-dlp"
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}' # see also rg
-alias rg="rg --hidden -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/'"
+alias rg="rg --hidden -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/'"
 alias rgi="rg -i"
 alias grepi="grep -i"
 alias grepy='find -iname "*.py" | xargs grep --color -n'
@@ -237,6 +237,7 @@ alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
 alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
 function grepyf(){ find -iname "*.py" |xargs grep --color -m1 "$1" |cut -d: -f1; } # don work :(
 alias grepall='find -type f | xargs grep --color'
+alias show="command -v"
 # Ag Alias
 alias ag='ag --color-path 32 --color-match "1;40;36"'
 alias agy='ag -i --py'
