@@ -18,6 +18,10 @@ end
 
 local lspconfig = require('lspconfig')
 local coq = require('coq')
+require("coq_3p") {
+    { src = "copilot", short_name = "COP", accept_key = "<c-a>" },
+    --{ src = "codeium", short_name = "COD" },
+}
 
 -- Global Client configuration
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
