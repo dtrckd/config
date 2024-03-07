@@ -3,7 +3,7 @@
 Target="$1"
 
 if [ -z "$Target" ]; then
-    echo "Please enter: go | npm | docker | crystal | brew"
+    echo "Please enter: rust | go | crystal | npm | brew | docker | virtualbox"
     exit
 fi
 
@@ -76,6 +76,9 @@ if [ "$Target" == "virtualbox" ]; then
     # Dependencies
     #apt install libssl-dev libxml2-dev libyaml-dev libgmp-dev libreadline-dev libz-dev
     sudo apt install virtualbox-$VERSION
+fi
+if [ "$Target" == "rust" ]; then
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 fi
 
 source ~/.bashrc
