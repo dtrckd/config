@@ -109,7 +109,8 @@ get_pip:
 	curl https://bootstrap.pypa.io/get-pip.py -o ~/bin/get-pip.py
 
 get_docker_compose:
-	curl -L "https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-$(uname -s)-$(uname -m)" -o ~/bin/docker-compose
+	curl -L "https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-$(shell uname -s)-$(shell uname -m)" -o ~/bin/docker-compose
+	chmod +x ~/bin/docker-compose
 
 configure_laptop: _dotfiles _etc _bin _configure _vim
 
