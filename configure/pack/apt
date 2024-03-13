@@ -15,7 +15,7 @@ jq # like sed for json data
 deepin-calculator
 
 
-# improveed shell
+# improved shell
 fish
 zoxide
 exa
