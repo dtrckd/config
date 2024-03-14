@@ -146,15 +146,6 @@ let g:go_fmt_command = "goimports"
 "inoremap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
 "smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
 
-""" COQ autocompletion
-" --
-" Autostart
-let g:coq_settings = {
-      \ 'auto_start': 'shut-up', 
-      \ 'keymap.eval_snips': '<leader>j',
-      \ 'clients.tabnine.enabled': v:false,
-      \}
-
 
 """ Fix vim-closer imcompatibility with COQ
 "https://github.com/rstacruz/vim-closer/issues/37
@@ -267,8 +258,10 @@ cnoreabbrev Ack Ack!
 """ Fuzzy search > fzf, ack, ag, ripgrep familly !
 noremap F :FZF<cr>
 noremap ! :FZF<cr>
+noremap § :FZF %:p:h<cr>
+"let g:fzf_vim.command_prefix = 'Fzf'
 " Search the word under cursor
-noremap <leader>a :Ack! "<cword>"<cr>
+noremap <leader>a :Ack! <cword><cr>
 " Maps <leader>/ so we're ready to type the search keyword
 nnoremap <Leader>/ :Ack!<Space>
 
@@ -659,9 +652,62 @@ set cindent
 set cinkeys-=0#
 set indentkeys-=0#
 
-set foldmethod=indent
+"set foldmethod=indent
+set foldmethod=syntax
+"set nofoldenable
 set nofen               " open all folds. see z[mn] command
-set nofoldenable
+
+""" Multi-line string (triple quote)
+function! TripleQuoteFold(lnum)                                                                                                                                                                                      
+    let l:lineCount = line('$')                                                                                                                                                                                      
+    let l:inString = 0                                                                                                                                                                                               
+    let l:lastStart = 0                                                                                                                                                                                              
+                                                                                                                                                                                                                     
+    " Loop through each line from the start of the file to the current line                                                                                                                                          
+    " to determine if we're inside a triple-quoted string.                                                                                                                                                           
+    for l:i in range(1, a:lnum)                                                                                                                                                                                      
+        let l:line = getline(l:i)                                                                                                                                                                                    
+                                                                                                                                                                                                                     
+        " Check for triple-quote occurrences in the line.                                                                                                                                                            
+        if l:line =~? '"""'                                                                                                                                                                                          
+            let l:pos = matchstrpos(l:line, '"""')                                                                                                                                                                   
+            " Toggle the inString state if the triple-quote is at the start of the line,                                                                                                                             
+            " preceded by a space/newline, or the line is at BOF.                                                                                                                                                    
+            if l:pos[1] == 0 || l:line[l:pos[1] - 1] =~ '\_s' || l:i == 1                                                                                                                                            
+                if l:inString                                                                                                                                                                                        
+                    " If we're ending a string, check if the current line is part of it.                                                                                                                             
+                    if l:lastStart < a:lnum && a:lnum <= l:i                                                                                                                                                         
+                        return l:i - l:lastStart                                                                                                                                                                     
+                    endif                                                                                                                                                                                            
+                else                                                                                                                                                                                                 
+                    " Mark the start of a new string.                                                                                                                                                                
+                    let l:lastStart = l:i                                                                                                                                                                            
+                endif                                                                                                                                                                                                
+                let l:inString = !l:inString                                                                                                                                                                         
+            endif                                                                                                                                                                                                    
+        endif                                                                                                                                                                                                        
+    endfor                                                                                                                                                                                                           
+                                                                                                                                                                                                                     
+    " If the current line is within a string, determine the fold level.                                                                                                                                              
+    if l:inString                                                                                                                                                                                                    
+        " Continue searching for the end of the string.                                                                                                                                                              
+        for l:i in range(a:lnum, l:lineCount)                                                                                                                                                                        
+            let l:line = getline(l:i)                                                                                                                                                                                
+            if l:line =~? '"""'                                                                                                                                                                                      
+                let l:pos = matchstrpos(l:line, '"""')                                                                                                                                                               
+                if l:pos[1] + 3 == len(l:line) || l:line[l:pos[1] + 3] =~ '\_s'                                                                                                                                      
+                    " Return the fold level based on the end of the string.                                                                                                                                          
+                    return l:i - l:lastStart                                                                                                                                                                         
+                endif                                                                                                                                                                                                
+            endif                                                                                                                                                                                                    
+        endfor                                                                                                                                                                                                       
+    endif                                                                                                                                                                                                            
+                                                                                                                                                                                                                     
+    " Default to no folding if not inside a string.                                                                                                                                                                  
+    return 0                                                                                                                                                                                                         
+endfunction
+
+autocmd FileType toml setlocal foldmethod=expr foldexpr=TripleQuoteFold(v:lnum)
 
 "" Magic pasting
 "" Toggle paste/nopaste automatically when copy/paste with right click in insert mode:
