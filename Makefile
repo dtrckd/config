@@ -209,6 +209,14 @@ backup_dot:
 		"~/.config/xmms2/"\
 		"~/.config/xfce4/"
 
+backup_dot_fast:
+	@cp -v ~/.bash_profile dotfiles/
+	@cp -v ~/.config/fish/aliases.fish dotfiles/.config/fish/
+	@cp -v ~/.vimrc dotfiles/
+	@cp -v ~/.tmux.conf dotfiles/
+	@cp -v	~/.config/user-dirs.dirs dotfiles/.config/
+	
+
 backup_wekan:
 	cd $(HOME)/main/conf/wekan
 	./wekan-backup.sh

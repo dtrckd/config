@@ -125,8 +125,6 @@ alias cleancolors="sed -r 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' $1"
 alias ipython="ipython --colors linux"
 alias ipython_dev="ipython --profile dev"
 alias py3='python3'
-alias nbb='jupyter notebook --path ~/main/thesis/notebook/ '
-alias ppath_python='export PYTHONPATH=$PYTHONPATH:$(pwd)'
 alias xback='xbacklight'
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias j=jobs
@@ -160,6 +158,10 @@ function make_graph_python(){
         dot -K circo -T png  "$f" > ${f%%.dot}.png
     done
     popd
+}
+
+function spinner() {
+    while :; do for x in '/' '-' '\' '|'; do sleep 0.2; echo -en "\b\b $x"; done; done
 }
 
 alias v="vim (fzf --height 40%)"
@@ -229,7 +231,7 @@ alias youtube-dl="yt-dlp"
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}' # see also rg
-alias rg="rg --hidden -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/'"
+alias rg="rg --hidden -g '!.git/' -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/'"
 alias rgi="rg -i"
 alias grepi="grep -i"
 alias grepy='find -iname "*.py" | xargs grep --color -n'
@@ -275,6 +277,8 @@ alias vitodo='vim -p $(find -iname todo -type f)'
 ### Octave
 alias octave='octave --silent'
 alias ai="ai -s"
+alias aic="command ai"
+alias aic="command ai -c"
 alias air='ai -r'
 alias ai4='ai -m openai:gpt-4'
 alias ai3='ai -m openai:gpt-3.5-turbo'
@@ -590,6 +594,7 @@ alias iuc="cd $HOME/src/config/"
 alias iucs="cd $HOME/src/config/snippets"
 alias iut="cd $HOME/Desktop/tt/"
 alias iuk="cd $PX/missions" # mission / kaggle / etc
+alias iupm="cd $PX/thesis/pymake/"
 alias iunb="cd $PX/thesis/notebook/"
 alias iurp="cd $PX/thesis/repo/"
 alias iuds="cd $PX/thesis/repo/docsearch/"
@@ -615,6 +620,7 @@ alias cdsys="cd $PX/perso/Projects/Informatique/System"
 alias cdrez="cd $PX/perso/Projects/Informatique/Reseau/"
 alias cdid="cd $PX/perso/Papiers/me/"
 alias cdp="cd $PX/perso/Papiers/"
+alias cdai="cd ~/.config/aichat/sessions"
 cdlk () { cd $(dirname $(readlink $1)); }
 grepurl () { sed -e  's/.*[hH][rR][eE][fF]=['\"''\'']\([^'\"''\'']*\)['\"''\''].*/\1/' $1; }
 alias mean="awk '{s+=$1}END{print \"ave:\",s/NR}' RS=\" \""
@@ -850,6 +856,11 @@ if [ -x "$(which go)" ]; then
     export GOPATH=$HOME/.go
     export PATH="$(go env GOROOT)/bin:$PATH"
     export PATH="$(go env GOPATH)/bin:$PATH"
+fi
+
+# RUST
+if [ -x "$(which rustc)" -o -x "${HOME}/.cargo/bin/rustc" ]; then
+    export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
 # SNAP

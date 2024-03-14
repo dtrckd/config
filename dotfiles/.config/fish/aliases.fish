@@ -75,12 +75,11 @@ alias ipython="ipython --colors linux"
 alias ipython_dev="ipython --profile dev"
 alias py='python'
 alias py3='python3'
-alias nbb='jupyter notebook --path ~/main/thesis/notebook/ '
-alias ppath_python='export PYTHONPATH=$PYTHONPATH:(pwd)'
 alias xback='xbacklight'
 alias octave='octave --silent'
 alias ai="ai -s"
 alias aic="command ai"
+alias aicc="command ai -c"
 alias ai4c='command ai -m openai:gpt-4'
 alias air='ai -r'
 alias ai4='ai -m openai:gpt-4'
@@ -162,7 +161,7 @@ alias ip6="ip -6 -br a"
 alias fail2ban-ls='sudo fail2ban-client status | sed -n "s/,//g;s/.*Jail list://p" | xargs -n1 sudo fail2ban-client status'
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}' # see also rg
-alias rg="rg --hidden -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/'"
+alias rg="rg --hidden -g '!.git/' -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/'"
 alias rgi="rg -i"
 alias grepi="grep -i"
 alias grepy='find -iname "*.py" | xargs grep --color -n'
@@ -186,6 +185,10 @@ alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Upd
 
 function show
     functions $argv[1] | grep "^ "
+end
+
+function fetch_gitignore
+    curl -sL https://www.gitignore.io/api/$argv[1] > .gitignore
 end
 
 function vims
@@ -523,6 +526,7 @@ alias iuc="cd $HOME/src/config/"
 alias iucs="cd $HOME/src/config/snippets"
 alias iut="cd $HOME/Desktop/tt/"
 alias iuk="cd $PX/missions" # mission / kaggle / etc
+alias iupm="cd $PX/thesis/pymake/"
 alias iunb="cd $PX/thesis/notebook/"
 alias iurp="cd $PX/thesis/repo/"
 alias iuds="cd $PX/thesis/repo/docsearch/"
@@ -548,6 +552,7 @@ alias cdsys="cd $PX/perso/Projects/Informatique/System"
 alias cdrez="cd $PX/perso/Projects/Informatique/Reseau/"
 alias cdid="cd $PX/perso/Papiers/me/"
 alias cdp="cd $PX/perso/Papiers/"
+alias cdai="cd ~/.config/aichat/sessions"
 function cdlk;  cd (dirname (readlink $argv[1])); end
 function grepurl; sed -e  's/.*[hH][rR][eE][fF]=['\"''\'']\([^'\"''\'']*\)['\"''\''].*/\1/' $argv[1]; end
 alias mean="awk '{s+=$argv}END{print \"ave:\",s/NR}' RS=\" \""
@@ -705,3 +710,14 @@ end
 
 # Kitty...
 export TERM="xterm-kitty"
+
+# Aichat command auto-completion
+function _aichat_fish
+    set -l _old (commandline)
+    if test -n $_old
+        echo -n "⌛"
+        commandline -f repaint
+        commandline (aichat -e $_old)
+    end
+end
+bind \ee _aichat_fish
