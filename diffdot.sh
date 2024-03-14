@@ -7,9 +7,9 @@ Help='-v verbose \n
 
 if [ "$Verbose" == "-v" ]; then
     # Show all files that differs (all depth)
-    for _f in $(find dotfiles/ -type f); do
-        diff -q ${HOME}${_f#dotfiles} $_f
-    done
+    while IFS= read -r -d '' _f; do
+        diff -q "${HOME}${_f#dotfiles}" "$_f"
+    done < <(find dotfiles/ -type f -print0)
 elif [ "$Verbose" == "-e" ]; then
     # Edit files that differs (first depth)
     files=$(find dotfiles/ -maxdepth 1 -type f -exec \
