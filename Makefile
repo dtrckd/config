@@ -244,6 +244,16 @@ backup_thunderbird:
 	# gpg --import-ownertrust pgp-ownertrust.asc
 
 # ================================
+# Update
+# ================================
+
+update_hosts:
+	@curl http://sbc.io/hosts/alternates/gambling-porn/hosts | sed -n '/# Start StevenBlack/,$$p' > stevenblack.tmp
+	cat /etc/hosts | sed '/# Start StevenBlack/,$$d' > hosts.tmp
+	cat hosts.tmp stevenblack.tmp > etc/hosts
+	rm -f stevenblack.tmp hosts.tmp
+
+# ================================
 # sync
 # ================================
 
