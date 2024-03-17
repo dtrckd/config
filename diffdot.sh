@@ -1,31 +1,94 @@
 #!/bin/bash
+set -e
 
-Verbose="$1"
-Help='-v verbose \n
--e edit with vimdiff \n
-* help...'
+# Main
+COMMAND="diff"
+LINE="1"
+DEEPNESS="-maxdepth 1"
+export ORIGIN="$HOME"
+export TARGET="dotfiles"
 
-if [ "$Verbose" == "-v" ]; then
-    # Show all files that differs (all depth)
-    while IFS= read -r -d '' _f; do
-        diff -q "${HOME}${_f#dotfiles}" "$_f"
-    done < <(find dotfiles/ -type f -print0)
-elif [ "$Verbose" == "-e" ]; then
-    # Edit files that differs (first depth)
-    files=$(find dotfiles/ -maxdepth 1 -type f -exec \
-        sh -c 'diff -q {} ${HOME}/$(basename {})' \; | sed 's/ /\n/g' |  grep  '\.')
-    if [ ! -z "$files" ]; then
+# Usage / Help
+USAGE="$(cat <<EOF
+Usage: $(basename "$0") [options]
 
-        if [ ! -z "$2" ]; then
-            vimdiff $(echo $files | cut -d' ' -f$2,$(($2+1)) )
-        else
-            vimdiff $files
-        fi
-    fi
-elif [ -z $Verbose ]; then
+Diff and backup operation of dotfiles.
+With no options, just show the file in dotfiles/ that has been modifiate in HOME.
+
+Options:
+  -h, --help        Show this help
+  -v, --verbose     Show all file, not just a depth 1
+  -e LINE           Vimdiff the two file (at line N)
+  -c, --sync        copy all file that are different into dotfiles
+  --etc             Compare etc/ folder insteado of dotfile
+
+EOF
+)"
+Help () {
+    echo "$USAGE"
+    exit 0
+}
+
+# Parse command-line options
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -h|--help)
+            Help
+            shift ;;
+        -v|--verbose)
+            DEEPNESS=""
+            shift ;;
+        -c|--sync)
+            COMMAND="copy"
+            shift ;;
+        -e|--edit)
+            COMMAND="edit"
+            if [[ -n "$2" ]] && [[ "$2" != -* ]]; then
+                LINE="$2"
+                shift 2
+            else
+                shift
+            fi
+            ;;
+        --etc)
+            ORIGIN="/etc"
+            TARGET="etc"
+            shift ;;
+        *)
+            echo "Invalid option: $1" >&2
+            Help
+            exit 1 ;;
+    esac
+done
+
+
+if [ "$COMMAND" == "diff" ]; then
     # Show files that differs (first depth)
-    find dotfiles/ -maxdepth 1 -type f -exec \
-        sh -c 'diff -q ${HOME}/$(basename {}) {}' \;
+    find $TARGET $DEEPNESS -type f -print0 \
+        | xargs -0 -I{} sh -c 'diff -q "${ORIGIN}/${1#$TARGET/}" "$1"' -- {}
+elif [ "$COMMAND" == "edit" ]; then
+    # Edit files that differs (first depth)
+    files=$(find $TARGET $DEEPNESS -type f -print0 \
+        | xargs -0 -I{} sh -c 'diff -q "${ORIGIN}/${1#$TARGET/}" "$1"' -- {} \
+        | grep -v "^diff:" \
+        | cut -d" " -f2,4)
+
+    if [ ! -z "$files" ]; then
+        vimdiff $(echo "$files" | sed -n "${LINE}p")
+    fi
+elif [ "$COMMAND" == "copy" ]; then
+    # Copy files that differs (first depth), into TAREGT (backup)
+    files=$(find $TARGET $DEEPNESS -type f -print0 \
+        | xargs -0 -I{} sh -c 'diff -q "${ORIGIN}/${1#$TARGET/}" "$1"' -- {} \
+        | grep -v "^diff:" \
+        | cut -d" " -f2,4)
+
+    if [ ! -z "$files" ]; then
+        # @IMPROVE: manage space in files !?
+        echo "$files" | while IFS= read -r line; do
+            cp -v $line
+        done
+    fi
 else
-    echo "$Help"
+    echo "$USAGE"
 fi
