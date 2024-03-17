@@ -209,11 +209,11 @@ let g:chadtree_settings = {
       \  'view': {'width': 26},
       \  'keymap': {
       \    'v_split': ["v"],
-      \    'h_split': ["s"],
+      \    'h_split': ["x"],
       \    'tertiary': ["<m-enter>", "<middlemouse>", "t"],
       \    'new': ["a", "n"],
       \    'copy': ["p", "c"],
-      \    'cut': ["x", "m"],
+      \    'cut': ["m"],
       \    'delete': ["d"],
       \    'trash': [],
       \    'open_sys': ["o"],
@@ -244,9 +244,6 @@ let g:ackprg = 'rg --vimgrep --type-not sql --smart-case'
 " Fix ack output leaks to the terminal https://github.com/mileszs/ack.vim/issues/18
 set shellpipe=>
 
-" Auto close the Quickfix list after pressing '<enter>' on a list item
-let g:ack_autoclose = 1  " You can alos use :cclose
-
 " Any empty ack search will search for the work the cursor is on
 let g:ack_use_cword_for_empty_search = 1
 
@@ -260,8 +257,7 @@ noremap F :FZF<cr>
 noremap ! :FZF<cr>
 noremap § :FZF %:p:h<cr>
 "let g:fzf_vim.command_prefix = 'Fzf'
-" Search the word under cursor
-noremap <leader>a :Ack! <cword><cr>
+noremap <leader>s :Ack! <cword><cr>
 " Maps <leader>/ so we're ready to type the search keyword
 nnoremap <Leader>/ :Ack!<Space>
 
@@ -809,16 +805,42 @@ command T tabe
 " print the current buffer number
 command Bufno :echo bufnr('%') 
 
-" Fix the issue: enter in quifix list open tagbartoggle instead of file (lsp references)
-" see also :tab copen
-" qf == quickfix
-autocmd FileType qf nnoremap <buffer> <Enter> <C-W><Enter><C-W>T
-"set switchbuf+=newtab
 " Ensure we go to the last active after closing a tab
 autocmd TabClosed * tabprevious
 
 " Insert and jump to newline before the cursor, in insert mode
 inoremap <A-Enter> <Esc>O
+
+""""""""""""""""""""""""""""""
+""" QuickFix
+""""""""""""""""""""""""""""""
+" Auto close the Quickfix list after pressing '<enter>' on a list item
+let g:ack_autoclose = 0  " You can also use :cclose
+
+" automatically closes the quickfix window if it's the last window open
+autocmd WinEnter * if winnr('$') == 1 && &buftype == 'quickfix' | q | endif
+
+augroup QuickFix
+    autocmd!
+    " When entering a quickfix window, map ESC to :cclose
+    autocmd FileType qf nnoremap <buffer> <ESC> :cclose<CR>
+augroup END
+
+augroup QuickFixCustomMappings
+    autocmd!
+    " When entering a quickfix window, map 'x' to open in horizontal split
+    autocmd FileType qf nnoremap <buffer> x <C-w><Enter><C-w>K :resize +10<CR>
+    autocmd FileType qf nnoremap <buffer> v <C-w><Enter><C-w>L
+
+    " restore <enter> defaut behavior (enter is map in normal mode!)
+    autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR>
+augroup END
+
+augroup HelpWindow
+    autocmd!
+    " When entering a help window, map ESC to :q
+    autocmd FileType help nnoremap <buffer> <ESC> :q<CR>
+augroup END
 
 
 """"""""""""""""""""""""""""""
@@ -1072,7 +1094,7 @@ endfun
 set tags=./.tags;\
 
 fu! DoCtags()
-  let cmd = 'ctags --exclude=.git --exclude="*.log" --exclude="*.data" --exclude="*.pk" -R -f .tags'
+  let cmd = 'ctags --exclude=.git --exclude="*.log" --exclude="*.data" --exclude="*.pk" --exclude="*.model" --exclude="*.bin" --exclude="data" --exclude="_data" -R -f .tags'
   let res=system(cmd)
 endfunction
 com! Ctags :call DoCtags()
@@ -1100,7 +1122,6 @@ com! MkSession :call MkSession()
 "bufdo execute 'NERDTreeClose'
 "bufdo execute 'TagbarClose'
 "execute 'mksession! ' . getcwd() . '/.session.vim'
-
 
 
 """"""""""""""""""""""""""""""

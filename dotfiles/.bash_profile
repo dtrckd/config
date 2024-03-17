@@ -198,8 +198,8 @@ alias lsoftop='sudo lsof | awk '\''{print $1 " " $2}'\'' | sort | uniq -c | sort
 alias riprm='shred -zuv -n1' # find <directory> -depth -type f -exec shred -v -n 1 -z -u {} \;
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
-alias f='fzf'
-ff () { find -iname "*$1*"; } # exact match
+alias f='fzf' # fuzzy match
+ff () { find -iname "*$1*"; } # wide match
 fff () { find -iname "$1"; } # exact match
 alias jerr='journalctl -r -p err -b'
 clipboard() { cat "$0" | xclip -selection clipboard; }
@@ -231,7 +231,7 @@ alias youtube-dl="yt-dlp"
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}' # see also rg
-alias rg="rg --hidden -g '!.git/' -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/'"
+alias rg="rg --hidden -g '!.git/' -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/' -g '!.tags'"
 alias rgi="rg -i"
 alias grepi="grep -i"
 alias grepy='find -iname "*.py" | xargs grep --color -n'
