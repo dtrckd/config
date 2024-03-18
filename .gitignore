@@ -11,6 +11,7 @@ tags
 
 # tmp
 /dotfiles/.config/xmms2/bindata/
+*.sqlite
 
 # Private
 /.free

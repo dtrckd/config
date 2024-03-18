@@ -14,12 +14,13 @@ select = [
 #select = ["E4", "E7", "E9", "F", "I"]
 ignore = [
     #"B008",  # do not perform function calls in argument defaults
-    "E262",
-    "E265"
+    "B005", # I like to strip with multi-characters !
+    "E262", # do not work !? 
+    "E265", # do not work !?
 ]
 ignore-init-module-imports = true
 
 
 [tool.isort]
-known-third-party = ["fastapi", "yaml"]
+known-third-party = ["fastapi", "yaml"] # ?
 
