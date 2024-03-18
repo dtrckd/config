@@ -16,12 +16,14 @@ end
 --  use 'ms-jpq/coq.thirdparty'
 --end)
 
+
+-- Coq autocompletion -- Autostart
+vim.g.coq_settings = {
+    auto_start = 'shut-up',
+}
+
 local lspconfig = require('lspconfig')
 local coq = require('coq')
-require("coq_3p") {
-    { src = "copilot", short_name = "COP", accept_key = "<c-a>" },
-    --{ src = "codeium", short_name = "COD" },
-}
 
 -- Global Client configuration
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -197,6 +199,8 @@ local configs = {
                     black = { enabled = false, line_length = 125 },
                     autopep8 = { enabled = false },
                     yapf = { enabled = false },
+                    -- Jedi
+                    jedi = { extra_paths = { vim.fn.getcwd() } },
                 }
             }
         }
@@ -301,7 +305,6 @@ map('n', '<leader>t', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>D', '<cmd>lua vim.lsp.buf.declaration()<CR>')
 --map('n', 'gd'         , '<cmd>lua vim.lsp.buf.definition()<CR>')
 --map('n', 'gD'         , '<cmd>lua vim.lsp.buf.declaration()<CR>')
-map('n', '<leader>s', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 map('n', '<leader>i', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 map('n', '<leader>ii', '<cmd>lua vim.lsp.buf.implementation()<CR>')
 map('n', '<leader>h', '<cmd>lua vim.lsp.buf.hover()<CR>')
@@ -310,3 +313,9 @@ map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n', '<leader>f', '<cmd>lua vim.lsp.buf.format({async=true})<CR>')
 map('n', '<leader>a', '<cmd>lua vim.lsp.buf.references()<CR>')
 map('n', '<leader>S', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+
+-- <c-a> do not worl if set before...
+require("coq_3p") {
+    --{ src = "copilot", short_name = "COP", accept_key = "<c-a>" },
+    --{ src = "codeium", short_name = "COD" },
+}
