@@ -174,11 +174,11 @@ local configs = {
             }
         },
         --
-        --on_attach = function(client, bufnr)
-        --    -- Auto import sort on save
-        --    vim.api.nvim_create_autocmd('BufWritePre',
-        --        { pattern = '*.py', callback = function() vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true }) end })
-        --end
+        on_attach = function(client, bufnr)
+            -- Auto import sort on save
+            vim.api.nvim_create_autocmd('BufWritePre',
+                { pattern = '*.py', callback = function() vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true }) end })
+        end
     },
     pylsp = {
         settings = {

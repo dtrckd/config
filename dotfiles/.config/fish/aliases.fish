@@ -88,7 +88,6 @@ alias mongoshell="docker exec -it mongodb mongo"
 alias station="ferdi &"
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias j=jobs
-alias pasteclean="xsel | sed 's/ *\$//' | xsel -bi"
 alias tu="htop -u $USER"
 alias iotop="sudo TERM=xterm iotop -o -a -d 2 -h"
 alias diffd="diff -rq $argv[1] $argv[2]" # show difference files between dir$1 and dir$2
@@ -131,7 +130,7 @@ alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --prog
 alias psa="ps -aux --sort=-start_time | grep -i --color"
 alias pstree='pstree -h'
 alias pstop='ps aux --sort=-%cpu | awk '\''{print "CPU: "$3"%", "MEM: "$4"%", "CMD: "$11}'\'' | head -n 11'
-alias memtop='ps aux --sort=-%cpu | awk '\''{print "CPU: "$3"%", "MEM: "$4"%", "CMD: "$11}'\'' | head -n 11'
+alias memtop='ps aux --sort=-%mem | awk '\''{print "CPU: "$3"%", "MEM: "$4"%", "CMD: "$11}'\'' | head -n 11'
 alias psvi='echo "mem% for vim+lsp" && ps aux --sort=-%mem | grep -iE "copilot|vim|lsp|gopls" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
 alias psfirefox='echo "mem% for firefox" && ps aux --sort=-%mem | grep -iE "firefox" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
 alias psthunderbird='echo "mem% for thunderbird" && ps aux --sort=-%mem | grep -iE "thunderbird" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
@@ -144,7 +143,7 @@ alias f='fzf' # fuzzy match
 function ff; find -iname "*$argv[1]*" ; end # wide match
 function fff; find -iname "$argv[1]" ; end # exact match
 alias jerr='journalctl -r -p err -b'
-function clipboard; cat $argv[1] |string trim -c "\n" | xclip -selection clipboard; end
+function clipboard; command cat $argv[1] |string trim -c "\n" | xsel -bi; end
 alias curlH='curl -I'
 alias myip='curl https://tools.aquilenet.fr/ip/ && echo'
 alias vpn_aqui='sudo openvpn /etc/openvpn/aqn.conf'                                      
@@ -438,6 +437,34 @@ end
 
 alias tmr='python3 -m tm manager'
 
+function unindent_text
+    set line ''
+    set line ''
+    set indent ''
+    set lines
+
+    # Read input line by line
+    while read -l line
+        set indent (string match -r '^\s*' $line)
+        set indent (string match -r '^\s*' $line)
+
+        # Update the minimum indent if necessary
+        if test -z "$min_indent"; or test (string length "$indent") -lt (string length "$min_indent")
+            set min_indent "$indent"
+        end
+        # Store the line in an array
+        set lines $lines "$line"
+    end
+
+    # Remove the minimum indentation from each line and output
+    for line in $lines
+        echo (string sub -s (math (string length "$min_indent") + 1) "$line")
+    end
+end
+
+alias cleanpaste="xsel -bo | sed 's/ *\$//' | xsel -bi"
+alias unindentpaste="xsel -bo | unindent_text | xsel -bi"
+
 ### cd alias
 
 # Replace cd with pushd https://gist.github.com/mbadran/130469 | fish compatible
@@ -706,6 +733,11 @@ end
 # Zoxyde
 if type -q zoxide
     zoxide init fish | source
+end
+
+# Direnv
+if type -q direnv
+   direnv hook fish | source
 end
 
 # Kitty...
