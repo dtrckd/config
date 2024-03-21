@@ -128,7 +128,6 @@ alias py3='python3'
 alias xback='xbacklight'
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias j=jobs
-alias pasteclean="xsel | sed 's/ *$//' | xsel -bi"
 alias tu="htop -u $USER"
 alias iotop="sudo TERM=xterm iotop -o -a -d 2 -h"
 alias diffd="diff -rq $1 $2" # show difference files between dir$1 and dir$2
@@ -190,7 +189,7 @@ alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --prog
 alias psa="ps -aux --sort=-start_time | grep -i --color"
 alias pstree='pstree -h'
 alias pstop='ps aux --sort=-%cpu | awk '\''{print "CPU: "$3"%", "MEM: "$4"%", "CMD: "$11}'\'' | head -n 11'
-alias memtop='ps aux --sort=-%cpu | awk '\''{print "CPU: "$3"%", "MEM: "$4"%", "CMD: "$11}'\'' | head -n 11'
+alias memtop='ps aux --sort=-%mem | awk '\''{print "CPU: "$3"%", "MEM: "$4"%", "CMD: "$11}'\'' | head -n 11'
 alias psvi='echo "mem% for vim+lsp" && ps aux --sort=-%mem | grep -iE "copilot|vim|lsp|gopls" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
 alias psfirefox='echo "mem% for firefox" && ps aux --sort=-%mem | grep -iE "firefox" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
 alias psthunderbird='echo "mem% for thunderbird" && ps aux --sort=-%mem | grep -iE "thunderbird" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
@@ -203,15 +202,14 @@ alias f='fzf' # fuzzy match
 ff () { find -iname "*$1*"; } # wide match
 fff () { find -iname "$1"; } # exact match
 alias jerr='journalctl -r -p err -b'
-clipboard() { cat "$0" | xclip -selection clipboard; }
-#clipboard() { cat $0 |tr -d " \n" | xclip -selection clipboard; }
+clipboard() { command cat "$0" | xsel -bi; }
 ### Network
 alias curlH='curl -I'
-#alias myip='nmap -sC -p80 -n -Pn --script=http-title www.showmemyip.com | grep -i "my IP" | cut -d: -f3 | tr -d " \n" |  xclip -selection clipboard && xclip -o -selection clipboard && echo'
-alias myip='curl https://tools.aquilenet.fr/ip/ && echo' # Or: ip.appspot.com'
-                                      # curl https://tools.aquilenet.fr/ip/
-                                      # curl ifconfig.io
-                                      # curl ifconfig.me
+# curl ip.appspot.com'
+# curl https://tools.aquilenet.fr/ip/
+# curl ifconfig.io
+# curl ifconfig.me
+alias myip='curl https://tools.aquilenet.fr/ip/ && echo' 
 alias vpn_aqui='sudo openvpn /etc/openvpn/aqn.conf'                                      
 alias pvpn="protonvpn-cli"
 alias nmapw='nmap -sT -P0 -sV -p80,443 --script=http-headers'
@@ -341,6 +339,35 @@ restore_alsa() {
 restore_pulseaudio() {
     pulseaudio -kv && sudo alsabat force-reload && pulseaudio -Dv
 }
+
+unindent_text() {
+  min_indent=''
+  line=''
+  indent=''
+
+  # Read input line by line
+  while IFS= read -r line; do
+    # Count the number of leading spaces
+    indent="${line%%[! ]*}"
+
+    # Update the minimum indent if necessary
+    if [[ -z "$min_indent" ]] || (( ${#indent} < ${#min_indent} )); then
+      min_indent="$indent"
+    fi
+
+    # Store the line in an array
+    lines+=("$line")
+  done
+
+  # Remove the minimum indentation from each line and output
+  for line in "${lines[@]}"; do
+    echo "${line#$min_indent}"
+  done
+}
+
+
+alias cleanpaste="xsel -bo | sed 's/ *$//' | xsel -bi"
+alias unindentpaste="xsel -bo | unindent_text | xsel -bi"
 
 ### GIT
 alias gitupdate='git remote update'
