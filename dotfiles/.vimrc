@@ -261,6 +261,16 @@ noremap <leader>s :Ack! <cword><cr>
 " Maps <leader>/ so we're ready to type the search keyword
 nnoremap <Leader>/ :Ack!<Space>
 
+" Magic pasting
+function! PastCleanAndPaste()
+    " Execute a shell command
+    "silent !xsel | sed 's/ *$//' | xsel -bi  " This one paste a blocking output to the screen
+    call system("xsel | sed 's/ *$//' | xsel -bi")
+    " Paste from the '+' register, which is the system clipboard
+    put +
+endfunction
+
+nnoremap <leader>p :call PastCleanAndPaste()<CR>
 
 """ Rainbow colors
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
@@ -705,12 +715,46 @@ endfunction
 
 autocmd FileType toml setlocal foldmethod=expr foldexpr=TripleQuoteFold(v:lnum)
 
-"" Magic pasting
+""" Magic pasting
 "" Toggle paste/nopaste automatically when copy/paste with right click in insert mode:
 "let &t_SI .= "\<Esc>[?2004h"
 "let &t_EI .= "\<Esc>[?2004l"
 set t_BE=  " disable bracketed paste mode.  https://gitlab.com/gnachman/iterm2/issues/5698
 
+
+""" Unindent
+function! UnindentText() range
+    let l:min_indent = 10000
+
+    " Iterate over each line in the range to find the minimum indentation
+    for i in range(a:firstline, a:lastline)
+        let line = getline(i)
+        if line =~ '^\s*$'
+            continue
+        endif
+        let indent = matchend(line, '^\s*')
+        if indent < l:min_indent
+            let l:min_indent = indent
+        endif
+    endfor
+
+    " Check if a valid minimum indentation was found
+    if l:min_indent > 0 && l:min_indent != 10000
+        " Apply the unindentation
+        let l:range = a:firstline . ',' . a:lastline
+        execute l:range . 's/^\s\{0,' . l:min_indent . '}//'
+    endif
+endfunction
+
+" Remove any existing mapping to "U" in visual mode to avoid conflicts
+silent! vunmap U
+silent! nmap U
+
+command! -range=% UnindentVisual call UnindentText()
+
+" Map the function to "U" in visual mode, ensuring it operates on a visual selection
+"vnoremap U :<C-u>call UnindentText()<CR>
+xnoremap U :call UnindentText()<CR>
 
 """"""""""""""""""""""""""""""
 """ MAPPING
