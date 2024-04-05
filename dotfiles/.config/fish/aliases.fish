@@ -660,7 +660,7 @@ function xshuff
     end
 
     set fls (find "$Path" -type f -iname "*.ogg" -o -iname "*.mp4" -o -iname "*.mp3" -o -iname "*.flac")
-    set NB (printf '%s\n' $fls | wc -l)
+    set NB (printf "%s\n" "$fls" | wc -l)
 
     set RANDL (python3 -c "import sys, random, time;\
         random.seed(int(time.time()));\

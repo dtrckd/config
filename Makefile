@@ -126,7 +126,7 @@ _bootstrap:
 	#sudo apt-get install -y aptitude make ntfs-3g vim sudo aptitude firmware-linux-nonfree
 	# -- Post boostrap
 	# Fish Config
-	# replace "cd" by "builtin cd" in /usr/share/fish/functions/{popd,pushd}.fish
+	# replace "cd" by "builtin cd" in `sudo vi -p /usr/share/fish/functions/{popd,pushd}.fish`
 	# fish_config prompt
 	#remove fish and thefuck from /root/bash_profile
 	# Root Config

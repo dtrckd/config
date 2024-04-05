@@ -178,8 +178,9 @@ alias vimtmux="vim ~/.tmux.conf"
 alias vig="vim ~/.gitconfig"
 alias vign="vim .gitignore"
 alias vikitty="vim ~/.config/kitty/kitty.conf"
+alias vimake="vim Makefile"
 alias vimk="vim Makefile"
-alias vmk="vim Makefile"
+alias vk="vim Makefile"
 alias vime="vim $(find . -maxdepth 1 -iname 'readme*' -print -quit)"
 
 _PWD="/home/ama/adulac/main/thesis/repo/ml/"
@@ -227,6 +228,9 @@ alias fail2ban-ls='sudo fail2ban-client status | sed -n "s/,//g;s/.*Jail list://
 alias mongoshell="docker exec -it mongodb mongo"
 alias station="ferdi &"
 alias youtube-dl="yt-dlp"
+alias docker_inspect_cmd="docker inspect --format '{{.Config.Cmd}}'"
+alias docker_inspect_env="docker inspect --format '{{ json .Config.Env }}'"
+alias dps='docker ps --format "{{.ID}}  {{.Names}}\n\t\t\t\t\t\t{{.Ports}}\n\t\t\t\t\t\t{{.Status}}"'
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}' # see also rg

@@ -64,7 +64,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 -- * https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 local servers = {
     'bashls',
-    'dockerls',
     'elmls',
     'gopls',
     'golangci_lint_ls',
@@ -75,6 +74,7 @@ local servers = {
     --'pyright',
     'tsserver',
     'yamlls',
+    'dockerls',
 }
 
 local configs = {
@@ -220,6 +220,26 @@ local configs = {
     --},
     -- Typescript/Javascript
     --tsserver = { },
+    yamlls = {
+        settings = {
+            schemas = {
+                ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*.{yml,yaml}",
+                ["http://json.schemastore.org/github-action"] = ".github/action.{yml,yaml}",
+                ["http://json.schemastore.org/ansible-stable-2.9"] = "roles/tasks/*.{yml,yaml}",
+                ["http://json.schemastore.org/prettierrc"] = ".prettierrc.{yml,yaml}",
+                ["http://json.schemastore.org/kustomization"] = "kustomization.{yml,yaml}",
+                ["http://json.schemastore.org/ansible-playbook"] = "*play*.{yml,yaml}",
+                ["http://json.schemastore.org/chart"] = "Chart.{yml,yaml}",
+                ["https://json.schemastore.org/dependabot-v2"] = ".github/dependabot.{yml,yaml}",
+                ["https://json.schemastore.org/gitlab-ci"] = "*gitlab-ci*.{yml,yaml}",
+                ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose.yml",
+                ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "k8s/*.{yml,yaml}",
+                ["http://json.schemastore.org/composer"] = "composer.{yml,yaml}",
+                ["http://json.schemastore.org/circleciconfig"] = ".circleci/config.{yml,yaml}",
+            },
+        },
+    },
+    dockerls = {},
 }
 
 for _, lsp in ipairs(servers) do
