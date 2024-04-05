@@ -327,6 +327,14 @@ map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 " Alt+] - Open the definition in a vertical split
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
+augroup TagBar
+    autocmd!
+    " When entering a quickfix window, map ESC to :cclose
+    autocmd WinEnter * if &filetype == 'tagbar' | set timeoutlen=0 | endif
+    autocmd FileType tagbar nnoremap <buffer> <ESC> :q<CR>
+    autocmd WinLeave * if &filetype == 'tagbar' | set timeoutlen=750 | endif
+augroup END
+
 
 " Markdown tagbar
 let g:tagbar_ctags_bin = "/usr/bin/ctags"
@@ -760,6 +768,8 @@ xnoremap U :call UnindentText()<CR>
 """ MAPPING
 """"""""""""""""""""""""""""""
 
+set timeoutlen=750  " time to wait for remaps
+
 """ NORMAL MAP
 map <Esc>[B <Down>
 inoremap <C-L> <Esc>
@@ -855,29 +865,77 @@ autocmd TabClosed * tabprevious
 " Insert and jump to newline before the cursor, in insert mode
 inoremap <A-Enter> <Esc>O
 
+
+function! ReplaceAccentsGlobally()
+  " Sauvegarde la position du curseur
+  let l:save_cursor = getpos(".")
+
+  " Liste des caractères à remplacer et leur équivalent Unicode
+  let l:replacements = {
+        \ 'é': '\\u{00E9}',
+        \ 'è': '\\u{00E8}',
+        \ 'à': '\\u{00E0}',
+        \ }
+
+  " Parcours chaque paire clé-valeur dans les remplacements
+  for [char, replacement] in items(l:replacements)
+    " Exécute le remplacement dans tout le fichier
+    execute '%s/' . escape(char, '/') . '/' . replacement . '/g'
+  endfor
+
+  " Restaure la position du curseur
+  call setpos('.', l:save_cursor)
+endfunction
+
+command ReplaceAccentsGlobally call ReplaceAccentsGlobally()
+
 """"""""""""""""""""""""""""""
 """ QuickFix
 """"""""""""""""""""""""""""""
 " Auto close the Quickfix list after pressing '<enter>' on a list item
 let g:ack_autoclose = 0  " You can also use :cclose
-
 " automatically closes the quickfix window if it's the last window open
 autocmd WinEnter * if winnr('$') == 1 && &buftype == 'quickfix' | q | endif
 
 augroup QuickFix
     autocmd!
     " When entering a quickfix window, map ESC to :cclose
+    autocmd WinEnter * if &filetype == 'quickfix' | set timeoutlen=0 | endif
     autocmd FileType qf nnoremap <buffer> <ESC> :cclose<CR>
+    autocmd WinLeave * if &filetype == 'quickfix' | set timeoutlen=750 | endif
 augroup END
+
+
+" Track the last active window before opening a new one from the quickfix list
+function! UpdateLastActiveWindow()
+  let g:last_active_window_id = win_getid()
+endfunction
+
+" Return focus to the last active window
+function! ReturnFocusToLastActiveWindow()
+  if exists('g:last_active_window_id')
+    let win_id_list = win_id2tabwin(g:last_active_window_id)
+    if !empty(win_id_list)
+      call win_gotoid(g:last_active_window_id)
+    endif
+  endif
+endfunction
 
 augroup QuickFixCustomMappings
     autocmd!
-    " When entering a quickfix window, map 'x' to open in horizontal split
+    " Restore <enter> defaut behavior (enter is map in normal mode!)
+    autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR>
+
+    " When entering a quickfix window, map 'x, v, t' to open in a new buffer
+    " Update last active window before opening
     autocmd FileType qf nnoremap <buffer> x <C-w><Enter><C-w>K :resize +10<CR>
     autocmd FileType qf nnoremap <buffer> v <C-w><Enter><C-w>L
+    autocmd FileType qf nnoremap <buffer> t <C-w><Enter><C-w>T
 
-    " restore <enter> defaut behavior (enter is map in normal mode!)
-    autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR>
+    " Attempt to return focus when a buffer opened from the quickfix list is closed
+    " @DEBUG; never succeded to make it work !!!! :<
+    "autocmd BufEnter qf call UpdateLastActiveWindow()
+    "autocmd BufLeave * call ReturnFocusToLastActiveWindow()
 augroup END
 
 augroup HelpWindow
@@ -1162,9 +1220,6 @@ fu! MkSession()
     execute 'SSave! '. Last2Dir()
 endfunction
 com! MkSession :call MkSession()
-""" Old
-"bufdo execute 'NERDTreeClose'
-"bufdo execute 'TagbarClose'
 "execute 'mksession! ' . getcwd() . '/.session.vim'
 
 
