@@ -22,6 +22,7 @@ if [[ $COUNT -eq 0 || "$COMMAND" == "help" || "$COMMAND" == "--help" || "$COMMAN
     echo '    remind "Dinner" in 1 hour'
     echo '    remind "Take a break" at noon'
     echo '    remind "Are you ready?" at 13:00'
+    echo '    remind "Are you ready?" at 22:30 2023-03-15'
     echo '    remind list'
     echo '    remind clear'
     echo '    remind help'
@@ -37,7 +38,7 @@ fi
 
 # Run commands: list, clear
 if [[ $COUNT -eq 1 ]]; then
-    if [[ "$COMMAND" == "list" ]]; then
+    if [[ "$COMMAND" == "list" || "$COMMAND" == "-l" ]]; then
         at -l
     elif [[ "$COMMAND" == "clear" ]]; then
         at -r $(atq | cut -f1)
@@ -58,6 +59,7 @@ else
     echo "remind: invalid time operator $OP"
     exit 2
 fi
+
 # Schedule the notification
 echo "notify-send '$MESSAGE' 'Reminder' -u critical" | at $TIME
 
