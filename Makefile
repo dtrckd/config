@@ -175,6 +175,7 @@ snapshot:
 	snap list > configure/snapshots/snap
 	npm list -g --depth 0 > configure/snapshots/npm
 	brew list > configure/snapshots/brew
+	cargo install --list > configure/snapshots/cargo
 
 calendar:
 	# Deprecated (we use thunderbiar calendar)
