@@ -274,16 +274,14 @@ nnoremap <leader>p :call PastCleanAndPaste()<CR>
 """ Rainbow colors
 let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
 let g:rainbow_conf = {
-      \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-      \   'ctermfgs': ['white','lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+      "\   'guifgs': ['white','lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+      "\   'ctermfgs': ['white','lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+      \   'guifgs': ['#FF79C6', '#8BE9FD', '#BD93F9', '#FFB86C', '#F1FA8C', '#FF69B4', '#7B68EE'],
+      \   'ctermfgs': ['204', '81', '141', '215', '229', '205', '99'],
       \   'operators': '_,_',
       \   'parentheses': [['(',')'], ['\[','\]'], ['{','}']],
       \   'separately': {
       \       '*': {},
-      \       'lisp': {
-      \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-      \           'ctermfgs': ['darkgray', 'darkblue', 'darkmagenta', 'darkcyan', 'darkred', 'darkgreen'],
-      \       },
       \       'vim': {
       \           'parentheses': [['fu\w* \s*.*)','endfu\w*'], ['for','endfor'], ['while', 'endwhile'], ['if','_elseif\|else_','endif'], ['(',')'], ['\[','\]'], ['{','}']],
       \       },
@@ -297,6 +295,14 @@ let g:rainbow_conf = {
       \       'stylus': 0,
       \   }
       \}
+" #FF79C6 (Pink)
+" #8BE9FD (Cyan)
+" #BD93F9 (Purple)
+" #FFB86C (Orange)
+" #F1FA8C (Yellow)
+" #FF69B4 (Hot Pink)
+" #7B68EE (Medium Slate Blue)
+
 " wget the dict at http://ftp.vim.org/vim/runtime/spell/
 """ Activate vim-docstring
 "autocmd FileType python PyDocHide
@@ -1253,42 +1259,47 @@ endif
 " https://sw.kovidgoyal.net/kitty/faq/#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim
 let &t_ut=''
 
-" Vim TMUX
-"set t_8b=^[[48;2;%lu;%lu;%lum
-"set t_8f=^[[38;2;%lu;%lu;%SignColumn
+" Colorscheme
+" since version 0.10 it activated by default and change the colorsscheme
+" https://neovim.io/doc/user/news-0.10.html
+set notermguicolors
 
-"colorscheme default " Utiliser le jeu de couleurs standard"
+colo dracula
+"colo vim
 "colo zenburn
 "colo darkburn
-colo dracula
 "colo one
 "colo onehalfdark
 
+
 fu! SetHi()
   """ Custom Colors & Highlights
-  hi Title ctermfg=39  " affect the number of windows in the tabline and filname in nerdtab
-  "hi Normal ctermbg=233 guibg=#1e1e1e
+  hi Title ctermfg=39 guifg=#5fd7ff " affect the number of windows in the tabline and filename in nerdtab
   hi Normal ctermbg=233 guibg=#181818
-  hi Comment ctermfg=blue
-  "hi Comment guifg=DarkGrey ctermfg=brown 
-  hi CursorLine cterm=none term=underline ctermbg=235
-  hi Search ctermfg=white ctermbg=105 cterm=none
-  hi SpellBad ctermbg=red cterm=underline
-  hi StatusLine ctermfg=white ctermbg=25 cterm=bold
-  hi StatusLineNC ctermfg=black ctermbg=245
-  hi TabLine ctermfg=black ctermbg=245 cterm=none
-  hi TabLineSel ctermfg=white ctermbg=25
+  "hi Comment ctermfg=blue guifg=#4682B4
+  "hi Comment ctermfg=blue guifg=#6495ED
+  hi Comment ctermfg=blue guifg=#1E90FF
+  hi CursorLine cterm=none term=underline ctermbg=235 guibg=#303030
+  hi Search ctermfg=white ctermbg=105 cterm=none guifg=#ffffff guibg=#afd7ff
+  hi SpellBad ctermbg=red cterm=underline guibg=#ff0000
+  hi StatusLine ctermfg=white ctermbg=25 cterm=bold guifg=#ffffff guibg=#005f87
+  hi StatusLineNC ctermfg=black ctermbg=245 guifg=#1c1c1c guibg=#bcbcbc
+  hi TabLine ctermfg=black ctermbg=245 cterm=none guifg=#1c1c1c guibg=#bcbcbc
+  hi TabLineSel ctermfg=white ctermbg=25 guifg=#ffffff guibg=#005f87
   "hi TabLineFill ctermfg=black
 
-  hi ErrorMsg ctermfg=red ctermbg=none
+  hi ErrorMsg ctermfg=red ctermbg=none guifg=#ff0000
 
   """ Gutter
-  hi SignColumn ctermbg=235
-
+  hi SignColumn ctermbg=235 guibg=#303030
   set shortmess-=S " show number of matches
-  hi GitColor ctermbg=172 ctermfg=black
-  hi ErrColor ctermfg=red ctermbg=25
-  hi WarnColor ctermfg=226 ctermbg=25
+  hi GitColor ctermbg=172 ctermfg=black guibg=#d78700 guifg=#000000
+  hi ErrColor ctermfg=red ctermbg=25 guifg=#ff0000 guibg=#005f87
+  hi WarnColor ctermfg=226 ctermbg=25 guifg=#ffff00 guibg=#005f87
+
+  """ Language Keywords
+  "hi Keyword ctermfg=208 guifg=#ff8700
+  "hi Statement ctermfg=208 guifg=#ff8700
 
   """ StatusLine
   au BufEnter,BufRead,BufWritePost * call StatuslineGit()
@@ -1309,6 +1320,7 @@ fu! SetHi()
 endfunction
 
 call SetHi()
+set termguicolors
 
 " Column viewer
 "highlight ColorColumn ctermbg=gray

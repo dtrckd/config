@@ -279,7 +279,7 @@ alias vcal='vim -c "Calendar -view=month"' # get calendar
 alias vitodo='vim -p $(find -iname todo -type f)'
 ### Octave
 alias octave='octave --silent'
-alias ai="ai -s"
+alias ai="ai -s tmp"
 alias aic="command ai"
 alias aic="command ai -c"
 alias air='ai -r'
