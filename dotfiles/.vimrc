@@ -195,7 +195,7 @@ let g:NERDDefaultAlign = "left"
 "nnoremap <C-p> :call NERDTreeToggleFind()<cr>
 ""noremap <TAB><TAB> :NERDTreeToggle<CR> " Problem with <C-i> that get map and delayed
 
-" ChadTree
+""" ChadTree
 " @requirement:
 " install nerdfont ```
 " mkdir -p ~/.local/share/fonts && cd ~/.local/share/fonts
@@ -231,7 +231,6 @@ let g:chadtree_settings = {
       \  },
       "\ 'theme.icon_glyph_set': 'ascii',
       \}
-
 
 
 
@@ -326,6 +325,9 @@ nnoremap tc :TagbarShowTag<CR>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 " Alt+] - Open the definition in a vertical split
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+" automatically closes the quickfix window if it's the last window open
+autocmd WinEnter * if winnr('$') == 1 && &buftype == 'tagbar' | q | endif
 
 augroup TagBar
     autocmd!
@@ -647,7 +649,6 @@ if has("autocmd")
 endif
 
 """ Refresh options
-"set ttimeoutlen=10
 set ttyfast
 "set lazyredraw " weird behavious (statuslines is black...)
 
@@ -894,6 +895,7 @@ command ReplaceAccentsGlobally call ReplaceAccentsGlobally()
 """"""""""""""""""""""""""""""
 " Auto close the Quickfix list after pressing '<enter>' on a list item
 let g:ack_autoclose = 0  " You can also use :cclose
+
 " automatically closes the quickfix window if it's the last window open
 autocmd WinEnter * if winnr('$') == 1 && &buftype == 'quickfix' | q | endif
 
@@ -1265,7 +1267,8 @@ colo dracula
 fu! SetHi()
   """ Custom Colors & Highlights
   hi Title ctermfg=39  " affect the number of windows in the tabline and filname in nerdtab
-  hi Normal ctermbg=233
+  "hi Normal ctermbg=233 guibg=#1e1e1e
+  hi Normal ctermbg=233 guibg=#181818
   hi Comment ctermfg=blue
   "hi Comment guifg=DarkGrey ctermfg=brown 
   hi CursorLine cterm=none term=underline ctermbg=235

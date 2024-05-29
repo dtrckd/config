@@ -189,13 +189,13 @@ alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --prog
 
 alias psa="ps -aux --sort=-start_time | grep -i --color"
 alias pstree='pstree -h'
+alias ps_vi='echo "mem% for vim+lsp" && ps aux --sort=-%mem | grep -iE "copilot|vim|lsp|gopls" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
+alias ps_firefox='echo "mem% for firefox" && ps aux --sort=-%mem | grep -iE "firefox" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
+alias ps_thunderbird='echo "mem% for thunderbird" && ps aux --sort=-%mem | grep -iE "thunderbird" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
+alias ps_python='echo "mem% for python" && ps aux --sort=-%mem | grep -iE "python" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
+alias lsoftop='sudo lsof | awk '\''{print $1 " " $2}'\'' | sort | uniq -c | sort -n -k1'
 alias pstop='ps aux --sort=-%cpu | awk '\''{print "CPU: "$3"%", "MEM: "$4"%", "CMD: "$11}'\'' | head -n 11'
 alias memtop='ps aux --sort=-%mem | awk '\''{print "CPU: "$3"%", "MEM: "$4"%", "CMD: "$11}'\'' | head -n 11'
-alias psvi='echo "mem% for vim+lsp" && ps aux --sort=-%mem | grep -iE "copilot|vim|lsp|gopls" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
-alias psfirefox='echo "mem% for firefox" && ps aux --sort=-%mem | grep -iE "firefox" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
-alias psthunderbird='echo "mem% for thunderbird" && ps aux --sort=-%mem | grep -iE "thunderbird" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
-alias pspython='echo "mem% for python" && ps aux --sort=-%mem | grep -iE "python" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
-alias lsoftop='sudo lsof | awk '\''{print $1 " " $2}'\'' | sort | uniq -c | sort -n -k1'
 alias riprm='shred -zuv -n1' # find <directory> -depth -type f -exec shred -v -n 1 -z -u {} \;
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
@@ -625,7 +625,6 @@ alias ium="cd $HOME/Music/"
 alias iuc="cd $HOME/src/config/"
 alias iucs="cd $HOME/src/config/snippets"
 alias iut="cd $HOME/Desktop/tt/"
-alias iuk="cd $PX/missions" # mission / kaggle / etc
 alias iupm="cd $PX/thesis/pymake/"
 alias iunb="cd $PX/thesis/notebook/"
 alias iurp="cd $PX/thesis/repo/"
@@ -653,6 +652,7 @@ alias cdrez="cd $PX/perso/Projects/Informatique/Reseau/"
 alias cdid="cd $PX/perso/Papiers/me/"
 alias cdp="cd $PX/perso/Papiers/"
 alias cdai="cd ~/.config/aichat/sessions"
+alias cdm="cd $PX/missions" # mission / kaggle / etc
 cdlk () { cd $(dirname $(readlink $1)); }
 grepurl () { sed -e  's/.*[hH][rR][eE][fF]=['\"''\'']\([^'\"''\'']*\)['\"''\''].*/\1/' $1; }
 alias mean="awk '{s+=$1}END{print \"ave:\",s/NR}' RS=\" \""
@@ -731,7 +731,7 @@ alias xn='xmms2 next'
 alias xj='xmms2 jump'
 alias xpl='xmms2 playlist list'
 xplc () { xmms2 playlist create $1 && xmms2 playlist switch $1; }
-alias xpll='xmms2 playlist switch'
+xpll () { xmms2 playlist switch $1 && xj 1; }
 alias xseek='xmms2 seek'
 alias xs='xmms2 seek +25'
 alias xss='xmms2 status'
