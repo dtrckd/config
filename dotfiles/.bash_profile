@@ -279,7 +279,7 @@ alias vcal='vim -c "Calendar -view=month"' # get calendar
 alias vitodo='vim -p $(find -iname todo -type f)'
 ### Octave
 alias octave='octave --silent'
-alias ai="ai -s tmp"
+alias ai="ai -s"
 alias aic="command ai"
 alias aic="command ai -c"
 alias air='ai -r'
@@ -391,9 +391,10 @@ alias gdc='git diff --cached'
 alias gs='git status -sb'
 alias ga="git add"
 alias gl="git log --oneline --decorate --color"
-alias glt="git log --pretty='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%Creset %C(magenta)%an%Creset' --graph --date=relative --abbrev-commit"
+alias gll="git log --pretty='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%Creset %C(magenta)%an%Creset' --graph --date=relative --abbrev-commit"
 alias gla="git log --format='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%Creset %C(magenta)%an%Creset' --graph --date=relative --abbrev-commit --all"
 alias gsl="git stash list"
+alias ggk="git checkout"
 alias gi="git bug"
 alias gil="git bug ls -s open"
 alias gilc="git bug ls -s closed"
