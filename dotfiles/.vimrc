@@ -66,12 +66,6 @@ Plugin 'rhysd/vim-crystal'
 Plugin 'jparise/vim-graphql'
 Plugin 'plasticboy/vim-markdown'
 
-
-" Fold and docstring
-"Plugin 'Konfekt/FastFold'
-"Plugin 'tmhedberg/simpylfold'
-"Plugin 'yhat/vim-docstring'
-
 " Session
 Plugin 'mhinz/vim-startify'
 "Plugin 'romgrk/vim-session'
@@ -533,22 +527,6 @@ let g:gitgutter_override_sign_column_highlight = 0
 "nnoremap <leader>ep :ALEPrevious<CR>
 
 
-"
-" FastFold and symply fold
-"
-let g:markdown_folding = 1
-let g:tex_fold_enabled = 1
-let g:vimsyn_folding = 'af'
-let g:xml_syntax_folding = 1
-let g:javaScript_fold = 1
-let g:sh_fold_enabled= 7
-let g:ruby_fold = 1
-let g:perl_fold = 1
-let g:perl_fold_blocks = 1
-let g:r_syntax_folding = 1
-let g:rust_fold = 1
-let g:php_folding = 1
-
 " Disabled vim-smoothie
 "let g:smoothie_enabled = 0
 
@@ -686,6 +664,8 @@ set indentkeys-=0#
 set foldmethod=syntax
 "set nofoldenable
 set nofen               " open all folds. see z[mn] command
+" toggle fold on space 
+nnoremap <space> za
 
 """ Multi-line string (triple quote)
 function! TripleQuoteFold(lnum)                                                                                                                                                                                      
@@ -828,7 +808,7 @@ nnoremap <C-DOWN> gt
 "nnoremap <C-Home-LEFT> :tabn1<cr>
 "nnoremap <C-End-RIGHT> :tabn$<cr>
 """ Move between Tab
-nnoremap <space> <C-w>w
+nnoremap <Tab> <C-w>w
 nnoremap <backspace> <C-w>W
 " see also <C-w>p and <C-w>P
 """ Move Tab
