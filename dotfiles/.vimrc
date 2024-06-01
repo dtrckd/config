@@ -255,6 +255,14 @@ cnoreabbrev Ack Ack!
 noremap F :FZF<cr>
 noremap ! :FZF<cr>
 noremap § :FZF %:p:h<cr>
+let g:fzf_buffers_jump = 1
+" @DEBUG: how to set <C-enter> to open in a new tab ?
+let g:fzf_action = {
+      \ 'enter': 'tab split',
+      \ 'ctrl-o': 'edit',
+      \ 'ctrl-x': 'split',
+      \ 'ctrl-v': 'vsplit' ,
+      \}
 "let g:fzf_vim.command_prefix = 'Fzf'
 noremap <leader>s :Ack! <cword><cr>
 " Maps <leader>/ so we're ready to type the search keyword
@@ -458,6 +466,7 @@ com! Gadd :Git add %
 " Other cool stuff :
 " - https://jeancharles.quillet.org/posts/2022-03-02-Practical-introduction-to-fugitive.html
 " - https://github.com/tpope/vim-fugitive
+nnoremap <leader>G :tabe<CR>:G<CR><C-w>_<CR>
 
 " git-gutter
 let g:gitgutter_enabled = 0
@@ -636,7 +645,7 @@ set mouse=a                        " Enable mouse usage (all modes) in terminals
 set fo+=1ro fo-=tc tw=0            " Break comment at tw $size
 "set fo+=1cro fo-=t tw=0           " Break comment at tw $size
 "set colorcolumn=-1
-set scrolloff=4                    " Line of context: mininum visible lines at the top or bottom of the screen.
+set scrolloff=5                   " Line of context: mininum visible lines at the top or bottom of the screen.
 set sidescrolloff=8                " Columns of context
 set linebreak                      " Don't wrap word
 set nowrap                         " Don't wrap line too long
@@ -818,6 +827,10 @@ nnoremap <C-DOWN> gt
 " @debug: don't work !
 "nnoremap <C-Home-LEFT> :tabn1<cr>
 "nnoremap <C-End-RIGHT> :tabn$<cr>
+""" Move between Tab
+nnoremap <space> <C-w>w
+nnoremap <backspace> <C-w>W
+" see also <C-w>p and <C-w>P
 """ Move Tab
 nnoremap <C-S-PageUp> :tabm-<cr>
 nnoremap <C-S-PageDown> :tabm+<cr>
@@ -952,6 +965,32 @@ augroup HelpWindow
     autocmd FileType help nnoremap <buffer> <ESC> :q<CR>
 augroup END
 
+""""""""""""""""""""""""""""""
+""" Move the last visited tab when closing tab
+""""""""""""""""""""""""""""""
+
+" Keep track of the last visited tab
+let g:last_tab = 1
+
+function! SwitchToLastTab()
+ " Check if there are still tabs left
+ if tabpagenr('$') > 1
+   " Ensure the last tab number is within the valid range
+   if g:last_tab <= tabpagenr('$')
+     execute 'tabnext ' . g:last_tab
+   else
+     execute 'tabnext'
+   endif
+ endif
+endfunction
+
+augroup RememberLastTab
+ autocmd!
+ " Update the last visited tab before switching to another tab
+ autocmd TabLeave * let g:last_tab = tabpagenr()
+ " When closing a tab, switch to the last visited tab
+ autocmd TabClosed * call SwitchToLastTab()
+augroup END
 
 """"""""""""""""""""""""""""""
 """ Filetypes
@@ -1071,6 +1110,8 @@ nnoremap <leader>mo :set mouse=<CR>
 nnoremap <leader>C :.w !xclip -selection clipboard<CR>
 """ Copy all file to clipboard
 nnoremap <leader>Cf :%w !xclip -selection clipboard<CR>
+""" Current file paht to clipboard
+command! CopyFilePathToClipboard let @+ = expand('%:p')
 """ Execute
 "noremap <leader>e :!. % &<CR>
 
@@ -1280,12 +1321,13 @@ fu! SetHi()
   "hi Comment ctermfg=blue guifg=#6495ED
   hi Comment ctermfg=blue guifg=#1E90FF
   hi CursorLine cterm=none term=underline ctermbg=235 guibg=#303030
-  hi Search ctermfg=white ctermbg=105 cterm=none guifg=#ffffff guibg=#afd7ff
+  hi Search ctermfg=white ctermbg=105 cterm=none guifg=#ffffff guibg=#5FADFD
+  hi CurSearch ctermfg=0 ctermbg=11 guifg=NvimDarkGrey1 guibg=#FDEDC1
   hi SpellBad ctermbg=red cterm=underline guibg=#ff0000
-  hi StatusLine ctermfg=white ctermbg=25 cterm=bold guifg=#ffffff guibg=#005f87
-  hi StatusLineNC ctermfg=black ctermbg=245 guifg=#1c1c1c guibg=#bcbcbc
-  hi TabLine ctermfg=black ctermbg=245 cterm=none guifg=#1c1c1c guibg=#bcbcbc
-  hi TabLineSel ctermfg=white ctermbg=25 guifg=#ffffff guibg=#005f87
+  hi StatusLine ctermfg=white ctermbg=25 cterm=bold guifg=#ffffff guibg=#006AAE
+  hi StatusLineNC ctermfg=black ctermbg=245 guifg=#E8E9EB guibg=#51595F
+  hi TabLine ctermfg=black ctermbg=245 cterm=none guifg=#E8E9EB guibg=#51595F
+  hi TabLineSel ctermfg=white ctermbg=25 guifg=#ffffff guibg=#006AAE
   "hi TabLineFill ctermfg=black
 
   hi ErrorMsg ctermfg=red ctermbg=none guifg=#ff0000

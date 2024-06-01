@@ -20,6 +20,9 @@ end
 -- Coq autocompletion -- Autostart
 vim.g.coq_settings = {
     auto_start = 'shut-up',
+    keymap = {
+        jump_to_mark = "<c-n>",
+    },
 }
 
 local lspconfig = require('lspconfig')
@@ -174,6 +177,7 @@ local configs = {
             }
         },
         --
+        -- This is grave Bugged. Sometimes remove lines. Do not respect isort.sections...
         on_attach = function(client, bufnr)
             -- Auto import sort on save
             vim.api.nvim_create_autocmd('BufWritePre',
@@ -336,6 +340,6 @@ map('n', '<leader>S', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 
 -- <c-a> do not worl if set before...
 require("coq_3p") {
-    --{ src = "copilot", short_name = "COP", accept_key = "<c-a>" },
+    { src = "copilot", short_name = "COP", accept_key = "<c-a>" },
     --{ src = "codeium", short_name = "COD" },
 }

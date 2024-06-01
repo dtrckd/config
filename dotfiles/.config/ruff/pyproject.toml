@@ -1,6 +1,6 @@
 [tool.ruff]
-fix = false
 line-length = 100
+fix = false
 
 [tool.ruff.lint]
 select = [
@@ -19,8 +19,3 @@ ignore = [
     "E265", # do not work !?
 ]
 ignore-init-module-imports = true
-
-
-[tool.isort]
-known-third-party = ["fastapi", "yaml"] # ?
-

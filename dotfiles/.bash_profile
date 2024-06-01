@@ -124,7 +124,7 @@ alias cleancolors="sed -r 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' $1"
 #alias python="python -O" # basic optimization (ignore assert, ..)
 alias ipython="ipython --colors linux"
 alias ipython_dev="ipython --profile dev"
-alias py3='python3'
+alias py='python3'
 alias xback='xbacklight'
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias j=jobs
@@ -231,6 +231,8 @@ alias youtube-dl="yt-dlp"
 alias docker_inspect_cmd="docker inspect --format '{{.Config.Cmd}}'"
 alias docker_inspect_env="docker inspect --format '{{ json .Config.Env }}'"
 alias dps='docker ps --format "{{.ID}}  {{.Names}}\n\t\t\t\t\t\t{{.Ports}}\n\t\t\t\t\t\t{{.Status}}"'
+alias lzg="lazygit"
+alias lzd="lazydocker"
 # Fuzz
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor}' # see also rg
@@ -532,7 +534,7 @@ if [ -d $HOME/src/config/credentials/ ]; then
     #alias neocities="NEOCITIES_KEY=$(cat $HOME/src/config/credentials/pymake.neocities) neocities"
 fi
 
-alias tmr='python3 -m tm manager'
+alias tmr='python -m tm manager'
 
 ### cd alias
 # Replace cd with pushd https://gist.github.com/mbadran/130469 
@@ -739,8 +741,8 @@ alias xss='xmms2 status'
 alias xrpone='xmms2 server config playlist.repeat_one 1'
 alias xrpall='xmms2 server config playlist.repeat_all 1'
 alias xrpclr='xmms2 server config playlist.repeat_one  0; xmms2 server config playlist.repeat_all 0'
-alias xcd='cd "$(xmms2 info | command grep file:// |cut -d: -f2  |xargs -0 dirname |python3 -c "import sys,urllib.parse;sys.stdout.write(urllib.parse.unquote_plus(sys.stdin.read()))")"'
-alias xll='ls "$(xmms2 info | command grep file:// |cut -d: -f2  |xargs -0 dirname |python3 -c "import sys,urllib.parse;sys.stdout.write(urllib.parse.unquote_plus(sys.stdin.read()))")"'
+alias xcd='cd "$(xmms2 info | command grep file:// |cut -d: -f2  |xargs -0 dirname |python -c "import sys,urllib.parse;sys.stdout.write(urllib.parse.unquote_plus(sys.stdin.read()))")"'
+alias xll='ls "$(xmms2 info | command grep file:// |cut -d: -f2  |xargs -0 dirname |python -c "import sys,urllib.parse;sys.stdout.write(urllib.parse.unquote_plus(sys.stdin.read()))")"'
 xshuff () {
     # Add random files in xmms2
     if [ "$1" == "" ]; then
@@ -757,7 +759,7 @@ xshuff () {
     fls=$(find "$Path" -type f -iname "*.ogg" -o -iname "*.mp4" -o -iname "*.mp3" -o -iname "*.flac")
     NB=$(echo "$fls" | wc -l)
 
-    RANDL=`python3 -c "import sys, random, time;\
+    RANDL=`python -c "import sys, random, time;\
         random.seed(int(time.time()));\
         nbf = min($NB, $NBF);\
         sys.stdout.write(' '.join(map(str, random.sample(range(1,$NB+1), nbf))))"`

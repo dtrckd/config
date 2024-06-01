@@ -4,6 +4,7 @@
   <property name="applications" type="empty">
     <property name="known_applications" type="array">
       <value type="string" value="/snap/ferdium/244/ferdium"/>
+      <value type="string" value="/snap/ferdium/308/ferdium"/>
       <value type="string" value="blueman"/>
       <value type="string" value="Blueman"/>
       <value type="string" value="chromium-browser"/>

@@ -24,5 +24,6 @@
     <property name="inactivity-sleep-mode-on-battery" type="uint" value="2"/>
     <property name="inactivity-on-ac" type="uint" value="119"/>
     <property name="brightness-level-on-ac" type="uint" value="52"/>
+    <property name="presentation-mode" type="bool" value="false"/>
   </property>
 </channel>
