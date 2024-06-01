@@ -12,10 +12,10 @@ hi Folded ctermfg=228 ctermbg=231 guifg=#E4EC86 guibg=#202020
 
 " let's fold docstrings
 "syn region pythonString start=+[uU]\=\z('''\|"""\)+ end="\z1" keepend contains=pythonEscape,pythonSpaceError,pythonDoctest,@Spell fold
-syn region pythonDoc start=+^\s*\z('''\|"""\)+ end="\z1" keepend contains=pythonEscape,pythonSpaceError,pythonDoctest,@Spell fold
-hi def link pythonDoc String
+syn region graphqlDoc start=+^\s*\z('''\|"""\)+ end="\z1" keepend contains=pythonEscape,pythonSpaceError,pythonDoctest,@Spell fold
+hi def link graphqlDoc String
 
-function! DocstringFold()
+function! DocstringFold()                                                                                           
     let first_line = getline(v:foldstart)
     let second_line = getline(v:foldstart + 1)
 
@@ -39,3 +39,27 @@ function! DocstringFold()
     return indent . prefix . text . filler . end_filler
 endfunction
 setlocal foldtext=DocstringFold()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
