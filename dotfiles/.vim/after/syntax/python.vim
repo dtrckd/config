@@ -6,10 +6,9 @@
 "      \ contains=pythonSpaceError,pythonDoctest,@Spell
 
 
-"hi Folded NONE
 "hi link Folded pythonString 
-hi Folded ctermfg=228 ctermbg=234
-"hi Folded ctermfg=blue ctermbg=234
+"hi link Folded DraculaYellow
+hi Folded ctermfg=228 ctermbg=231 guifg=#E4EC86 guibg=#202020
 
 " let's fold docstrings
 "syn region pythonString start=+[uU]\=\z('''\|"""\)+ end="\z1" keepend contains=pythonEscape,pythonSpaceError,pythonDoctest,@Spell fold
@@ -28,7 +27,7 @@ function! DocstringFold()
         doc_txt = substitute(doc_text, "^\s*\'\'\'s*", '', 'g')
     endif
 
-    let indent_len = indent(v:foldstart)
+    let indent_len = indent(v:foldstart) - 3
     let folded_lines = v:foldend-v:foldstart
     let indent = repeat(' ', indent_len)
     let prefix = first_line
