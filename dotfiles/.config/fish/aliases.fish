@@ -1,3 +1,53 @@
+#############
+### ENV
+#############
+
+# Env variables variable are got from bash definition
+
+stty -ixon # disable <C-s> freeze in vim (who waits a <C-q> signal !)
+setxkbmap -option "nbsp:none" # disable non-breaking space, accidently genrated when typing <ALTGR>+<SPACE>
+alias to_qwerty='setxkbmap us' # QWERTY
+alias to_azerty='setxkbmap fr' # AZERTY
+
+# Thefuck
+function fuck -d "Correct your previous console command"
+  set -l fucked_up_command $history[1]
+  env TF_ALIAS=fuck PYTHONIOENCODING=utf-8 thefuck $fucked_up_command | read -l unfucked_command
+  if [ "$unfucked_command" != "" ]
+	eval $unfucked_command
+	builtin history delete --exact --case-sensitive -- $fucked_up_command
+	builtin history merge ^ /dev/null
+  end
+end
+
+# Zoxyde
+if type -q zoxide
+    zoxide init fish | source
+end
+
+# Direnv
+if type -q direnv
+   direnv hook fish | source
+end
+
+# Kitty...
+export TERM="xterm-kitty"
+
+# Aichat command auto-completion
+function _aichat_fish
+    set -l _old (commandline)
+    if test -n $_old
+        echo -n "⌛"
+        commandline -f repaint
+        commandline (aichat -e $_old)
+    end
+end
+bind \ee _aichat_fish
+
+#############
+### ENV
+#############
+
 function serve
     # see caddy instead !
     if test (count $argv) -ge 1
@@ -85,6 +135,11 @@ alias air='ai -r'
 alias ai4='ai -m openai:gpt-4'
 alias ai3='ai -m openai:gpt-3.5-turbo'
 alias mongoshell="docker exec -it mongodb mongo"
+alias docker_inspect_cmd="docker inspect --format '{{.Config.Cmd}}'"
+alias docker_inspect_env="docker inspect --format '{{ json .Config.Env }}'"
+alias dps='docker ps --format "{{.ID}}  {{.Names}}\n\t\t\t\t\t\t{{.Ports}}\n\t\t\t\t\t\t{{.Status}}"'
+alias lzg="lazygit"
+alias lzd="lazydocker"
 alias station="ferdi &"
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias j=jobs
@@ -111,8 +166,9 @@ alias vig="vim ~/.gitconfig"
 alias vign="vim .gitignore"
 alias vikitty="vim ~/.config/kitty/kitty.conf"
 alias t="thunar"
+alias vimake="vim Makefile"
 alias vimk="vim Makefile"
-alias vmk="vim Makefile"
+alias vk="vim Makefile"
 alias vime="vim (find . -maxdepth 1 -iname 'readme*' -print -quit)"
 
 alias vim='nvim'
@@ -129,12 +185,12 @@ alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --prog
 
 alias psa="ps -aux --sort=-start_time | grep -i --color"
 alias pstree='pstree -h'
+alias ps_vi='echo "mem% for vim+lsp" && ps aux --sort=-%mem | grep -iE "copilot|vim|lsp|gopls" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
+alias ps_firefox='echo "mem% for firefox" && ps aux --sort=-%mem | grep -iE "firefox" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
+alias ps_thunderbird='echo "mem% for thunderbird" && ps aux --sort=-%mem | grep -iE "thunderbird" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
+alias ps_python='echo "mem% for python" && ps aux --sort=-%mem | grep -iE "python" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
 alias pstop='ps aux --sort=-%cpu | awk '\''{print "CPU: "$3"%", "MEM: "$4"%", "CMD: "$11}'\'' | head -n 11'
 alias memtop='ps aux --sort=-%mem | awk '\''{print "CPU: "$3"%", "MEM: "$4"%", "CMD: "$11}'\'' | head -n 11'
-alias psvi='echo "mem% for vim+lsp" && ps aux --sort=-%mem | grep -iE "copilot|vim|lsp|gopls" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
-alias psfirefox='echo "mem% for firefox" && ps aux --sort=-%mem | grep -iE "firefox" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
-alias psthunderbird='echo "mem% for thunderbird" && ps aux --sort=-%mem | grep -iE "thunderbird" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
-alias pspython='echo "mem% for python" && ps aux --sort=-%mem | grep -iE "python" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
 alias lsoftop='sudo lsof | awk '\''{print $1 " " $2}'\'' | sort | uniq -c | sort -n -k1'
 alias riprm='shred -zuv -n1'
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
@@ -250,9 +306,10 @@ alias gdc='git diff --cached'
 alias gs='git status -sb'
 alias ga="git add"
 alias gl="git log --oneline --decorate --color"
-alias glt="git log --pretty='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%Creset %C(magenta)%an%Creset' --graph --date=relative --abbrev-commit"
+alias gll="git log --pretty='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%Creset %C(magenta)%an%Creset' --graph --date=relative --abbrev-commit"
 alias gla="git log --format='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%Creset %C(magenta)%an%Creset' --graph --date=relative --abbrev-commit --all"
 alias gsl="git stash list"
+alias ggk="git checkout"
 alias gi="git bug"
 alias gil="git bug ls -s open"
 alias gilc="git bug ls -s closed"
@@ -552,7 +609,6 @@ alias ium="cd $HOME/Music/"
 alias iuc="cd $HOME/src/config/"
 alias iucs="cd $HOME/src/config/snippets"
 alias iut="cd $HOME/Desktop/tt/"
-alias iuk="cd $PX/missions" # mission / kaggle / etc
 alias iupm="cd $PX/thesis/pymake/"
 alias iunb="cd $PX/thesis/notebook/"
 alias iurp="cd $PX/thesis/repo/"
@@ -580,9 +636,33 @@ alias cdrez="cd $PX/perso/Projects/Informatique/Reseau/"
 alias cdid="cd $PX/perso/Papiers/me/"
 alias cdp="cd $PX/perso/Papiers/"
 alias cdai="cd ~/.config/aichat/sessions"
+alias cdm="cd $PX/missions" # mission / kaggle / etc
 function cdlk;  cd (dirname (readlink $argv[1])); end
 function grepurl; sed -e  's/.*[hH][rR][eE][fF]=['\"''\'']\([^'\"''\'']*\)['\"''\''].*/\1/' $argv[1]; end
 alias mean="awk '{s+=$argv}END{print \"ave:\",s/NR}' RS=\" \""
+
+function r
+    # Check for minimum number of arguments
+    if test (count $argv) -lt 1
+        echo "Usage: r <remote_destination> [rsync_options]"
+        return 1
+    end
+
+    # Extract the destination, which is the last argument
+    set -l destination $argv[-1]
+
+    # Validate the destination format
+    if not string match -q '*@*:*' $destination
+        echo "Invalid remote destination format. It should contain '@' and ':' characters."
+        return 1
+    end
+
+    # Remove the destination from the arguments list to isolate rsync options
+    set -e argv[-1]
+
+    # Build the rsync command with optional parameters
+    rsync -avz --delete --exclude-from=".gitignore" --exclude="*.swp" --exclude "venv/**" --exclude "data/**" --exclude "results/**" $argv (pwd) $destination
+end
 
 #alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
 #alias xrandr_setup="xrandr --output HDMI-2 --left-of eDP-1"
@@ -649,7 +729,7 @@ alias youtube-dl="yt-dlp"
 function xshuff
     # Add random files in xmms2
     if [ "$argv[1]" = "" ]
-        set NB 50
+        set NBF 50
         set Path "$HOME/Music/"
     else if [ -d "$argv[1]" ]
         set NBF 50
@@ -660,7 +740,7 @@ function xshuff
     end
 
     set fls (find "$Path" -type f -iname "*.ogg" -o -iname "*.mp4" -o -iname "*.mp3" -o -iname "*.flac")
-    set NB (printf "%s\n" "$fls" | wc -l)
+    set NB (string split "\n" -- $fls | count)
 
     set RANDL (python3 -c "import sys, random, time;\
         random.seed(int(time.time()));\
@@ -708,48 +788,18 @@ alias bash='command env BASH_EXECUTION_STRING=1 bash'
 alias iumm='bash --init-file (echo "source ~/.bash_profile; cd $HOME/src/config/app/mm/ && set +o history && unset HISTFILE"|psub)'
 alias mc='bash -c "mc"'
 
-#############
-### ENV
-#############
-
-# Env variables variable are got from bash definition
-
-stty -ixon # disable <C-s> freeze in vim (who waits a <C-q> signal !)
-setxkbmap -option "nbsp:none" # disable non-breaking space, accidently genrated when typing <ALTGR>+<SPACE>
-alias to_qwerty='setxkbmap us' # QWERTY
-alias to_azerty='setxkbmap fr' # AZERTY
-
-# Thefuck
-function fuck -d "Correct your previous console command"
-  set -l fucked_up_command $history[1]
-  env TF_ALIAS=fuck PYTHONIOENCODING=utf-8 thefuck $fucked_up_command | read -l unfucked_command
-  if [ "$unfucked_command" != "" ]
-	eval $unfucked_command
-	builtin history delete --exact --case-sensitive -- $fucked_up_command
-	builtin history merge ^ /dev/null
-  end
-end
-
-# Zoxyde
-if type -q zoxide
-    zoxide init fish | source
-end
-
-# Direnv
-if type -q direnv
-   direnv hook fish | source
-end
-
-# Kitty...
-export TERM="xterm-kitty"
-
-# Aichat command auto-completion
-function _aichat_fish
-    set -l _old (commandline)
-    if test -n $_old
-        echo -n "⌛"
-        commandline -f repaint
-        commandline (aichat -e $_old)
+function git_commit_branch_mr
+    if test (count $argv) -ne 2
+        echo "Usage: git_commit_branch_mr <branch_name> <commit_message>"
+        return 1
     end
+
+    set -l branch_name $argv[1]
+    set -l commit_message $argv[2]
+
+    git checkout -b (string lower $branch_name) \
+        && git commit -am $commit_message \
+        && git push origin (string lower $branch_name)
 end
-bind \ee _aichat_fish
+
+setxkbmap -option "nbsp:none"
