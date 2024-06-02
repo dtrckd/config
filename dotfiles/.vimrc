@@ -784,6 +784,8 @@ nnoremap <S-LEFT>  <C-W>h
 nnoremap <S-RIGHT> <C-W>l
 nnoremap à <C-W>w
 nnoremap ù <C-W>W
+nnoremap <backspace> <C-w>W
+nnoremap <Tab> <C-w>p  " go to last active window
 """ Window Zoom
 nnoremap <C-W>z :call zoom#toggle()<cr>
 nnoremap <C-W>o :call zoom#toggle()<cr>
@@ -807,10 +809,6 @@ nnoremap <C-DOWN> gt
 " @debug: don't work !
 "nnoremap <C-Home-LEFT> :tabn1<cr>
 "nnoremap <C-End-RIGHT> :tabn$<cr>
-""" Move between Tab
-nnoremap <Tab> <C-w>w
-nnoremap <backspace> <C-w>W
-" see also <C-w>p and <C-w>P
 """ Move Tab
 nnoremap <C-S-PageUp> :tabm-<cr>
 nnoremap <C-S-PageDown> :tabm+<cr>
