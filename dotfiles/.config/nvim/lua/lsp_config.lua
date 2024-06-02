@@ -323,7 +323,7 @@ map('n', '<leader>eN', '<cmd>lua vim.diagnostic.goto_prev({severity="Error"})<CR
 map('n', '<leader>eh', '<cmd>lua vim.diagnostic.open_float()<CR>')
 map('n', '<leader>x', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 map('n', '<leader>d', '<cmd>lua vim.lsp.buf.definition()<CR>')
-map('n', '<leader>v', '<cmd>vsplit | lua vim.lsp.buf.definition()<CR>')
+map('n', '<leader>v', '<cmd>rightbelow vsplit | lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>b', '<cmd>belowright split | lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>t', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>D', '<cmd>lua vim.lsp.buf.declaration()<CR>')
@@ -337,6 +337,9 @@ map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n', '<leader>f', '<cmd>lua vim.lsp.buf.format({async=true})<CR>')
 map('n', '<leader>a', '<cmd>lua vim.lsp.buf.references()<CR>')
 map('n', '<leader>S', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+
+-- Use the built-in LSP functions to show signatures. For example, you can use `K` (hover) to show the function signature when your cursor is on the function name:
+map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', { silent = true, noremap = true })
 
 -- <c-a> do not worl if set before...
 require("coq_3p") {
