@@ -153,6 +153,7 @@ function pdfo; okular $argv[1] 2>/dev/null &; end
 alias v="vim (fzf --height 40%)"
 alias vls="vim" # use when using with "C-A" and quicly change ls to vls for openin vim
 alias vcd="vim" # use when using with "C-A" and quicly change cd to vcd for openin vim
+alias vimdiff='vimdiff --noplugin'
 alias vd='vimdiff'
 alias vip='vim -p'
 alias vis='vim -S'  
@@ -803,3 +804,5 @@ function git_commit_branch_mr
 end
 
 setxkbmap -option "nbsp:none"
+
+alias nerd_dictation="cd ~/src/gpt/nerd-dictation && ./nerd-dictation begin --vosk-model-dir=./model"
