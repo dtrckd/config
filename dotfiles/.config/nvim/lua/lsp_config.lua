@@ -343,6 +343,6 @@ map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', { silent = true, noremap = tru
 
 -- <c-a> do not worl if set before...
 require("coq_3p") {
-    { src = "copilot", short_name = "COP", accept_key = "<c-a>" },
+    { src = "copilot", short_name = "COP", accept_key = "<c-enter>" },
     --{ src = "codeium", short_name = "COD" },
 }

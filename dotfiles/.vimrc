@@ -1,4 +1,5 @@
 runtime! debian.vim
+
 let mapleader = ','
 
 """"""""""""""""""""""""""""""
@@ -187,7 +188,7 @@ let g:NERDDefaultAlign = "left"
 "let g:NERDCustomDelimiters = { "c": { "left": "/**", "right": "*/" }}
 
 "nnoremap <C-p> :call NERDTreeToggleFind()<cr>
-""noremap <TAB><TAB> :NERDTreeToggle<CR> " Problem with <C-i> that get map and delayed
+""noremap <TAB><TAB> :NERDTreeToggle<CR> " Problem with <C-i> that get map and delayed: `<C-i>` and `<Tab>` share the same ASCII code (09 in hexadecimal)
 
 """ ChadTree
 " @requirement:
@@ -226,7 +227,13 @@ let g:chadtree_settings = {
       "\ 'theme.icon_glyph_set': 'ascii',
       \}
 
-
+"""
+""" COQ coq_nvim
+"""
+let g:coq_settings = {
+      \ "weights.proximity": 1,
+      \ "weights.prefix_matches": 5,
+      \}
 
 " Use ripgrep for searching ⚡️
 " Options include:
@@ -252,8 +259,9 @@ noremap § :FZF %:p:h<cr>
 let g:fzf_buffers_jump = 1
 " @DEBUG: how to set <C-enter> to open in a new tab ?
 let g:fzf_action = {
-      \ 'enter': 'tab split',
-      \ 'ctrl-o': 'edit',
+      \ 'enter': 'edit',
+      \ 'ctrl-o': 'tab split',
+      \ 'ctrl-t': 'tab split',
       \ 'ctrl-x': 'split',
       \ 'ctrl-v': 'vsplit' ,
       \}
@@ -460,7 +468,8 @@ com! Gadd :Git add %
 " Other cool stuff :
 " - https://jeancharles.quillet.org/posts/2022-03-02-Practical-introduction-to-fugitive.html
 " - https://github.com/tpope/vim-fugitive
-nnoremap <leader>G :tabe<CR>:G<CR><C-w>_<CR>
+" Open git fugitive in a new tab
+nnoremap <leader>G :tabnew<CR>:G<CR>:only<CR>
 
 " git-gutter
 let g:gitgutter_enabled = 0
@@ -594,13 +603,11 @@ endfunction
 """ General configuration
 """"""""""""""""""""""""""""""
 syntax on
+set encoding=UTF-8
 set backspace=indent,eol,start
 set tabpagemax=50                  " Maximum of opened tab
 set noequalalways                  " Prevent automatically resizing windows
 set pastetoggle=£                  " Toggle paste mode
-"set clipboard=unnamed             " Dont support C-S V
-"set title                         " Update window title for X and tmux
-"set autochdir                     " Set current cwd to the current file
 set ruler                          " Show current position
 set laststatus=2                   " Always show the statusline
 set mat=1                          " How many tenths of a second to blink
@@ -614,28 +621,32 @@ set ignorecase                     " Do case insensitive matching
 set fileignorecase                 " See also wildignorecase
 set smartcase                      " Sensitive if capital letter
 set report=0                       " Show number of modification if they are
-"set nu                            " View numbers lines
 set cursorline                     " Hilight current line - cul
-"set autowrite                     " automatically save before commands like :next and :make
-"set hidden                        " Hide buffers when they are abandoned
 set mouse=a                        " Enable mouse usage (all modes) in terminals
-"set textwidth=0                   " Disable textwith
 set fo+=1ro fo-=tc tw=0            " Break comment at tw $size
 "set fo+=1cro fo-=t tw=0           " Break comment at tw $size
-"set colorcolumn=-1
 set scrolloff=5                   " Line of context: mininum visible lines at the top or bottom of the screen.
 set sidescrolloff=8                " Columns of context
 set linebreak                      " Don't wrap word
 set nowrap                         " Don't wrap line too long
 set nostartofline                  " Try keep the column with line moves
 set whichwrap=<,>,[,]              " Enable line return with pad
-"set ff=unix                       " Remove ^M
-set encoding=UTF-8
 set nohidden                       " Do not keep a buffer open (swp file) if the file is not open in a window.
+set splitright                     " default vertical split focus
+"set clipboard=unnamed             " Dont support C-S V
+"set title                         " Update window title for X and tmux
+"set autochdir                     " Set current cwd to the current file
+"set nu                            " View numbers lines
+"set autowrite                     " automatically save before commands like :next and :make
+"set hidden                        " Hide buffers when they are abandoned
+"set textwidth=0                   " Disable textwith
+"set colorcolumn=-1
+"set ff=unix                       " Remove ^M
+
 " Fix for color syntax highlighting breaks for big file after jump or search 
 " https://github.com/vim/vim/issues/2790
 syntax sync minlines=2000
-" manually fix :syntax sync fromstart
+
 """ Last position
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -717,7 +728,8 @@ function! TripleQuoteFold(lnum)
     return 0                                                                                                                                                                                                         
 endfunction
 
-autocmd FileType toml setlocal foldmethod=expr foldexpr=TripleQuoteFold(v:lnum)
+" @warning: this is fuckin long to load big filed. Avoid, too complex!
+"autocmd FileType toml setlocal foldmethod=expr foldexpr=TripleQuoteFold(v:lnum)
 
 """ Magic pasting
 "" Toggle paste/nopaste automatically when copy/paste with right click in insert mode:
@@ -769,7 +781,6 @@ set timeoutlen=750  " time to wait for remaps
 """ NORMAL MAP
 map <Esc>[B <Down>
 inoremap <C-L> <Esc>
-nnoremap ; /
 nnoremap <silent> <Esc> :noh<cr>
 " Close preview & quickfix list
 nnoremap <silent> q :pclose<cr>
@@ -784,8 +795,11 @@ nnoremap <S-LEFT>  <C-W>h
 nnoremap <S-RIGHT> <C-W>l
 nnoremap à <C-W>w
 nnoremap ù <C-W>W
-nnoremap <backspace> <C-w>W
-nnoremap <Tab> <C-w>p  " go to last active window
+" Do not work !
+"nnoremap <backspace> <C-w>W
+nnoremap <C-\|> <C-\|>0
+"nnoremap <Tab> <C-w>p  " go to last active window
+" nnoremap <C-i> <C-I>  " won't work  because <C-i> is the same as <Tab>...
 """ Window Zoom
 nnoremap <C-W>z :call zoom#toggle()<cr>
 nnoremap <C-W>o :call zoom#toggle()<cr>
@@ -798,6 +812,8 @@ noremap <C-S-UP>    :resize -3<cr>
 noremap <C-S-DOWN>  :resize +3<cr>
 noremap <C-S-LEFT>  :vertical resize -3<cr>
 noremap <C-S-RIGHT> :vertical resize +3<cr>
+nnoremap <silent> <C-w><Bar> <C-w><Bar>:vertical resize -40<CR>
+nnoremap <silent> <C-w>_ <C-w>_:resize -10<CR>
 "keycode 113 = Alt_R
 "add mod1 = Alt_R
 "keycode 116 = Meta_R
@@ -1143,9 +1159,16 @@ function! GoToNextIndent(inc)
         call setpos('.', currentPos)                                                       
     endif                                                                                  
 endfunction                                                                                
-                                                                                           
-nnoremap <silent> ] :call GoToNextIndent(1)<CR>                                            
-nnoremap <silent> [ :call GoToNextIndent(-1)<CR>                                           
+
+" Remap . and ; to navigate between sentences
+nnoremap . (
+nnoremap ; )
+" Remap ( and ) to navigate to previous and next indentation levels
+nnoremap <silent> ( :call GoToNextIndent(-1)<CR>
+nnoremap <silent> ) :call GoToNextIndent(1)<CR>
+" { and } already navigate between paragraphs/sections by default
+
+" -------------------------------
                                                                                            
 func! CurrentFileDir(cmd)                                                                  
   return a:cmd . " " . expand("%:p:h") . "/"                                               
@@ -1243,6 +1266,7 @@ endfunction
 com! RedrawTab :call RedrawTab()
 
 fu! MkSession()
+    source $MYVIMRC
     "execute 'SaveSession '. Last2Dir()
     execute 'SSave! '. Last2Dir()
 endfunction
@@ -1278,6 +1302,16 @@ endif
 " https://sw.kovidgoyal.net/kitty/faq/#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim
 let &t_ut=''
 
+" Unbind <TAB> and <C-O
+let &t_TI = "\<Esc>[>4;2m"
+let &t_TE = "\<Esc>[>4;m"
+
+
+" Fix highligh error with vimdiff
+if &diff 
+  set t_Co=256
+endif
+
 " Colorscheme
 " since version 0.10 it activated by default and change the colorsscheme
 " https://neovim.io/doc/user/news-0.10.html
@@ -1299,13 +1333,13 @@ fu! SetHi()
   "hi Comment ctermfg=blue guifg=#6495ED
   hi Comment ctermfg=blue guifg=#1E90FF
   hi CursorLine cterm=none term=underline ctermbg=235 guibg=#303030
-  hi Search ctermfg=white ctermbg=105 cterm=none guifg=#ffffff guibg=#5FADFD
-  hi CurSearch ctermfg=0 ctermbg=11 guifg=NvimDarkGrey1 guibg=#FDEDC1
+  hi Search ctermfg=white ctermbg=105 cterm=none guifg=#ffffff guibg=#0369D2
+  hi CurSearch ctermfg=0 ctermbg=11 guifg=#414144 guibg=#86ECB4
   hi SpellBad ctermbg=red cterm=underline guibg=#ff0000
-  hi StatusLine ctermfg=white ctermbg=25 cterm=bold guifg=#ffffff guibg=#006AAE
+  hi StatusLine ctermfg=white ctermbg=25 cterm=bold guifg=#ffffff guibg=#0369D2
   hi StatusLineNC ctermfg=black ctermbg=245 guifg=#E8E9EB guibg=#51595F
   hi TabLine ctermfg=black ctermbg=245 cterm=none guifg=#E8E9EB guibg=#51595F
-  hi TabLineSel ctermfg=white ctermbg=25 guifg=#ffffff guibg=#006AAE
+  hi TabLineSel ctermfg=white ctermbg=25 guifg=#ffffff guibg=#0369D2
   "hi TabLineFill ctermfg=black
 
   hi ErrorMsg ctermfg=red ctermbg=none guifg=#ff0000
@@ -1351,14 +1385,9 @@ nnoremap <silent> <leader>c :execute "set colorcolumn="
 " Fix color regression when unzooming with vim-zoom.
 augroup Zoom
   au!
-
   autocmd User ZoomPost call SetHi()
 augroup END
 
 "set background=dark
 noh
-
-" Unbind <TAB> and <C-O
-let &t_TI = "\<Esc>[>4;2m"
-let &t_TE = "\<Esc>[>4;m"
 

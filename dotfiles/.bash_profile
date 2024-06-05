@@ -166,6 +166,7 @@ function spinner() {
 alias v="vim (fzf --height 40%)"
 alias vls="vim" # use when using with "C-A" and quicly change ls to vls for openin vim
 alias vcd="vim" # use when using with "C-A" and quicly change cd to vcd for openin vim
+alias vimdiff='vimdiff --noplugin'
 alias vd='vimdiff'
 alias vip='vim -p'
 alias vis='vim -S'
@@ -846,10 +847,16 @@ HISTFILESIZE=2000
 IGNOREEOF=1   # Shell only exists after the nth consecutive Ctrl-d
 
 export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S "
-export EDITOR="/usr/bin/vim"
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
 export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:/opt/bin:/usr/bin:/usr/sbin:/bin:/sbin"
+if [ -f /usr/bin/nvim ]; then
+    export EDITOR="/usr/bin/nvim"
+    export GIT_EDITOR="/usr/bin/nvim"
+else
+    export EDITOR="/usr/bin/vim"
+    export GIT_EDITOR="/usr/bin/vim"
+fi
 
 ### Man Pages
 # Less Colors for Man Pages
