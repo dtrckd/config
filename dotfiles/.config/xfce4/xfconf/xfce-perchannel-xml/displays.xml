@@ -60,11 +60,11 @@
         <property name="Y" type="int" value="0"/>
       </property>
     </property>
-    <property name="HDMI-2" type="string" value="LG 72&quot;">
+    <property name="HDMI-2" type="string" value="Acer 22&quot;">
       <property name="Active" type="bool" value="true"/>
-      <property name="EDID" type="string" value="202673ff34d675b3bd5f196486a5456ccf276dc5"/>
-      <property name="Resolution" type="string" value="1024x768"/>
-      <property name="RefreshRate" type="double" value="60.003840"/>
+      <property name="EDID" type="string" value="15aa994b052917b7304e5bf6834aeae8a1d2db16"/>
+      <property name="Resolution" type="string" value="1680x1050"/>
+      <property name="RefreshRate" type="double" value="59.974747"/>
       <property name="Rotation" type="int" value="0"/>
       <property name="Reflection" type="string" value="0"/>
       <property name="Primary" type="bool" value="false"/>
@@ -131,11 +131,11 @@
         <property name="Y" type="int" value="0"/>
       </property>
     </property>
-    <property name="HDMI-2" type="string" value="LG 72&quot;">
+    <property name="HDMI-2" type="string" value="Acer 22&quot;">
       <property name="Active" type="bool" value="true"/>
-      <property name="EDID" type="string" value="202673ff34d675b3bd5f196486a5456ccf276dc5"/>
-      <property name="Resolution" type="string" value="1024x768"/>
-      <property name="RefreshRate" type="double" value="60.003840"/>
+      <property name="EDID" type="string" value="15aa994b052917b7304e5bf6834aeae8a1d2db16"/>
+      <property name="Resolution" type="string" value="1680x1050"/>
+      <property name="RefreshRate" type="double" value="59.974747"/>
       <property name="Rotation" type="int" value="0"/>
       <property name="Reflection" type="string" value="0"/>
       <property name="Primary" type="bool" value="false"/>

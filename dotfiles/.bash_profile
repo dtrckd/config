@@ -168,6 +168,7 @@ alias vls="vim" # use when using with "C-A" and quicly change ls to vls for open
 alias vcd="vim" # use when using with "C-A" and quicly change cd to vcd for openin vim
 alias vimdiff='vimdiff --noplugin'
 alias vd='vimdiff'
+alias vid='vimdiff'
 alias vip='vim -p'
 alias vis='vim -S'
 alias vib="vim ~/.bash_profile"

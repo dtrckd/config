@@ -1239,7 +1239,7 @@ function! HeadSwitch(com)
 endfun
 
 " C/Cython Header find/open
-"nnoremap <leader>h :call HeadSwitch('tabe')<CR>
+nnoremap <leader>h :call HeadSwitch('tabe')<CR>
 
 
 " use `ctags -R -f .tags` to create ctags file.
@@ -1266,13 +1266,11 @@ endfunction
 com! RedrawTab :call RedrawTab()
 
 fu! MkSession()
-    source $MYVIMRC
     "execute 'SaveSession '. Last2Dir()
     execute 'SSave! '. Last2Dir()
 endfunction
-com! MkSession :call MkSession()
+com! MkSession :source ~/.vimrc | call MkSession()
 "execute 'mksession! ' . getcwd() . '/.session.vim'
-
 
 """"""""""""""""""""""""""""""
 """ Theme/Colors
