@@ -1023,13 +1023,6 @@ au filetype vim set ts=2 sts=2 sw=2
 au BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent fileformat=unix
 au BufNewFile,BufRead *.py set formatoptions-=tc " prevent inserting \n. Where does it come from ????
 
-""" Search moves
-au BufNewFile,BufRead *.py\> nnoremap _ ?<C-R>='__init__('<CR><CR>
-au BufNewFile,BufRead *.pyx nnoremap _ ?<C-R>='__cinit__('<CR><CR>
-au BufNewFile,BufRead *.go nnoremap _ ?<C-R>='func '<CR><CR>
-au BufNewFile,BufRead *.elm nnoremap _ ?<C-R>='init : '<CR><CR>
-
-
 func! DeleteTrailingWS()
   let l:save = winsaveview()
   keeppatterns %s/\s\+$//e
@@ -1063,7 +1056,8 @@ au filetype cpp set fdm=syntax
 """"""""""""""""""""""""""""""
 """ HTML Files
 """"""""""""""""""""""""""""""
-au BufNewFile,BufRead  *.html,*.css set tabstop=2 softtabstop=2 shiftwidth=2 nowrap
+au BufNewFile,BufRead  *.html,*.css,*.scss,*.sass,*.less set tabstop=4 softtabstop=4 shiftwidth=4 nowrap
+
 
 " Multiple code (web2py...)
 au Filetype html :call TextEnableCodeSnip('python', '{{#py', '}}', 'SpecialComment')

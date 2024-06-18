@@ -851,13 +851,8 @@ export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S "
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
 export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:/opt/bin:/usr/bin:/usr/sbin:/bin:/sbin"
-if [ -f /usr/bin/nvim ]; then
-    export EDITOR="/usr/bin/nvim"
-    export GIT_EDITOR="/usr/bin/nvim"
-else
-    export EDITOR="/usr/bin/vim"
-    export GIT_EDITOR="/usr/bin/vim"
-fi
+export EDITOR="/usr/bin/vim"
+export GIT_EDITOR="/usr/bin/vim"
 
 ### Man Pages
 # Less Colors for Man Pages
