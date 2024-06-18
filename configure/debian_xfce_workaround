@@ -1,0 +1,174 @@
+# A lot of issue resolve in the Arch Wiki:  https://wiki.archlinux.org/index.php/Xfce
+
+thunderbird 78.11 dont read gmail error.
+- downgrade to 78.10 (dowlad a deb from archive.debian.org)
+- or try t set `network.http.spdy.enabled.http2` to false in the config editor.
+
+# Allow desktop to suspend/hibernate without password
+# https://askubuntu.com/questions/543921/authentication-required-before-suspend
+
+# Make the mouse visible again
+xset dpms force off  
+# or
+gsettings set org.gnome.settings-daemon.plugins.cursor active false:w
+
+# SSD ata erroor (ddry, timeout, freeze etc)
+# https://wiki.archlinux.org/index.php/Solid_State_Drives#Resolving_NCQ_errors
+echo 1 > /sys/block/sda/device/queue_depth
+# Or
+#GRUB_CMDLINE_LINUX="libata.force=noncq" # In /etc/default/grub
+#aptitude  install  firmware-linux-nonfree
+### !!! comment amd64-microcode in modprobe blacklist !!!
+
+# battery issue on thinkpad X260 and fix treshold
+https://linrunner.de/tlp/faq/battery.html#erratic-battery-behavior-on-thinkpad-t420-s-t520-w520-x220-and-all-later-models
+
+
+# If using xfce4-power-manager to control ACPI events, and not systemd >> /etc/systemd/logind.conf:
+HandlePowerKey=ignore
+HandleSuspendKey=ignore
+HandleHibernateKey=ignore
+HandleLidSwitch=ignore
+
+# Fix black creen after unlock, after resume
+# This solution works on my laptop (ubuntu 16.04, but should work on previous OS):
+#    open as root file /etc/UPower/UPower.conf
+#    change IgnoreLid=false ==> IgnoreLid=true
+#    save changes, restart system and now it works :-)
+#    You can remove light-locker now.
+
+# Hibernation workaround >> /etc/pm/sleep.d/00...
+#!/bin/sh
+case "$1" in
+suspend)
+;;
+resume)
+sleep 0.1
+vbetool dpms off
+vbetool dpms on
+;;
+*) exit $NA
+;;
+esac
+
+# Disable beep >> ~/.gtkrc-2.0
+# see also: blacklist pcspkr
+gtk-error-bell = 0
+
+
+#Transparent background for icon titles >> ~/.gtkrc-2.0:
+style "xfdesktop-icon-view" {
+    # transparent background
+    XfdesktopIconView::label-alpha = 0
+
+    # white font
+    base[NORMAL] = "#ffffff"
+    base[SELECTED] = "#5D97D1"
+    base[ACTIVE] = "#5D97D1"
+    fg[NORMAL] = "#ffffff"
+    fg[SELECTED] = "#ffffff"
+    fg[ACTIVE] = "#ffffff"
+}
+widget_class "*XfdesktopIconView*" style "xfdesktop-icon-view"
+
+# Missing Icons
+icontheme=/usr/share/icons/gnome
+ln -s /usr/share/icons/hicolor/16x16/actions/xfpm-suspend.png   ${icontheme}/16x16/actions/system-suspend.png
+ln -s /usr/share/icons/hicolor/16x16/actions/xfpm-hibernate.png ${icontheme}/16x16/actions/system-hibernate.png
+ln -s /usr/share/icons/hicolor/22x22/actions/xfpm-suspend.png   ${icontheme}/22x22/actions/system-suspend.png
+ln -s /usr/share/icons/hicolor/22x22/actions/xfpm-hibernate.png ${icontheme}/22x22/actions/system-hibernate.png
+ln -s /usr/share/icons/hicolor/24x24/actions/xfpm-suspend.png   ${icontheme}/24x24/actions/system-suspend.png
+ln -s /usr/share/icons/hicolor/24x24/actions/xfpm-hibernate.png ${icontheme}/24x24/actions/system-hibernate.png
+ln -s /usr/share/icons/hicolor/48x48/actions/xfpm-suspend.png   ${icontheme}/48x48/actions/system-suspend.png
+ln -s /usr/share/icons/hicolor/48x48/actions/xfpm-hibernate.png ${icontheme}/48x48/actions/system-hibernate.png
+
+# Windows buttons stop working and just blinking:
+xfwm4 --replace &
+
+# Panel with windows and worspace don't respond:
+xfce4-panel -r
+
+# SIOCSIFFLAGS: Operation not possible due to RF-kil
+rfkill unblock wifi
+rfkill unblock all
+
+# Install manuall Realtek wifi driver
+#   https://easylinuxtipsproject.blogspot.com/p/realtek.html#ID10
+#   https://askubuntu.com/questions/1352731/ubuntu-20-04-no-wifi-adapter-found-lenovo-ideapad-realtek
+
+# better touchpad thinkpad (X220,), synclient -l # error, cant figure it out ?
+aptitude install xserver-xorg-input-synaptics xserver-xorg-input-libinput
+#gsettings set org.gnome.desktop.peripherals.touchpad send-events 'enabled'
+
+
+# Propagate new xfce4 conf (at least panel)
+xfce4-panel --quit ; sudo pkill xfconfd ; rm -rf ~/.config/xfce4/panel ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml ; (copy from cponfig/dotfiles/.config/xfce4; xfce4-panel;
+# Other way to propagate xfconf:
+xfdesktop --reload
+
+
+# Enable Brave
+echo 1 > /proc/sys/kernel/unprivileged_userns_clone
+
+#
+# Fukin systemd
+#
+
+# Desactivate automatic upgrade
+sudo systemctl mask unattended-upgrade.service
+
+### Dont kill tmux/screen after logout !!!
+/etc/systemd/sustem.conf:KillUserProcesses=no
+# persitent user session...
+loginctl enable-linger dtrckd
+# See the user status
+loginctl user-status dtrckd
+# remove/redirect the lock screen "the session is locked" that dont redirect !!
+loginctl unlock-session <session-id>
+
+# copy in /etc/systemd/user/tmux.service / not sure if needed to have tmux persitent after login ?
+[Unit]
+Description=Start tmux in detached session
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/tmux new-session -s %u -d
+ExecStop=/usr/bin/tmux kill-session -t %u
+
+[Install]
+WantedBy=default.target
+
+
+
+#
+# Sound Issue
+#
+#
+# reboot sound, and al
+pulseaudio -kv && sudo alsabat force-reload && pulseaudio -Dv
+# or (upgrade)
+pulseaudio -k && pulseaudio -D [-v]
+
+# Problem sound with pulseaudio (Dummy output), pactl list sinks short is SUSPENDED no control in pavucontrol.
+# Solution, set /etc/pulse/default.pa
+load-module module-alsa-sink device=default
+load-module module-alsa-source device=default
+load-module module-native-protocol-unix
+
+# is xmmsd chie with alse an kill pulseaudio
+nyxmms2 server config output.plugin pulse
+# or start xmms2 with pulse plusig
+killall xmms2d
+xmms2d -o pulse
+
+# activate sound for an other logged user
+fuser /dev/snd/*
+     /dev/snd/controlC0:  15074 20025 # here is the pid used by alsa/pulseaudiuo => kill -9 those pid
+     /dev/snd/pcmC0D0p:   15074m
+
+
+# No suitable archive found issue
+apt install file-roller # At the moment it uses file-roller but will use xarchiver in the future.
+
+# Launcher not found in descktop panel. The case of opera :
+ln -s /var/lib/snapd/desktop/applications/opera_opera.desktop /usr/share/applications/opera.desktop

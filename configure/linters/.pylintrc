@@ -1,0 +1,13 @@
+# http://pylint-messages.wikidot.com/all-codes
+
+[MESSAGES CONTROL]
+
+disable=C0111,  # missing docstring
+    C0103,       # snake case and conventional typo
+    C0301,       # Line too long
+    C0411,       # import order
+    C0305,       # trailing new line
+    R1705,       # no else return
+    W0621,       # redefined-outer-name)
+    F0401,       # unable to import
+    W0401,       # wildcar import 

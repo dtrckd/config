@@ -1,0 +1,21 @@
+# Usage: go install {URI}
+
+# Linter
+golang.org/x/tools/gopls@latest
+github.com/nametake/golangci-lint-langserver@latest
+
+# Utils
+github.com/jesseduffield/lazydocker@latest 
+github.com/jesseduffield/lazygit@latest
+github.com/MichaelMure/git-bug
+
+
+# Misc
+#github.com/pearkes/gethub
+#github.com/tmrts/boilr
+
+# Lib
+# --
+# Extending template
+#github.com/mholt/sprig
+

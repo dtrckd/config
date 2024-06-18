@@ -1,0 +1,32 @@
+# Notebook and terminal
+ipython 
+jupyter
+
+# Pmk inspiration
+#orange
+
+# Data science & ML
+numpy scipy
+nltk sklearn spacy
+torch torchvision
+keras
+
+# Formating & Edition
+pandoc 
+pandocfilters 
+termcolor
+
+# Data visualization
+tabulate   # print tables
+matplotlib # base
+seaborn    # complex multi-dime,sional plot / wrap around matplotlib
+bokeh      # Interactive plot / build around Glyphs
+plotly     # Interactive plot / build arounf Dash
+
+# Profiling
+snakeviz
+tuna
+
+# python linter
+ruff
+ruff-lsp
