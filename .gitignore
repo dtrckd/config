@@ -27,8 +27,11 @@ tags
 /dotfiles/.config/xfce4/desktop/
 /dotfiles/.config/aichat/
 # --
-/etc/wpa_supplicant/
 /configure/snapshots/
+/configure/blue/
+/configure/bin.txt
+/configure/nodeslist
+/etc/wpa_supplicant/
 /credentials/
 # --
 /app/

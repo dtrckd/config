@@ -1,0 +1,14 @@
+# https://github.com/hhatto/autopep8
+
+[pep8]
+max_line_length = 120
+ignore = E401, # multiple imports on one line
+         E124, # closing bracket does not match visual indentation
+         E26,  # 
+         E265, # block comment should start with ‘# ‘
+         E731, # do not assign a lambda expression, use a def
+         E226, # missing whitespace around arithmetic operator
+         E402, # module level import not at top of file
+         E501  # line too long (82 > 79 characters)
+
+# W391, # blank line at end of file
