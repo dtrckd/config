@@ -498,7 +498,13 @@ function git_fatfiles() {
 }
 
 function gitsearch() {
-    git log -S "$1" --source --all
+    if [ -z "$2" ]; then
+        git log -S "$1" --source --all
+        #git log -p -- <file> | grep <pattern>
+        #git grep -E <pattern> $(git rev-list --all)
+    else
+        git log -S "$1" --source --all -- $2
+    fi
 }
 
 # Git init
