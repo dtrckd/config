@@ -435,7 +435,13 @@ function git_fatfiles
 end
 
 function gitsearch
-    git log -S "$argv[1]" --source --all
+    if [ -z $argv[2] ]
+        git log -S "$argv[1]" --source --all
+        #git log -p -- <file> | grep <pattern>
+        #git grep -E 'pattern' $(git rev-list --all)
+    else
+        git log -S "$argv[1]" --source --all -- "$argv[2]"
+    end
 end
 
 # Git init

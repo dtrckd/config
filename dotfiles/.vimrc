@@ -647,10 +647,75 @@ set splitright                     " default vertical split focus
 " https://github.com/vim/vim/issues/2790
 syntax sync minlines=2000
 
-""" Last position
+""" Go to previsous position when opening vim
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+
+""""""""""""""""""""""""""""""
+""" Move to the last visited tab when closing a tab
+""""""""""""""""""""""""""""""
+
+"if !exists('g:currenttab')
+"  let g:previoustab = 1
+"  let g:currenttab = 1
+"endif
+"
+"function! SavePreviousTab()
+"    let g:previoustab = g:currenttab
+"    let g:currenttab = tabpagenr()
+"endfunction
+"
+"function! SaveCurrentTab()
+"    let g:currenttab = tabpagenr()
+"endfunction
+"
+"function! SwitchToPreviousTab()
+"  if g:previoustab > tabpagenr('$')
+"    tabprevious
+"  else
+"    exe "tabn " . g:previoustab
+"  endif
+"  let g:currenttab = tabpagenr()
+"endfunction
+"
+"au TabLeave * call SaveCurrentTab()
+"au TabEnter * call SavePreviousTab()
+"au TabClosed * call SwitchToPreviousTab()
+"au TabClosed * exe "tabn " . (tabpagenr('#')+1)
+
+""""""""""""""""""""""""""""""
+""" Move to the last visited buffer/tab when closing a buffer
+""""""""""""""""""""""""""""""
+
+"if !exists('g:currentbuf')
+"  let g:previousbuf = 1
+"  let g:currentbuf = 1
+"endif
+"
+"function! SavePreviousBuf()
+"    let g:previousbuf = g:currentbuf
+"    let g:currentbuf = bufnr()
+"endfunction
+"
+"function! SaveCurrentBuf()
+"    let g:currentbuf = bufnr()
+"endfunction
+"
+"function! SwitchToPreviousBuf()
+"  if g:previousbuf > bufnr('$')
+"    bprevious
+"  else
+"    exe "buffer " . g:previousbuf
+"  endif
+"    let g:currentbuf = bufnr()
+"endfunction
+"
+"au BufLeave * call SaveCurrentBuf()
+"au BufEnter * call SavePreviousBuf()
+"au BufDelete * call SwitchToPreviousBuf()
+
+
 
 """ Refresh options
 set ttyfast
@@ -873,9 +938,6 @@ command T tabe
 " print the current buffer number
 command Bufno :echo bufnr('%') 
 
-" Ensure we go to the last active after closing a tab
-autocmd TabClosed * tabprevious
-
 " Insert and jump to newline before the cursor, in insert mode
 inoremap <A-Enter> <Esc>O
 
@@ -957,33 +1019,6 @@ augroup HelpWindow
     autocmd!
     " When entering a help window, map ESC to :q
     autocmd FileType help nnoremap <buffer> <ESC> :q<CR>
-augroup END
-
-""""""""""""""""""""""""""""""
-""" Move the last visited tab when closing tab
-""""""""""""""""""""""""""""""
-
-" Keep track of the last visited tab
-let g:last_tab = 1
-
-function! SwitchToLastTab()
- " Check if there are still tabs left
- if tabpagenr('$') > 1
-   " Ensure the last tab number is within the valid range
-   if g:last_tab <= tabpagenr('$')
-     execute 'tabnext ' . g:last_tab
-   else
-     execute 'tabnext'
-   endif
- endif
-endfunction
-
-augroup RememberLastTab
- autocmd!
- " Update the last visited tab before switching to another tab
- autocmd TabLeave * let g:last_tab = tabpagenr()
- " When closing a tab, switch to the last visited tab
- autocmd TabClosed * call SwitchToLastTab()
 augroup END
 
 """"""""""""""""""""""""""""""
