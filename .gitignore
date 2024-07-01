@@ -27,6 +27,7 @@ tags
 /dotfiles/.muttrc
 /dotfiles/.config/xfce4/desktop/
 /dotfiles/.config/aichat/
+/dotfiles/.local/share/
 # --
 /configure/snapshots/
 /configure/blue/
