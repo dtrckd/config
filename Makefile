@@ -161,10 +161,15 @@ _vim:
 # Backup
 # ================================
 
-backup: backbin snapshot calendar backup_dot backup_firefox backup_thunderbird #backup_wekan
+backup: backbin snapshot calendar backup_firefox backup_thunderbird
+	# backup dotfiles
+	./diffdot.sh -v -c
+	cp -vr	~/.config/aichat dotfiles/.config/
+	cp -vr ~/.config/nvim/coq-user-snippets/ dotfiles/.config/nvim/
+	cp -rv ~/.local/share/nvim/session/* dotfiles/.local/share/nvim/session/
 
 backbin:
-	# Create bin.txt
+# Create bin.txt
 	ls -l $(HOME)/bin | grep '>' |cut -d'>' -f2 > configure/bin.txt
 
 snapshot:
@@ -186,43 +191,6 @@ calendar:
 	#	git push && \
 	#	cd -
 
-#
-# Extra setup
-# (factor backup rule and and backapp.sh)
-# Not all dotfile are backed up
-backup_dot:
-	@cp -v ~/.bash_profile dotfiles/
-	@cp -v ~/.config/fish/aliases.fish dotfiles/.config/fish/
-	@cp -v ~/.vimrc dotfiles/
-	@cp -v ~/.tmux.conf dotfiles/
-	@cp -v	~/.config/user-dirs.dirs dotfiles/.config/
-	@cp -vr	~/.config/aichat dotfiles/.config/
-
-	# Backup Atom file and package
-	#@cp -v ~/.atom/config.cson dotfiles/.atom/
-	#@cp -v ~/.atom/keymap.cson dotfiles/.atom/
-	#@cp -v ~/.atom/projects.cson dotfiles/.atom/
-	#apm list --installed --bare > dotfiles/.atom/package-list.txt
-
-	@echo "TODO: check backup for: "\
-		"~/.config/htop/"\
-		"~/.config/mc/"\
-		"~/.config/xmms2/"\
-		"~/.config/xfce4/"
-
-backup_dot_fast:
-	@cp -v ~/.bash_profile dotfiles/
-	@cp -v ~/.config/fish/aliases.fish dotfiles/.config/fish/
-	@cp -v ~/.vimrc dotfiles/
-	@cp -v ~/.tmux.conf dotfiles/
-	@cp -v	~/.config/user-dirs.dirs dotfiles/.config/
-	
-
-backup_wekan:
-	cd $(HOME)/main/conf/wekan
-	./wekan-backup.sh
-	cd -
-
 backup_firefox:
 	find ${HOME}/.mozilla/firefox/snctzemu.default-esr -name "logins.json" -o -name "key[34].db" -o -name "search.json*" | xargs -I{} rsync --progress -R {} ./app/home/firefox
 
@@ -239,6 +207,7 @@ backup_thunderbird:
 	gpg --armor --export > app/home/some_data/pgp-public-keys.asc
 	gpg --armor --export-secret-keys > app/home/some_data/pgp-private-keys.asc
 	gpg --export-ownertrust > app/home/some_data/pgp-ownertrust.asc
+
 	# Restore
 	# gpg --import pgp-public-keys.asc
 	# gpg --import pgp-private-keys.asc
@@ -254,15 +223,6 @@ update_hosts:
 	cat hosts.tmp stevenblack.tmp > etc/hosts
 	rm -f stevenblack.tmp hosts.tmp
 
-# ================================
-# sync
-# ================================
-
-sync:
-	git pull orgin --rebase
-	cd ~/.cache/calendar.vim && \
-		git pull origin --rebase && \
-		cd -
 
 # ================================
 # Database

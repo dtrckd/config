@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Exec=/snap/bin/bruno
+Icon=/home/dtrckd/Pictures/icon_/bruno.ico
+StartupNotify=false
+Terminal=false
+Type=Application
+Categories=Utility;X-XFCE;
+Name=Bruno
+Comment=Bruno
+Keywords=program;applications;bookmarks;
+X-XFCE-Source=file:///usr/share/applications/xfce4-appfinder.desktop
+Path=
