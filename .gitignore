@@ -17,6 +17,7 @@ tags
 /.free
 /.coin
 /.logins
+/logins.csv
 /addr
 # --
 /dotfiles/.ssh/
