@@ -154,8 +154,8 @@ alias v="vim (fzf --height 40%)"
 alias vls="vim" # use when using with "C-A" and quicly change ls to vls for openin vim
 alias vcd="vim" # use when using with "C-A" and quicly change cd to vcd for openin vim
 alias vimdiff='vimdiff --noplugin'
+alias vdiff='vimdiff'
 alias vd='vimdiff'
-alias vid='vimdiff'
 alias vip='vim -p'
 alias vis='vim -S'  
 alias vib="vim ~/.bash_profile"
@@ -202,6 +202,7 @@ function ff; find -iname "*$argv[1]*" ; end # wide match
 function fff; find -iname "$argv[1]" ; end # exact match
 alias jerr='journalctl -r -p err -b'
 function clipboard; command cat $argv[1] |string trim -c "\n" | xsel -bi; end
+function lineat; sed -n "$argv[1]p" "$argv[2]" ; end
 alias curlH='curl -I'
 alias myip='curl https://tools.aquilenet.fr/ip/ && echo'
 alias vpn_aqui='sudo openvpn /etc/openvpn/aqn.conf'                                      
