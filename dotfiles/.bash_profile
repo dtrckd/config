@@ -167,8 +167,8 @@ alias v="vim (fzf --height 40%)"
 alias vls="vim" # use when using with "C-A" and quicly change ls to vls for openin vim
 alias vcd="vim" # use when using with "C-A" and quicly change cd to vcd for openin vim
 alias vimdiff='vimdiff --noplugin'
+alias vdiff='vimdiff'
 alias vd='vimdiff'
-alias vid='vimdiff'
 alias vip='vim -p'
 alias vis='vim -S'
 alias vib="vim ~/.bash_profile"
@@ -206,6 +206,7 @@ ff () { find -iname "*$1*"; } # wide match
 fff () { find -iname "$1"; } # exact match
 alias jerr='journalctl -r -p err -b'
 clipboard() { command cat "$0" | xsel -bi; }
+lineat() { sed -n "${1}p" "${2}"; }
 ### Network
 alias curlH='curl -I'
 # curl ip.appspot.com'
@@ -982,3 +983,11 @@ if [ -z "$BASH_EXECUTION_STRING" ]; then
     fi
 fi
 
+# @SERVER
+#alias python=python3
+
+# @SERVER
+#export JQ_COLORS="1;33"
+
+# @SERVER
+#mkdir -p ~/.config/bat && echo '--theme="Coldark-Dark"' > ~/.config/bat/config
