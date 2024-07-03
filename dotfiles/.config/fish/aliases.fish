@@ -120,20 +120,17 @@ alias fuk='fuck'
 alias please='sudo (fc -ln -1)'
 alias so='source ~/.config/fish/config.fish'
 alias cleancolors="sed -r 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' $1"
-alias python="python -O" # basic optimizatio (ignore assert, ..)
+alias python="python3"
 alias ipython="ipython --colors linux"
 alias ipython_dev="ipython --profile dev"
 alias py='python'
 alias py3='python3'
 alias xback='xbacklight'
 alias octave='octave --silent'
-alias ai="ai -s"
+alias ai="aichat -s"
 alias aic="command ai"
 alias aicc="command ai -c"
-alias ai4c='command ai -m openai:gpt-4'
 alias air='ai -r'
-alias ai4='ai -m openai:gpt-4'
-alias ai3='ai -m openai:gpt-3.5-turbo'
 alias mongoshell="docker exec -it mongodb mongo"
 alias docker_inspect_cmd="docker inspect --format '{{.Config.Cmd}}'"
 alias docker_inspect_env="docker inspect --format '{{ json .Config.Env }}'"
@@ -173,7 +170,6 @@ alias vimk="vim Makefile"
 alias vk="vim Makefile"
 alias vime="vim (find . -maxdepth 1 -iname 'readme*' -print -quit)"
 
-alias vim='nvim'
 alias vi='vim'
 alias ci='vim'
 alias bi='vim'
@@ -453,10 +449,32 @@ function git_config_init
 end
 # Git Permission Reset
 function git_reset_permissions
-    git diff -p \
-        | command grep -E '^(diff|old mode|new mode)' \
-        | sed -e 's/^old/NEW/;s/^new/old/;s/^NEW/new/' \
-        | git apply
+    # Initialize an empty variable to hold the patch content
+    set patch_content ""
+
+    # Get the list of files with permission changes
+    # output in form of: mode change 100644 => 100755 lambda.js
+    set files (git diff --summary --diff-filter=MT | grep 'mode change' | awk '{print $3, $5, substr($0, index($0,$6))}')
+    
+    for line in $files
+        if test -z "$line"
+            continue
+        end
+        # Read the old_mode, new_mode, and file name
+        set -l old_mode (echo $line | awk '{print $1}')
+        set -l new_mode (echo $line | awk '{print $2}')
+        set -l file (echo $line | awk '{substr($0, index($0,$3))}')
+
+        # Append to the patch content
+        set patch_content "$patch_content""diff --git a/$file b/$file\n"
+        set patch_content "$patch_content""old mode $new_mode\n"
+        set patch_content "$patch_content""new mode $old_mode\n"
+    end
+
+    # Apply the patch directly from the variable
+    if not test -z "$patch_content"
+        echo -e "$patch_content" | git apply
+    end
 end
 
 # Remove permanently file and purge whole history.

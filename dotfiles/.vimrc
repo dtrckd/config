@@ -28,7 +28,9 @@ Plugin 'gotcha/vimpdb'
 
 
 " File and code Search
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" @«arning: if systeme-wide fzf is installed before, the 'junegunn/fzf' won't be installed and there might be a version clash.
+Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plugin 'junegunn/fzf.vim'
 Plugin 'mileszs/ack.vim'
 "Plugin 'alok/notational-fzf-vim'
 
@@ -194,7 +196,7 @@ let g:NERDDefaultAlign = "left"
 " @requirement:
 " install nerdfont ```
 " mkdir -p ~/.local/share/fonts && cd ~/.local/share/fonts
-" curl -fLo "Droid Sans Mono Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf 
+" curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/DroidSansMNerdFont-Regular.otf
 " fc-cache -fv # try opening a new terminal if you don't see anything
 " ```
 nnoremap <C-p> <cmd>CHADopen<cr>
