@@ -11,7 +11,7 @@ set -e
 Target="$1"
 
 if [ -z "$Target" ]; then
-    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell) | manta | proton | slack | kitty | gdrive | aichat"
+    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell) | manta | proton | slack | kitty | gdrive | aichat | nvim"
     exit
 fi
 
@@ -118,15 +118,17 @@ if [ "$Target" == "manta" ]; then
 fi
 if [ "$Target" == "proton" ]; then
     # Bridge
-    wget https://protonmail.com/download/protonmail-bridge_1.5.7-1_amd64.deb
-    sudo dpkg -i protonmail-bridge_1.5.7-1_amd64.deb
-    rm protonmail-bridge_1.5.7-1_amd64.deb
+    VERSION="3.8.2-1"
+    wget https://proton.me/download/bridge/protonmail-bridge_${VERSION}_amd64.deb
+    sudo dpkg -i protonmail-bridge_${VERSION}_amd64.deb
+    rm protonmail-bridge_${VERSION}_amd64.deb
     # VPN
-    wget https://protonvpn.com/download/protonvpn-stable-release_1.0.1-1_all.deb
-    sudo dpkg -i protonvpn-stable-release_1.0.1-1_all.deb
-    sudo apt-get update
-    rm protonvpn-stable-release_1.0.1-1_all.deb
-    sudo apt-get install protonvpn-cli
+    VERSION="1.0.3-3"
+    wget https://repo.protonvpn.com/debian/dists/stable/main/binary-all/protonvpn-stable-release_${VERSION}_all.deb
+    sudo dpkg -i protonvpn-stable-release_${VERSION}_all.deb
+    rm protonvpn-stable-release_${VERSION}_all.deb
+
+    sudo apt update
 fi
 if [ "$Target" == "slack" ]; then
     wget https://downloads.slack-edge.com/linux_releases/slack-desktop-4.0.2-amd64.deb && \
@@ -153,6 +155,12 @@ if [ "$Target" == "aichat" ]; then
     #mv aichat ~/bin/ai
     cargo install aichat
 fi
+if [ "$Target" == "nvim" ]; then
+    wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    chmod +x nvim.appimage
+    mv nvim.appimage ~/Downloads/
+    #sudo update-alternatives --install /usr/bin/vim vim ~/Download/nvim.appimage 60
+fi
 
 
 ### TODO
@@ -161,6 +169,7 @@ fi
 # virtualbox
 # qemu
 # brave
+# opera
 
 
 # Ethereum (work in ubuntu, not debian 11/2017 => but yes change distribution `bionic` to `xenial`.)

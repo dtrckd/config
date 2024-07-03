@@ -18,7 +18,7 @@
 service docker restart
 
 # Run Mongo
-docker run -d -p 27017:27017 -v /home/dtrckd/src/data/mongo-docker:/data/db mongo
+#docker run -d -p 27017:27017 -v /home/dtrckd/src/data/mongo-docker:/data/db mongo
 
 ## Run Vpn
 #sysctl net.ipv4.ip_forward = 1 # enable forwardind for DNS
