@@ -4,5 +4,10 @@ show_mouse=0
 screenshot_dir=file:/home/dtrckd/src/config/app/home/some_data
 app=gimp-2.10
 last_user=
-action=1
+action=2
+custom_action_command=/usr/libexec/xfce4/screenshooter/scripts/imgur-upload.sh %f %imgur_client_id
+last_extension=png
+enable_imgur_upload=true
+show_in_folder=false
+show_border=1
 

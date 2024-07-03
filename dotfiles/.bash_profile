@@ -121,7 +121,7 @@ alias fuk='fuck'
 alias please='sudo $(fuck -ln -1)'
 alias so='source ~/.bashrc'
 alias cleancolors="sed -r 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' $1"
-#alias python="python -O" # basic optimization (ignore assert, ..)
+alias python="python3"
 alias ipython="ipython --colors linux"
 alias ipython_dev="ipython --profile dev"
 alias py='python3'
@@ -274,7 +274,6 @@ alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Upd
 ### VIM
 #alias vim='vim.nox'
 # @LOCAL
-alias vim='nvim'
 alias vi='vim'
 alias ci='vim'
 alias bi='vim'
@@ -284,12 +283,10 @@ alias vcal='vim -c "Calendar -view=month"' # get calendar
 alias vitodo='vim -p $(find -iname todo -type f)'
 ### Octave
 alias octave='octave --silent'
-alias ai="ai -s"
+alias ai="aichat -s"
 alias aic="command ai"
 alias aic="command ai -c"
 alias air='ai -r'
-alias ai4='ai -m openai:gpt-4'
-alias ai3='ai -m openai:gpt-3.5-turbo'
 
 function vims() {
     # VIM
@@ -516,10 +513,35 @@ function git_config_init() {
 }
 # Git Permission Reset
 function git_reset_permissions() {
-    git diff -p \
-        | command grep -E '^(diff|old mode|new mode)' \
-        | sed -e 's/^old/NEW/;s/^new/old/;s/^NEW/new/' \
-        | git apply
+    # Initialize an empty variable to hold the patch content
+    patch_content=""
+
+    # Get the list of files with permission changes
+    # output in form of: mode change 100644 => 100755 lambda.js
+    files=$(git diff --summary --diff-filter=MT | grep 'mode change' | awk '{print $3, $5, substr($0, index($0,$6))}')
+
+    # Iterate over each line in 'files'
+    while IFS= read -r line; do
+        # Skip empty lines
+        if [ -z "$line" ]; then
+            continue
+        fi
+
+        # Read the old_mode, new_mode, and file name
+        old_mode=$(echo "$line" | awk '{print $1}')
+        new_mode=$(echo "$line" | awk '{print $2}')
+        file=$(echo "$line" | awk '{print substr($0, index($0,$3))}')
+
+        # Append to the patch content
+        patch_content="${patch_content}diff --git a/$file b/$file\n"
+        patch_content="${patch_content}old mode $new_mode\n"
+        patch_content="${patch_content}new mode $old_mode\n"
+    done <<< "$files"
+
+    # Apply the patch directly from the variable
+    if ! [[ -z "$patch_content" ]]; then
+        echo -e "$patch_content" | git apply
+    fi
 }
 
 # Remove permanently file and purge whole history.
@@ -955,7 +977,7 @@ fi
 
 if [ -x $(echo $TMUX |cut -d',' -f1 ) ]; then
     ### FZF
-    [ -f ~/.fzf.bash -a -d ~/.linuxbrew/Cellar/fzf ] && source ~/.fzf.bash
+    #[ -f ~/.fzf.bash -a -d ~/.linuxbrew/Cellar/fzf ] && source ~/.fzf.bash
 
     ### Tmux git prompt
     # git clone git://github.com/drmad/tmux-git.git ~/.tmux-git

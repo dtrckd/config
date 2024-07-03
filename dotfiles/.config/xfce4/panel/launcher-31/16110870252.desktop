@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Exec=/snap/bin/signal-desktop
-Icon=/usr/share/icons/vendor/signal-logo.png
+Icon=/home/dtrckd/Pictures/icon_/signal-logo.png
 StartupNotify=true
 Terminal=false
 Type=Application

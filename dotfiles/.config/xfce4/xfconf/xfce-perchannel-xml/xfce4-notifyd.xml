@@ -24,6 +24,7 @@
       <value type="string" value="nm-applet"/>
       <value type="string" value="notify-send"/>
       <value type="string" value="nw"/>
+      <value type="string" value="org.xfce.Thunar"/>
       <value type="string" value="Screen Grab"/>
       <value type="string" value="signal"/>
       <value type="string" value="Signal"/>
@@ -42,10 +43,11 @@
       <value type="string" value="xfdesktop"/>
     </property>
   </property>
-  <property name="notify-location" type="uint" value="2"/>
-  <property name="log-level" type="uint" value="0"/>
-  <property name="log-level-apps" type="uint" value="0"/>
   <property name="theme" type="string" value="Default"/>
-  <property name="primary-monitor" type="uint" value="0"/>
   <property name="expire-timeout" type="int" value="3"/>
+  <property name="log-max-size-enabled" type="bool" value="true"/>
+  <property name="show-notifications-on" type="string" value="active-monitor"/>
+  <property name="log-level" type="string" value="not-fully-shown"/>
+  <property name="log-level-apps" type="string" value="all"/>
+  <property name="notify-location" type="string" value="top-right"/>
 </channel>

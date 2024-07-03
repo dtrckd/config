@@ -56,16 +56,31 @@ fi
 ######################
 ### Python Dev
 ######################
-if [ $PYTHON == 1 ]; then
+if [ $AGGRESSIVE == 1 ]; then
     #sudo apt install $OPTS gfortran libopenblas-dev python3-tk cython3
     sudo apt install $OPTS python3 python3-dev python3-pip
     # LSP
     pip install python-lsp-server ruff-lsp pylsp-mypy jupyter-lsp
+fi
+if [ $PYTHON == 1 ]; then
     # dev/ia
     pip install cython ipython jupyter matplotlib numpy scipy pandas scikit-learn requests flask fastapi pytest pydantic
     # tools
     pip install pipdeptree pypandoc markdown2ctags pandoc-shortcaption pandoc-eqnos pandoc-fignos pandoc-xnos pandocfilters
     pip install Scrapy scrapy-splash
+
+    # Add unstable python version
+    # sudo apt install -t unstable python3.12
+    #sudo update-alternatives --remove python /usr/bin/python3.11
+    #sudo update-alternatives --remove python /usr/bin/python3.12
+    #sudo update-alternatives --remove python3 /usr/bin/python3.11
+    #sudo update-alternatives --remove python3 /usr/bin/python3.12
+    #sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.11 30
+    #sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.12 10
+    #sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 30
+    #sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 10
+    #sudo update-alternatives --auto python
+    #sudo update-alternatives --auto python3
 fi
 
 ######################
