@@ -125,6 +125,11 @@ _bootstrap:
 	# Root Config
 	#cp dotfiles/.vimshortrc /root/.vimrc
 
+	# SYNC
+	# cp -a /WAVED/main ~/main
+	# cp -a /WAVED/src/config ~/src/config
+	# ./snippets/find_and_reset_git_permissions.sh  /home/dtrckd/main/
+
 _install:
 	cd configure/
 	#./configure.sh
