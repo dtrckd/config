@@ -6,7 +6,7 @@ AGGRESSIVE=1
 MORE=1
 LATEX=1
 XMMS=1
-PYTHON=0
+PYTHON=1
 NGINX=0
 BLUETOOTH=0
 SETUP_ENV=1
@@ -23,7 +23,7 @@ OPTS="-y --no-install-recommends"
 ######################
 ### System
 ######################
-sudo apt install $OPTS sudo aptitude make psmisc rfkill apt-file apt-show-versions htop strace net-tools jq ripgrep curl wget zip xclip mc rsync tmux ranger vim neovim git gitk gitg tree fzf bat xsel git-delta
+sudo apt install $OPTS sudo aptitude make psmisc rfkill apt-file apt-show-versions htop strace net-tools jq ripgrep curl wget zip xclip mc rsync tmux ranger vim neovim git gitk gitg tree bat xsel git-delta
 
 #sudo apt-get install $OPTS firmware-linux-nonfree
 
