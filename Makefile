@@ -55,7 +55,7 @@ tez: $(TEZ) papers
 
 papers:
 	$(info copying papers...)
-	$(foreach paper,$(PAPERS), /bin/cp -u $(paper) $(BD_WEB)/tez/papers/ ;)
+	$(foreach paper,$(PAPERS), cp -u $(paper) $(BD_WEB)/tez/papers/ ;)
 
 web_local:
 	$(info Web Local in $(WEB_LOCAL))
@@ -77,8 +77,6 @@ web_ama:
 # ================================
 # Backdown
 # ================================
-
-BIN_FILES = $(shell cat configure/bin.txt)
 
 configure_server:
 	./configure/conf_serv_my.sh
@@ -112,12 +110,7 @@ get_docker_compose:
 	curl -L "https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-$(shell uname -s)-$(shell uname -m)" -o ~/bin/docker-compose
 	chmod +x ~/bin/docker-compose
 
-configure_laptop: _dotfiles _etc _bin _configure _vim
-
-_install_init:
-	cd app/init_package
-	dpkg -i *.deb
-	cd -
+configure_laptop: _install _bin _dotfiles _etc _plugins
 
 _bootstrap: 
 	# -- Pre bootstrap
@@ -131,31 +124,37 @@ _bootstrap:
 	#remove fish and thefuck from /root/bash_profile
 	# Root Config
 	#cp dotfiles/.vimshortrc /root/.vimrc
-	#
+
+_install:
+	cd configure/
+	#./configure.sh
+	cd -
+
+BIN_FILES = $(shell cat configure/bin.txt)
+
+_bin:
+	mkdir -p ${HOME}/bin
+	$(foreach f,$(BIN_FILES), ln -fs $(f) $(HOME)/bin/$(basename $(notdir $(f))) ;)
 
 _dotfiles:
 	# Warning: Junk file will stay on target (cp don't remove files)
-	ls -A dotfiles/ | xargs -I{} cp -r dotfiles/{}  ~/
+	ls -A dotfiles/ | xargs -I{} cp -a dotfiles/{}  ~/
 
 _etc:
 	sudo cp etc/rc.local /etc
 	sudo chmod +x /etc/rc.local
-	sudo cp -r etc/wpa_supplicant/ /etc
+	sudo /etc/rc.local
+	#sudo cp -r etc/wpa_supplicant/ /etc
 	#sudo cat etc/sysctl.conf >> /etc/sysctl.conf
 
-_bin:
-	mkdir -p ${HOME}/bin
-	$(foreach f,$(BIN_FILES), /bin/ln -fs $(f) $(HOME)/bin/$(basename $(notdir $(f))) ;)
-
-_configure:
-	cd configure/
-	./configure.sh # install package
-	cd -
-
-_vim:
+_plugins:
+	# Vundle
 	mkdir -p ~/.vim/bundle/
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 	vim -c PluginUpdate
+	# Tmux Plugin
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 
 # ================================
 # Backup
