@@ -31,7 +31,7 @@ ranger --copy-config=all
 
 # Optionals (but advised !)
 if [ $AGGRESSIVE == 1 ]; then
-    sudo apt install $OPTS apt-listbugs acpi bmon nmap wireshark fish autossh wkhtmltopdf
+    sudo apt install $OPTS apt-listbugs acpi bmon nmap wireshark fish autossh wkhtmltopdf direnv
     # for protonmail bridge on linux
     sudo apt install $OPTS
     # Build
@@ -58,7 +58,7 @@ fi
 ######################
 if [ $AGGRESSIVE == 1 ]; then
     #sudo apt install $OPTS gfortran libopenblas-dev python3-tk cython3
-    sudo apt install $OPTS python3 python3-dev python3-pip
+    sudo apt install $OPTS python3 python3-dev python3-pip python3-venv
     # LSP
     pip install python-lsp-server ruff-lsp pylsp-mypy jupyter-lsp
 fi

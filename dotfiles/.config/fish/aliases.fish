@@ -630,9 +630,11 @@ alias d='cd -l'
 alias cd-='cd -'
 
 set PX "$HOME/main"
+set MUSIC_DIR "/music/a"
+
 alias cdf="cd $HOME/main/missions/fractale/"
 alias iu="cd $PX"
-alias ium="cd $HOME/Music/"
+alias ium="cd $MUSIC_DIR"
 alias iuc="cd $HOME/src/config/"
 alias iucs="cd $HOME/src/config/snippets"
 alias iut="cd $HOME/Desktop/tt/"
@@ -757,13 +759,13 @@ function xshuff
     # Add random files in xmms2
     if [ "$argv[1]" = "" ]
         set NBF 50
-        set Path "$HOME/Music/"
+        set Path "$MUSIC_DIR"
     else if [ -d "$argv[1]" ]
         set NBF 50
         set Path "$argv[1]"
     else
         set NBF $argv[1]
-        set Path "$HOME/Music/"
+        set Path "$MUSIC_DIR"
     end
 
     set fls (find "$Path" -type f -iname "*.ogg" -o -iname "*.mp4" -o -iname "*.mp3" -o -iname "*.flac")

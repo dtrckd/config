@@ -653,9 +653,11 @@ alias d='cd -l'
 alias cd-='cd -'
 
 PX="${HOME}/main"
+MUSIC_DIR="/music/a"
+
 alias cdf="cd $HOME/main/missions/fractale/"
 alias iu="cd $PX"
-alias ium="cd $HOME/Music/"
+alias ium="cd $MUSIC_DIR"
 alias iuc="cd $HOME/src/config/"
 alias iucs="cd $HOME/src/config/snippets"
 alias iut="cd $HOME/Desktop/tt/"
@@ -778,7 +780,7 @@ xshuff () {
     # Add random files in xmms2
     if [ "$1" == "" ]; then
         NBF=50
-        Path="$HOME/Music/"
+        Path="$MUSIC_DIR"
     elif [ -d "$1" ]; then
         NBF=50
         Path="$1"
@@ -910,9 +912,9 @@ cppversion='g++ -dM -E -x c++  /dev/null | grep -F __cplusplus'
 
 # Python
 if [ -x $(which python) ]; then
-    pythonversion=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
-    export PYTHONPATH="$PX/BaseDump/bots/skopai/common/"
-    export PYTHONPATH="$PYTHONPATH:$PX/thesis/pymake"
+    #pythonversion=$(python --version 2>&1| cut -d ' ' -f 2 | grep -oE '[0-9]\.[0-9]')
+    #export PYTHONPATH="$PX/BaseDump/bots/skopai/common/"
+    #export PYTHONPATH="$PYTHONPATH:$PX/thesis/pymake"
 
     # Numpy
     export OMP_NUM_THREADS=1  # Number of thread used by numpy
