@@ -1,7 +1,22 @@
+# Secrets
+.env
+.envrc
+
+.mypy.ini
+
+
+# Builds
 *.swp
 *.swo
 .session.vim
-__pycache__/
-.virtual_documents/
 .tags
-.mypy.ini
+__pycache__/
+.pytest_cache/
+.virtual_documents/
+.ipynb_checkpoints/
+.mypy_cache/
+.ruff_cache/
+.direnv/
+vendor/
+node_modules/
+elm-stuff/

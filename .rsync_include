@@ -23,10 +23,11 @@ build/
 *.[ao]
 *.aux
 *.bb[lg]
-.pytest_cache/***
+.pytest_cache/
 doc/html/
 doc/graph/
 .ipynb_checkpoints/
+.virtual_documents/
 notebook/127.0.0.1/
 .virtualenv/
 _virtualenv/

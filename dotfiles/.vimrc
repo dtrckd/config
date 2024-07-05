@@ -256,8 +256,8 @@ cnoreabbrev Ack Ack!
 "cnoreabbrev ack Ack
 """ Fuzzy search > fzf, ack, ag, ripgrep familly !
 noremap F :FZF<cr>
-noremap ! :FZF<cr>
-noremap § :FZF %:p:h<cr>
+noremap ! :Files<cr>
+noremap § :Files %:p:h<cr>
 let g:fzf_buffers_jump = 1
 " @DEBUG: how to set <C-enter> to open in a new tab ?
 let g:fzf_action = {
