@@ -57,17 +57,18 @@ fi
 ### Python Dev
 ######################
 if [ $AGGRESSIVE == 1 ]; then
-    #sudo apt install $OPTS gfortran libopenblas-dev python3-tk cython3
+    # Debian dependancies.
     sudo apt install $OPTS python3 python3-dev python3-pip python3-venv
     # LSP
     pip install python-lsp-server ruff-lsp pylsp-mypy jupyter-lsp
 fi
 if [ $PYTHON == 1 ]; then
     # dev/ia
+    #sudo apt install $OPTS gfortran libopenblas-dev python3-tk cython3
     pip install cython ipython jupyter matplotlib numpy scipy pandas scikit-learn requests flask fastapi pytest pydantic
     # tools
-    pip install pipdeptree pypandoc markdown2ctags pandoc-shortcaption pandoc-eqnos pandoc-fignos pandoc-xnos pandocfilters
-    pip install Scrapy scrapy-splash
+    pip install pip_search pipdeptree pypandoc markdown2ctags pandoc-shortcaption pandoc-eqnos pandoc-fignos pandoc-xnos pandocfilters
+    #pip install Scrapy scrapy-splash
 
     # Add unstable python version
     # sudo apt install -t unstable python3.12

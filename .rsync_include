@@ -17,7 +17,7 @@ site-packages/
 __pycache__/
 dist/
 build/
-*.egg*
+*.egg-info
 *cpython*.so
 *.py[co]
 *.[ao]

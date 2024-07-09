@@ -11,7 +11,7 @@ set -e
 Target="$1"
 
 if [ -z "$Target" ]; then
-    echo "Please enter: mongo | atom | signal | wekan | robot3t | pycharm | drawio | fish (fishshell) | manta | proton | slack | kitty | gdrive | aichat | nvim"
+    echo "Please enter: mongo | signal | wekan | robot3t | drawio | fish (fishshell) | manta | proton | kitty | gdrive | aichat | nvim"
     exit
 fi
 
@@ -37,22 +37,6 @@ if [ "$Target" == "mongo" ]; then
     docker pull mongo[:tag]
     # run mongo with port forward and map local drive to access storage
     docker run -d -p 27017:27017 -v /home/dtrckd/src/data/mongo-docker:/data/db mongo
-fi
-if [ "$Target" == "atom" ]; then
-    pushd ~/Downloads/
-    ## Get Atom
-    #wget https://atom.io/download/deb?channel=beta -O atom-beta.deb
-    ## Install Atom
-    #sudo dpkg -i atom-beta.deb
-    ## Configure atom
-	#apm-beta install --packages-file ~/src/config/dotfiles/.atom/package-list.txt
-    #popd
-
-    wget -qO - https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
-    sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
-    sudo apt-get update
-    sudo apt-get install atom
-	apm install --packages-file ~/src/config/dotfiles/.atom/package-list.txt
 fi
 if [ "$Target" == "wekan" ]; then
     # Wekan
@@ -95,6 +79,7 @@ if [ "$Target" == "signal" ]; then
     sudo apt update && sudo apt install signal-desktop
 fi
 if [ "$Target" == "drawio" ]; then
+    # Use excalibur insstead !
     git clone --recursive https://github.com/jgraph/drawio-desktop.git
     cd drawio-desktop
     npm install
@@ -130,18 +115,14 @@ if [ "$Target" == "proton" ]; then
 
     sudo apt update
 fi
-if [ "$Target" == "slack" ]; then
-    wget https://downloads.slack-edge.com/linux_releases/slack-desktop-4.0.2-amd64.deb && \
-        sudo dpkg -i slack-desktop-4.0.2-amd64.deb && \
-        rm slack-desktop-4.0.2-amd64.deb
-fi
 if [ "$Target" == "kitty" ]; then
     # Install or update kitty.
     # https://sw.kovidgoyal.net/kitty/binary/
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 fi
 if [ "$Target" == "gdrive" ]; then
-    URL="https://github.com/glotlabs/gdrive/releases/download/3.9.1/gdrive_linux-x64.tar.gz"
+    VERSION="3.9.1"
+    URL="https://github.com/glotlabs/gdrive/releases/download/$VERSION/gdrive_linux-x64.tar.gz"
     wget $URL
     tar zxvf $(basename $URL)
     rm $(basename $URL)
