@@ -255,6 +255,7 @@ cnoreabbrev Ack Ack!
 "cnoreabbrev ag Ack
 "cnoreabbrev ack Ack
 """ Fuzzy search > fzf, ack, ag, ripgrep familly !
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 noremap F :FZF<cr>
 noremap ! :Files<cr>
 noremap § :Files %:p:h<cr>
@@ -850,9 +851,8 @@ map <Esc>[B <Down>
 inoremap <C-L> <Esc>
 nnoremap <silent> <Esc> :noh<cr>
 " Close preview & quickfix list
-nnoremap <silent> q :pclose<cr>
-"nnoremap <silent> q :pclose \| cclose <cr>
-autocmd FileType qf nnoremap <buffer> q :cclose<cr>
+"nnoremap <silent> q :pclose<cr>
+"autocmd FileType qf nnoremap <buffer> q :cclose<cr>
 " unmap K
 map <S-k> <Nop>
 """ Window moves
@@ -966,6 +966,17 @@ function! ReplaceAccentsGlobally()
 endfunction
 
 command ReplaceAccentsGlobally call ReplaceAccentsGlobally()
+
+""""""""""""""""""""""""""""""
+""" Preview Window
+""""""""""""""""""""""""""""""
+augroup PreviewWindow
+    autocmd!
+    " When entering a preview window, map q to :pclose
+    autocmd FileType preview nnoremap <buffer> q :pclose<CR>
+    " Optionally, you can unmap q when leaving the preview window if you want to be extra sure
+    autocmd WinLeave * if &filetype == 'preview' | nunmap <buffer> q | endif
+  augroup END
 
 """"""""""""""""""""""""""""""
 """ QuickFix
