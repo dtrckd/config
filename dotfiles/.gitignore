@@ -10,6 +10,7 @@
 *.swo
 .session.vim
 .tags
+*.egg-info
 __pycache__/
 .pytest_cache/
 .virtual_documents/

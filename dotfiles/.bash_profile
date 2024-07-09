@@ -686,7 +686,7 @@ alias iuscrapy="cd $HOME/.local/lib/python3.7/site-packages/scrapy/"
 alias cdwww="cd $PX/perso/Projects/Informatique/Reseau/www"
 alias cdsys="cd $PX/perso/Projects/Informatique/System"
 alias cdrez="cd $PX/perso/Projects/Informatique/Reseau/"
-alias cdid="cd $PX/perso/Papiers/me/"
+alias cdme="cd $PX/perso/Papiers/me/"
 alias cdp="cd $PX/perso/Papiers/"
 alias cdai="cd ~/.config/aichat/sessions"
 alias cdm="cd $PX/missions" # mission / kaggle / etc
@@ -875,10 +875,10 @@ bind '"\e[Z": menu-complete-backward' # shift tab cycles backward
 bind "Control-q: complete" # stop to cycling and seek take the next key
 bind 'set completion-ignore-case on' # Case insensitive when tab completing
 
-HISTSIZE=2000
-HISTFILESIZE=2000
-IGNOREEOF=1   # Shell only exists after the nth consecutive Ctrl-d
-
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+export IGNOREEOF=1   # Shell only exists after the nth consecutive Ctrl-d
+export HISTIGNORE="rm -rf *"
 export HISTTIMEFORMAT="%d/%m/%Y %H:%M:%S "
 export LD_LIBRARY_PATH="/usr/lib:/usr/local/lib:/opt/lib:/usr/lib32"
 export LD_RUN_PATH="/usr/local/lib:/usr/lib:/usr/lib32"
