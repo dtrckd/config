@@ -1,29 +1,32 @@
 #!/usr/bin/env python3
-import sys, os
-#from lxml.html.soupparser import fromstring
+
+import sys
 from lxml import html
+
+USAGE = "Usage: xpath PATTERN FILE"
+
 
 def parse_args(settings):
     # Script Arguments Parsing
     j = 1
     if len(sys.argv) < 2:
-        print(settings['usage'])
+        print(settings["usage"])
         exit(1)
 
     for i, _arg in enumerate(sys.argv):
         arg = sys.argv[j]
         if arg == "-v":
-            settings['verbose'] = 1
-        elif arg in ("-s", '--short'):
-            settings['short'] = True
+            settings["verbose"] = 1
+        elif arg in ("-s", "--short"):
+            settings["short"] = True
         else:
-            if settings.get('pattern') is None:
-                settings['pattern'] = arg
-            elif settings.get('file') is None:
-                settings['file'] = arg
+            if settings.get("pattern") is None:
+                settings["pattern"] = arg
+            elif settings.get("file") is None:
+                settings["file"] = arg
 
             if j == 0:
-                print(settings['usage'])
+                print(settings["usage"])
                 exit(1)
 
         j += 1
@@ -31,21 +34,19 @@ def parse_args(settings):
             break
 
 
-if __name__ == '__main__':
-
-
+if __name__ == "__main__":
     settings = dict(
-        debug = -1,
-        verbose = None,
-        usage = 'Usage: xpath PATTERN FILE',
-        file = None,
-        pattern = None,
+        debug=-1,
+        verbose=None,
+        usage=USAGE,
+        file=None,
+        pattern=None,
     )
 
     parse_args(settings)
 
-    pattern = settings['pattern']
-    fn = settings['file']
+    pattern = settings["pattern"]
+    fn = settings["file"]
     with open(fn) as _f:
         strings = _f.read()
 
@@ -55,5 +56,3 @@ if __name__ == '__main__':
             print(html.tostring(node))
         except:
             print(node)
-
-
