@@ -29,11 +29,13 @@ tags
 /dotfiles/.config/aichat/
 /dotfiles/.local/share/
 # --
+/etc/fstab
+/etc/wpa_supplicant/
+# --
 /configure/snapshots/
 /configure/blue/
 /configure/bin.txt
 /configure/nodeslist
-/etc/wpa_supplicant/
 /credentials/
 # --
 /app/
