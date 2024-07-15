@@ -34,7 +34,7 @@ while [[ $# -gt 0 ]]; do
     case "$1" in
         -h|--help)
             Help
-            shift ;;
+            exit 0
         -v|--verbose)
             DEEPNESS=""
             shift ;;
