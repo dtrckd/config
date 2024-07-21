@@ -109,7 +109,7 @@ if test -x /bin/exa
 end
 
 if test -x /bin/batcat
-    alias cat="batcat"
+    alias cat="batcat --style rule,header-filename,header,changes,snip"
     alias bcat="batcat"
     alias mdcat="mdcat -p"
 end
@@ -181,6 +181,11 @@ set _NDL "$HOME/src/config/configure/nodeslist"
 alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
 
 
+alias jerr='journalctl -r -p err -b'
+function clipboard; command cat $argv[1] |string trim -c "\n" | xsel -bi; end
+function lineat; sed -n "$argv[1]p" "$argv[2]" ; end
+alias curlH='curl -I'
+alias myip='curl https://tools.aquilenet.fr/ip/ && echo'
 alias psa="ps -aux --sort=-start_time | grep -i --color"
 alias pstree='pstree -h'
 alias ps_vi='echo "mem% for vim+lsp" && ps aux --sort=-%mem | grep -iE "copilot|vim|lsp|gopls" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
@@ -193,15 +198,9 @@ alias lsoftop='sudo lsof | awk '\''{print $1 " " $2}'\'' | sort | uniq -c | sort
 alias riprm='shred -zuv -n1'
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
-alias f='fzf' # fuzzy match
+alias f='fzf | clipboard' # fuzzy match
 function ff; find -iname "*$argv[1]*" ; end # wide match
 function fff; find -iname "$argv[1]" ; end # exact match
-alias jerr='journalctl -r -p err -b'
-function clipboard; command cat $argv[1] |string trim -c "\n" | xsel -bi; end
-function lineat; sed -n "$argv[1]p" "$argv[2]" ; end
-alias curlH='curl -I'
-alias myip='curl https://tools.aquilenet.fr/ip/ && echo'
-alias vpn_aqui='sudo openvpn /etc/openvpn/aqn.conf'                                      
 alias pvpn="protonvpn-cli"
 alias nmapw='nmap -sT -P0 -sV -p80,443 --script=http-headers'
 alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
@@ -503,6 +502,44 @@ end
 #    svn checkout ${a/tree\/master/trunk}
 #end
 
+
+function git_branch_status
+    # Fetch all branches
+    #git fetch --all > /dev/null 2>&1
+
+    # Get a list of all local branches
+    set local_branches (git branch | sed 's/*//')
+
+    # Initialize arrays to hold merged and non-merged branches
+    set merged_branches
+    set non_merged_branches
+
+    # Iterate over each local branch
+    for branch in $local_branches
+        # Trim whitespace
+        set branch (echo $branch | string trim)
+
+        # Check if the branch has been merged
+        if git log --merges --oneline | grep -q "Merge branch '$branch'"
+            set merged_branches $merged_branches $branch
+        else
+            set non_merged_branches $non_merged_branches $branch
+        end
+    end
+
+    # Print merged branches
+    echo "Merged Branches:"
+    for merged_branch in $merged_branches
+        echo "  $merged_branch"
+    end
+
+    # Print non-merged branches
+    echo "Non-Merged Branches:"
+    for non_merged_branch in $non_merged_branches
+        echo "  $non_merged_branch"
+    end
+end
+
 function restore_alsa
     while [ -z (pidof pulseaudio) ];
         sleep 0.5
@@ -601,6 +638,11 @@ function _cd
             popd > /dev/null
         end
 
+    else if [ "$argv[1]" = "-r" ] && string match -arq "^[0-9]+\$" "$argv[2]"
+        # use `_cd -r N` to remove the Nth directory in history
+        set n (math $argv[2])
+        set dirstack (echo $dirstack | tr ' ' '\n' | sed (string join "" $n "d"))
+
     else if [ "$argv[1]" = "..." ]
         builtin cd ..
         builtin cd ..;
@@ -674,6 +716,12 @@ function r
     # Check for minimum number of arguments
     if test (count $argv) -lt 1
         echo "Usage: r <remote_destination> [rsync_options]"
+        return 1
+    end
+
+    # Check if .gitignore file exists in the current directory
+    if not test -f .gitignore
+        echo ".gitignore file not found in the current directory."
         return 1
     end
 

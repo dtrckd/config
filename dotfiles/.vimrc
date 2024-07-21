@@ -255,7 +255,8 @@ cnoreabbrev Ack Ack!
 "cnoreabbrev ag Ack
 "cnoreabbrev ack Ack
 """ Fuzzy search > fzf, ack, ag, ripgrep familly !
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+"let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --ignore .git'
+let $FZF_DEFAULT_COMMAND = exists('$FZF_DEFAULT_COMMAND') ? $FZF_DEFAULT_COMMAND : 'rg --files --hidden --ignore .git'
 noremap F :FZF<cr>
 noremap ! :Files<cr>
 noremap § :Files %:p:h<cr>
