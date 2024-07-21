@@ -165,9 +165,10 @@ _plugins:
 # Backup
 # ================================
 
-backup: backbin snapshot calendar backup_firefox backup_thunderbird
+backup: backbin snapshot  #backup_firefox backup_thunderbird
 	# backup dotfiles
 	./diffdot.sh -v -c
+	# backup growing folders
 	cp -vr	~/.config/aichat dotfiles/.config/
 	cp -vr ~/.config/nvim/coq-user-snippets/ dotfiles/.config/nvim/
 	cp -rv ~/.local/share/nvim/session/* dotfiles/.local/share/nvim/session/
@@ -186,14 +187,6 @@ snapshot:
 	brew list > configure/snapshots/brew
 	cargo install --list > configure/snapshots/cargo
 
-calendar:
-	# Deprecated (we use thunderbiar calendar)
-	#echo "Backup calendar..."
-	#cd ~/.cache/calendar.vim && \
-	#	git add * && \
-	#	git commit -am "backup" && \
-	#	git push && \
-	#	cd -
 
 backup_firefox:
 	find ${HOME}/.mozilla/firefox/snctzemu.default-esr -name "logins.json" -o -name "key[34].db" -o -name "search.json*" | xargs -I{} rsync --progress -R {} ./app/home/firefox

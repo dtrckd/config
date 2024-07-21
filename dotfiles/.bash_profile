@@ -106,7 +106,7 @@ if [ -x /bin/exa ]; then
 fi
 
 if [ -x /bin/batcat ]; then
-    alias cat="batcat"
+    alias cat="batcat --style rule,header-filename,header,changes,snip"
     alias bcat="batcat"
     alias mdcat="mdcat -p"
 fi
@@ -189,6 +189,9 @@ _PWD="/home/ama/adulac/main/thesis/repo/ml/"
 _NDL="$HOME/src/config/configure/nodeslist"
 alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
 
+alias jerr='journalctl -r -p err -b'
+clipboard() { command cat "$0" | xsel -bi; }
+lineat() { sed -n "${1}p" "${2}"; }
 alias psa="ps -aux --sort=-start_time | grep -i --color"
 alias pstree='pstree -h'
 alias ps_vi='echo "mem% for vim+lsp" && ps aux --sort=-%mem | grep -iE "copilot|vim|lsp|gopls" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 
@@ -201,12 +204,9 @@ alias memtop='ps aux --sort=-%mem | awk '\''{print "CPU: "$3"%", "MEM: "$4"%", "
 alias riprm='shred -zuv -n1' # find <directory> -depth -type f -exec shred -v -n 1 -z -u {} \;
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
-alias f='fzf' # fuzzy match
+alias f='fzf | clipboard' # fuzzy match
 ff () { find -iname "*$1*"; } # wide match
 fff () { find -iname "$1"; } # exact match
-alias jerr='journalctl -r -p err -b'
-clipboard() { command cat "$0" | xsel -bi; }
-lineat() { sed -n "${1}p" "${2}"; }
 ### Network
 alias curlH='curl -I'
 # curl ip.appspot.com'
@@ -561,6 +561,43 @@ function git_eradicate_purge() {
     #git push origin master --force
 }
 
+git_branch_status() {
+    # Fetch all branches
+    #git fetch --all > /dev/null 2>&1
+
+    # Get a list of all local branches
+    local_branches=$(git branch | sed 's/*//')
+
+    # Initialize arrays to hold merged and non-merged branches
+    merged_branches=()
+    non_merged_branches=()
+
+    # Iterate over each local branch
+    for branch in $local_branches; do
+        # Trim whitespace
+        branch=$(echo $branch | xargs)
+
+        # Check if the branch has been merged
+        if git log --merges --oneline | grep -q "Merge branch '$branch'"; then
+            merged_branches+=($branch)
+        else
+            non_merged_branches+=($branch)
+        fi
+    done
+
+    # Print merged branches
+    echo "Merged Branches:"
+    for merged_branch in "${merged_branches[@]}"; do
+        echo "  $merged_branch"
+    done
+
+    # Print non-merged branches
+    echo "Non-Merged Branches:"
+    for non_merged_branch in "${non_merged_branches[@]}"; do
+        echo "  $non_merged_branch"
+    done
+}
+
 if [ -d $HOME/src/config/credentials/ ]; then
     alias neocities="NEOCITIES_KEY=$(cat $HOME/src/config/credentials/adrien-dulac.neocities) neocities"
     #alias neocities="NEOCITIES_KEY=$(cat $HOME/src/config/credentials/pymake.neocities) neocities"
@@ -622,6 +659,10 @@ function _cd() {
       for i in $(seq 1 ${1/+/}); do
           popd > /dev/null
       done
+  elif [ "$1" = "-r" ] && [[ "$2" =~ ^[0-9]+$ ]]; then
+      # use `_cd -r N` to remove the Nth directory in history
+      n=$(( $2 + 1 ))
+      dirstack=$(echo "$dirstack" | tr ' ' '\n' | sed "${n}d")
 
 
   elif [ "$1" == "..." ]; then
