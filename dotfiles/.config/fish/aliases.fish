@@ -37,6 +37,11 @@ export TERM="xterm-kitty"
 function _aichat_fish
     set -l _old (commandline)
     if test -n $_old
+        # Push the current command onto the history stack
+        echo "- cmd: $_old" >> ~/.local/share/fish/fish_history
+        echo "  when: (date +%s)" >> ~/.local/share/fish/fish_history
+        history --merge
+
         echo -n "⌛"
         commandline -f repaint
         commandline (aichat -e $_old)

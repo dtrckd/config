@@ -240,7 +240,7 @@ alias lzd="lazydocker"
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor,.direnv}'
 export FZF_DEFAULT_COMMAND="rg --hidden -g '!.git/' -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/' -g '!.direnv/' -g '!.tags' -l ''"
-alias rg="rg --hidden -g '!.git/' -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/' -g '!direnv/' -g '!.tags'"
+alias rg="rg --hidden -g '!.git/' -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/' -g '!.direnv/' -g '!.tags'"
 alias rgi="rg -i"
 alias grepi="grep -i"
 alias grepy='find -iname "*.py" | xargs grep --color -n'
