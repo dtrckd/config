@@ -15,16 +15,10 @@ ln -s $(pwd)/snippets/fw.sh ~/bin/fw
 ln -s $(pwd)/snippets/fw6.sh ~/bin/fw6
 
 # Reset/Configure ssh
-sudo ./snippets/edit_config_line "PermitEmptyPasswords" "no" /etc/ssh/sshd_config
-sudo ./snippets/edit_config_line "PermitRootLogin" "no" /etc/ssh/sshd_config
-sudo ./snippets/edit_config_line "PermitEmptyPasswords" "no" /etc/ssh/sshd_config
-sudo ./snippets/edit_config_line "ChallengeResponseAuthentication" "no" /etc/ssh/sshd_config
-sudo ./snippets/edit_config_line "PasswordAuthentication" "no" /etc/ssh/sshd_config
-sudo ./snippets/edit_config_line "UsePAM" "no" /etc/ssh/sshd_config
-sudo ./snippets/edit_config_line "AuthenticationMethods" "publickey" /etc/ssh/sshd_config
-sudo ./snippets/edit_config_line "PubkeyAuthentication" "yes" /etc/ssh/sshd_config
-sudo systemctl restart ssh
-sudo systemctl restart sshd
+#sudo ./snippets/edit_config_line "PermitRootLogin" "no" /etc/ssh/sshd_config
+#sudo ./snippets/edit_config_line "UsePAM" "no" /etc/ssh/sshd_config
+#sudo systemctl restart ssh
+#sudo systemctl restart sshd
 
 # Reset/Configure Profile
 cp -r dotfiles/{.bash_profile,.tmux.conf} ~/

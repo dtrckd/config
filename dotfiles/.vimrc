@@ -1064,12 +1064,11 @@ au filetype make set noexpandtab softtabstop=0
 """ Conf Files
 """"""""""""""""""""""""""""""
 au BufNewFile,BufRead *.*rc set tw=0
-au filetype vim set ts=2 sts=2 sw=2
+au filetype vim,conf set ts=2 sts=2 sw=2
 
 """"""""""""""""""""""""""""""
 """ Python Files
 """"""""""""""""""""""""""""""
-au BufNewFile,BufRead *.py set tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent fileformat=unix
 au BufNewFile,BufRead *.py set formatoptions-=tc " prevent inserting \n. Where does it come from ????
 
 func! DeleteTrailingWS()
@@ -1105,7 +1104,7 @@ au filetype cpp set fdm=syntax
 """"""""""""""""""""""""""""""
 """ HTML Files
 """"""""""""""""""""""""""""""
-au BufNewFile,BufRead  *.html,*.css,*.scss,*.sass,*.less set tabstop=4 softtabstop=4 shiftwidth=4 nowrap
+au BufNewFile,BufRead *.html,*.css,*.scss,*.sass,*.less set ts=2 sts=2 sw=2 nowrap
 
 
 " Multiple code (web2py...)
