@@ -50,6 +50,11 @@ Plugin 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plugin 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plugin 'ms-jpq/coq.thirdparty', {'branch': '3p'}
 "Plugin 'metakirby5/codi.vim'
+
+" Tabby plugin
+"Plugin 'TabbyML/vim-tabby'
+
+
 " --
 "Plugin 'ycm-core/YouCompleteMe'
 "Plugin 'ajh17/VimCompletesMe'
@@ -101,6 +106,9 @@ Plugin 'ryanoasis/vim-devicons'
 """""""""""""""""""""""""""
 """ Plugin conf
 """""""""""""""""""""""""""
+
+let g:tabby_keybinding_accept = '<Tab>'
+
 
 """ Editorconfig
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']

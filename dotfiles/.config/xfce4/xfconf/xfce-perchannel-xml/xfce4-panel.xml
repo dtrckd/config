@@ -153,6 +153,7 @@
         <value type="string" value="zoom"/>
       </property>
       <property name="known-legacy-items" type="array">
+        <value type="string" value="wi-fi network connection “sfr_6d4f” active: sfr_6d4f (85%)"/>
         <value type="string" value="wi-fi network connection “beta.gouv.fr” active: beta.gouv.fr (48%)"/>
         <value type="string" value="wi-fi network connection “beta.gouv.fr” active: beta.gouv.fr (44%)"/>
         <value type="string" value="system-config-printer"/>
