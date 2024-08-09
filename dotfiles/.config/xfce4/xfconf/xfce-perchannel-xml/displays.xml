@@ -35,8 +35,8 @@
       <property name="Reflection" type="string" value="0"/>
       <property name="Primary" type="bool" value="false"/>
       <property name="Scale" type="empty">
-        <property name="X" type="double" value="0"/>
-        <property name="Y" type="double" value="0"/>
+        <property name="X" type="double" value="1"/>
+        <property name="Y" type="double" value="1"/>
       </property>
       <property name="Position" type="empty">
         <property name="X" type="int" value="0"/>
@@ -90,7 +90,7 @@
         <property name="Y" type="double" value="1"/>
       </property>
       <property name="Position" type="empty">
-        <property name="X" type="int" value="1366"/>
+        <property name="X" type="int" value="0"/>
         <property name="Y" type="int" value="0"/>
       </property>
     </property>
@@ -98,7 +98,7 @@
   <property name="ActiveProfile" type="string" value="Default"/>
   <property name="Fallback" type="empty">
     <property name="eDP-1" type="string" value="Laptop">
-      <property name="Active" type="bool" value="false"/>
+      <property name="Active" type="bool" value="true"/>
       <property name="EDID" type="string" value="2dd5a9c3ee5cf2879ef1ced503a6a8e66da22f3e"/>
       <property name="Resolution" type="string" value="1366x768"/>
       <property name="RefreshRate" type="double" value="60.110679982189431"/>
@@ -110,7 +110,7 @@
         <property name="Y" type="double" value="1"/>
       </property>
       <property name="Position" type="empty">
-        <property name="X" type="int" value="1920"/>
+        <property name="X" type="int" value="0"/>
         <property name="Y" type="int" value="0"/>
       </property>
     </property>
