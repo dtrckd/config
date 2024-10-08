@@ -75,10 +75,11 @@ local servers = {
     'pylsp',
     'ruff_lsp',
     --'pyright',
-    'tsserver',
+    'ts_ls',
     'yamlls',
     'dockerls',
-    'rust_analyzer'
+    'rust_analyzer',
+    'tabby_ml'
 }
 
 local configs = {
@@ -120,8 +121,7 @@ local configs = {
             --    client.config.flags.allow_incremental_sync = true
             --end
             -- Auto format on save
-            -- @DEBUG: still use zaptic/elm-format becaus format with lsp is so slow :(
-            --vim.cmd [[autocmd BufWritePre *.elm lua vim.lsp.buf.format()]]
+            vim.cmd [[autocmd BufWritePre *.elm lua vim.lsp.buf.format()]]
             -- Tame diagnostics (https://github.com/neovim/nvim-lspconfig/issues/127)
             --vim.api.nvim_command [[autocmd InsertLeave <buffer> lua publish_diagnostics()]]
         end
@@ -239,7 +239,7 @@ local configs = {
     --    }
     --},
     -- Typescript/Javascript
-    --tsserver = { },
+    --ts_ls = { },
     yamlls = {
         settings = {
             schemas = {
@@ -265,7 +265,9 @@ local configs = {
         settings = {
             ['rust-analyzer'] = {},
         },
-    }
+    },
+    -- Typescript/Javascript
+    tabby_ml = {},
 }
 
 for _, lsp in ipairs(servers) do
@@ -361,8 +363,8 @@ map('n', '<leader>S', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 -- Use the built-in LSP functions to show signatures. For example, you can use `K` (hover) to show the function signature when your cursor is on the function name:
 map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
 
--- <c-a> do not worl if set before...
-require("coq_3p") {
-    { src = "copilot", short_name = "COP", accept_key = "<c-enter>" },
-    --{ src = "codeium", short_name = "COD" },
-}
+-- <c-a> do not work if set before...
+--require("coq_3p") {
+--    { src = "copilot", short_name = "COP", accept_key = "<c-enter>" },
+--    --{ src = "codeium", short_name = "COD" },
+--}
