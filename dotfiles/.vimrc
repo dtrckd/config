@@ -51,10 +51,6 @@ Plugin 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plugin 'ms-jpq/coq.thirdparty', {'branch': '3p'}
 "Plugin 'metakirby5/codi.vim'
 
-" Tabby plugin
-"Plugin 'TabbyML/vim-tabby'
-
-
 " --
 "Plugin 'ycm-core/YouCompleteMe'
 "Plugin 'ajh17/VimCompletesMe'
@@ -67,9 +63,6 @@ Plugin 'godlygeek/tabular'
 "Plugin 'L3MON4D3/LuaSnip', {'tag': 'v1', 'do': 'make install_jsregexp'} " Replace <CurrentMajor> by the latest released major (first number of latest release)
 
 " File Format / Extra Language
-"Plugin 'posva/vim-vue' 
-"Plugin 'elmcast/elm-vim'  "https://github.com/elm-tooling/elm-vim
-Plugin 'zaptic/elm-vim' 
 Plugin 'rhysd/vim-crystal' 
 Plugin 'jparise/vim-graphql'
 Plugin 'plasticboy/vim-markdown'
@@ -106,8 +99,6 @@ Plugin 'ryanoasis/vim-devicons'
 """""""""""""""""""""""""""
 """ Plugin conf
 """""""""""""""""""""""""""
-
-let g:tabby_keybinding_accept = '<Tab>'
 
 
 """ Editorconfig
@@ -350,7 +341,7 @@ let g:tagbar_autofocus = 1
 nnoremap tc :TagbarShowTag<CR>
 "" ctags alias
 " Ctrl+\ - Open the definition in a new tab
-map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+"map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 " Alt+] - Open the definition in a vertical split
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
@@ -1390,7 +1381,7 @@ fu! SetHi()
   hi TabLineSel ctermfg=white ctermbg=25 guifg=#ffffff guibg=#0369D2
   "hi TabLineFill ctermfg=black
 
-  hi ErrorMsg ctermfg=red ctermbg=none guifg=#ff0000
+  hi ErrorMsg ctermfg=red ctermbg=none guifg=#ff0000 guibg=#000000
 
   """ Gutter
   hi SignColumn ctermbg=235 guibg=#303030

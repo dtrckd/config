@@ -33,6 +33,9 @@ end
 # Kitty...
 export TERM="xterm-kitty"
 
+# do not export kitty term to remote terminal
+alias ssh="env TERM=xterm-256color ssh"
+
 # Aichat command auto-completion
 function _aichat_fish
     set -l _old (commandline)
@@ -84,6 +87,7 @@ alias lq='ls'
 alias sls='ls'
 alias sl='ls'
 alias ll='ls -lh'
+alias lt='ls -lth'
 alias la='ls -A'
 alias lr='ls -R'
 alias lmd='ls *.md'
@@ -133,9 +137,8 @@ alias py3='python3'
 alias xback='xbacklight'
 alias octave='octave --silent'
 alias ai="aichat -s"
-alias aic="command ai"
-alias aicc="command ai -c"
 alias air='ai -r'
+alias aic="aichat -c"
 alias mongoshell="docker exec -it mongodb mongo"
 alias docker_inspect_cmd="docker inspect --format '{{.Config.Cmd}}'"
 alias docker_inspect_env="docker inspect --format '{{ json .Config.Env }}'"
@@ -191,6 +194,7 @@ function clipboard; command cat $argv[1] |string trim -c "\n" | xsel -bi; end
 function lineat; sed -n "$argv[1]p" "$argv[2]" ; end
 alias curlH='curl -I'
 alias myip='curl https://tools.aquilenet.fr/ip/ && echo'
+alias s="s-search"
 alias psa="ps -aux --sort=-start_time | grep -i --color"
 alias pstree='pstree -h'
 alias ps_vi='echo "mem% for vim+lsp" && ps aux --sort=-%mem | grep -iE "copilot|vim|lsp|gopls" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 

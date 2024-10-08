@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Element
-Exec=/opt/Element/element-desktop %U
+Exec=/snap/bin/element-desktop
 Terminal=false
 Type=Application
 Icon=/home/dtrckd/Pictures/icon_/elemen-logo.png

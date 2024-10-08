@@ -1,13 +1,12 @@
 delay=0
 region=3
 show_mouse=0
-screenshot_dir=file:/home/dtrckd/Desktop
+screenshot_dir=file:/home/dtrckd/Pictures/meme
 app=gimp-2.10
 last_user=
 action=2
 custom_action_command=/usr/libexec/xfce4/screenshooter/scripts/imgur-upload.sh %f %imgur_client_id
 last_extension=png
-enable_imgur_upload=true
 show_in_folder=false
 show_border=1
 

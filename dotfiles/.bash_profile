@@ -61,6 +61,7 @@ alias lq='ls'
 alias sls='ls'
 alias sl='ls'
 alias ll='ls -lh'
+alias lt='ls -lth'
 alias la='ls -A'
 alias lr='ls -R'
 alias lmd='ls *.md'
@@ -219,6 +220,7 @@ alias pvpn="protonvpn-cli"
 alias nmapw='nmap -sT -P0 -sV -p80,443 --script=http-headers'
 alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
 alias ntop="/home/dtrckd/.linuxbrew/bin/bandwhich"
+alias s="s-search"
 #alias netl='netstat -taupen'
 alias netl='netstat -plant'
 alias netp='netstat -plant | grep -i stab | awk -F/ "{print \$2 \$3}" | sort | uniq'
