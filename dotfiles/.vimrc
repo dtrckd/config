@@ -25,6 +25,7 @@ Plugin 'preservim/nerdcommenter'
 Plugin 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 Plugin 'gotcha/vimpdb'
 "Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'iamcco/markdown-preview.nvim'
 
 
 " File and code Search
@@ -63,9 +64,10 @@ Plugin 'godlygeek/tabular'
 "Plugin 'L3MON4D3/LuaSnip', {'tag': 'v1', 'do': 'make install_jsregexp'} " Replace <CurrentMajor> by the latest released major (first number of latest release)
 
 " File Format / Extra Language
-Plugin 'rhysd/vim-crystal' 
+Plugin 'rhysd/vim-crystal'
 Plugin 'jparise/vim-graphql'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'NoahTheDuke/vim-just'
 
 " Session
 Plugin 'mhinz/vim-startify'
@@ -119,7 +121,7 @@ let g:go_fmt_command = "goimports"
 "let g:SuperTabClosePreviewOnPopupClose = 1
 "let g:ycm_autoclose_preview_window_after_insertion = 1
 "let g:ycm_autoclose_preview_window_after_completion = 1
-"let g:ycm_auto_hover = ''  " Disable auto tooltip preview 
+"let g:ycm_auto_hover = ''  " Disable auto tooltip preview
 "nnoremap <space> <plug>(YCMHover)
 "" Disable preview window popping up: https://github.com/ycm-core/YouCompleteMe/issues/2015
 "set completeopt-=preview  "let g:ycm_add_preview_to_completeopt = 0
@@ -131,7 +133,7 @@ let g:go_fmt_command = "goimports"
 """ Snippets completion
 " press <Tab> to expand or jump in a snippet. These can also be mapped separately
 " via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
-"-->inoremap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
+"-->inoremap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
 " -1 for jumping backwards.
 "-->inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
 
@@ -256,7 +258,7 @@ cnoreabbrev Ack Ack!
 """ Fuzzy search > fzf, ack, ag, ripgrep familly !
 "let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --ignore .git'
 let $FZF_DEFAULT_COMMAND = exists('$FZF_DEFAULT_COMMAND') ? $FZF_DEFAULT_COMMAND : 'rg --files --hidden --ignore .git'
-noremap F :FZF<cr>
+"noremap F :FZF<cr>
 noremap ! :Files<cr>
 noremap § :Files %:p:h<cr>
 let g:fzf_buffers_jump = 1
@@ -503,12 +505,12 @@ let g:gitgutter_override_sign_column_highlight = 0
 """" Ale language conf
 "" see ~/.vim/bundle/ale/autoload/ale/linter.vim
 "" see also [FIX conf !] ~/.config/nvim/lua/init.lua
-"let g:ale_fixers = { 
+"let g:ale_fixers = {
 "      \  'python': ['autopep8'],
 "      \  'go': [],
 "      \}
 "
-"" Python 
+"" Python
 "" @requirements: pylint, autopep8
 "let g:ale_python_pylint_options = '--rcfile ~/src/config/configure/linters/.pylintrc'
 "let g:ale_python_autopep8_options = '--global-config ~/src/config/configure/linters/.pycodestyle'
@@ -528,7 +530,7 @@ let g:gitgutter_override_sign_column_highlight = 0
 "      \   'callback': 'ale#handlers#unix#HandleAsWarning',
 "      \})
 "
-"""" Elm 
+"""" Elm
 ""let g:elm_format_autosave = 0
 ""let g:elm_make_show_warnings = 0
 "
@@ -539,8 +541,8 @@ let g:gitgutter_override_sign_column_highlight = 0
 "nnoremap <leader>ep :ALEPrevious<CR>
 
 
-" Disabled vim-smoothie
-"let g:smoothie_enabled = 0
+""" Mardown Preview
+nmap <leader>m <Plug>MarkdownPreviewToggle
 
 
 " #######################################
@@ -572,7 +574,7 @@ endfunction
 
 function! Last2Dir()
     let dir = split(getcwd(), "/")[-2]
-    let dir .= "-". split(getcwd(), "/")[-1]
+    let dir .= "-" . tolower(split(getcwd(), "/")[-1])
     return dir
 endfunction
 
@@ -646,7 +648,7 @@ set splitright                     " default vertical split focus
 "set colorcolumn=-1
 "set ff=unix                       " Remove ^M
 
-" Fix for color syntax highlighting breaks for big file after jump or search 
+" Fix for color syntax highlighting breaks for big file after jump or search
 " https://github.com/vim/vim/issues/2790
 syntax sync minlines=2000
 
@@ -743,57 +745,57 @@ set indentkeys-=0#
 set foldmethod=syntax
 "set nofoldenable
 set nofen               " open all folds. see z[mn] command
-" toggle fold on space 
+" toggle fold on space
 nnoremap <space> za
 
 """ Multi-line string (triple quote)
-function! TripleQuoteFold(lnum)                                                                                                                                                                                      
-    let l:lineCount = line('$')                                                                                                                                                                                      
-    let l:inString = 0                                                                                                                                                                                               
-    let l:lastStart = 0                                                                                                                                                                                              
-                                                                                                                                                                                                                     
-    " Loop through each line from the start of the file to the current line                                                                                                                                          
-    " to determine if we're inside a triple-quoted string.                                                                                                                                                           
-    for l:i in range(1, a:lnum)                                                                                                                                                                                      
-        let l:line = getline(l:i)                                                                                                                                                                                    
-                                                                                                                                                                                                                     
-        " Check for triple-quote occurrences in the line.                                                                                                                                                            
-        if l:line =~? '"""'                                                                                                                                                                                          
-            let l:pos = matchstrpos(l:line, '"""')                                                                                                                                                                   
-            " Toggle the inString state if the triple-quote is at the start of the line,                                                                                                                             
-            " preceded by a space/newline, or the line is at BOF.                                                                                                                                                    
-            if l:pos[1] == 0 || l:line[l:pos[1] - 1] =~ '\_s' || l:i == 1                                                                                                                                            
-                if l:inString                                                                                                                                                                                        
-                    " If we're ending a string, check if the current line is part of it.                                                                                                                             
-                    if l:lastStart < a:lnum && a:lnum <= l:i                                                                                                                                                         
-                        return l:i - l:lastStart                                                                                                                                                                     
-                    endif                                                                                                                                                                                            
-                else                                                                                                                                                                                                 
-                    " Mark the start of a new string.                                                                                                                                                                
-                    let l:lastStart = l:i                                                                                                                                                                            
-                endif                                                                                                                                                                                                
-                let l:inString = !l:inString                                                                                                                                                                         
-            endif                                                                                                                                                                                                    
-        endif                                                                                                                                                                                                        
-    endfor                                                                                                                                                                                                           
-                                                                                                                                                                                                                     
-    " If the current line is within a string, determine the fold level.                                                                                                                                              
-    if l:inString                                                                                                                                                                                                    
-        " Continue searching for the end of the string.                                                                                                                                                              
-        for l:i in range(a:lnum, l:lineCount)                                                                                                                                                                        
-            let l:line = getline(l:i)                                                                                                                                                                                
-            if l:line =~? '"""'                                                                                                                                                                                      
-                let l:pos = matchstrpos(l:line, '"""')                                                                                                                                                               
-                if l:pos[1] + 3 == len(l:line) || l:line[l:pos[1] + 3] =~ '\_s'                                                                                                                                      
-                    " Return the fold level based on the end of the string.                                                                                                                                          
-                    return l:i - l:lastStart                                                                                                                                                                         
-                endif                                                                                                                                                                                                
-            endif                                                                                                                                                                                                    
-        endfor                                                                                                                                                                                                       
-    endif                                                                                                                                                                                                            
-                                                                                                                                                                                                                     
-    " Default to no folding if not inside a string.                                                                                                                                                                  
-    return 0                                                                                                                                                                                                         
+function! TripleQuoteFold(lnum)
+    let l:lineCount = line('$')
+    let l:inString = 0
+    let l:lastStart = 0
+
+    " Loop through each line from the start of the file to the current line
+    " to determine if we're inside a triple-quoted string.
+    for l:i in range(1, a:lnum)
+        let l:line = getline(l:i)
+
+        " Check for triple-quote occurrences in the line.
+        if l:line =~? '"""'
+            let l:pos = matchstrpos(l:line, '"""')
+            " Toggle the inString state if the triple-quote is at the start of the line,
+            " preceded by a space/newline, or the line is at BOF.
+            if l:pos[1] == 0 || l:line[l:pos[1] - 1] =~ '\_s' || l:i == 1
+                if l:inString
+                    " If we're ending a string, check if the current line is part of it.
+                    if l:lastStart < a:lnum && a:lnum <= l:i
+                        return l:i - l:lastStart
+                    endif
+                else
+                    " Mark the start of a new string.
+                    let l:lastStart = l:i
+                endif
+                let l:inString = !l:inString
+            endif
+        endif
+    endfor
+
+    " If the current line is within a string, determine the fold level.
+    if l:inString
+        " Continue searching for the end of the string.
+        for l:i in range(a:lnum, l:lineCount)
+            let l:line = getline(l:i)
+            if l:line =~? '"""'
+                let l:pos = matchstrpos(l:line, '"""')
+                if l:pos[1] + 3 == len(l:line) || l:line[l:pos[1] + 3] =~ '\_s'
+                    " Return the fold level based on the end of the string.
+                    return l:i - l:lastStart
+                endif
+            endif
+        endfor
+    endif
+
+    " Default to no folding if not inside a string.
+    return 0
 endfunction
 
 " @warning: this is fuckin long to load big filed. Avoid, too complex!
@@ -915,9 +917,10 @@ inoremap <C-v> <C-[>"+pa
 " Word delete
 nnoremap <silent> dw ciw
 " remap C-w to cut the word before the cursor
-inoremap <C-w> <C-[>dawa
-" remap C-w to cut the word after the cursor
-inoremap <C-s> <C-o>diw 
+"inoremap <C-w> <C-[>bdiwi
+inoremap <C-w> <C-[>dawi
+" remap C-s to cut the after the cursor
+inoremap <C-x> <C-[>diwi
 " Prevent delay when using <C-w> in normal mode
 "tno <c-w><c-w> <c-w><c-w>
 " breaks window movement
@@ -938,7 +941,7 @@ cnoreabbrev vh vert h
 cnoreabbrev vs botright vs
 command T tabe
 " print the current buffer number
-command Bufno :echo bufnr('%') 
+command Bufno :echo bufnr('%')
 
 " Insert and jump to newline before the cursor, in insert mode
 inoremap <A-Enter> <Esc>O
@@ -1038,18 +1041,19 @@ augroup END
 """ Filetypes
 """"""""""""""""""""""""""""""
 
-au BufNewFile,BufRead *.md set filetype=markdown                                           
-au BufNewFile,BufRead *.load set filetype=html                                             
-au BufNewFile,BufRead *.css,*.scss,*.sass,*.less setf scss                                 
-au BufNewFile,BufRead *.prisma,*.graphql,*.gql setf graphql                                
-au BufNewFile,BufRead *.nomad,*.consul,*.toml,*.yaml,*.yml setf conf                             
-au BufNewFile,BufRead *.fish set filetype=sh                                               
-au BufNewFile,BufRead *.nse set filetype=lua                                               
-au BufNewFile,BufRead *.elm set filetype=elm                                               
-au BufNewFile,BufRead *.vue set filetype=vue                                               
-au BufNewFile,BufRead *.cr set filetype=crystal                                            
-au BufNewFile,BufRead *.plt,*.gnuplot,*.gnu set filetype=gnuplot                           
-au BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x "<afile>"                      
+au BufNewFile,BufRead justfile set filetype=just
+au BufNewFile,BufRead *.md set filetype=markdown
+au BufNewFile,BufRead *.load set filetype=html
+au BufNewFile,BufRead *.css,*.scss,*.sass,*.less setf scss
+au BufNewFile,BufRead *.prisma,*.graphql,*.gql setf graphql
+au BufNewFile,BufRead *.nomad,*.consul,*.toml,*.yaml,*.yml setf conf
+au BufNewFile,BufRead *.fish set filetype=sh
+au BufNewFile,BufRead *.nse set filetype=lua
+au BufNewFile,BufRead *.elm set filetype=elm
+au BufNewFile,BufRead *.vue set filetype=vue
+au BufNewFile,BufRead *.cr set filetype=crystal
+au BufNewFile,BufRead *.plt,*.gnuplot,*.gnu set filetype=gnuplot
+au BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x "<afile>"
 
 " prevent changing the indentation when commenting
 autocmd FileType yaml,yaml.ansible setlocal indentkeys-=0#
@@ -1063,7 +1067,7 @@ au filetype make set noexpandtab softtabstop=0
 """ Conf Files
 """"""""""""""""""""""""""""""
 au BufNewFile,BufRead *.*rc set tw=0
-au filetype vim,conf set ts=2 sts=2 sw=2
+au filetype vim,conf,just set ts=2 sts=2 sw=2
 
 """"""""""""""""""""""""""""""
 """ Python Files
@@ -1083,7 +1087,7 @@ autocmd BufWrite *.py,*.pyx,*.pyd,*.c,*.cpp,*.h,*.sh,*.txt,*.js,*.html,*.css,*.g
 """ Docstrings
 """"""""""""""""""""""""""""""
 " To toggle the docstrings in the whole buffer you can use zR and zM, to toggle a single docstring, use za .
-au BufNewFile,BufRead *.graphql,*.py setlocal foldenable foldmethod=syntax 
+au BufNewFile,BufRead *.graphql,*.py setlocal foldenable foldmethod=syntax
 
 """"""""""""""""""""""""""""""
 """ Latex Files
@@ -1139,8 +1143,8 @@ noremap <leader>s? z=
 " toggle wrap line
 nnoremap <leader>, :set wrap!<CR>
 """ set mouse mode
-nnoremap <leader>ma :set mouse=a<CR>
-nnoremap <leader>mo :set mouse=<CR>
+"nnoremap <leader>ma :set mouse=a<CR>
+"nnoremap <leader>mo :set mouse=<CR>
 """ Copy current line to clipboard
 nnoremap <leader>C :.w !xclip -selection clipboard<CR>
 """ Copy all file to clipboard
@@ -1179,27 +1183,27 @@ let g:calendar_first_day = 'monday'
 """ Snippet & Commands
 """"""""""""""""""""""""""""""
 
-" Jump to the next or previous line that has the same level or a lower                     
-" level of indentation than the current line.                                              
-" https://vi.stackexchange.com/a/12870/23459                                               
-function! GoToNextIndent(inc)                                                              
-    " Get the cursor current position                                                      
-    let currentPos = getpos('.')                                                           
-    let currentLine = currentPos[1]                                                        
-    let matchIndent = 0                                                                    
-                                                                                           
-    " Look for a line with the same indent level whithout going out of the buffer          
-    while !matchIndent && currentLine != line('$') + 1 && currentLine != -1                
-        let currentLine += a:inc                                                           
-        let matchIndent = indent(currentLine) == indent('.')                               
-    endwhile                                                                               
-                                                                                           
-    " If a line is found go to this line                                                   
-    if (matchIndent)                                                                       
-        let currentPos[1] = currentLine                                                    
-        call setpos('.', currentPos)                                                       
-    endif                                                                                  
-endfunction                                                                                
+" Jump to the next or previous line that has the same level or a lower
+" level of indentation than the current line.
+" https://vi.stackexchange.com/a/12870/23459
+function! GoToNextIndent(inc)
+    " Get the cursor current position
+    let currentPos = getpos('.')
+    let currentLine = currentPos[1]
+    let matchIndent = 0
+
+    " Look for a line with the same indent level whithout going out of the buffer
+    while !matchIndent && currentLine != line('$') + 1 && currentLine != -1
+        let currentLine += a:inc
+        let matchIndent = indent(currentLine) == indent('.')
+    endwhile
+
+    " If a line is found go to this line
+    if (matchIndent)
+        let currentPos[1] = currentLine
+        call setpos('.', currentPos)
+    endif
+endfunction
 
 " Remap . and ; to navigate between sentences
 nnoremap . (
@@ -1210,10 +1214,10 @@ nnoremap <silent> ) :call GoToNextIndent(1)<CR>
 " { and } already navigate between paragraphs/sections by default
 
 " -------------------------------
-                                                                                           
-func! CurrentFileDir(cmd)                                                                  
-  return a:cmd . " " . expand("%:p:h") . "/"                                               
-endfunc                                                                                    
+
+func! CurrentFileDir(cmd)
+  return a:cmd . " " . expand("%:p:h") . "/"
+endfunc
 
 """ Template
 "http://vim.wikia.com/wiki/Different_syntax_highlighting_within_regions_of_a_file
@@ -1347,7 +1351,7 @@ let &t_TE = "\<Esc>[>4;m"
 
 
 " Fix highligh error with vimdiff
-if &diff 
+if &diff
   set t_Co=256
 endif
 

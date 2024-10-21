@@ -128,7 +128,7 @@ alias ipython_dev="ipython --profile dev"
 alias py='python3'
 alias xback='xbacklight'
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
-alias j=jobs
+alias j=just
 alias tu="htop -u $USER"
 alias iotop="sudo TERM=xterm iotop -o -a -d 2 -h"
 alias diffd="diff -rq $1 $2" # show difference files between dir$1 and dir$2
@@ -273,11 +273,13 @@ alias ls-marked="apt-mark showhold"
 alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
 ### Dev
 alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Update}}{{.}}{{end}}{{end}}' all"
+alias fmake="fzf-make"
 
 ### VIM
 #alias vim='vim.nox'
 # @LOCAL
 alias vi='vim'
+alias vu='vim'
 alias ci='vim'
 alias bi='vim'
 alias vcal='vim -c "Calendar -view=month"' # get calendar
@@ -297,7 +299,7 @@ function vims() {
     # NEOVIM
     CONFDIR="$HOME/.local/share/nvim/session"
 
-    SessionID="$(basename $(dirname $PWD))-$(basename $PWD)"
+    SessionID="$(basename "$(dirname "$PWD")" | tr '[:upper:]' '[:lower:]')-$(basename "$PWD" | tr '[:upper:]' '[:lower:]')"
     # vim-session way
     #if [ -f "$CONFDIR/$SessionID.vim" ]
     #    vim -c "OpenSession $SessionID"
@@ -715,6 +717,7 @@ alias iud="cd $PX/planD/"
 alias iudoc="cd $PX/planD/doc"
 alias iuw="cd $PX/webmain/"
 alias iumd="cd $PX/webmain/mixtures/md"
+alias cdmd="cd $PX/webmain/mixtures/md"
 alias iubb="cd $PX/Blue/bhp/bhp"
 alias iudd="cd $PX/Blue/bhp/data"
 alias iuww="cd $PX/Blue/bhp/wiki"
@@ -732,6 +735,7 @@ alias cdrez="cd $PX/perso/Projects/Informatique/Reseau/"
 alias cdme="cd $PX/perso/Papiers/me/"
 alias cdp="cd $PX/perso/Papiers/"
 alias cdai="cd ~/.config/aichat/sessions"
+alias cdia="cd ~/.config/aichat/sessions"
 alias cdm="cd $PX/missions" # mission / kaggle / etc
 cdlk () { cd $(dirname $(readlink $1)); }
 grepurl () { sed -e  's/.*[hH][rR][eE][fF]=['\"''\'']\([^'\"''\'']*\)['\"''\''].*/\1/' $1; }
