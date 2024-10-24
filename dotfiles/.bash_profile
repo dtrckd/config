@@ -117,7 +117,7 @@ complete -f lla
 
 ### Utility commands
 alias sudo="sudo " # hack to get alias passed
-alias c="command"
+alias c="cat"
 alias fuk='fuck'
 alias please='sudo $(fuck -ln -1)'
 alias so='source ~/.bashrc'
@@ -327,9 +327,11 @@ function upgrademe() {
     sudo aptitude update && sudo aptitude upgrade
     sudo snap refresh
     npm update -g
-    brew update && brew upgrade
+    pip install -U $(pip freeze | rgi "(lsp|server|mypy|jupyter)" | cut -d= -f1)
     vim -c "PluginUpdate"
+    #rustup update # cargo install <package> to upgrade one package
     #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+    #brew update && brew upgrade
 }
 function upgradevim() {
     vim -c "PluginUpdate"
@@ -718,6 +720,7 @@ alias iudoc="cd $PX/planD/doc"
 alias iuw="cd $PX/webmain/"
 alias iumd="cd $PX/webmain/mixtures/md"
 alias cdmd="cd $PX/webmain/mixtures/md"
+alias cdsnip="cd ~/src/config/snippets"
 alias iubb="cd $PX/Blue/bhp/bhp"
 alias iudd="cd $PX/Blue/bhp/data"
 alias iuww="cd $PX/Blue/bhp/wiki"

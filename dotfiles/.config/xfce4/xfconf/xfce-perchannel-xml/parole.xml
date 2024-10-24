@@ -5,10 +5,10 @@
     <property name="font" type="string" value="Sans Bold 20"/>
   </property>
   <property name="folders" type="empty">
-    <property name="last-used-media" type="string" value="/home/dtrckd/Downloads"/>
+    <property name="last-used-media" type="string" value="/home/dtrckd/Downloads/Avengers Infinity War (2018) [BluRay] [1080p] [YTS.AM]"/>
   </property>
   <property name="window" type="empty">
-    <property name="maximized" type="bool" value="false"/>
+    <property name="maximized" type="bool" value="true"/>
     <property name="width" type="int" value="1400"/>
     <property name="height" type="int" value="798"/>
   </property>

@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
-Exec=/snap/bin/signal-desktop
+Exec=/snap/bin/signal-desktop --password-store=gnome-libsecret
 Icon=/home/dtrckd/Pictures/icon_/signal-logo.png
 StartupNotify=true
 Terminal=false
