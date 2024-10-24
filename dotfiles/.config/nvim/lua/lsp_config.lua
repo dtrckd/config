@@ -116,12 +116,29 @@ local configs = {
             --    vim.lsp.diagnostic.on_publish_diagnostics, {
             --    }
             --)
+
             -- Trying to fix erratic behavior with elm-format, on save...
-            --if client.config.flags then
-            --    client.config.flags.allow_incremental_sync = true
-            --end
+            if client.config.flags then
+                client.config.flags.allow_incremental_sync = true
+            end
+
+            -- Function to check if there are any diagnostics with non-zero severity
+            -- TODO: trying to solve the elm-format error log when there is a LSP error !!!
+            local function should_format()
+                local diagnostics = vim.diagnostic.get(bufnr)
+                for _, diagnostic in ipairs(diagnostics) do
+                    if diagnostic.severity == vim.diagnostic.severity.ERROR then
+                        return false
+                    end
+                end
+                return true
+            end
+
             -- Auto format on save
             vim.cmd [[autocmd BufWritePre *.elm lua vim.lsp.buf.format()]]
+            -- Auto format on save if no errors are present (Debug Me)
+            --vim.cmd(string.format("autocmd BufWritePre <buffer=%d> lua if should_format() then vim.lsp.buf.format() end", bufnr))
+
             -- Tame diagnostics (https://github.com/neovim/nvim-lspconfig/issues/127)
             --vim.api.nvim_command [[autocmd InsertLeave <buffer> lua publish_diagnostics()]]
         end

@@ -186,6 +186,7 @@ snapshot:
 	npm list -g --depth 0 > configure/snapshots/npm
 	brew list > configure/snapshots/brew
 	cargo install --list > configure/snapshots/cargo
+	ls $(go env GOPATH)/bin > configure/snapshots/go
 
 
 backup_firefox:

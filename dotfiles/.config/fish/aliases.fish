@@ -124,7 +124,7 @@ if test -x /bin/batcat
 end
 
 ### Utility commands
-alias c="command"
+alias c="cat"
 alias fuk='fuck'
 alias please='sudo (fc -ln -1)'
 alias so='source ~/.config/fish/config.fish'
@@ -147,7 +147,7 @@ alias lzg="lazygit"
 alias lzd="lazydocker"
 alias station="ferdi &"
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
-alias j=jobs
+alias j=just
 alias tu="htop -u $USER"
 alias iotop="sudo TERM=xterm iotop -o -a -d 2 -h"
 alias diffd="diff -rq $argv[1] $argv[2]" # show difference files between dir$1 and dir$2
@@ -179,6 +179,7 @@ alias vk="vim Makefile"
 alias vime="vim (find . -maxdepth 1 -iname 'readme*' -print -quit)"
 
 alias vi='vim'
+alias vu='vim'
 alias ci='vim'
 alias bi='vim'
 alias vcal='vim -c "Calendar -view=month"' # get calendar
@@ -244,6 +245,7 @@ alias ls-ssd='lsblk  -d -o name,rota'
 alias ls-marked="apt-mark showhold"
 alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
 alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Update}}{{.}}{{end}}{{end}}' all"
+alias fmake="fzf-make"
 
 function show
     functions $argv[1] | grep "^ "
@@ -259,7 +261,7 @@ function vims
     # NEOVIM
     set CONFDIR "$HOME/.local/share/nvim/session"
 
-    set SessionID (basename (dirname $PWD))-(basename $PWD)
+    set SessionID (string lower -- (basename (dirname $PWD)))-(string lower -- (basename $PWD))
     #### vim-session way
     #if [ -f "$CONFDIR/$SessionID.vim" ]
     #    vim -c "OpenSession $SessionID"
@@ -288,9 +290,11 @@ function upgrademe
     sudo aptitude update && sudo aptitude upgrade
     sudo snap refresh
     npm update -g
-    brew update && brew upgrade
+    pip install -U (pip freeze | rgi "(lsp|server|mypy|jupyter)" | cut -d= -f1)
     vim -c "PluginUpdate"
+    #rustup update # cargo install <package> to upgrade one package
     #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+    #brew update && brew upgrade
 end
 
 function upgradevim
@@ -699,6 +703,8 @@ alias iud="cd $PX/planD/"
 alias iudoc="cd $PX/planD/doc"
 alias iuw="cd $PX/webmain/"
 alias iumd="cd $PX/webmain/mixtures/md"
+alias cdmd="cd $PX/webmain/mixtures/md"
+alias cdsnip="cd ~/src/config/snippets"
 alias iubb="cd $PX/Blue/bhp/bhp"
 alias iudd="cd $PX/Blue/bhp/data"
 alias iuww="cd $PX/Blue/bhp/wiki"
@@ -716,6 +722,8 @@ alias cdrez="cd $PX/perso/Projects/Informatique/Reseau/"
 alias cdme="cd $PX/perso/Papiers/me/"
 alias cdp="cd $PX/perso/Papiers/"
 alias cdai="cd ~/.config/aichat/sessions"
+alias cdia="cd ~/.config/aichat/sessions"
+alias iuai="cd ~/.config/aichat/sessions"
 alias cdm="cd $PX/missions" # mission / kaggle / etc
 function cdlk;  cd (dirname (readlink $argv[1])); end
 function grepurl; sed -e  's/.*[hH][rR][eE][fF]=['\"''\'']\([^'\"''\'']*\)['\"''\''].*/\1/' $argv[1]; end
