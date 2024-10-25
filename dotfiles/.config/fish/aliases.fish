@@ -246,6 +246,7 @@ alias ls-marked="apt-mark showhold"
 alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
 alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Update}}{{.}}{{end}}{{end}}' all"
 alias fmake="fzf-make"
+alias ranger="yazi"
 
 function show
     functions $argv[1] | grep "^ "
@@ -899,3 +900,5 @@ end
 setxkbmap -option "nbsp:none"
 
 alias nerd_dictation="cd ~/src/gpt/nerd-dictation && ./nerd-dictation begin --vosk-model-dir=./model"
+
+abbr -a vic "vim ~/src/config/"
