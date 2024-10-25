@@ -274,6 +274,7 @@ alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
 ### Dev
 alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Update}}{{.}}{{end}}{{end}}' all"
 alias fmake="fzf-make"
+alias ranger="yazi"
 
 ### VIM
 #alias vim='vim.nox'

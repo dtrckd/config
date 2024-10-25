@@ -1067,7 +1067,7 @@ au filetype make set noexpandtab softtabstop=0
 """ Conf Files
 """"""""""""""""""""""""""""""
 au BufNewFile,BufRead *.*rc set tw=0
-au filetype vim,conf,just,json set ts=2 sts=2 sw=2
+au filetype vim,conf,just,json,toml set ts=2 sts=2 sw=2
 
 """"""""""""""""""""""""""""""
 """ Python Files
