@@ -34,6 +34,8 @@ Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'junegunn/fzf.vim'
 Plugin 'mileszs/ack.vim'
 "Plugin 'alok/notational-fzf-vim'
+"Plugin 'gfanto/fzf-lsp.nvim'
+Plugin 'rmagatti/goto-preview'
 
 " Git
 Plugin 'airblade/vim-gitgutter'
@@ -252,11 +254,7 @@ let g:ack_use_cword_for_empty_search = 1
 
 " Don't jump to first match
 cnoreabbrev Ack Ack!
-"cnoreabbrev Ack Ack!
-"cnoreabbrev ag Ack
-"cnoreabbrev ack Ack
 """ Fuzzy search > fzf, ack, ag, ripgrep familly !
-"let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --ignore .git'
 let $FZF_DEFAULT_COMMAND = exists('$FZF_DEFAULT_COMMAND') ? $FZF_DEFAULT_COMMAND : 'rg --files --hidden --ignore .git'
 "noremap F :FZF<cr>
 noremap ! :Files<cr>
@@ -927,7 +925,11 @@ inoremap <C-x> <C-[>diwi
 "nmap <C-w> daw
 
 """ Surround
-nnoremap <silent> ys ysiw
+nnoremap <Leader>" ysiw"  " why it does not work ?
+nmap "" ysiw"
+nmap d" ds"
+nmap '' ysiw'
+nmap d' ds'
 
 """ COMMAND MAP
 cnoremap $h e ~/
@@ -1284,7 +1286,7 @@ function! HeadSwitch(com)
 endfun
 
 " C/Cython Header find/open
-nnoremap <leader>h :call HeadSwitch('tabe')<CR>
+"nnoremap <leader>h :call HeadSwitch('tabe')<CR>
 
 
 " use `ctags -R -f .tags` to create ctags file.

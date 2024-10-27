@@ -351,7 +351,8 @@ function _G.toggle_warning_diagnostics()
     end
 end
 
--- LSP mappings
+-- LSP Diagnostics navigation
+--
 vim.keymap.set('n', '<leader>e', vim.diagnostic.enable)
 --vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.disable)
@@ -362,24 +363,52 @@ map('n', '<leader>en', '<cmd>lua vim.diagnostic.goto_next({severity="Error"})<CR
 map('n', '<leader>ep', '<cmd>lua vim.diagnostic.goto_prev({severity="Error"})<CR>')
 map('n', '<leader>eN', '<cmd>lua vim.diagnostic.goto_prev({severity="Error"})<CR>')
 map('n', '<leader>eh', '<cmd>lua vim.diagnostic.open_float()<CR>')
+-- LSP Code navigation
+--
 map('n', '<leader>x', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 map('n', '<leader>d', '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>v', '<cmd>rightbelow vsplit | lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>b', '<cmd>belowright split | lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>t', '<cmd>tab split | lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>D', '<cmd>lua vim.lsp.buf.declaration()<CR>')
---map('n', 'gd'         , '<cmd>lua vim.lsp.buf.definition()<CR>')
---map('n', 'gD'         , '<cmd>lua vim.lsp.buf.declaration()<CR>')
 map('n', '<leader>i', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 map('n', '<leader>ii', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>')
 map('n', '<leader>f', '<cmd>lua vim.lsp.buf.format({async=true})<CR>')
 map('n', '<leader>a', '<cmd>lua vim.lsp.buf.references()<CR>')
 map('n', '<leader>S', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-
--- Use the built-in LSP functions to show signatures. For example, you can use `K` (hover) to show the function signature when your cursor is on the function name:
 map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
+-- Show definition in a preview dialog
+map('n', '<leader>h', "<cmd>lua require('goto-preview').goto_preview_definition()<CR>")
+-- Rename Symbol using LSP
+map('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>')
 
+-- Rename symbol globally (ack)
+function _G.rename_symbol()
+    local current_word = vim.fn.expand('<cword>')
+    local new_name = vim.fn.input('Rename ' .. current_word .. ' to: ')
+    if new_name == '' or new_name == current_word then
+        return
+    end
+
+    -- Temporarily override ackprg to disable smart-case
+    local original_ackprg = vim.g.ackprg
+    vim.g.ackprg = 'rg --vimgrep --type-not sql'
+
+    -- Get the directory of the current file
+    local current_file_dir = vim.fn.expand('%:p:h')
+    -- Use Ack to search in the current file's directory
+    vim.cmd('Ack! ' .. current_word .. ' ' .. current_file_dir)
+    -- Apply the substitution in the quickfix list
+    vim.cmd('cfdo %s/\\V' .. current_word .. '/' .. new_name .. '/gc | update')
+
+    vim.g.ackprg = original_ackprg -- Restore the original ackprg
+end
+
+map('n', '<leader>R', '<cmd>lua rename_symbol()<CR>')
+
+--
+-- @DEBUG / Copilot
+--
 -- <c-a> do not work if set before...
 --require("coq_3p") {
 --    { src = "copilot", short_name = "COP", accept_key = "<c-enter>" },
