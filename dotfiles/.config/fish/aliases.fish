@@ -208,7 +208,8 @@ alias lsoftop='sudo lsof | awk '\''{print $1 " " $2}'\'' | sort | uniq -c | sort
 alias riprm='shred -zuv -n1'
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
-alias f='fzf | clipboard' # fuzzy match
+alias f='fzf | tr -d "\n" | clipboard' # fuzzy match
+alias !='fzf | tr -d "\n" | clipboard' # fuzzy match
 function ff; find -iname "*$argv[1]*" ; end # wide match
 function fff; find -iname "$argv[1]" ; end # exact match
 alias pvpn="protonvpn-cli"
