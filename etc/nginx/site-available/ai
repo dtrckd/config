@@ -1,0 +1,35 @@
+server {
+    listen 80;
+    server_name localhost ai.me ai ai2 ai3;
+
+    # Redirect all HTTP requests to HTTPS
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name ~^(ai)(\d*)$;
+
+    ssl_certificate /etc/nginx/ssl/my_certificate.crt;
+    ssl_certificate_key /etc/nginx/ssl/my_private.key;
+
+    location / {
+        # Extract the number from the hostname if it exists
+        # If no number is present, use a default number
+        set $num 1;
+        if ($host ~* ^ai(\d+)$) {
+            set $num $1;
+        }
+
+        # Redirect to the determined path if the request URI is "/"
+        if ($request_uri = "/") {
+            return 302 http://127.0.0.1:8081/arena?num=$num;
+        }
+
+        # Otherwise, pass the request URI to the proxy
+        proxy_pass http://127.0.0.1:8081$request_uri;
+    }
+}
+
