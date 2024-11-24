@@ -78,8 +78,48 @@ web_ama:
 # Backdown
 # ================================
 
-configure_server:
-	./configure/conf_serv_my.sh
+configure_server: bootstrap_server update_conf_server
+
+bootstrap_server:
+	echo 'if [ -f ~/.bash_profile ]; then' >> $(HOME)/.bashrc
+	echo '    . ~/.bash_profile' >> $(HOME)/.bashrc
+	echo 'fi' >> $(HOME)/.bashrc
+
+	# Install plugins
+	# tmux plugin
+	[ ! -f ~/.tmux/plugins/tpm/tpm ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+	# Reset/Configure ssh
+	#sudo ./snippets/edit_config_line "PermitRootLogin" "no" /etc/ssh/sshd_config
+	#sudo ./snippets/edit_config_line "UsePAM" "no" /etc/ssh/sshd_config
+	#sudo systemctl restart ssh
+	#sudo systemctl restart sshd
+
+	# Fix hostname in hosts (sudo failed with unable to resolve host plus potiential other errors)
+	#grep -q  $(cat /etc/hostname) /etc/hosts || echo "127.0.0.1 $(cat /etc/hostname)" >> /etc/hosts
+
+	## Apt auto upgrade cron.
+	#echo '#!/bin/sh' | sudo tee /etc/cron.weekly/aptupgrade
+    #echo 'apt-get update' | sudo tee -a /etc/cron.weekly/aptupgrade
+    #echo 'apt-get upgrade -y >> /var/log/aptupgrade' | sudo tee -a /etc/cron.weekly/aptupgrade
+    #echo 'apt-get autoclean -y' | sudo tee -a /etc/cron.weekly/aptupgrade
+    #echo 'apt-get clean -y' | sudo tee -a /etc/cron.weekly/aptupgrade
+    #echo '' | sudo tee -a /etc/cron.weekly/aptupgrade
+    #echo '# If nginx' | sudo tee -a /etc/cron.weekly/aptupgrade
+    #echo '#systemctl reload nginx' | sudo tee -a /etc/cron.weekly/aptupgrade
+    #sudo chmod +x /etc/cron.weekly/aptupgrade
+
+reset_firewall:
+	mkdir -p ~/bin
+	export PATH=$PATH:~/bin
+	ln -s $(pwd)/snippets/fw.sh ~/bin/fw
+	ln -s $(pwd)/snippets/fw6.sh ~/bin/fw6
+	# Reset/Configure firewall
+	sudo fw restart
+	sudo fw6 restart
+	sudo fw.sh save
+	sudo fw6 save
+	sudo systemctl restart docker
 
 update_conf_server:
 	# Reset/Configure Profile
@@ -91,17 +131,17 @@ update_conf_server:
 	# Uncomment the next line (recursive)
 	sed -i '/# @SERVER/{n;s/^.//}' ~/.tmux.conf
 	sed -i '/# @SERVER/{n;s/^.//}' ~/.bash_profile
-	# ---
-	# Root conf
-	# Reset/Configure Profile
-	sudo cp -r dotfiles/{.bash_profile,.tmux.conf} /root/
-	sudo cp dotfiles/.vimshortrc /root/.vimrc
-	# Delete the matched and the next line (recursive)
-	sudo awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' /root/.tmux.conf > .tmux.conf.temp && sudo mv .tmux.conf.temp /root/.tmux.conf
-	sudo awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' /root/.bash_profile > .bash_profile.temp && sudo mv .bash_profile.temp /root/.bash_profile
-	# Uncomment the next line (recursive)
-	sudo sed -i '/# @ROOT/{n;s/^.//}' /root/.tmux.conf
-	sudo sed -i '/# @ROOT/{n;s/^.//}' /root/.bash_profile
+	## ---
+	## Root conf
+	## Reset/Configure Profile
+	#sudo cp -r dotfiles/{.bash_profile,.tmux.conf} /root/
+	#sudo cp dotfiles/.vimshortrc /root/.vimrc
+	## Delete the matched and the next line (recursive)
+	#sudo awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' /root/.tmux.conf > .tmux.conf.temp && sudo mv .tmux.conf.temp /root/.tmux.conf
+	#sudo awk '/# @LOCAL/ {while (/# @LOCAL/ && getline>0) ; next} 1' /root/.bash_profile > .bash_profile.temp && sudo mv .bash_profile.temp /root/.bash_profile
+	## Uncomment the next line (recursive)
+	#sudo sed -i '/# @ROOT/{n;s/^.//}' /root/.tmux.conf
+	#sudo sed -i '/# @ROOT/{n;s/^.//}' /root/.bash_profile
 
 get_pip:
 	curl https://bootstrap.pypa.io/get-pip.py -o ~/bin/get-pip.py
@@ -110,7 +150,7 @@ get_docker_compose:
 	curl -L "https://github.com/docker/compose/releases/download/v2.0.1/docker-compose-$(shell uname -s)-$(shell uname -m)" -o ~/bin/docker-compose
 	chmod +x ~/bin/docker-compose
 
-configure_laptop: _install _bin _dotfiles _etc _plugins
+configure_laptop: _install _bin _dotfiles _etc _plugins _app
 
 _bootstrap: 
 	# -- Pre bootstrap
@@ -159,6 +199,15 @@ _plugins:
 	vim -c PluginUpdate
 	# Tmux Plugin
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+_app:
+	# Env
+	./configure/setup-env.sh rust
+	./configure/setup-env.sh go
+	./configure/setup-env.sh npm
+	# APP
+	./configure/setup-app.sh aichat
+	./configure/setup-app.sh kitty
 
 
 # ================================
