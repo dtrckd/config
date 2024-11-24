@@ -81,7 +81,7 @@ web_ama:
 configure_server: bootstrap_server update_conf_server
 
 bootstrap_server:
-	echo '\n' >> $(HOME)/.bashrc
+	echo -e '\n' >> $(HOME)/.bashrc
 	echo 'if [ -f ~/.bash_profile ]; then' >> $(HOME)/.bashrc
 	echo '    . ~/.bash_profile' >> $(HOME)/.bashrc
 	echo 'fi' >> $(HOME)/.bashrc
