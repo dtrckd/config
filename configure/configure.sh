@@ -23,11 +23,10 @@ OPTS="-y --no-install-recommends"
 ######################
 ### System
 ######################
-sudo apt install $OPTS sudo aptitude make psmisc rfkill apt-file apt-show-versions htop strace net-tools jq ripgrep curl wget zip xclip mc rsync tmux ranger vim neovim git gitk gitg tree bat xsel git-delta
+sudo apt install $OPTS sudo aptitude make psmisc rfkill apt-file apt-show-versions htop strace net-tools jq ripgrep curl wget zip xclip mc rsync tmux vim neovim git gitk gitg tree bat xsel git-delta
 
 #sudo apt-get install $OPTS firmware-linux-nonfree
-
-ranger --copy-config=all
+#ranger --copy-config=all
 
 # Optionals (but advised !)
 if [ $AGGRESSIVE == 1 ]; then
@@ -65,7 +64,7 @@ fi
 if [ $PYTHON == 1 ]; then
     # dev/ia
     #sudo apt install $OPTS gfortran libopenblas-dev python3-tk cython3
-    pip install cython ipython jupyter matplotlib numpy scipy pandas scikit-learn requests flask fastapi pytest pydantic
+    pip install cython ipython jupyter matplotlib numpy scipy pandas scikit-learn requests fastapi pydantic ansible
     # tools
     pip install pip_search pipdeptree pypandoc markdown2ctags pandoc-shortcaption pandoc-eqnos pandoc-fignos pandoc-xnos pandocfilters
     #pip install Scrapy scrapy-splash
