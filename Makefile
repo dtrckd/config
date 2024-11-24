@@ -81,13 +81,14 @@ web_ama:
 configure_server: bootstrap_server update_conf_server
 
 bootstrap_server:
+	echo '\n' >> $(HOME)/.bashrc
 	echo 'if [ -f ~/.bash_profile ]; then' >> $(HOME)/.bashrc
 	echo '    . ~/.bash_profile' >> $(HOME)/.bashrc
 	echo 'fi' >> $(HOME)/.bashrc
 
 	# Install plugins
 	# tmux plugin
-	[ ! -f ~/.tmux/plugins/tpm/tpm ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	#[ ! -f ~/.tmux/plugins/tpm/tpm ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 	# Reset/Configure ssh
 	#sudo ./snippets/edit_config_line "PermitRootLogin" "no" /etc/ssh/sshd_config
