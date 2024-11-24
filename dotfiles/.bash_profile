@@ -182,6 +182,8 @@ alias vig="vim ~/.gitconfig"
 alias vign="vim .gitignore"
 alias vikitty="vim ~/.config/kitty/kitty.conf"
 alias vimake="vim Makefile"
+alias vij="vim justfile"
+alias vji="vim justfile"
 alias vimk="vim Makefile"
 alias vk="vim Makefile"
 alias vime="vim $(find . -maxdepth 1 -iname 'readme*' -print -quit)"
@@ -239,15 +241,16 @@ alias dps='docker ps --format "{{.ID}}  {{.Names}}\n\t\t\t\t\t\t{{.Ports}}\n\t\t
 alias lzg="lazygit"
 alias lzd="lazydocker"
 # Fuzz
-alias xagrep='find -type f -print0 | xargs -0  grep --color'
-alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor,.direnv}'
-export FZF_DEFAULT_COMMAND="rg --hidden -g '!.git/' -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/' -g '!.direnv/' -g '!.tags' -l ''"
-alias rg="rg --hidden -g '!.git/' -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/' -g '!.direnv/' -g '!.tags'"
+alias cloc='cloc --fullpath --exclude-dir=node_modules,elm-stuff,vendor,.direnv,.mypy_cache,venv --exclude-list-file=.gitignore'
+alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor,.direnv,.mypy_cache}'
+export FZF_DEFAULT_COMMAND="rg --hidden -g '!.git/' -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/' -g '!.direnv/' -g '!.mypy_cache/' -g '!.tags' -l ''"
+alias rg="rg --hidden -g '!.git/' -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/' -g '!.direnv/' -g '!.mypy_cache/' -g '!.tags'"
 alias rgi="rg -i"
 alias grepi="grep -i"
 alias grepy='find -iname "*.py" | xargs grep --color -n'
 alias grepyx='find -iname "*.pyx" | xargs grep --color -n'
 alias grepxd='find -iname "*.pxd" | xargs grep --color -n'
+alias xagrep='find -type f -print0 | xargs -0  grep --color'
 function grepyf(){ find -iname "*.py" |xargs grep --color -m1 "$1" |cut -d: -f1; } # don work :(
 alias grepall='find -type f | xargs grep --color'
 alias show="command -v"
@@ -275,6 +278,7 @@ alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
 alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Update}}{{.}}{{end}}{{end}}' all"
 alias fmake="fzf-make"
 alias ranger="yazi"
+alias dictx="xfce4-dict"
 
 ### VIM
 #alias vim='vim.nox'
@@ -328,7 +332,7 @@ function upgrademe() {
     sudo aptitude update && sudo aptitude upgrade
     sudo snap refresh
     npm update -g
-    pip install -U $(pip freeze | rgi "(lsp|server|mypy|jupyter)" | cut -d= -f1)
+    pip install -U $(pip freeze | rgi "(lsp|server|mypy|jupyter)" | cut -d= -f1)  # +ruff
     vim -c "PluginUpdate"
     #rustup update # cargo install <package> to upgrade one package
     #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
