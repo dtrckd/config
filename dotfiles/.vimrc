@@ -26,15 +26,13 @@ Plugin 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 Plugin 'gotcha/vimpdb'
 "Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'iamcco/markdown-preview.nvim'
-
+Plugin 'nvim-lua/plenary.nvim'
+Plugin 'MunifTanjim/nui.nvim'
 
 " File and code Search
 " @«arning: if systeme-wide fzf is installed before, the 'junegunn/fzf' won't be installed and there might be a version clash.
 Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'junegunn/fzf.vim'
-Plugin 'mileszs/ack.vim'
-"Plugin 'alok/notational-fzf-vim'
-"Plugin 'gfanto/fzf-lsp.nvim'
 Plugin 'rmagatti/goto-preview'
 
 " Git
@@ -53,6 +51,9 @@ Plugin 'ms-jpq/coq_nvim', {'branch': 'coq'}
 Plugin 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plugin 'ms-jpq/coq.thirdparty', {'branch': '3p'}
 "Plugin 'metakirby5/codi.vim'
+
+" Copilot
+Plugin 'dpayne/CodeGPT.nvim'
 
 " --
 "Plugin 'ycm-core/YouCompleteMe'
@@ -73,23 +74,16 @@ Plugin 'NoahTheDuke/vim-just'
 
 " Session
 Plugin 'mhinz/vim-startify'
-"Plugin 'romgrk/vim-session'
 Plugin 'dhruvasagar/vim-zoom'
-"Plugin 'troydm/zoomwintab.vim'
 
 " Misc
 Plugin 'itchyny/calendar.vim'
 Plugin 'ciaranm/detectindent'
 Plugin 'editorconfig/editorconfig-vim'
-Plugin 'psliwka/vim-smoothie'
-"Plugin 'rargo/vim-line-jump'
+Plugin 'karb94/neoscroll.nvim'
+"Plugin 'psliwka/vim-smoothie'
 "Plugin 'rstacruz/sparkup'  # Zn writing HTLM
 "Plugin 'jceb/vim-orgmode'
-
-" Gpt
-Plugin 'nvim-lua/plenary.nvim'
-Plugin 'MunifTanjim/nui.nvim'
-Plugin 'dpayne/CodeGPT.nvim'
 
 " Theme
 Plugin 'uguu-org/vim-matrix-screensaver'
@@ -131,31 +125,6 @@ let g:go_fmt_command = "goimports"
 "autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif " more general but wont be able to switch/scroll the preview...
 "autocmd FileType vim let b:vcm_tab_complete = 'vim'
 "let g:ycm_semantic_triggers = { 'elm' : ['.'], }
-
-""" Snippets completion
-" press <Tab> to expand or jump in a snippet. These can also be mapped separately
-" via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
-"-->inoremap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
-" -1 for jumping backwards.
-"-->inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
-
-"-->snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
-"-->snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
-
-" For changing choices in choiceNodes (not strictly necessary for a basic setup).
-"inoremap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-"smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-
-
-""" Fix vim-closer imcompatibility with COQ
-"https://github.com/rstacruz/vim-closer/issues/37
-" DO NOT wORK
-inoremap <expr> <cr> pumvisible() ? '<c-y>' : '<cr>'
-"function! HandleCRKey() abort
-"  return pumvisible() ? "\<C-E>\n" : "\n"
-"endfunction
-"" vim-closer can extend this correctly
-"inoremap <silent> <CR> <C-R>=HandleCRKey()<CR>
 
 """ ctags
 let g:easytags_updatetime_min = 180000
@@ -203,6 +172,7 @@ let g:NERDDefaultAlign = "left"
 " fc-cache -fv # try opening a new terminal if you don't see anything
 " ```
 nnoremap <C-p> <cmd>CHADopen<cr>
+nnoremap <C-i> <cmd>CHADopen --always-focus<cr>
 autocmd bufenter * if (winnr("$") == 1 && &buftype == "nofile" && &filetype == "CHADTree") | q! | endif
 let g:chadtree_settings = {
       \  'options.polling_rate': 1900,
@@ -210,19 +180,22 @@ let g:chadtree_settings = {
       \  'keymap': {
       \    'v_split': ["v"],
       \    'h_split': ["x"],
+      \    'primary': ["<enter>"],
+      \    'secondary': ["<2-leftmouse>"],
       \    'tertiary': ["<m-enter>", "<middlemouse>", "t"],
       \    'new': ["a", "n"],
       \    'copy': ["p", "c"],
       \    'cut': ["m"],
       \    'delete': ["d"],
       \    'trash': [],
-      \    'open_sys': ["o"],
+      \    'open_sys': ["O"],
       \    'collapse': ["`", "s-o", "C"],
       \    'select': ["<space>"],
-      \    'change_focus': ["b"],
-      \    'change_focus_up': ["u"],
+      \    'change_focus_up': ["U"],
+      \    'change_focus': ["u"],
       \    'change_dir': ["w"],
-      \    'toggle_follow': ["U"],
+      \    'toggle_follow': ["W"],
+      \    'toggle_follow_links': ["L"],
       \    'toggle_hidden': [".", "h"],
       \  },
       \  'ignore': {
@@ -235,25 +208,36 @@ let g:chadtree_settings = {
 """
 """ COQ coq_nvim
 """
+" @DEBUG: eval_snips ?
 let g:coq_settings = {
-      \ "weights.proximity": 1,
+      \ "weights.proximity": 3,
       \ "weights.prefix_matches": 5,
+      \ "limits.completion_auto_timeout": 0.2,
+      \ "keymap.eval_snips": "<leader>o",
       \}
 
-" Use ripgrep for searching ⚡️
-" Options include:
-" --vimgrep -> Needed to parse the rg response properly for ack.vim
-" --type-not sql -> Avoid huge sql file dumps as it slows down the search
-" --smart-case -> Search case insensitive if all lowercase pattern, Search case sensitively otherwise
-let g:ackprg = 'rg --vimgrep --type-not sql --smart-case'
-" Fix ack output leaks to the terminal https://github.com/mileszs/ack.vim/issues/18
-set shellpipe=>
 
-" Any empty ack search will search for the work the cursor is on
-let g:ack_use_cword_for_empty_search = 1
 
-" Don't jump to first match
-cnoreabbrev Ack Ack!
+""" Snippets completion
+" press <Tab> to expand or jump in a snippet. These can also be mapped separately
+" via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
+"-->inoremap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
+" -1 for jumping backwards.
+"-->inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
+
+"-->snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+"-->snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+
+" For changing choices in choiceNodes (not strictly necessary for a basic setup).
+"inoremap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+"smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+
+
+
+"""
+""" FZF configuration
+"""
+
 """ Fuzzy search > fzf, ack, ag, ripgrep familly !
 let $FZF_DEFAULT_COMMAND = exists('$FZF_DEFAULT_COMMAND') ? $FZF_DEFAULT_COMMAND : 'rg --files --hidden --ignore .git'
 "noremap F :FZF<cr>
@@ -268,10 +252,30 @@ let g:fzf_action = {
       \ 'ctrl-x': 'split',
       \ 'ctrl-v': 'vsplit' ,
       \}
-"let g:fzf_vim.command_prefix = 'Fzf'
-noremap <leader>s :Ack! <cword><cr>
-" Maps <leader>/ so we're ready to type the search keyword
-nnoremap <Leader>/ :Ack!<Space>
+
+nnoremap B :Buffers<cr>
+
+
+"""
+""" Search with Ripgrep and FZF ⚡️
+"""
+" Options include:
+" --vimgrep -> Needed to parse the rg response properly for ack.vim
+" --type-not sql -> Avoid huge sql file dumps as it slows down the search
+" --smart-case -> Search case insensitive if all lowercase pattern, Search case sensitively otherwise
+command! -bang -nargs=* Rg 
+      \ call fzf#vim#grep(
+      \   'rg -d 10 --vimgrep --type-not sql --smart-case '.shellescape(<q-args>), 
+      \   1,
+      \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+
+" Map <leader>s to search for the word under the cursor using fzf and ripgrep
+nnoremap <silent> <leader>s :Rg <C-r><C-w><CR>
+
+" Map <leader>/ to start an interactive search with fzf and ripgrep
+nnoremap <Leader>/ :Rg<Space>
+
+
 
 " Magic pasting
 function! PastCleanAndPaste()
@@ -352,7 +356,7 @@ augroup TagBar
     autocmd!
     " When entering a quickfix window, map ESC to :cclose
     autocmd WinEnter * if &filetype == 'tagbar' | set timeoutlen=0 | endif
-    autocmd FileType tagbar nnoremap <buffer> <ESC> :q<CR>
+    autocmd FileType tagbar nnoremap <buffer> <ESC> :q<CR>:wincmd p<CR>
     autocmd WinLeave * if &filetype == 'tagbar' | set timeoutlen=750 | endif
 augroup END
 
@@ -627,7 +631,6 @@ set report=0                       " Show number of modification if they are
 set cursorline                     " Hilight current line - cul
 set mouse=a                        " Enable mouse usage (all modes) in terminals
 set fo+=1ro fo-=tc tw=0            " Break comment at tw $size
-"set fo+=1cro fo-=t tw=0           " Break comment at tw $size
 set scrolloff=5                   " Line of context: mininum visible lines at the top or bottom of the screen.
 set sidescrolloff=8                " Columns of context
 set linebreak                      " Don't wrap word
@@ -636,15 +639,10 @@ set nostartofline                  " Try keep the column with line moves
 set whichwrap=<,>,[,]              " Enable line return with pad
 set nohidden                       " Do not keep a buffer open (swp file) if the file is not open in a window.
 set splitright                     " default vertical split focus
-"set clipboard=unnamed             " Dont support C-S V
-"set title                         " Update window title for X and tmux
-"set autochdir                     " Set current cwd to the current file
-"set nu                            " View numbers lines
-"set autowrite                     " automatically save before commands like :next and :make
-"set hidden                        " Hide buffers when they are abandoned
-"set textwidth=0                   " Disable textwith
-"set colorcolumn=-1
-"set ff=unix                       " Remove ^M
+set splitbelow                     " default horizontal split focus
+
+nnoremap <C-x> :split<cr>
+nnoremap X :split<cr>
 
 " Fix for color syntax highlighting breaks for big file after jump or search
 " https://github.com/vim/vim/issues/2790
@@ -655,69 +653,9 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-""""""""""""""""""""""""""""""
-""" Move to the last visited tab when closing a tab
-""""""""""""""""""""""""""""""
-
-"if !exists('g:currenttab')
-"  let g:previoustab = 1
-"  let g:currenttab = 1
-"endif
-"
-"function! SavePreviousTab()
-"    let g:previoustab = g:currenttab
-"    let g:currenttab = tabpagenr()
-"endfunction
-"
-"function! SaveCurrentTab()
-"    let g:currenttab = tabpagenr()
-"endfunction
-"
-"function! SwitchToPreviousTab()
-"  if g:previoustab > tabpagenr('$')
-"    tabprevious
-"  else
-"    exe "tabn " . g:previoustab
-"  endif
-"  let g:currenttab = tabpagenr()
-"endfunction
-"
-"au TabLeave * call SaveCurrentTab()
-"au TabEnter * call SavePreviousTab()
-"au TabClosed * call SwitchToPreviousTab()
-"au TabClosed * exe "tabn " . (tabpagenr('#')+1)
-
-""""""""""""""""""""""""""""""
-""" Move to the last visited buffer/tab when closing a buffer
-""""""""""""""""""""""""""""""
-
-"if !exists('g:currentbuf')
-"  let g:previousbuf = 1
-"  let g:currentbuf = 1
-"endif
-"
-"function! SavePreviousBuf()
-"    let g:previousbuf = g:currentbuf
-"    let g:currentbuf = bufnr()
-"endfunction
-"
-"function! SaveCurrentBuf()
-"    let g:currentbuf = bufnr()
-"endfunction
-"
-"function! SwitchToPreviousBuf()
-"  if g:previousbuf > bufnr('$')
-"    bprevious
-"  else
-"    exe "buffer " . g:previousbuf
-"  endif
-"    let g:currentbuf = bufnr()
-"endfunction
-"
-"au BufLeave * call SaveCurrentBuf()
-"au BufEnter * call SavePreviousBuf()
-"au BufDelete * call SwitchToPreviousBuf()
-
+" Force Gdiffsplit to open splits on the left
+"command! -nargs=* Gdiffsplit leftabove Gdiffsplit <args>
+command! -nargs=* Gdiffsplit leftabove execute 'Gdiffsplit' <q-args>
 
 
 """ Refresh options
@@ -875,12 +813,14 @@ nnoremap <C-k> <C-W>10+
 nnoremap <C-j> <C-W>10-
 nnoremap <C-h> <C-W>10<
 "nnoremap <C-l> <C-W>10>
-noremap <C-S-UP>    :resize -3<cr>
-noremap <C-S-DOWN>  :resize +3<cr>
-noremap <C-S-LEFT>  :vertical resize -3<cr>
-noremap <C-S-RIGHT> :vertical resize +3<cr>
-nnoremap <silent> <C-w><Bar> <C-w><Bar>:vertical resize -40<CR>
-nnoremap <silent> <C-w>_ <C-w>_:resize -10<CR>
+noremap <C-S-UP>    :resize -8<cr>
+noremap <C-S-DOWN>  :resize +8<cr>
+noremap <C-S-LEFT>  :vertical resize -8<cr>
+noremap <C-S-RIGHT> :vertical resize +8<cr>
+nnoremap <silent> <C-w>- :resize -40<CR>
+nnoremap <silent> <C-w>_ :resize +40<CR>
+nnoremap <silent> <C-w><Bar> :vertical resize -40<CR>
+nnoremap <silent> <C-w>] :vertical resize +40<CR>
 "keycode 113 = Alt_R
 "add mod1 = Alt_R
 "keycode 116 = Meta_R
@@ -948,7 +888,6 @@ command Bufno :echo bufnr('%')
 " Insert and jump to newline before the cursor, in insert mode
 inoremap <A-Enter> <Esc>O
 
-
 function! ReplaceAccentsGlobally()
   " Sauvegarde la position du curseur
   let l:save_cursor = getpos(".")
@@ -972,6 +911,9 @@ endfunction
 
 command ReplaceAccentsGlobally call ReplaceAccentsGlobally()
 
+" Map <ESC> in normal mode to close the Quickfix window if it's open and clear search highlighting
+nnoremap <silent> <ESC> <ESC>:silent! cclose<bar>silent! pclose<bar>nohlsearch<CR>
+
 """"""""""""""""""""""""""""""
 """ Preview Window
 """"""""""""""""""""""""""""""
@@ -981,62 +923,37 @@ augroup PreviewWindow
     autocmd FileType preview nnoremap <buffer> q :pclose<CR>
     " Optionally, you can unmap q when leaving the preview window if you want to be extra sure
     autocmd WinLeave * if &filetype == 'preview' | nunmap <buffer> q | endif
-  augroup END
+augroup END
 
 """"""""""""""""""""""""""""""
 """ QuickFix
 """"""""""""""""""""""""""""""
-" Auto close the Quickfix list after pressing '<enter>' on a list item
-let g:ack_autoclose = 0  " You can also use :cclose
 
 " automatically closes the quickfix window if it's the last window open
 autocmd WinEnter * if winnr('$') == 1 && &buftype == 'quickfix' | q | endif
 
 augroup QuickFix
     autocmd!
-    " When entering a quickfix window, map ESC to :cclose
+    " When entering a quickfix window, map ESC and q to :cclose
     autocmd WinEnter * if &filetype == 'quickfix' | set timeoutlen=0 | endif
-    autocmd FileType qf nnoremap <buffer> <ESC> :cclose<CR>
     autocmd WinLeave * if &filetype == 'quickfix' | set timeoutlen=750 | endif
-augroup END
+    autocmd FileType qf nnoremap <silent> <buffer> <ESC> :cclose<CR>:wincmd p<CR>
+    autocmd FileType qf nnoremap <silent> <buffer> q :cclose<CR>:wincmd p<CR> 
 
-
-" Track the last active window before opening a new one from the quickfix list
-function! UpdateLastActiveWindow()
-  let g:last_active_window_id = win_getid()
-endfunction
-
-" Return focus to the last active window
-function! ReturnFocusToLastActiveWindow()
-  if exists('g:last_active_window_id')
-    let win_id_list = win_id2tabwin(g:last_active_window_id)
-    if !empty(win_id_list)
-      call win_gotoid(g:last_active_window_id)
-    endif
-  endif
-endfunction
-
-augroup QuickFixCustomMappings
-    autocmd!
-    " Restore <enter> defaut behavior (enter is map in normal mode!)
+    " Restore <enter> defaut behavior (enter is mapped in normal mode!)
     autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR>
 
     " When entering a quickfix window, map 'x, v, t' to open in a new buffer
-    " Update last active window before opening
     autocmd FileType qf nnoremap <buffer> x <C-w><Enter><C-w>K :resize +10<CR>
     autocmd FileType qf nnoremap <buffer> v <C-w><Enter><C-w>L
     autocmd FileType qf nnoremap <buffer> t <C-w><Enter><C-w>T
-
-    " Attempt to return focus when a buffer opened from the quickfix list is closed
-    " @DEBUG; never succeded to make it work !!!! :<
-    "autocmd BufEnter qf call UpdateLastActiveWindow()
-    "autocmd BufLeave * call ReturnFocusToLastActiveWindow()
 augroup END
 
 augroup HelpWindow
     autocmd!
     " When entering a help window, map ESC to :q
-    autocmd FileType help nnoremap <buffer> <ESC> :q<CR>
+    autocmd FileType help nnoremap <buffer> <ESC> :q<CR>:wincmd p<CR>
+    autocmd FileType help nnoremap <buffer> q :q<CR>
 augroup END
 
 """"""""""""""""""""""""""""""

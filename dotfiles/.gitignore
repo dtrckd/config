@@ -2,10 +2,8 @@
 .env
 .envrc
 
-.mypy.ini
-
-
 # Builds
+.~lock*
 *.swp
 *.swo
 .session.vim
