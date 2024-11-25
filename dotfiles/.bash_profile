@@ -238,6 +238,11 @@ alias youtube-dl="yt-dlp"
 alias docker_inspect_cmd="docker inspect --format '{{.Config.Cmd}}'"
 alias docker_inspect_env="docker inspect --format '{{ json .Config.Env }}'"
 alias dps='docker ps --format "{{.ID}}  {{.Names}}\n\t\t\t\t\t\t{{.Ports}}\n\t\t\t\t\t\t{{.Status}}"'
+function dps_net() {
+    docker ps -q | while read container_id; do
+        docker inspect --format='{{.Name}}: {{range $key, $value := .NetworkSettings.Networks}}{{$key}} {{end}}' $container_id | sed 's:/::'
+    done
+}
 alias lzg="lazygit"
 alias lzd="lazydocker"
 # Fuzz
