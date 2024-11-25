@@ -1,6 +1,5 @@
 # Secrets
 .env
-.envrc
 
 # Builds
 .~lock*
