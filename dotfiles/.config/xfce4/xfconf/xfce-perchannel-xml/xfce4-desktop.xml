@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 
 <channel name="xfce4-desktop" version="1.0">
   <property name="backdrop" type="empty">
@@ -600,7 +600,7 @@
   <property name="desktop-icons" type="empty">
     <property name="icon-size" type="uint" value="24"/>
     <property name="use-custom-font-size" type="bool" value="false"/>
-    <property name="tooltip-size" type="double" value="68.000000"/>
+    <property name="tooltip-size" type="double" value="68"/>
     <property name="file-icons" type="empty">
       <property name="show-filesystem" type="bool" value="false"/>
       <property name="show-home" type="bool" value="false"/>
@@ -608,10 +608,15 @@
       <property name="show-network-removable" type="bool" value="true"/>
       <property name="show-device-removable" type="bool" value="true"/>
       <property name="show-removable" type="bool" value="false"/>
+      <property name="migrated-4.19" type="array">
+        <value type="string" value="0f5a8989fa3de9190ce928779f448be095d82a63"/>
+        <value type="string" value="b741746c623a3ae74f838b8a4cc78bcbb81c1617"/>
+      </property>
     </property>
   </property>
   <property name="last" type="empty">
     <property name="window-width" type="int" value="653"/>
     <property name="window-height" type="int" value="558"/>
   </property>
+  <property name="last-settings-migration-version" type="uint" value="1"/>
 </channel>

@@ -20,3 +20,6 @@ ignore = [
     "E265", # do not work !?
 ]
 ignore-init-module-imports = true
+
+[tool.ruff.lint.isort]
+known-third-party = ["alembic", "tqdm"]

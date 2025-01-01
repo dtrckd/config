@@ -74,6 +74,7 @@
       <property name="&lt;Super&gt;q" type="string" value="quodlibet --toggle-window"/>
       <property name="&lt;Super&gt;a" type="string" value="quodlibet --toggle-window"/>
       <property name="&lt;Super&gt;x" type="string" value="deepin-calculator"/>
+      <property name="&lt;Super&gt;d" type="string" value="xfce4-dict"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">

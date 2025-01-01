@@ -17,10 +17,11 @@ set fish_color_cancel -o
 # Delete welcome message
 set -e fish_greeting
 
-. ~/.config/fish/aliases.fish
 if test -e ~/.bash_aliases
     . ~/.bash_aliases
 end
+
+. ~/.config/fish/aliases.fish
 
 #stty -ixon # disable <C-s> freeze in vim (who waits a <C-q> signal !)
 #setxkbmap -option "nbsp:none" # disable non-breaking space, accidently genrated when typing <ALTGR>+<SPACE>

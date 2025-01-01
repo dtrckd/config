@@ -73,13 +73,13 @@ local servers = {
     'jsonls',
     'lua_ls',
     'pylsp',
-    'ruff_lsp',
+    'ruff',
     --'pyright',
     'ts_ls',
     'yamlls',
     'dockerls',
     'rust_analyzer',
-    'tabby_ml'
+    --'tabby_ml'
 }
 
 local configs = {
@@ -202,7 +202,7 @@ local configs = {
         end
     },
     -- Python
-    ruff_lsp = {
+    ruff = {
         init_options = {
             settings = {
                 -- Any extra CLI arguments for `ruff` go here.
@@ -211,11 +211,11 @@ local configs = {
         },
         --
         -- This is grave Bugged. Sometimes remove lines. Do not respect isort.sections...
-        on_attach = function(client, bufnr)
-            -- Auto import sort on save
-            vim.api.nvim_create_autocmd('BufWritePre',
-                { pattern = '*.py', callback = function() vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true }) end })
-        end
+        --on_attach = function(client, bufnr)
+        --    -- Auto import sort on save
+        --    vim.api.nvim_create_autocmd('BufWritePre',
+        --        { pattern = '*.py', callback = function() vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true }) end })
+        --end
     },
     pylsp = {
         settings = {
@@ -292,6 +292,60 @@ for _, lsp in ipairs(servers) do
         configs[lsp]
     ))
 end
+
+--
+-- Toggle mypy
+--
+
+local function toggle_pylsp_mypy()
+    -- Get the list of LSP clients attached to the current buffer
+    local clients = vim.lsp.buf_get_clients(0) -- 0 refers to the current buffer
+    -- Iterate over the clients to find the pylsp client
+    for _, client in pairs(clients) do
+        if client.name == 'pylsp' then
+            -- Access or initialize the client's settings
+            client.config.settings = client.config.settings or {}
+            local settings = client.config.settings
+
+            settings.pylsp = settings.pylsp or {}
+            settings.pylsp.plugins = settings.pylsp.plugins or {}
+            settings.pylsp.plugins.pylsp_mypy = settings.pylsp.plugins.pylsp_mypy or {}
+
+            -- Toggle the 'enabled' setting for pylsp_mypy
+            local mypy_settings = settings.pylsp.plugins.pylsp_mypy
+            mypy_settings.enabled = not mypy_settings.enabled
+
+            -- Set live_mode to True when enabling pylsp_mypy
+            -- * When `live_mode` is set to `True`, `pylsp_mypy` uses the contents of the current buffer (your open file in Neovim) and runs `mypy` only on that code.
+            -- * This mode is useful to get quick feedback on the current file without the overhead of checking the entire project.
+            if mypy_settings.enabled then
+                -- mypy_settings.live_mode = true
+            else
+                -- mypy_settings.live_mode = false
+            end
+
+            -- Notify pylsp of the configuration change
+            client.notify('workspace/didChangeConfiguration', { settings = settings })
+
+            -- Provide feedback to the user
+            if mypy_settings.enabled then
+                print('pylsp_mypy is now **enabled** in the current buffer')
+            else
+                print('pylsp_mypy is now **disabled** in the current buffer')
+            end
+
+            -- Exit the function after modifying the pylsp client
+            return
+        end
+    end
+
+    -- If no pylsp client is found for the current buffer
+    print('No pylsp client attached to the current buffer')
+end
+
+map('n', '<leader>mypy', '<cmd>lua toggle_pylsp_mypy()<CR>')
+vim.api.nvim_create_user_command('ToggleMypy', toggle_pylsp_mypy, {})
+
 
 -- shows on BufWrite for all clients attached to current buffer, where virtual_text is false, but underline and signs default true
 --vim.cmd[[autocmd BufWrite * :call timer_start(500, { -> v:lua.vim.lsp.diagnostic.show_buffer_diagnostics()})]]
@@ -392,8 +446,9 @@ function _G.rename_symbol()
 
     -- Temporarily override ackprg to disable smart-case
     local original_ackprg = vim.g.ackprg
-    vim.g.ackprg = 'rg --vimgrep --type-not sql'
-
+    vim.g.ackprg = 'rg -w -s --vimgrep --type-not sql'
+    -- Store the current buffer number
+    local original_bufnr = vim.fn.bufnr('%')
     -- Get the directory of the current file
     local current_file_dir = vim.fn.expand('%:p:h')
     -- Use Ack to search in the current file's directory
@@ -401,7 +456,9 @@ function _G.rename_symbol()
     -- Apply the substitution in the quickfix list
     vim.cmd('cfdo %s/\\V' .. current_word .. '/' .. new_name .. '/gc | update')
 
-    vim.g.ackprg = original_ackprg -- Restore the original ackprg
+    vim.cmd('cclose')                    -- Close the quickfix list
+    vim.cmd('buffer ' .. original_bufnr) -- Return to the original buffer
+    vim.g.ackprg = original_ackprg       -- Restore the original ackprg
 end
 
 map('n', '<leader>R', '<cmd>lua rename_symbol()<CR>')

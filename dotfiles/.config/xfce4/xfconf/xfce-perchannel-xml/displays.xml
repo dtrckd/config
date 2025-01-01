@@ -1,100 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 
 <channel name="displays" version="1.0">
-  <property name="Default" type="empty">
-    <property name="LVDS-1" type="string" value="Laptop">
-      <property name="Active" type="bool" value="true"/>
-      <property name="Resolution" type="string" value="1366x768"/>
-      <property name="RefreshRate" type="double" value="60.102930000000001"/>
-      <property name="Rotation" type="int" value="0"/>
-      <property name="Reflection" type="string" value="0"/>
-      <property name="Primary" type="bool" value="false"/>
-      <property name="Position" type="empty">
-        <property name="X" type="int" value="0"/>
-        <property name="Y" type="int" value="0"/>
-      </property>
-    </property>
-    <property name="VGA-1" type="string" value="2. Sentronic International Corp. 24&quot;">
-      <property name="Active" type="bool" value="true"/>
-      <property name="Resolution" type="string" value="1920x1080"/>
-      <property name="RefreshRate" type="double" value="59.933878"/>
-      <property name="Rotation" type="int" value="0"/>
-      <property name="Reflection" type="string" value="0"/>
-      <property name="Primary" type="bool" value="false"/>
-      <property name="Position" type="empty">
-        <property name="X" type="int" value="0"/>
-        <property name="Y" type="int" value="0"/>
-      </property>
-    </property>
-    <property name="eDP-1" type="string" value="Laptop">
-      <property name="Active" type="bool" value="true"/>
-      <property name="EDID" type="string" value="2dd5a9c3ee5cf2879ef1ced503a6a8e66da22f3e"/>
-      <property name="Resolution" type="string" value="1366x768"/>
-      <property name="RefreshRate" type="double" value="60.110679982189431"/>
-      <property name="Rotation" type="int" value="0"/>
-      <property name="Reflection" type="string" value="0"/>
-      <property name="Primary" type="bool" value="false"/>
-      <property name="Scale" type="empty">
-        <property name="X" type="double" value="1"/>
-        <property name="Y" type="double" value="1"/>
-      </property>
-      <property name="Position" type="empty">
-        <property name="X" type="int" value="0"/>
-        <property name="Y" type="int" value="0"/>
-      </property>
-    </property>
-    <property name="DP-1" type="string" value="Sentronic International Corp. 24&quot;">
-      <property name="Active" type="bool" value="true"/>
-      <property name="EDID" type="string" value="a91f6bcae676819a7cfd46e43241b9c7c9e910f4"/>
-      <property name="Resolution" type="string" value="1920x1080"/>
-      <property name="RefreshRate" type="double" value="59.933878"/>
-      <property name="Rotation" type="int" value="0"/>
-      <property name="Reflection" type="string" value="0"/>
-      <property name="Primary" type="bool" value="false"/>
-      <property name="Scale" type="empty">
-        <property name="X" type="double" value="1"/>
-        <property name="Y" type="double" value="1"/>
-      </property>
-      <property name="Position" type="empty">
-        <property name="X" type="int" value="0"/>
-        <property name="Y" type="int" value="0"/>
-      </property>
-    </property>
-    <property name="HDMI-2" type="string" value="Acer 22&quot;">
-      <property name="Active" type="bool" value="true"/>
-      <property name="EDID" type="string" value="0568e5f99a27a59fc3c422c28393c71927e83e73"/>
-      <property name="Resolution" type="string" value="1920x1080"/>
-      <property name="RefreshRate" type="double" value="60"/>
-      <property name="Rotation" type="int" value="0"/>
-      <property name="Reflection" type="string" value="0"/>
-      <property name="Primary" type="bool" value="true"/>
-      <property name="Scale" type="empty">
-        <property name="X" type="double" value="1"/>
-        <property name="Y" type="double" value="1"/>
-      </property>
-      <property name="Position" type="empty">
-        <property name="X" type="int" value="1366"/>
-        <property name="Y" type="int" value="0"/>
-      </property>
-    </property>
-    <property name="DP-2-1" type="string" value="Sentronic International Corp. 24&quot;">
-      <property name="Active" type="bool" value="true"/>
-      <property name="EDID" type="string" value="f96c41b24819eb53ff7f828b23349986592e913c"/>
-      <property name="Resolution" type="string" value="1920x1080"/>
-      <property name="RefreshRate" type="double" value="59.933878003184937"/>
-      <property name="Rotation" type="int" value="0"/>
-      <property name="Reflection" type="string" value="0"/>
-      <property name="Primary" type="bool" value="false"/>
-      <property name="Scale" type="empty">
-        <property name="X" type="double" value="1"/>
-        <property name="Y" type="double" value="1"/>
-      </property>
-      <property name="Position" type="empty">
-        <property name="X" type="int" value="0"/>
-        <property name="Y" type="int" value="0"/>
-      </property>
-    </property>
-  </property>
   <property name="ActiveProfile" type="string" value="Default"/>
   <property name="Fallback" type="empty">
     <property name="eDP-1" type="string" value="Laptop">
@@ -131,9 +37,9 @@
         <property name="Y" type="int" value="0"/>
       </property>
     </property>
-    <property name="HDMI-2" type="string" value="Acer 22&quot;">
+    <property name="HDMI-2" type="string" value="Acer 24&quot;">
       <property name="Active" type="bool" value="true"/>
-      <property name="EDID" type="string" value="0568e5f99a27a59fc3c422c28393c71927e83e73"/>
+      <property name="EDID" type="string" value="3550207a3d2db606e2caadfe6502a3dccdaddd95"/>
       <property name="Resolution" type="string" value="1920x1080"/>
       <property name="RefreshRate" type="double" value="60"/>
       <property name="Rotation" type="int" value="0"/>
@@ -144,7 +50,7 @@
         <property name="Y" type="double" value="1"/>
       </property>
       <property name="Position" type="empty">
-        <property name="X" type="int" value="1366"/>
+        <property name="X" type="int" value="0"/>
         <property name="Y" type="int" value="0"/>
       </property>
     </property>
@@ -167,4 +73,34 @@
     </property>
   </property>
   <property name="Notify" type="int" value="1"/>
+  <property name="Default" type="empty">
+    <property name="eDP-1" type="string" value="Laptop">
+      <property name="Active" type="bool" value="true"/>
+      <property name="EDID" type="string" value="2dd5a9c3ee5cf2879ef1ced503a6a8e66da22f3e"/>
+      <property name="Resolution" type="string" value="1366x768"/>
+      <property name="RefreshRate" type="double" value="60.110679982189431"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Scale" type="double" value="1"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="0"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="DP-2-1" type="string" value="Sentronic International Corp. 24&quot;">
+      <property name="Active" type="bool" value="true"/>
+      <property name="EDID" type="string" value="f96c41b24819eb53ff7f828b23349986592e913c"/>
+      <property name="Resolution" type="string" value="1920x1080"/>
+      <property name="RefreshRate" type="double" value="59.933878003184937"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Scale" type="double" value="1"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="1366"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+  </property>
 </channel>

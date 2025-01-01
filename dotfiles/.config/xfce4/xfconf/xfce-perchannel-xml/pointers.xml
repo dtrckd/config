@@ -44,4 +44,9 @@
       <property name="Device_Enabled" type="int" value="1"/>
     </property>
   </property>
+  <property name="UGTABLET_10_inch_PenTablet_Mouse" type="empty">
+    <property name="Properties" type="empty">
+      <property name="Device_Enabled" type="int" value="1"/>
+    </property>
+  </property>
 </channel>

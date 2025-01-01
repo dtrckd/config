@@ -27,7 +27,13 @@ end
 
 # Direnv
 if type -q direnv
-   direnv hook fish | source
+    direnv hook fish | source
+    if [ -f .envrc ]
+        set A $DIRENV_LOG_FORMAT
+        set -x DIRENV_LOG_FORMAT ""
+        direnv reload
+        set -x DIRENV_LOG_FORMAT $A
+    end
 end
 
 # Kitty...
@@ -118,7 +124,7 @@ if test -x /bin/exa
 end
 
 if test -x /bin/batcat
-    alias cat="batcat --style rule,header-filename,header,changes,snip"
+    alias cat="batcat --style rule,header-filename,header,changes,snip --plain"
     alias bcat="batcat"
     alias mdcat="mdcat -p"
 end
@@ -137,12 +143,17 @@ alias py3='python3'
 alias xback='xbacklight'
 alias octave='octave --silent'
 alias ai="aichat -s"
-alias air='ai -r'
-alias aic="aichat -c"
+alias air='aichat -s -r'
+alias aic="aichat -e"
 alias mongoshell="docker exec -it mongodb mongo"
 alias docker_inspect_cmd="docker inspect --format '{{.Config.Cmd}}'"
 alias docker_inspect_env="docker inspect --format '{{ json .Config.Env }}'"
 alias dps='docker ps --format "{{.ID}}  {{.Names}}\n\t\t\t\t\t\t{{.Ports}}\n\t\t\t\t\t\t{{.Status}}"'
+function dps_net
+    docker ps -q | while read container_id
+        docker inspect --format='{{.Name}}: {{range $key, $value := .NetworkSettings.Networks}}{{$key}} {{end}}' $container_id | sed 's:/::'
+    end
+end
 alias lzg="lazygit"
 alias lzd="lazydocker"
 alias station="ferdi &"
@@ -176,6 +187,8 @@ alias t="thunar"
 alias vimake="vim Makefile"
 alias vimk="vim Makefile"
 alias vk="vim Makefile"
+alias vij="vim justfile"
+alias vji="vim justfile"
 alias vime="vim (find . -maxdepth 1 -iname 'readme*' -print -quit)"
 
 alias vi='vim'
@@ -224,8 +237,9 @@ alias ip4="ip -4 -br a"
 alias ip6="ip -6 -br a"
 alias fail2ban-ls='sudo fail2ban-client status | sed -n "s/,//g;s/.*Jail list://p" | xargs -n1 sudo fail2ban-client status'
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
-alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor,.direnv}'
-alias rg="rg --hidden -g '!.git/' -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/' -g '!.direnv/' -g '!.tags'"
+alias cloc='cloc --fullpath --exclude-dir=node_modules,elm-stuff,vendor,.direnv,.mypy_cache,venv --exclude-list-file=.gitignore'
+alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor,.direnv,.mypy_cache}'
+alias rg="rg --hidden -g '!.git/' -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/' -g '!.direnv/' -g '!.mypy_cache/' -g '!.tags'"
 alias rgi="rg -i"
 alias grepi="grep -i"
 alias grepy='find -iname "*.py" | xargs grep --color -n'
@@ -248,6 +262,7 @@ alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
 alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Update}}{{.}}{{end}}{{end}}' all"
 alias fmake="fzf-make"
 alias ranger="yazi"
+alias dictx="xfce4-dict"
 
 function show
     functions $argv[1] | grep "^ "
@@ -292,7 +307,7 @@ function upgrademe
     sudo aptitude update && sudo aptitude upgrade
     sudo snap refresh
     npm update -g
-    pip install -U (pip freeze | rgi "(lsp|server|mypy|jupyter)" | cut -d= -f1)
+    pip install -U (pip freeze | rgi "(lsp|server|mypy|jupyter)" | cut -d= -f1) # +ruff
     vim -c "PluginUpdate"
     #rustup update # cargo install <package> to upgrade one package
     #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
@@ -314,9 +329,12 @@ alias gm='git commit -m'
 alias gr='git remote -v'
 alias gb='git branch -v'
 alias gp='git push'
+alias gpush='git push origin $(git rev-parse --abbrev-ref HEAD)'
+alias gpull='git pull origin $(git rev-parse --abbrev-ref HEAD)'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias gs='git status -sb'
+alias sg='git status -sb'
 alias ga="git add"
 alias gl="git log --oneline --decorate --color"
 alias gll="git log --pretty='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%Creset %C(magenta)%an%Creset' --graph --date=relative --abbrev-commit"
@@ -901,5 +919,6 @@ end
 setxkbmap -option "nbsp:none"
 
 alias nerd_dictation="cd ~/src/gpt/nerd-dictation && ./nerd-dictation begin --vosk-model-dir=./model"
-
 abbr -a vic "vim ~/src/config/"
+abbr -a cdc "cd ~/.config/"
+

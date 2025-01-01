@@ -107,7 +107,7 @@ if [ -x /bin/exa ]; then
 fi
 
 if [ -x /bin/batcat ]; then
-    alias cat="batcat --style rule,header-filename,header,changes,snip"
+    alias cat="batcat --style rule,header-filename,header,changes,snip --plain"
     alias bcat="batcat"
     alias mdcat="mdcat -p"
 fi

@@ -85,6 +85,7 @@ mcview_eof=
 skin=yadt256
 
 shadows=true
+shell_directory_timeout=900
 
 [Layout]
 message_visible=true
@@ -96,7 +97,7 @@ menubar_visible=true
 free_space=true
 horizontal_split=false
 vertical_equal=true
-left_panel_size=75
+left_panel_size=106
 horizontal_equal=true
 top_panel_size=1
 
@@ -142,8 +143,23 @@ select_flags=6
 
 simple_swap=false
 
+[FindFile]
+file_case_sens=true
+file_shell_pattern=true
+file_find_recurs=true
+follow_symlinks=false
+file_skip_hidden=false
+file_all_charsets=false
+content_case_sens=true
+content_regexp=false
+content_first_hit=false
+content_whole_words=false
+content_all_charsets=false
+ignore_dirs_enable=true
+ignore_dirs=
+
 [Panelize]
-Find *.orig after patching=find . -name \\*.orig -print
 Find SUID and SGID programs=find . \\( \\( -perm -04000 -a -perm /011 \\) -o \\( -perm -02000 -a -perm /01 \\) \\) -print
-Find rejects after patching=find . -name \\*.rej -print
 Modified git files=git ls-files --modified
+Find rejects after patching=find . -name \\*.rej -print
+Find *.orig after patching=find . -name \\*.orig -print
