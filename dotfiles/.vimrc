@@ -19,12 +19,12 @@ Plugin 'tpope/vim-surround'
 Plugin 'luochen1990/rainbow'
 Plugin 'a.vim'
 Plugin 'Align'
-Plugin 'preservim/tagbar'
 Plugin 'preservim/nerdcommenter'
 "Plugin 'preservim/nerdtree'
 Plugin 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 Plugin 'gotcha/vimpdb'
 "Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'preservim/tagbar'
 Plugin 'iamcco/markdown-preview.nvim'
 Plugin 'nvim-lua/plenary.nvim'
 Plugin 'MunifTanjim/nui.nvim'
@@ -172,7 +172,7 @@ let g:NERDDefaultAlign = "left"
 " fc-cache -fv # try opening a new terminal if you don't see anything
 " ```
 nnoremap <C-p> <cmd>CHADopen<cr>
-nnoremap <C-i> <cmd>CHADopen --always-focus<cr>
+nnoremap <C-k> <cmd>CHADopen --always-focus<cr>
 autocmd bufenter * if (winnr("$") == 1 && &buftype == "nofile" && &filetype == "CHADTree") | q! | endif
 let g:chadtree_settings = {
       \  'options.polling_rate': 1900,
@@ -641,7 +641,6 @@ set nohidden                       " Do not keep a buffer open (swp file) if the
 set splitright                     " default vertical split focus
 set splitbelow                     " default horizontal split focus
 
-nnoremap <C-x> :split<cr>
 nnoremap X :split<cr>
 
 " Fix for color syntax highlighting breaks for big file after jump or search
@@ -808,10 +807,6 @@ nnoremap <C-\|> <C-\|>0
 """ Window Zoom
 nnoremap <C-W>z :call zoom#toggle()<cr>
 nnoremap <C-W>o :call zoom#toggle()<cr>
-""" windows resize
-nnoremap <C-k> <C-W>10+
-nnoremap <C-j> <C-W>10-
-nnoremap <C-h> <C-W>10<
 "nnoremap <C-l> <C-W>10>
 noremap <C-S-UP>    :resize -8<cr>
 noremap <C-S-DOWN>  :resize +8<cr>
@@ -966,7 +961,6 @@ au BufNewFile,BufRead *.load set filetype=html
 au BufNewFile,BufRead *.css,*.scss,*.sass,*.less setf scss
 au BufNewFile,BufRead *.prisma,*.graphql,*.gql setf graphql
 au BufNewFile,BufRead *.nomad,*.consul,*.toml,*.yaml,*.yml setf conf
-au BufNewFile,BufRead *.fish set filetype=sh
 au BufNewFile,BufRead *.nse set filetype=lua
 au BufNewFile,BufRead *.elm set filetype=elm
 au BufNewFile,BufRead *.vue set filetype=vue
