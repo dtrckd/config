@@ -36,8 +36,8 @@
         <value type="int" value="34"/>
         <value type="int" value="6"/>
         <value type="int" value="2"/>
-        <value type="int" value="36"/>
         <value type="int" value="10"/>
+        <value type="int" value="36"/>
         <value type="int" value="4"/>
         <value type="int" value="3"/>
       </property>
@@ -153,6 +153,7 @@
         <value type="string" value="zoom"/>
       </property>
       <property name="known-legacy-items" type="array">
+        <value type="string" value="wi-fi network connection “simplon-apprenants” active: simplon-apprenants (62%)"/>
         <value type="string" value="wi-fi network connection “sfr_6d4f” active: sfr_6d4f (68%)"/>
         <value type="string" value="wi-fi network connection “freebox-5a22b2” active: freebox-5a22b2 (55%)"/>
         <value type="string" value="wi-fi network connection “freebox-5a22b2” active: freebox-5a22b2 (49%)"/>

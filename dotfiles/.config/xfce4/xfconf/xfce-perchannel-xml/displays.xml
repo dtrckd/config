@@ -73,6 +73,7 @@
     </property>
   </property>
   <property name="Notify" type="int" value="1"/>
+  <property name="AutoEnableProfiles" type="int" value="3"/>
   <property name="Default" type="empty">
     <property name="eDP-1" type="string" value="Laptop">
       <property name="Active" type="bool" value="true"/>
@@ -84,21 +85,21 @@
       <property name="Primary" type="bool" value="false"/>
       <property name="Scale" type="double" value="1"/>
       <property name="Position" type="empty">
-        <property name="X" type="int" value="0"/>
+        <property name="X" type="int" value="1920"/>
         <property name="Y" type="int" value="0"/>
       </property>
     </property>
-    <property name="DP-2-1" type="string" value="Sentronic International Corp. 24&quot;">
+    <property name="DP-2-1" type="string" value="Samsung 24&quot;">
       <property name="Active" type="bool" value="true"/>
-      <property name="EDID" type="string" value="f96c41b24819eb53ff7f828b23349986592e913c"/>
+      <property name="EDID" type="string" value="a857317eb60125e5a60c80bbcdba2b61b50dbfe3"/>
       <property name="Resolution" type="string" value="1920x1080"/>
-      <property name="RefreshRate" type="double" value="59.933878003184937"/>
+      <property name="RefreshRate" type="double" value="120"/>
       <property name="Rotation" type="int" value="0"/>
       <property name="Reflection" type="string" value="0"/>
       <property name="Primary" type="bool" value="false"/>
       <property name="Scale" type="double" value="1"/>
       <property name="Position" type="empty">
-        <property name="X" type="int" value="1366"/>
+        <property name="X" type="int" value="0"/>
         <property name="Y" type="int" value="0"/>
       </property>
     </property>

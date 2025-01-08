@@ -6,6 +6,7 @@ thunderbird 78.11 dont read gmail error.
 
 # Allow desktop to suspend/hibernate without password
 # https://askubuntu.com/questions/543921/authentication-required-before-suspend
+-> set yes for <allow_inactive> value in the desired entries.
 
 # Make the mouse visible again
 xset dpms force off  
