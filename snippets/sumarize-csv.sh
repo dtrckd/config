@@ -34,9 +34,16 @@ printf "%-40s | %-10s | %-10s | %-50s\n" "File" "Size" "Rows" "Columns"
 printf '%.0s-' {1..95}
 echo
 
-# Iterate over all CSV files in the current directory
-for csv_file in *.csv; do
-    if [[ -f "$csv_file" ]]; then
-        summarize_csv "$csv_file"
-    fi
-done
+# Check if $1 is empty, if so iterate over all CSV files in the current directory
+if [ -z "$1" ]; then
+    for csv_file in *.csv; do
+        if [[ -f "$csv_file" ]]; then
+            summarize_csv "$csv_file"
+        fi
+    done
+else
+    # Use $* as the file to run on
+    for file in "$@"; do
+        summarize_csv "$file"
+    done
+fi
