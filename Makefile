@@ -266,9 +266,10 @@ backup_thunderbird:
 # Update
 # ================================
 
-update_hosts:
+update_hosts_black:
 	@curl http://sbc.io/hosts/alternates/gambling-porn/hosts | sed -n '/# Start StevenBlack/,$$p' > stevenblack.tmp
 	cat /etc/hosts | sed '/# Start StevenBlack/,$$d' > hosts.tmp
+	echo -e "\n\n" >> hosts.tmp
 	cat hosts.tmp stevenblack.tmp > etc/hosts
 	rm -f stevenblack.tmp hosts.tmp
 
