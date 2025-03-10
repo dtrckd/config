@@ -52,18 +52,6 @@ if [ "$Target" == "wekan" ]; then
     # snap set core refresh.schedule=02:00-04:00
     # sudo snap set wekan mail-url='smtps://user:pass@mailserver.example.com:453'
     # sudo snap set wekan mail-from='Wekan Boards <support@example.com>'
-
-    # Old way
-    #git clone https://github.com/wekan/wekan-mongodb.git ~/Documents/wekan-mongodb
-    #pushd ~/Documents/wekan-mongodb
-    ## set the host (sed -> replace in the range matching between "/x/, /y/ ..."
-    #sed -i "/^ *environment:$/, /[#\n]/ s/ROOT_URL=.*$/ROOT_URL=http:\/\/wekan.localhost/"  docker-compose.yml
-    ## set the port; (sed -> modif the line just after 'ports:')
-    #sed -i "/^ *ports:$/ {n;s/[0-9]*:[0-9]*/8080:80/}"  docker-compose.yml
-    #sudo apt-mark hold docker.io
-    #sudo aptitude install docker-compose
-    #docker-compose up
-    #popd
 fi
 if [ "$Target" == "robot3t" ]; then
     # Robo3t

@@ -23,7 +23,7 @@ OPTS="-y --no-install-recommends"
 ######################
 ### System
 ######################
-sudo apt install $OPTS sudo aptitude make psmisc rfkill apt-file apt-show-versions htop strace net-tools jq ripgrep curl wget zip xclip mc rsync tmux vim neovim git gitk gitg tree bat xsel git-delta
+sudo apt install $OPTS sudo aptitude make psmisc rfkill apt-file apt-show-versions htop strace net-tools jq ripgrep fd-find curl wget zip xclip mc rsync tmux vim neovim git gitk gitg tree bat xsel git-delta
 
 #sudo apt-get install $OPTS firmware-linux-nonfree
 #ranger --copy-config=all
@@ -42,7 +42,13 @@ fi
 ### Snap and Docker
 ######################
 if [ $AGGRESSIVE == 1 ]; then
-    sudo apt install $OPTS snapd docker.io docker-compose
+    # Assume sources.list.d/docker.list is present
+    sudo apt-get update
+    sudo apt-get install ca-certificates curl
+    sudo install -m 0755 -d /etc/apt/keyrings
+    sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+    sudo chmod a+r /etc/apt/keyrings/docker.asc
+    sudo apt install $OPTS snapd docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 fi
 
 ######################
@@ -59,15 +65,13 @@ if [ $AGGRESSIVE == 1 ]; then
     # Debian dependancies.
     sudo apt install $OPTS python3 python3-dev python3-pip python3-venv
     # LSP
-    pip install python-lsp-server ruff-lsp pylsp-mypy jupyter-lsp
+    pip install python-lsp-server ruff-lsp pylsp-mypy jupyter-lsp cython ipython jupyter matplotlib numpy scipy pandas scikit-learn requests
+    pip install pip_search pipdeptree pypandoc markdown2ctags pandoc-shortcaption pandoc-eqnos pandoc-fignos pandoc-xnos pandocfilters
 fi
 if [ $PYTHON == 1 ]; then
     # dev/ia
     #sudo apt install $OPTS gfortran libopenblas-dev python3-tk cython3
-    pip install cython ipython jupyter matplotlib numpy scipy pandas scikit-learn requests fastapi pydantic ansible
-    # tools
-    pip install pip_search pipdeptree pypandoc markdown2ctags pandoc-shortcaption pandoc-eqnos pandoc-fignos pandoc-xnos pandocfilters
-    #pip install Scrapy scrapy-splash
+    pip install fastapi pydantic ansible
 
     # Add unstable python version
     # sudo apt install -t unstable python3.12

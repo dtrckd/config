@@ -46,6 +46,10 @@ fi
 prompt_short
 #prompt_long
 
+if command -v fdfind &> /dev/null; then
+   alias find='fdfind'
+fi
+
 alias t="thunar"
 alias gf="fg"
 alias diff='diff -u'
@@ -122,7 +126,6 @@ alias fuk='fuck'
 alias please='sudo $(fuck -ln -1)'
 alias so='source ~/.bashrc'
 alias cleancolors="sed -r 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' $1"
-alias python="python3"
 alias ipython="ipython --colors linux"
 alias ipython_dev="ipython --profile dev"
 alias py='python3'
@@ -186,7 +189,6 @@ alias vij="vim justfile"
 alias vji="vim justfile"
 alias vimk="vim Makefile"
 alias vk="vim Makefile"
-alias vime="vim $(find . -maxdepth 1 -iname 'readme*' -print -quit)"
 
 _PWD="/home/ama/adulac/main/thesis/repo/ml/"
 _NDL="$HOME/src/config/configure/nodeslist"
@@ -207,7 +209,8 @@ alias memtop='ps aux --sort=-%mem | awk '\''{print "CPU: "$3"%", "MEM: "$4"%", "
 alias riprm='shred -zuv -n1' # find <directory> -depth -type f -exec shred -v -n 1 -z -u {} \;
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
-alias f='fzf | clipboard' # fuzzy match
+#alias f='fzf | clipboard' # fuzzy match
+alias f=find
 ff () { find -iname "*$1*"; } # wide match
 fff () { find -iname "$1"; } # exact match
 ### Network
@@ -342,6 +345,9 @@ function upgrademe() {
     #rustup update # cargo install <package> to upgrade one package
     #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
     #brew update && brew upgrade
+}
+function upgradeapt() {
+    sudo apt update && sudo apt upgrade
 }
 function upgradevim() {
     vim -c "PluginUpdate"
