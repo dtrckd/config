@@ -1,3 +1,3 @@
-APT::Periodic::Update-Package-Lists "3";
-APT::Periodic::Unattended-Upgrade "3";
-APT::Periodic::AutocleanInterval "12";
+APT::Periodic::Update-Package-Lists "3"; // Controls how often the package lists are updated (in days). A value of "1" means daily.
+APT::Periodic::Unattended-Upgrade "3"; //  Controls how often to perform unattended upgrades (in days). A value of "1" means daily.
+APT::Periodic::AutocleanInterval "8"; // Controls how often to remove old packages (in days). A value of "7" means weekly.

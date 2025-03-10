@@ -25,6 +25,7 @@ if [[ $COUNT -eq 0 || "$COMMAND" == "help" || "$COMMAND" == "--help" || "$COMMAN
     echo '    remind "Are you ready?" at 22:30 2023-03-15'
     echo '    remind list'
     echo '    remind clear'
+    echo '    remind rm {JOBID}'
     echo '    remind help'
     echo
     exit 1
@@ -46,6 +47,12 @@ if [[ $COUNT -eq 1 ]]; then
         echo "remind: unknown command $COMMAND. Type 'remind' without any parameters to see syntax."
     fi
     exit 2
+fi
+
+# Run special commands: rm
+if [[ "$COMMAND" == "rm" ]]; then
+    atrm $OP
+    exit 1
 fi
 
 # Determine time of notification

@@ -77,6 +77,10 @@ end
 
 #set LS_COLORS dxfxcxdxbxegedabagacad
 
+if type -q fdfind
+   alias find='fdfind'
+end
+
 # basic
 alias gf="fg"
 alias diff='diff -u'
@@ -135,7 +139,6 @@ alias fuk='fuck'
 alias please='sudo (fc -ln -1)'
 alias so='source ~/.config/fish/config.fish'
 alias cleancolors="sed -r 's/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g' $1"
-alias python="python3"
 alias ipython="ipython --colors linux"
 alias ipython_dev="ipython --profile dev"
 alias py='python'
@@ -189,8 +192,6 @@ alias vimk="vim Makefile"
 alias vk="vim Makefile"
 alias vij="vim justfile"
 alias vji="vim justfile"
-alias vime="vim (find . -maxdepth 1 -iname 'readme*' -print -quit)"
-
 alias vi='vim'
 alias vu='vim'
 alias ci='vim'
@@ -221,7 +222,8 @@ alias lsoftop='sudo lsof | awk '\''{print $1 " " $2}'\'' | sort | uniq -c | sort
 alias riprm='shred -zuv -n1'
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
-alias f='fzf | tr -d "\n" | clipboard' # fuzzy match
+#alias f='fzf | tr -d "\n" | clipboard' # fuzzy match
+alias f=find
 alias !='fzf | tr -d "\n" | clipboard' # fuzzy match
 function ff; find -iname "*$argv[1]*" ; end # wide match
 function fff; find -iname "$argv[1]" ; end # exact match
@@ -312,6 +314,10 @@ function upgrademe
     #rustup update # cargo install <package> to upgrade one package
     #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
     #brew update && brew upgrade
+end
+
+function upgradeapt
+    sudo apt update && sudo apt upgrade
 end
 
 function upgradevim

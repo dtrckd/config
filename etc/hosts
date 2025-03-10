@@ -1,8 +1,9 @@
 127.0.0.1	localhost
 127.0.1.1	lalilulelo
-127.0.0.1 doku.local
-127.0.0.1 wekan.local
-127.0.0.1 monitor.local
+127.0.0.1   ai.me
+127.0.0.1   ai
+127.0.0.1   ai2
+127.0.0.1   ai3
 
 
 # The following lines are desirable for IPv6 capable hosts
