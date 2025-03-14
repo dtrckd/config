@@ -1068,7 +1068,7 @@ if [ -f /etc/profile.d/bash_completion.sh ]; then
 fi
 
 if [ -z "$BASH_EXECUTION_STRING" ]; then
-    which fish 1>/dev/null
+    which fish 1>/dev/null 2>/dev/null
     if [ $? == 0 ]; then
         exec fish
     fi
