@@ -988,19 +988,19 @@ if [ -x $(which python) ]; then
 fi
 
 # GOLANG
-if [ -x "$(which go)" ]; then
+if [ -x "$(which go 2>/dev/null)" ]; then
     export GOPATH=$HOME/.go
     export PATH="$(go env GOROOT)/bin:$PATH"
     export PATH="$(go env GOPATH)/bin:$PATH"
 fi
 
 # RUST
-if [ -x "$(which rustc)" -o -x "${HOME}/.cargo/bin/rustc" ]; then
+if [ -x "$(which rustc 2>/dev/null)" -o -x "${HOME}/.cargo/bin/rustc" ]; then
     export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
 # SNAP
-if [ -x "$(which snap)" ]; then
+if [ -x "$(which snap 2>/dev/null)" ]; then
     export PATH="/snap/bin:$PATH"
 fi
 
@@ -1034,13 +1034,13 @@ if [ -x "$HOME/.local/kitty.app/bin/kitty" ]; then
 fi
 
 # Thefuck
-if [ -x "$(which thefuck)" ]; then
+if [ -x "$(which thefuck 2>/dev/null)" ]; then
     eval "$(thefuck --alias)"
     alias fk="fuck"
 fi
 
 # Zoxide
-if [ -x "$(which zoxide)" ]; then
+if [ -x "$(which zoxide 2>/dev/null)" ]; then
     eval "$(zoxide init bash)"
 fi
 
