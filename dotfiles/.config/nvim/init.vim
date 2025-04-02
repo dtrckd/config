@@ -2,8 +2,14 @@ set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 source ~/.vimrc
 
-lua require("basics")
+" Minideps dependencies...
+lua require("minideps")
+
+" Plugins initialization
 lua require("goto-preview").setup {}
-lua require("lsp_config")
-lua require("code_gpt")
-lua require('neoscroll').setup({easing="quadratic"})
+lua require("neoscroll").setup({easing="quadratic"})
+
+" Custom Plugins
+lua require("basics")
+lua require("lsp_configs")
+
