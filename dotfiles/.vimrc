@@ -22,8 +22,9 @@ Plugin 'Align'
 Plugin 'preservim/nerdcommenter'
 "Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'preservim/tagbar'
-Plugin 'nvim-lua/plenary.nvim'
 Plugin 'MunifTanjim/nui.nvim'
+Plugin 'nvim-lua/plenary.nvim'
+Plugin 'nvim-treesitter/nvim-treesitter' " for codecompanion...
 
 " Session
 Plugin 'mhinz/vim-startify'
@@ -44,8 +45,11 @@ Plugin 'tpope/vim-fugitive'
 
 " Linting / LSP / Code completion
 Plugin 'neovim/nvim-lspconfig'
-Plugin 'saghen/blink.cmp'
 Plugin 'TabbyML/vim-tabby'
+Plugin 'saghen/blink.cmp'
+Plugin 'olimorris/codecompanion.nvim'
+" Blink plugins
+Plugin 'bydlw98/blink-cmp-env'
 
 
 " File Format / Extra Language
