@@ -21,6 +21,33 @@ end
 local lspconfig = require('lspconfig')
 --local coq = require('coq')
 local blink = require('blink.cmp')
+local ccp = require("codecompanion").setup({
+    strategies = {
+        chat = {
+            adapter = "anthropic",
+        },
+    },
+    adapters = {
+        openai = function()
+            return require("codecompanion.adapters").extend("openai", {
+                schema = {
+                    model = {
+                        default = "gpt-4o",
+                    },
+                },
+            })
+        end,
+        anthropic = function()
+            return require("codecompanion.adapters").extend("anthropic", {
+                schema = {
+                    model = {
+                        default = "claude-3-7-sonnet-20250219",
+                    },
+                },
+            })
+        end,
+    }
+})
 
 
 --
@@ -28,7 +55,7 @@ local blink = require('blink.cmp')
 --
 vim.g.tabby_agent_start_command = { "npx", "tabby-agent", "--lsp", "--stdio" }
 vim.g.tabby_inline_completion_trigger = "manual"
-vim.g.tabby_inline_completion_keybinding_accept = "<Tab>"
+vim.g.tabby_inline_completion_keybinding_accept = "<C-p>" -- overwrite the initial mapping :/ (C-Enter, C-*, do not work; workaround ?)
 vim.g.tabby_inline_completion_keybinding_trigger_or_dismiss = "<C-^>"
 --vim.g.tabby_inline_completion_insertion_leading_key = "<C-R><C-O>="
 
@@ -299,9 +326,9 @@ end
 -- Toggle mypy
 --
 
-local function toggle_pylsp_mypy()
+function _G.toggle_pylsp_mypy()
     -- Get the list of LSP clients attached to the current buffer
-    local clients = vim.lsp.get_clients(0) -- 0 refers to the current buffer
+    local clients = vim.lsp.get_clients() -- Restrict to the current buffer by default
     -- Iterate over the clients to find the pylsp client
     for _, client in pairs(clients) do
         if client.name == 'pylsp' then
@@ -350,6 +377,7 @@ vim.api.nvim_create_user_command('ToggleMypy', toggle_pylsp_mypy, {})
 
 
 
+
 -- Toggle the diagnostics severity level
 function _G.toggle_diagnostics(severity)
     local current_config = vim.diagnostic.config()
@@ -380,9 +408,9 @@ map('n', '<leader>q', "<cmd>lua vim.diagnostic.disable()<CR>")
 map('n', '<leader>el', "<cmd>lua vim.diagnostic.setloclist()<CR>")
 map('n', '<leader>ew', '<cmd>lua toggle_diagnostics(vim.diagnostic.severity.WARN)<CR>')
 map('n', '<leader>ez', '<cmd>lua toggle_diagnostics(vim.diagnostic.severity.HINT)<CR>')
-map('n', '<leader>en', '<cmd>lua vim.diagnostic.goto_next({severity="Error"})<CR>')
-map('n', '<leader>ep', '<cmd>lua vim.diagnostic.goto_prev({severity="Error"})<CR>')
-map('n', '<leader>eN', '<cmd>lua vim.diagnostic.goto_prev({severity="Error"})<CR>')
+map('n', '<leader>en', '<cmd>lua vim.diagnostic.goto_next({severity={min=vim.diagnostic.config().signs.severity.min}})<CR>')
+map('n', '<leader>ep', '<cmd>lua vim.diagnostic.goto_prev({severity={min=vim.diagnostic.config().signs.severity.min}})<CR>')
+map('n', '<leader>eN', '<cmd>lua vim.diagnostic.goto_prev({severity={min=vim.diagnostic.config().signs.severity.min}})<CR>')
 map('n', '<leader>eh', '<cmd>lua vim.diagnostic.open_float()<CR>')
 -- LSP Code navigation
 map('n', '<leader>x', '<cmd>lua vim.lsp.buf.code_action()<CR>')

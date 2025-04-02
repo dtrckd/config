@@ -36,7 +36,7 @@ later(function()
     --
     add({
         source = "saghen/blink.cmp",
-        depends = { "rafamadriz/friendly-snippets" },
+        depends = { "rafamadriz/friendly-snippets", "bydlw98/blink-cmp-env", },
         checkout = "v1.0.0", -- check releases for latest tag
     })
 
@@ -47,11 +47,21 @@ later(function()
         -- Filetype to work on
         enabled = function() return not vim.tbl_contains({ "markdown", "text" }, vim.bo.filetype) end,
 
-        -- default mapping : https://cmp.saghen.dev/configuration/keymap.html
-        keymap = { ['<Tab>'] = {} },
+        -- default mappings: https://cmp.saghen.dev/configuration/keymap#presets
+        keymap = {
+            ['<Esc>'] = { 'hide', 'fallback' },
+            --['<Tab>'] = {}
+            ['<Tab>'] = { 'select_and_accept', 'fallback' },
+            --function(cmp)
+            --    if cmp.snippet_active() then
+            --        return cmp.accept()
+            --    else
+            --        return cmp.select_and_accept()
+            --    end
+            --end,
+            ['<C-n>'] = { 'snippet_forward', 'fallback' },
+        },
 
-        -- Activate signature helper
-        signature = { enabled = true },
 
         -- Provider sources
         sources = {
@@ -60,17 +70,37 @@ later(function()
                 -- see https://cmp.saghen.dev/recipes.html#sources
                 local success, node = pcall(vim.treesitter.get_node)
                 if success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
-                    return { 'buffer' }
+                    return { 'buffer', 'path', 'env', 'omni' }
                 elseif vim.tbl_contains({ "markdown", "text", "conf", "json", "yaml" }, vim.bo.filetype) then
-                    return { 'buffer', 'path' }
+                    return { 'buffer', 'path', 'env', 'omni' }
                 else
-                    return { 'buffer', 'path', 'lsp', 'snippets' }
+                    return { 'buffer', 'path', 'env', 'omni', 'lsp', 'snippets' }
                 end
-            end
+            end,
+            providers = {
+                buffer = {
+                    opts = {
+                        -- get all buffers, even ones like neo-tree (see doc to filter "normal" buffer)
+                        get_bufnrs = vim.api.nvim_list_bufs,
+                    }
+                },
+                env = {
+                    name = "Env",
+                    module = "blink-cmp-env",
+                    --- @type blink-cmp-env.Options
+                    opts = {
+                        item_kind = require("blink.cmp.types").CompletionItemKind.Variable,
+                        show_braces = false,
+                        show_documentation_window = true,
+                    },
+                }
+
+            }
         },
 
-        -- Styles
+        -- Completion config
         completion = {
+            list = { max_items = 20, },
             menu = {
                 border = 'single',
                 draw = {
@@ -79,7 +109,18 @@ later(function()
             },
             documentation = { window = { border = 'double' } },
         },
-        signature = { window = { border = 'rounded' } },
+
+        -- Signature config
+        signature = {
+            enabled = true,
+            window = { border = 'rounded' },
+        },
+
+        -- Documentation config
+
+
+        -- Commandline config
+        cmdline = { enabled = false },
 
     })
 end)
