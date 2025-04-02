@@ -20,14 +20,17 @@ Plugin 'luochen1990/rainbow'
 Plugin 'a.vim'
 Plugin 'Align'
 Plugin 'preservim/nerdcommenter'
-"Plugin 'preservim/nerdtree'
-Plugin 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
-Plugin 'gotcha/vimpdb'
 "Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'preservim/tagbar'
-Plugin 'iamcco/markdown-preview.nvim'
 Plugin 'nvim-lua/plenary.nvim'
 Plugin 'MunifTanjim/nui.nvim'
+
+" Session
+Plugin 'mhinz/vim-startify'
+
+" File navigation
+"Plugin 'preservim/nerdtree'
+Plugin 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 
 " File and code Search
 " @«arning: if systeme-wide fzf is installed before, the 'junegunn/fzf' won't be installed and there might be a version clash.
@@ -39,32 +42,11 @@ Plugin 'rmagatti/goto-preview'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 
-" Linting / LSP
-"Plugin 'dense-analysis/ale'
-"Plugin 'vim-syntastic/syntastic'
-"Plugin 'mozilla/doctorjs'
+" Linting / LSP / Code completion
 Plugin 'neovim/nvim-lspconfig'
+Plugin 'saghen/blink.cmp'
+Plugin 'TabbyML/vim-tabby'
 
-" Code completion
-Plugin 'ms-jpq/coq_nvim', {'branch': 'coq'}
-" 9000+ Snippets
-Plugin 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
-Plugin 'ms-jpq/coq.thirdparty', {'branch': '3p'}
-"Plugin 'metakirby5/codi.vim'
-
-" Copilot
-Plugin 'dpayne/CodeGPT.nvim'
-
-" --
-"Plugin 'ycm-core/YouCompleteMe'
-"Plugin 'ajh17/VimCompletesMe'
-""Plugin 'maxboisvert/vim-simple-complete'
-"Plugin 'ervandew/supertab'
-Plugin 'rstacruz/vim-closer'
-"--
-Plugin 'godlygeek/tabular'
-"Plugin 'honza/vim-snippets'
-"Plugin 'L3MON4D3/LuaSnip', {'tag': 'v1', 'do': 'make install_jsregexp'} " Replace <CurrentMajor> by the latest released major (first number of latest release)
 
 " File Format / Extra Language
 Plugin 'rhysd/vim-crystal'
@@ -72,12 +54,13 @@ Plugin 'jparise/vim-graphql'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'NoahTheDuke/vim-just'
 
-" Session
-Plugin 'mhinz/vim-startify'
-Plugin 'dhruvasagar/vim-zoom'
-
 " Misc
+Plugin 'iamcco/markdown-preview.nvim'
 Plugin 'itchyny/calendar.vim'
+Plugin 'gotcha/vimpdb'
+Plugin 'dhruvasagar/vim-zoom'
+Plugin 'rstacruz/vim-closer'
+Plugin 'godlygeek/tabular'
 Plugin 'ciaranm/detectindent'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'karb94/neoscroll.nvim'
@@ -172,7 +155,7 @@ let g:NERDDefaultAlign = "left"
 " fc-cache -fv # try opening a new terminal if you don't see anything
 " ```
 nnoremap <C-p> <cmd>CHADopen<cr>
-nnoremap <C-k> <cmd>CHADopen --always-focus<cr>
+"nnoremap <C-k> <cmd>CHADopen --always-focus<cr>
 autocmd bufenter * if (winnr("$") == 1 && &buftype == "nofile" && &filetype == "CHADTree") | q! | endif
 let g:chadtree_settings = {
       \  'options.polling_rate': 1900,

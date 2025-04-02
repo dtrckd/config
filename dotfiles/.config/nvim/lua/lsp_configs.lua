@@ -8,61 +8,57 @@ local function map(mode, lhs, rhs, opts)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
---local use = require('packer').use
---require('packer').startup(function()
---  use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
---  use { 'ms-jpq/coq_nvim', run = 'python3 -m coq deps' }
---  use 'ms-jpq/coq.artifacts'
---  use 'ms-jpq/coq.thirdparty'
---end)
 
 
 -- Coq autocompletion -- Autostart
-vim.g.coq_settings = {
-    auto_start = 'shut-up',
-    keymap = {
-        jump_to_mark = "<c-n>",
-    },
-}
+--vim.g.coq_settings = {
+--    auto_start = 'shut-up',
+--    keymap = {
+--        jump_to_mark = "<c-n>",
+--    },
+--}
 
 local lspconfig = require('lspconfig')
-local coq = require('coq')
+--local coq = require('coq')
+local blink = require('blink.cmp')
 
--- Global Client configuration
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        -- Set virtual text
-        virtual_text = {
-            severity = 'Error',
-        },
 
-        -- Set signs
-        signs = {
-            severity = 'Error',
-        },
+--
+-- Tabby configuration
+--
+vim.g.tabby_agent_start_command = { "npx", "tabby-agent", "--lsp", "--stdio" }
+vim.g.tabby_inline_completion_trigger = "manual"
+vim.g.tabby_inline_completion_keybinding_accept = "<Tab>"
+vim.g.tabby_inline_completion_keybinding_trigger_or_dismiss = "<C-^>"
+--vim.g.tabby_inline_completion_insertion_leading_key = "<C-R><C-O>="
 
-        severity_sort = true,
-        update_in_insert = false,
+-- Make the LSP client use FZF instead of the quickfix list
+--local lspfuzzy = require('lspfuzzy')
+--lspfuzzy.setup {}
+
+
+--
+-- Global LSP client diagnostic configuration
+--
+vim.diagnostic.config({
+    signs = { severity = { min = vim.diagnostic.severity.ERROR } },
+    virtual_text = { severity = { min = vim.diagnostic.severity.ERROR } },
+    virtual_lines = true,
+    underline = true,
+    severity_sort = true,
+    update_in_insert = false,
+    float = {
+        border = "rounded",
     }
-)
+})
 
---do -- Tame diagnostics (https://github.com/neovim/nvim-lspconfig/issues/127)
---    local default_callback = vim.lsp.handlers["textDocument/publishDiagnostics"]
---    local err, method, params, client_id
---
---    vim.lsp.handlers["textDocument/publishDiagnostics"] = function(...)
---        err, method, params, client_id = ...
---        if vim.api.nvim_get_mode().mode ~= "i" and vim.api.nvim_get_mode().mode ~= "ic" then
---            publish_diagnostics()
---        end
---    end
---
---    function publish_diagnostics()
---        default_callback(err, method, params, client_id)
---    end
---end
+-- Log level in :LspLog
+vim.lsp.set_log_level("error")
 
--- Enable some language servers, see
+
+--
+-- Enable some language servers
+--
 -- * https://microsoft.github.io/language-server-protocol/implementors/servers/
 -- * https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 local servers = {
@@ -70,7 +66,6 @@ local servers = {
     'elmls',
     'gopls',
     'golangci_lint_ls',
-    'jsonls',
     'lua_ls',
     'pylsp',
     'ruff',
@@ -79,7 +74,7 @@ local servers = {
     'yamlls',
     'dockerls',
     'rust_analyzer',
-    --'tabby_ml'
+    --'tabby_ml',
 }
 
 local configs = {
@@ -164,8 +159,9 @@ local configs = {
         end
     },
     golangci_lint_ls = {
+        cmd = { "golangci-lint-langserver" },
+        init_options = { command = { "golangci-lint", "run", "--enable-all", "--disable", "lll", "--out-format", "json", "--issues-exit-code=1" } },
         root_dir = lspconfig.util.root_pattern('.golangci.yml', '.golangci.yaml', '.golangci.toml', '.golangci.json', 'go.work', 'go.mod', '.git'),
-        command = { "golangci-lint", "run", "--enable-all", "--disable", "lll", "--out-format", "json", "--issues-exit-code=1" },
     },
     -- Lualang
     lua_ls = {
@@ -256,7 +252,7 @@ local configs = {
     --    }
     --},
     -- Typescript/Javascript
-    --ts_ls = { },
+    ts_ls = {},
     yamlls = {
         settings = {
             schemas = {
@@ -284,13 +280,19 @@ local configs = {
         },
     },
     -- Typescript/Javascript
-    tabby_ml = {},
+    tabby_ml =
+    {
+        cmd = { "tabby-agent", "--lsp", "--stdio" },
+    }
+
 }
 
 for _, lsp in ipairs(servers) do
-    lspconfig[lsp].setup(coq.lsp_ensure_capabilities(
-        configs[lsp]
-    ))
+    lspconfig[lsp].setup(configs[lsp])
+    --lspconfig[lsp].setup(coq.lsp_ensure_capabilities( configs[lsp]))
+    local config = configs[lsp]
+    config.capabilities = blink.get_lsp_capabilities({})
+    blink.get_lsp_capabilities(config)
 end
 
 --
@@ -299,7 +301,7 @@ end
 
 local function toggle_pylsp_mypy()
     -- Get the list of LSP clients attached to the current buffer
-    local clients = vim.lsp.buf_get_clients(0) -- 0 refers to the current buffer
+    local clients = vim.lsp.get_clients(0) -- 0 refers to the current buffer
     -- Iterate over the clients to find the pylsp client
     for _, client in pairs(clients) do
         if client.name == 'pylsp' then
@@ -347,78 +349,42 @@ map('n', '<leader>mypy', '<cmd>lua toggle_pylsp_mypy()<CR>')
 vim.api.nvim_create_user_command('ToggleMypy', toggle_pylsp_mypy, {})
 
 
--- shows on BufWrite for all clients attached to current buffer, where virtual_text is false, but underline and signs default true
---vim.cmd[[autocmd BufWrite * :call timer_start(500, { -> v:lua.vim.lsp.diagnostic.show_buffer_diagnostics()})]]
 
--- Make the LSP client use FZF instead of the quickfix list
---local lspfuzzy = require('lspfuzzy')
---lspfuzzy.setup {}
+-- Toggle the diagnostics severity level
+function _G.toggle_diagnostics(severity)
+    local current_config = vim.diagnostic.config()
 
+    -- Determine the new minimum severity
+    local current_min_severity = current_config.signs.severity.min
+    local new_min_severity
 
--- Toggle the diagnostics virtual text
-vim.g.diagnostics_visible = true
-function _G.toggle_diagnostics()
-    if vim.g.diagnostics_visible then
-        vim.g.diagnostics_visible = false
-        vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-            vim.lsp.diagnostic.on_publish_diagnostics, {
-                virtual_text = false,
-            }
-        )
-        print('Diagnostics are hidden')
+    if current_min_severity == vim.diagnostic.severity.ERROR then
+        new_min_severity = severity
+        print("Diagnostics: Showing from HINT")
     else
-        vim.g.diagnostics_visible = true
-        vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-            vim.lsp.diagnostic.on_publish_diagnostics, {
-                virtual_text = true,
-            }
-        )
-        --vim.diagnostic.reset()
-        --vim.diagnostic.enable()
-        print('Diagnostics are visible')
+        new_min_severity = vim.diagnostic.severity.ERROR
+        print("Diagnostics: Showing only ERROR")
     end
-end
 
--- Toggle the Warning diagnostics
-vim.g.warning_diagnostics_visible = false
-function _G.toggle_warning_diagnostics()
-    if vim.g.warning_diagnostics_visible then
-        vim.g.warning_diagnostics_visible = false
-        vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-            vim.lsp.diagnostic.on_publish_diagnostics, {
-                virtual_text = { severity = 'Error' },
-                signs = { severity = 'Error' },
-            }
-        )
-        print('Warning Diagnostics are hidden')
-    else
-        vim.g.warning_diagnostics_visible = true
-        vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-            vim.lsp.diagnostic.on_publish_diagnostics, {
-                virtual_text = { severity = 'Warn' },
-                signs = { severity = 'Warn' },
-            }
-        )
-        --vim.diagnostic.reset()
-        --vim.diagnostic.enable()
-        print('Warning Diagnostics are visible')
-    end
+    -- Update just the severity settings in the current config
+    current_config.signs.severity.min = new_min_severity
+    current_config.virtual_text.severity.min = new_min_severity
+
+    -- Apply the updated config
+    vim.diagnostic.config(current_config)
 end
 
 -- LSP Diagnostics navigation
---
-vim.keymap.set('n', '<leader>e', vim.diagnostic.enable)
---vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.disable)
-vim.keymap.set('n', '<leader>el', vim.diagnostic.setloclist)
-vim.api.nvim_set_keymap('n', '<leader>ez', ':call v:lua.toggle_diagnostics()<CR>', { silent = true, noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>ew', ':call v:lua.toggle_warning_diagnostics()<CR>', { silent = true, noremap = true })
+map('n', '<leader>e', "<cmd>lua vim.diagnostic.enable()<CR>")
+map('n', '<leader>q', "<cmd>lua vim.diagnostic.disable()<CR>")
+map('n', '<leader>el', "<cmd>lua vim.diagnostic.setloclist()<CR>")
+map('n', '<leader>ew', '<cmd>lua toggle_diagnostics(vim.diagnostic.severity.WARN)<CR>')
+map('n', '<leader>ez', '<cmd>lua toggle_diagnostics(vim.diagnostic.severity.HINT)<CR>')
 map('n', '<leader>en', '<cmd>lua vim.diagnostic.goto_next({severity="Error"})<CR>')
 map('n', '<leader>ep', '<cmd>lua vim.diagnostic.goto_prev({severity="Error"})<CR>')
 map('n', '<leader>eN', '<cmd>lua vim.diagnostic.goto_prev({severity="Error"})<CR>')
 map('n', '<leader>eh', '<cmd>lua vim.diagnostic.open_float()<CR>')
 -- LSP Code navigation
---
 map('n', '<leader>x', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 map('n', '<leader>d', '<cmd>lua vim.lsp.buf.definition()<CR>')
 map('n', '<leader>v', '<cmd>rightbelow vsplit | lua vim.lsp.buf.definition()<CR>')
@@ -462,12 +428,3 @@ function _G.rename_symbol()
 end
 
 map('n', '<leader>R', '<cmd>lua rename_symbol()<CR>')
-
---
--- @DEBUG / Copilot
---
--- <c-a> do not work if set before...
---require("coq_3p") {
---    { src = "copilot", short_name = "COP", accept_key = "<c-enter>" },
---    --{ src = "codeium", short_name = "COD" },
---}

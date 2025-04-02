@@ -179,7 +179,7 @@ alias vib="vim ~/.bash_profile"
 alias vif="vim ~/.config/fish/aliases.fish"
 alias vimrc="vim ~/.vimrc"
 alias vilua="vim ~/.config/nvim/init.vim"
-alias vilsp="vim ~/.config/nvim/lua/lsp_config.lua"
+alias vilsp="vim ~/.config/nvim/lua/lsp_configs.lua"
 alias vimtmux="vim ~/.tmux.conf"
 alias vig="vim ~/.gitconfig"
 alias vign="vim .gitignore"
@@ -211,8 +211,8 @@ alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_nav
 alias eog='ristretto'
 #alias f='fzf | clipboard' # fuzzy match
 alias f=find
-ff () { find -iname "*$1*"; } # wide match
-fff () { find -iname "$1"; } # exact match
+ff () { command find -iname "*$1*"; } # wide match
+fff () { command find -iname "$1"; } # exact match
 ### Network
 alias curlH='curl -I'
 # curl ip.appspot.com'
@@ -302,9 +302,9 @@ alias vitodo='vim -p $(find -iname todo -type f)'
 ### Octave
 alias octave='octave --silent'
 alias ai="aichat -s"
-alias aic="command ai"
-alias aic="command ai -c"
-alias air='ai -r'
+alias air='aichat -s -r'
+alias aic="aichat -c"
+alias aie="aichat -e"
 
 function vims() {
     # VIM
@@ -411,6 +411,8 @@ alias gm='git commit -m'
 alias gr='git remote -v'
 alias gb='git branch -v'
 alias gp='git push'
+alias gpush='git push origin $(git rev-parse --abbrev-ref HEAD)'
+alias gpull='git pull origin $(git rev-parse --abbrev-ref HEAD)'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias gs='git status -sb'
