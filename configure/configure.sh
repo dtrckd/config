@@ -2,13 +2,13 @@
 
 set -e
 
-AGGRESSIVE=1
-MORE=1
+AGGRESSIVE_APT=1
+AGGRESSIVE_PYTHON=1
 LATEX=1
-XMMS=1
 PYTHON=1
-NGINX=0
+XMMS=1
 BLUETOOTH=0
+NGINX=0
 SETUP_ENV=1
 SETUP_APP=1
 
@@ -29,8 +29,9 @@ sudo apt install $OPTS sudo aptitude make psmisc rfkill apt-file apt-show-versio
 #ranger --copy-config=all
 
 # Optionals (but advised !)
-if [ $AGGRESSIVE == 1 ]; then
-    sudo apt install $OPTS apt-listbugs acpi bmon nmap wireshark fish autossh wkhtmltopdf direnv
+if [ $AGGRESSIVE_APT == 1 ]; then
+    sudo apt install $OPTS apt-listbugs acpi bmon nmap wireshark fish autossh wkhtmltopdf direnv ca-certificates snapd
+    sudo apt install $OPTS elinks w3m thunderbird firefox gimp libreoffice hunspell-fr pandoc lmodern graphicsmagick-imagemagick-compat  # midori opera
     # for protonmail bridge on linux
     sudo apt install $OPTS
     # Build
@@ -38,25 +39,6 @@ if [ $AGGRESSIVE == 1 ]; then
     sudo update-alternatives --config ctags
 fi
 
-######################
-### Snap and Docker
-######################
-if [ $AGGRESSIVE == 1 ]; then
-    # Assume sources.list.d/docker.list is present
-    sudo apt-get update
-    sudo apt-get install ca-certificates curl
-    sudo install -m 0755 -d /etc/apt/keyrings
-    sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
-    sudo chmod a+r /etc/apt/keyrings/docker.asc
-    sudo apt install $OPTS snapd docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-fi
-
-######################
-### More App
-######################
-if [ $MORE == 1 ]; then
-    sudo apt install $OPTS elinks w3m thunderbird gimp libreoffice hunspell-fr pandoc lmodern graphicsmagick-imagemagick-compat # midori opera
-fi
 
 ######################
 ### Python Dev
@@ -66,7 +48,11 @@ if [ $AGGRESSIVE == 1 ]; then
     sudo apt install $OPTS python3 python3-dev python3-pip python3-venv
     # LSP
     pip install python-lsp-server ruff-lsp pylsp-mypy jupyter-lsp cython ipython jupyter matplotlib numpy scipy pandas scikit-learn requests
-    pip install pip_search pipdeptree pypandoc markdown2ctags pandoc-shortcaption pandoc-eqnos pandoc-fignos pandoc-xnos pandocfilters
+    # tools and edition
+    pip install pip_search pipdeptree pypandoc pandoc-shortcaption pandoc-eqnos pandoc-fignos pandoc-xnos pandocfilters
+    # For tagbar ctags support
+    pip install markdown2ctags
+    cp ~/src/config/snippets/elmtags.py ~/.loca/bin/
 fi
 if [ $PYTHON == 1 ]; then
     # dev/ia
