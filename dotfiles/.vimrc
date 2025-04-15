@@ -46,9 +46,9 @@ Plugin 'tpope/vim-fugitive'
 " Linting / LSP / Code completion
 Plugin 'neovim/nvim-lspconfig'
 Plugin 'TabbyML/vim-tabby'
-Plugin 'saghen/blink.cmp'
 Plugin 'olimorris/codecompanion.nvim'
-" Blink plugins
+" Blink is install trough Minideps. see .nvim/lua/minideps.lua:
+Plugin 'saghen/blink.cmp'  " still needed here to avoid vim error ?!
 Plugin 'bydlw98/blink-cmp-env'
 
 
@@ -179,7 +179,7 @@ let g:chadtree_settings = {
       \    'collapse': ["`", "s-o", "C"],
       \    'select': ["<space>"],
       \    'change_focus_up': ["U"],
-      \    'change_focus': ["u"],
+      \    'change_focus': ["u"], 
       \    'change_dir': ["w"],
       \    'toggle_follow': ["W"],
       \    'toggle_follow_links': ["L"],
@@ -348,6 +348,15 @@ augroup TagBar
 augroup END
 
 
+"""
+""" Tagbar
+"""
+
+" tagbar generate tag on the file in memory.
+" To check that tags that will be generated for a file, you can use the following command:
+"
+"   ctags -f - --format=2 --excmd=pattern --extras= --fields=nksaSmt my_file
+
 " Markdown tagbar
 let g:tagbar_ctags_bin = "/usr/bin/ctags"
 let g:tagbar_type_markdown = {
@@ -383,14 +392,14 @@ let g:tagbar_type_markdown = {
 " see https://github.com/preservim/tagbar/wiki#elm
 " for the script elmtags.py (WARN: It has been customized)
 let g:tagbar_type_elm = {
-          \   'ctagstype':'elm'
-          \ , 'kinds':['h:header', 't:type', 'f:function']
-          \ , 'sro':'&&&'
-          \ , 'kind2scope':{ 'h':'header', 'i':'import'}
-          \ , 'sort':0
-          \ , 'ctagsbin':$HOME.'/.local/bin/elmtags.py'
-          \ , 'ctagsargs': ''
-          \ }
+      \ 'ctagstype':'elm',
+      \ 'kinds':['h:header', 'i:import', 't:type', 'f:function', 'e:exposed'],
+      \ 'sro':'&&&',
+      \ 'kind2scope':{'h':'header', 'i':'import', 't':'type', 'f':'function'},
+      \ 'sort':0,
+      \ 'ctagsbin':$HOME.'/.local/bin/elmtags.py',
+      \ 'ctagsargs': '',
+      \ }
 
 " CSS tagbar
 let g:tagbar_type_scss = {
@@ -405,49 +414,34 @@ let g:tagbar_type_scss = {
 
 " Yaml tagbar
 let g:tagbar_type_yaml = {
-    \ 'ctagstype' : 'yaml',
-    \ 'kinds' : [
-        \ 'a:anchors',
-        \ 's:section',
-        \ 'e:entry'
-    \ ],
-  \ 'sro' : '.',
-    \ 'scope2kind': {
-      \ 'section': 's',
-      \ 'entry': 'e'
-    \ },
-    \ 'kind2scope': {
-      \ 's': 'section',
-      \ 'e': 'entry'
-    \ },
-    \ 'sort' : 0
-    \ }
+      \ 'ctagstype' : 'yaml',
+      \ 'kinds' : [
+      \   'a:anchors',
+      \   's:section',
+      \   'e:entry'
+      \ ],
+      \ 'sro' : '.',
+      \ 'scope2kind': {
+      \   'section': 's',
+      \   'entry': 'e'
+      \ },
+      \ 'kind2scope': {
+      \   's': 'section',
+      \   'e': 'entry'
+      \ },
+      \ 'sort' : 0
+      \ }
 
 " Makefile tagbar
-let g:tagbar_type_make = { 'kinds':[ 'm:Macros', 't:Targets' ] }
+let g:tagbar_type_make = { 'kinds':[ 'm:Macros', 't:Commands' ] }
+let g:tagbar_type_just = {
+      \ 'ctagstype' : 'just',
+      \ 'kinds':[ 'm:Macros', 't:Commands' ],
+      \ }
 
 " Graphql tagbar
 let g:tagbar_type_graphql = { 'kinds':[ 't:Types', 'e:Enums' ] }
 
-
-
-" JS tagbar
-"let g:tagbar_type_javascript = {
-"      \ 'ctagstype': 'javascript',
-"      \ 'kinds': [
-"      \ 'A:arrays',
-"      \ 'P:properties',
-"      \ 'T:tags',
-"      \ 'O:objects',
-"      \ 'G:generator functions',
-"      \ 'F:functions',
-"      \ 'C:constructors/classes',
-"      \ 'M:methods',
-"      "\ 'V:variables',
-"      \ 'I:imports',
-"      \ 'E:exports',
-"      \ 'S:styled components'
-"      \ ]}
 
 " Git/Fugitive
 set diffopt+=vertical
@@ -779,6 +773,8 @@ nnoremap <silent> <Esc> :noh<cr>
 "autocmd FileType qf nnoremap <buffer> q :cclose<cr>
 " unmap K
 map <S-k> <Nop>
+nnoremap <C-w><C-w> <C-a>
+nnoremap <C-a> ggVG
 """ Window moves
 nnoremap <S-UP>    <C-W>k
 nnoremap <S-DOWN>  <C-W>j

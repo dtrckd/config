@@ -152,6 +152,7 @@ alias aie="aichat -e"
 alias mongoshell="docker exec -it mongodb mongo"
 alias docker_inspect_cmd="docker inspect --format '{{.Config.Cmd}}'"
 alias docker_inspect_env="docker inspect --format '{{ json .Config.Env }}'"
+alias docker_host_ip="ip route | grep (docker network ls | awk '/default/ {print $1}' | head -n 1) | awk '{print $9}'"
 alias dps='docker ps --format "{{.ID}}  {{.Names}}\n\t\t\t\t\t\t{{.Ports}}\n\t\t\t\t\t\t{{.Status}}"'
 function dps_net
     docker ps -q | while read container_id

@@ -1,5 +1,5 @@
 --
--- LSP/COQ config
+-- LSP / codecompanion config
 --
 
 local function map(mode, lhs, rhs, opts)
@@ -9,46 +9,8 @@ local function map(mode, lhs, rhs, opts)
 end
 
 
-
--- Coq autocompletion -- Autostart
---vim.g.coq_settings = {
---    auto_start = 'shut-up',
---    keymap = {
---        jump_to_mark = "<c-n>",
---    },
---}
-
 local lspconfig = require('lspconfig')
---local coq = require('coq')
 local blink = require('blink.cmp')
-local ccp = require("codecompanion").setup({
-    strategies = {
-        chat = {
-            adapter = "anthropic",
-        },
-    },
-    adapters = {
-        openai = function()
-            return require("codecompanion.adapters").extend("openai", {
-                schema = {
-                    model = {
-                        default = "gpt-4o",
-                    },
-                },
-            })
-        end,
-        anthropic = function()
-            return require("codecompanion.adapters").extend("anthropic", {
-                schema = {
-                    model = {
-                        default = "claude-3-7-sonnet-20250219",
-                    },
-                },
-            })
-        end,
-    }
-})
-
 
 --
 -- Tabby configuration
@@ -316,7 +278,6 @@ local configs = {
 
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup(configs[lsp])
-    --lspconfig[lsp].setup(coq.lsp_ensure_capabilities( configs[lsp]))
     local config = configs[lsp]
     config.capabilities = blink.get_lsp_capabilities({})
     blink.get_lsp_capabilities(config)

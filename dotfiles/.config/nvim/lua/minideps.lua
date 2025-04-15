@@ -7,11 +7,13 @@ if not vim.loop.fs_stat(mini_path) then
     vim.cmd('echo "Installing `mini.nvim`" | redraw')
     local clone_cmd = {
         'git', 'clone', '--filter=blob:none',
+        -- Uncomment next line to use 'stable' branch
+        -- '--branch', 'stable',
         'https://github.com/echasnovski/mini.nvim', mini_path
     }
     vim.fn.system(clone_cmd)
     vim.cmd('packadd mini.nvim | helptags ALL')
-    vim.cmd('echo "Installed `mini.nvim`" | redraw')
+    --vim.cmd('echo "Installed `mini.nvim`" | redraw')
 end
 
 -- Set up 'mini.deps' (customize to your liking)
@@ -37,12 +39,12 @@ later(function()
     add({
         source = "saghen/blink.cmp",
         depends = { "rafamadriz/friendly-snippets", "bydlw98/blink-cmp-env", },
-        checkout = "v1.0.0", -- check releases for latest tag
+        checkout = "v1.1.1", -- check releases for latest tag
     })
 
     require('blink.cmp').setup({
         fuzzy = {
-            prebuilt_binaries = { force_version = "v1.0.0" }
+            prebuilt_binaries = { force_version = "v1.1.1" }
         },
         -- Filetype to work on
         enabled = function() return not vim.tbl_contains({ "markdown", "text" }, vim.bo.filetype) end,
@@ -59,29 +61,38 @@ later(function()
             --        return cmp.select_and_accept()
             --    end
             --end,
+
             ['<C-n>'] = { 'snippet_forward', 'fallback' },
+            ['<C-N>'] = { 'snippet_backward', 'fallback' },
+            ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
+            ['<C-j>'] = { 'show_documentation', 'hide_documentation' },
         },
 
 
         -- Provider sources
         sources = {
+            min_keyword_length = 3,
             default = function(ctx)
+                --return { 'buffer', 'path', 'omni', 'lsp', 'env',  'snippets' }
+                --
                 -- Dynamically picking providers by treesitter node/filetype
                 -- see https://cmp.saghen.dev/recipes.html#sources
                 local success, node = pcall(vim.treesitter.get_node)
-                if success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
-                    return { 'buffer', 'path', 'env', 'omni' }
-                elseif vim.tbl_contains({ "markdown", "text", "conf", "json", "yaml" }, vim.bo.filetype) then
-                    return { 'buffer', 'path', 'env', 'omni' }
+                if vim.tbl_contains({ "markdown", "text", "conf", "json", "yaml", "codecompanion" }, vim.bo.filetype) then
+                    return { 'buffer', 'path', }
+                elseif success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
+                    return { 'buffer', 'path', 'omni', 'env', }
                 else
-                    return { 'buffer', 'path', 'env', 'omni', 'lsp', 'snippets' }
+                    return { 'buffer', 'path', 'lsp', 'env', 'snippets' }
                 end
             end,
             providers = {
+                lsp = {
+                    async = true,
+                },
                 buffer = {
                     opts = {
-                        -- get all buffers, even ones like neo-tree (see doc to filter "normal" buffer)
-                        get_bufnrs = vim.api.nvim_list_bufs,
+                        -- Default to all visible buffers
                     }
                 },
                 env = {
@@ -91,7 +102,7 @@ later(function()
                     opts = {
                         item_kind = require("blink.cmp.types").CompletionItemKind.Variable,
                         show_braces = false,
-                        show_documentation_window = true,
+                        show_documentation_window = false,
                     },
                 }
 
@@ -107,7 +118,11 @@ later(function()
                     --columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
                 },
             },
-            documentation = { window = { border = 'double' } },
+            documentation = {
+                auto_show = false,
+                auto_show_delay_ms = 10000,
+                window = { border = 'double' }
+            },
         },
 
         -- Signature config
