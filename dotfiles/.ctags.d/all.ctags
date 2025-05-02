@@ -1,9 +1,9 @@
---regex-make=/^([^# \t:]*):/\1/t,target/
+--regex-make=/^([^# \t:][^:]*):/\1/t,target/
 
 
 --langdef=just
 --langmap=just:+(justfile)
---regex-just=/^([^# \t:]*):/\1/t,target/
+--regex-just=/^([^# \t:][^:]*):/\1/t,target/
 
 
 --langdef=graphql
