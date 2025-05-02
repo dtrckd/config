@@ -774,7 +774,9 @@ nnoremap <silent> <Esc> :noh<cr>
 " unmap K
 map <S-k> <Nop>
 nnoremap <C-w><C-w> <C-a>
+nnoremap <C-y> <C-a>  "remap to increment number before remaping it
 nnoremap <C-a> ggVG
+
 """ Window moves
 nnoremap <S-UP>    <C-W>k
 nnoremap <S-DOWN>  <C-W>j
