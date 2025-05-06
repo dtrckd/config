@@ -39,12 +39,12 @@ later(function()
     add({
         source = "saghen/blink.cmp",
         depends = { "rafamadriz/friendly-snippets", "bydlw98/blink-cmp-env", },
-        checkout = "v1.1.1", -- check releases for latest tag
+        checkout = "v1.2.0", -- check releases for latest tag
     })
 
     require('blink.cmp').setup({
         fuzzy = {
-            prebuilt_binaries = { force_version = "v1.1.1" }
+            prebuilt_binaries = { force_version = "v1.2.0" }
         },
         -- Filetype to work on
         enabled = function() return not vim.tbl_contains({ "markdown", "text" }, vim.bo.filetype) end,
