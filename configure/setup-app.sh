@@ -11,7 +11,7 @@ set -e
 Target="$1"
 
 if [ -z "$Target" ]; then
-    echo "Please enter: mongo | signal | wekan | robot3t | drawio | fish (fishshell) | manta | proton | kitty | gdrive | aichat | nvim"
+    echo "Please enter: mongo | signal | wekan | robot3t | drawio | fish (fishshell) | manta | proton | kitty | gdrive | aichat | nvim | git-bug"
     exit
 fi
 
@@ -129,6 +129,12 @@ if [ "$Target" == "nvim" ]; then
     chmod +x nvim.appimage
     mv nvim.appimage ~/Downloads/
     #sudo update-alternatives --install /usr/bin/vim vim ~/Download/nvim.appimage 60
+fi
+if [ "$Target" == "git-bug" ]; then
+    wget https://github.com/git-bug/git-bug/releases/latest/download/git-bug_linux_amd64
+    mv git-bug_linux_amd64 git-bug
+    chmod +x git-bug
+    mv git-bug ~/bin
 fi
 
 
