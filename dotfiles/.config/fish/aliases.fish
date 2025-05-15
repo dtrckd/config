@@ -351,12 +351,12 @@ alias gla="git log --format='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%
 alias gsl="git stash list"
 alias ggk="git checkout"
 alias gi="git bug"
-alias gil="git bug ls -s open"
-alias gilc="git bug ls -s closed"
-alias gilb="git bug ls-label"
-alias gilid="git bug ls-id"
+alias gil="git bug bug -s open"
+alias gilc="git bug bug -s closed"
+alias gilb="git bug label"
+alias gilid="git bug user"
 alias gir="gi bridge auth"
-alias gis="git bug show"
+alias gis="git bug bug show"
 function gip
     for f in (string split ' ' 'status labels authorEmail participants')
         echo "$f:"  (git bug show -f $f $argv[1] )
