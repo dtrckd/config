@@ -156,6 +156,7 @@
         <value type="string" value="zoom"/>
       </property>
       <property name="known-legacy-items" type="array">
+        <value type="string" value="wi-fi network connection “sfr_6d4f” active: sfr_6d4f (56%)"/>
         <value type="string" value="wi-fi network connection “lalilulelo” active: lalilulelo (100%)"/>
         <value type="string" value="wi-fi network connection “simplon-apprenants” active: simplon-apprenants (62%)"/>
         <value type="string" value="wi-fi network connection “sfr_6d4f” active: sfr_6d4f (68%)"/>
