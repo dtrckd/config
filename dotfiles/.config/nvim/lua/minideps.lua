@@ -38,13 +38,17 @@ later(function()
     --
     add({
         source = "saghen/blink.cmp",
-        depends = { "rafamadriz/friendly-snippets", "bydlw98/blink-cmp-env", },
-        checkout = "v1.3.1", -- check releases for latest tag
+        depends = { "rafamadriz/friendly-snippets" },
+        --depends = { "rafamadriz/friendly-snippets", "bydlw98/blink-cmp-env" },
+        checkout = "v1.4.1", -- check releases for latest tag
     })
 
     require('blink.cmp').setup({
         fuzzy = {
-            prebuilt_binaries = { force_version = "v1.3.1" }
+            --implementation = "lua", -- Rust implementation crash !!!
+            prebuilt_binaries = {
+                force_version = "v1.4.1",
+            }
         },
         -- Filetype to work on
         enabled = function() return not vim.tbl_contains({ "markdown", "text" }, vim.bo.filetype) end,
@@ -81,7 +85,7 @@ later(function()
                 if vim.tbl_contains({ "markdown", "text", "conf", "json", "yaml", "codecompanion" }, vim.bo.filetype) then
                     return { 'buffer', 'path', }
                 elseif success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
-                    return { 'buffer', 'path', 'omni', 'env', }
+                    return { 'buffer', 'path', 'omni', 'env' }
                 else
                     return { 'buffer', 'path', 'lsp', 'env', 'snippets' }
                 end
@@ -127,7 +131,7 @@ later(function()
 
         -- Signature config
         signature = {
-            enabled = true,
+            enabled = false,
             window = { border = 'rounded' },
         },
 
