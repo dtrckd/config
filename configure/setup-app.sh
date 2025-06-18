@@ -125,7 +125,8 @@ if [ "$Target" == "aichat" ]; then
     cargo install aichat
 fi
 if [ "$Target" == "nvim" ]; then
-    wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    #wget https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
+    mv nvim-linux-x86_64.appimage nvim.appimage
     chmod +x nvim.appimage
     mv nvim.appimage ~/Downloads/
     #sudo update-alternatives --install /usr/bin/vim vim ~/Download/nvim.appimage 60

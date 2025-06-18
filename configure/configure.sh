@@ -25,7 +25,7 @@ OPTS="-y --no-install-recommends"
 ######################
 sudo apt install $OPTS sudo aptitude make psmisc rfkill apt-file apt-show-versions htop strace net-tools jq ripgrep fd-find curl wget zip xclip mc rsync tmux vim neovim git gitk gitg tree bat xsel git-delta
 
-#sudo apt-get install $OPTS firmware-linux-nonfree
+#sudo apt-get install $OPTS firmware-linux-nonfree firmware-iwlwifi
 #ranger --copy-config=all
 
 # Optionals (but advised !)
