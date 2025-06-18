@@ -595,7 +595,7 @@ set encoding=UTF-8
 set backspace=indent,eol,start
 set tabpagemax=50                  " Maximum of opened tab
 set noequalalways                  " Prevent automatically resizing windows
-set pastetoggle=£                  " Toggle paste mode
+"set pastetoggle=£                  " Toggle paste mode @deprecated in nvim 0.11
 set ruler                          " Show current position
 set laststatus=2                   " Always show the statusline
 set mat=1                          " How many tenths of a second to blink
