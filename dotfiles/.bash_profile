@@ -337,21 +337,22 @@ function vimss() {
     fi
 }
 
-function upgrademe() {
-    sudo aptitude update && sudo aptitude upgrade
-    sudo snap refresh
-    npm update -g
-    pip install -U $(pip freeze | rgi "(lsp|server|mypy|jupyter)" | cut -d= -f1)  # +ruff
-    vim -c "PluginUpdate"
-    #rustup update # cargo install <package> to upgrade one package
-    #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
-    #brew update && brew upgrade
-}
 function upgradeapt() {
     sudo apt update && sudo apt upgrade
 }
 function upgradevim() {
     vim -c "PluginUpdate"
+}
+
+function upgrademe() {
+    tmux new-window \; split-window -h \; split-window -v \; select-pane -L \; split-window -v \; \
+        select-pane -t 1 \; send-keys 'upgradeapt' C-m \; \
+        select-pane -t 2 \; send-keys 'upgradevim' C-m \; \
+        select-pane -t 3 \; send-keys 'npm outdated -g' C-m \; \
+        select-pane -t 4 \; send-keys 'pip install -U (pip freeze | rgi "(lsp|server|ruff|note|jupy|pip|uv|mypy)" | cut -d= -f1)' C-m
+    #rustup update   # cargo install <package> to upgrade one package
+    #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
+    #brew update && brew upgrade
 }
 
 function ssh_init() {
@@ -999,7 +1000,8 @@ fi
 
 # RUST
 if [ -x "$(which rustc 2>/dev/null)" -o -x "${HOME}/.cargo/bin/rustc" ]; then
-    export PATH="$HOME/.cargo/bin:$PATH"
+    . "$HOME/.cargo/env"
+    #source "$HOME/.cargo/env.fish" # for fish eventually ?
 fi
 
 # SNAP

@@ -19,6 +19,10 @@ end
 -- Set up 'mini.deps' (customize to your liking)
 require('mini.deps').setup({ path = { package = path_package } })
 require('mini.pick').setup()
+local diff = require('mini.diff')
+diff.setup({
+    source = diff.gen_source.none(),
+})
 
 -- Use 'mini.deps'. `now()` and `later()` are helpers for a safe two-stage
 -- startup and are optional.
@@ -40,14 +44,14 @@ later(function()
         source = "saghen/blink.cmp",
         depends = { "rafamadriz/friendly-snippets" },
         --depends = { "rafamadriz/friendly-snippets", "bydlw98/blink-cmp-env" },
-        checkout = "v1.4.1", -- check releases for latest tag
+        checkout = "v1.6.0", -- check releases for latest tag
     })
 
     require('blink.cmp').setup({
         fuzzy = {
             --implementation = "lua", -- Rust implementation crash !!!
             prebuilt_binaries = {
-                force_version = "v1.4.1",
+                force_version = "v1.6.0",
             }
         },
         -- Filetype to work on
@@ -83,7 +87,7 @@ later(function()
                 -- see https://cmp.saghen.dev/recipes.html#sources
                 local success, node = pcall(vim.treesitter.get_node)
                 if vim.tbl_contains({ "markdown", "text", "conf", "json", "yaml", "codecompanion" }, vim.bo.filetype) then
-                    return { 'buffer', 'path', }
+                    return { 'buffer', 'path', 'omni' }
                 elseif success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
                     return { 'buffer', 'path', 'omni', 'env' }
                 else

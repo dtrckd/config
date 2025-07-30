@@ -6,6 +6,20 @@
 --vim.cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}' -- disabled in visual mode
 
 
+-- Predefine clipboard provider to speedup start
+vim.g.clipboard = {
+    name = "xsel",
+    copy = {
+        ["+"] = "xsel --nodetach -i -b",
+        ["*"] = "xsel --nodetach -i -p",
+    },
+    paste = {
+        ["+"] = "xsel -o -b",
+        ["*"] = "xsel -o -b",
+    },
+    cache_enabled = 1,
+}
+
 --
 -- Fish autocompletion <enter> input like in commands suggestion popup
 --

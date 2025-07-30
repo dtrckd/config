@@ -78,7 +78,9 @@ if [ "$Target" == "virtualbox" ]; then
     sudo apt install virtualbox-$VERSION
 fi
 if [ "$Target" == "rust" ]; then
+    # cargo
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    #curl https://sh.rustup.rs -sSf | sh
 fi
 
 source ~/.bashrc

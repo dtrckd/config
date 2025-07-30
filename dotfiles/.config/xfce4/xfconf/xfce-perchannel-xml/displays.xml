@@ -85,21 +85,21 @@
       <property name="Primary" type="bool" value="false"/>
       <property name="Scale" type="double" value="1"/>
       <property name="Position" type="empty">
-        <property name="X" type="int" value="0"/>
+        <property name="X" type="int" value="1920"/>
         <property name="Y" type="int" value="0"/>
       </property>
     </property>
-    <property name="DP-2-1" type="string" value="Samsung 24&quot;">
+    <property name="HDMI-2" type="string" value="Acer 23&quot;">
       <property name="Active" type="bool" value="true"/>
-      <property name="EDID" type="string" value="a857317eb60125e5a60c80bbcdba2b61b50dbfe3"/>
+      <property name="EDID" type="string" value="d13f0fabc9086c04b28af31b06ce247991739ce4"/>
       <property name="Resolution" type="string" value="1920x1080"/>
-      <property name="RefreshRate" type="double" value="120"/>
+      <property name="RefreshRate" type="double" value="60"/>
       <property name="Rotation" type="int" value="0"/>
       <property name="Reflection" type="string" value="0"/>
       <property name="Primary" type="bool" value="false"/>
       <property name="Scale" type="double" value="1"/>
       <property name="Position" type="empty">
-        <property name="X" type="int" value="1366"/>
+        <property name="X" type="int" value="0"/>
         <property name="Y" type="int" value="0"/>
       </property>
     </property>

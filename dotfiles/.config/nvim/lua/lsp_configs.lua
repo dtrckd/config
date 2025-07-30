@@ -31,8 +31,8 @@ vim.g.tabby_inline_completion_keybinding_trigger_or_dismiss = "<C-^>"
 --
 vim.diagnostic.config({
     signs = { severity = { min = vim.diagnostic.severity.ERROR } },
-    virtual_text = { severity = { min = vim.diagnostic.severity.ERROR } },
-    virtual_lines = true,
+    --virtual_text = { severity = { min = vim.diagnostic.severity.ERROR } },
+    virtual_lines = { severity = { min = vim.diagnostic.severity.ERROR } },
     underline = true,
     severity_sort = true,
     update_in_insert = false,
@@ -357,7 +357,8 @@ function _G.toggle_diagnostics(severity)
 
     -- Update just the severity settings in the current config
     current_config.signs.severity.min = new_min_severity
-    current_config.virtual_text.severity.min = new_min_severity
+    --current_config.virtual_text.severity.min = new_min_severity
+    current_config.virtual_lines.severity.min = new_min_severity
 
     -- Apply the updated config
     vim.diagnostic.config(current_config)
