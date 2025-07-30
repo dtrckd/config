@@ -178,3 +178,48 @@ apt install file-roller # At the moment it uses file-roller but will use xarchiv
 
 # Launcher not found in descktop panel. The case of opera :
 ln -s /var/lib/snapd/desktop/applications/opera_opera.desktop /usr/share/applications/opera.desktop
+
+
+# Fix thunderbird cpu high usage
+
+https://rainbow.chard.org/2013/02/19/thunderbird-high-cpu/
+There will be a dire warning, which you can safely ignore. You’ll then be presented with the configuration editor. Type idle into the search box, and look for mail.db.idle_limit. According to that bug report, the correct value is 30000000. Check the number of zeros you have; if you only have 300000, that could be causing your CPU problems.
+
+thunderbird-config-editor
+
+That’s it! You don’t have to restart Thunderbird to activate the change, and you should see an immediate improvement in its CPU usage. Mine dropped from 60-100% down to <1%. Why does this work?
+
+According to that bug report, Thunderbird closes its database after five minutes of inactivity (i.e. 300000ms), and re-opening them is very expensive if you have large folders full of crapimportant messages. Perhaps extending the timeout so much introduces a slight risk of corruption if Thunderbird (or your computer) crashes, but it’s a price I’m willing to pay for a nice quiet laptop.
+
+
+> Comment on  reddit
+
+
+
+Here's all my notes from over the years. Some of them may be out of date.
+
+Steps to Rebuild the Global Database
+Quit Thunderbird.
+
+    Locate the global-messages-db.sqlite file in your Thunderbird Profile.
+
+    Delete the global-messages-db.sqlite file.
+
+    Start Thunderbird. The re-indexing process will start automatically. Depending on the number of messages, complete. You can continue to use Thunderbird, but performance might be affected and search will return on indexing is complete. The indexing progress can be monitored through the Tools | Activity Manager
+
+The following steps helped me to speedup Thunderbird
+Set some interface options:
+Edit Thunderbird options under Preferences, Advanced, General tab, click on "Advanced options" button and set these values:
+layers. acceleration. disabled = true
+gfx.direct2d.disabled = false
+
+Restart Thunderbird. If it is still slow, try the next options:
+
+Disable Folder Indexing
+If you have folders with many emails inside, Indexing can slow down Thunderbird.
+Go To Preferences —> Advanced —> General tab and disable the Global search.
+
+Antivirus scanning of the Email folders in the filesystem A antivirus scanner can slow down Thunderbird as well. Configure your antivirus program to exclude the Thunderbird Mail folders from being scanned. Warning: this option should only be used when the email is scanned by a smtp proxy of the antivirus program for viruses before it is handed to Thunderbird.
+
+Cleanup Thunderbird index files
+Thunderbird creates a lot of index files. A cleanup of these files can speedup Thunderbird as well, especially if some of them are broken. There is a handy tool called ThunderFix to do that.

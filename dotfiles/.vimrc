@@ -15,16 +15,18 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 """ Plugin
+"Plugin 'a.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'luochen1990/rainbow'
-Plugin 'a.vim'
-Plugin 'Align'
+Plugin 'godlygeek/tabular'
 Plugin 'preservim/nerdcommenter'
-"Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'preservim/tagbar'
 Plugin 'MunifTanjim/nui.nvim'
 Plugin 'nvim-lua/plenary.nvim'
 Plugin 'nvim-treesitter/nvim-treesitter' " for codecompanion...
+Plugin 'HakonHarnes/img-clip.nvim' " for codecompanion
+Plugin 'ravitemer/mcphub.nvim' " for codecompanion
+Plugin 'ravitemer/codecompanion-history.nvim' " for codecompanion
 
 " Session
 Plugin 'mhinz/vim-startify'
@@ -60,11 +62,10 @@ Plugin 'NoahTheDuke/vim-just'
 
 " Misc
 Plugin 'iamcco/markdown-preview.nvim'
-Plugin 'itchyny/calendar.vim'
+"Plugin 'itchyny/calendar.vim'
 Plugin 'gotcha/vimpdb'
 Plugin 'dhruvasagar/vim-zoom'
 Plugin 'rstacruz/vim-closer'
-Plugin 'godlygeek/tabular'
 Plugin 'ciaranm/detectindent'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'karb94/neoscroll.nvim'
@@ -772,11 +773,16 @@ nnoremap <silent> <Esc> :noh<cr>
 "nnoremap <silent> q :pclose<cr>
 "autocmd FileType qf nnoremap <buffer> q :cclose<cr>
 " unmap K
+
+" Increase number:  C-a is remap to C-y and 
+" Decrease: still C-x
 map <S-k> <Nop>
 nnoremap <C-w><C-w> <C-a>
 nnoremap <C-y> <C-a>  "remap to increment number before remaping it
 nnoremap <C-a> ggVG
 
+4
+1
 """ Window moves
 nnoremap <S-UP>    <C-W>k
 nnoremap <S-DOWN>  <C-W>j
@@ -821,7 +827,7 @@ inoremap <C-e> <Esc>$a
 "inoremap <C-s> <Esc>:w<CR> " don't work ?
 " Format Json
 noremap <Leader>je :%!sed 's/\\n/\n/g'<CR>
-noremap <Leader>fj :%!jq %<CR>
+noremap <Leader>fj :%!jq . %<CR>
 noremap <Leader>fx :%!xmllint --format %<CR>
 
 """ VISUAL MAP
@@ -864,6 +870,9 @@ cnoreabbrev vs botright vs
 command T tabe
 " print the current buffer number
 command Bufno :echo bufnr('%')
+
+cnoremap cc<CR> CodeCompanionChat<CR>
+"vnoremap cc<CR> :CodeCompanionChat<CR>
 
 " Insert and jump to newline before the cursor, in insert mode
 inoremap <A-Enter> <Esc>O
