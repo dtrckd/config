@@ -635,8 +635,16 @@ if has("autocmd")
 endif
 
 " Force Gdiffsplit to open splits on the left
-"command! -nargs=* Gdiffsplit leftabove Gdiffsplit <args>
-command! -nargs=* Gdiffsplit leftabove execute 'Gdiffsplit' <q-args>
+"command! -nargs=* Gdiffsplit rightabove execute 'Gdiffsplit' <q-args>
+
+" Move cursor to the right split after GdiffSplit
+augroup FugitiveDiffCursorFix
+  autocmd!
+  autocmd DiffUpdated * if winnr('$') == 2 && winnr() == 1 && 
+        \ getwinvar(1, '&diff') && getwinvar(2, '&diff') |
+        \ wincmd l |
+        \ endif
+augroup END
 
 
 """ Refresh options
@@ -926,8 +934,8 @@ augroup QuickFix
     " When entering a quickfix window, map ESC and q to :cclose
     autocmd WinEnter * if &filetype == 'quickfix' | set timeoutlen=0 | endif
     autocmd WinLeave * if &filetype == 'quickfix' | set timeoutlen=750 | endif
-    autocmd FileType qf nnoremap <silent> <buffer> <ESC> :cclose<CR>:wincmd p<CR>
-    autocmd FileType qf nnoremap <silent> <buffer> q :cclose<CR>:wincmd p<CR> 
+    autocmd FileType qf nnoremap <silent> <buffer> <ESC> :cclose<CR>:lclose <CR>:wincmd p<CR>
+    autocmd FileType qf nnoremap <silent> <buffer> q :cclose<CR>:lclose<CR>:wincmd p<CR> 
 
     " Restore <enter> defaut behavior (enter is mapped in normal mode!)
     autocmd FileType qf nnoremap <buffer> <Enter> :.cc<CR>

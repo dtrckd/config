@@ -131,6 +131,7 @@ later(function()
                 auto_show_delay_ms = 10000,
                 window = { border = 'double' }
             },
+            ghost_text = { enabled = true },
         },
 
         -- Signature config
