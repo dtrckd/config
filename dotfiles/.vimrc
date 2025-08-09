@@ -47,7 +47,7 @@ Plugin 'tpope/vim-fugitive'
 
 " Linting / LSP / Code completion
 Plugin 'neovim/nvim-lspconfig'
-Plugin 'TabbyML/vim-tabby'
+"Plugin 'TabbyML/vim-tabby' " PENDING activation waiting for https://github.com/TabbyML/vim-tabby/issues/35
 Plugin 'olimorris/codecompanion.nvim'
 " Blink is install trough Minideps. see .nvim/lua/minideps.lua:
 Plugin 'saghen/blink.cmp'  " still needed here to avoid vim error ?!
