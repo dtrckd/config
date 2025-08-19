@@ -160,7 +160,7 @@ let g:NERDDefaultAlign = "left"
 " fc-cache -fv # try opening a new terminal if you don't see anything
 " ```
 nnoremap <C-p> <cmd>CHADopen<cr>
-"nnoremap <C-k> <cmd>CHADopen --always-focus<cr>
+nnoremap <C-t> <cmd>CHADopen --always-focus<cr>
 autocmd bufenter * if (winnr("$") == 1 && &buftype == "nofile" && &filetype == "CHADTree") | q! | endif
 let g:chadtree_settings = {
       \  'options.polling_rate': 1900,
@@ -666,8 +666,7 @@ set cindent
 set cinkeys-=0#
 set indentkeys-=0#
 
-"set foldmethod=indent
-set foldmethod=syntax
+set foldmethod=syntax " use indent for broader fold...
 "set nofoldenable
 set nofen               " open all folds. see z[mn] command
 " toggle fold on space
@@ -789,8 +788,6 @@ nnoremap <C-w><C-w> <C-a>
 nnoremap <C-y> <C-a>  "remap to increment number before remaping it
 nnoremap <C-a> ggVG
 
-4
-1
 """ Window moves
 nnoremap <S-UP>    <C-W>k
 nnoremap <S-DOWN>  <C-W>j
@@ -880,7 +877,7 @@ command T tabe
 command Bufno :echo bufnr('%')
 
 cnoremap cc<CR> CodeCompanionChat<CR>
-"vnoremap cc<CR> :CodeCompanionChat<CR>
+nnoremap <leader>cb o```<CR><CR>```<Esc>ki
 
 " Insert and jump to newline before the cursor, in insert mode
 inoremap <A-Enter> <Esc>O
@@ -1022,7 +1019,7 @@ au filetype cpp set fdm=syntax
 """"""""""""""""""""""""""""""
 """ HTML Files
 """"""""""""""""""""""""""""""
-au BufNewFile,BufRead *.html,*.css,*.scss,*.sass,*.less set ts=2 sts=2 sw=2 nowrap
+au BufNewFile,BufRead *.html,*.css,*.scss,*.sass,*.less set ts=4 sts=4 sw=4 nowrap
 
 
 " Multiple code (web2py...)
