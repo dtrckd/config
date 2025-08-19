@@ -72,8 +72,8 @@ later(function()
 
             ['<C-n>'] = { 'snippet_forward', 'fallback' },
             ['<C-N>'] = { 'snippet_backward', 'fallback' },
-            ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
-            ['<C-j>'] = { 'show_documentation', 'hide_documentation' },
+            ['<C-s>'] = { 'show_signature', 'hide_signature', 'fallback' },
+            ['<C-J>'] = { 'show_documentation', 'hide_documentation' },
         },
 
 
@@ -87,16 +87,16 @@ later(function()
                 -- see https://cmp.saghen.dev/recipes.html#sources
                 local success, node = pcall(vim.treesitter.get_node)
                 if vim.tbl_contains({ "markdown", "text", "conf", "json", "yaml", "codecompanion" }, vim.bo.filetype) then
-                    return { 'buffer', 'path', 'omni' }
+                    return { 'buffer', 'path', 'omni', 'lsp' }
                 elseif success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
-                    return { 'buffer', 'path', 'omni', 'env' }
+                    return { 'buffer', 'path', 'omni', 'lsp', 'env' }
                 else
                     return { 'buffer', 'path', 'lsp', 'env', 'snippets' }
                 end
             end,
             providers = {
                 lsp = {
-                    async = true,
+                    async = True,
                 },
                 buffer = {
                     opts = {
@@ -148,3 +148,6 @@ later(function()
 
     })
 end)
+
+-- change default ghost color
+vim.api.nvim_set_hl(0, "BlinkCmpGhostText", { fg = "#999999", bg = "NONE" })
