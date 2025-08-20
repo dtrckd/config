@@ -11,13 +11,11 @@
 tmux new-session -s system -n system  -d
 
 # Win1
- tmux rename-window -t system:0 htop
+tmux rename-window -t system:0 htop
 tmux send-keys 'htop' C-j
-#tmux split-window -v
-#tmux send-keys 'source ~/.bash_profile' C-j
-#tmux split-window -h
-#tmux send-keys 'sudo openvpn /etc/openvpn/aqn.conf' C-j
-#tmux send-keys -t vpn:htop.0 'ls' C-j
+tmux split-window -v
+tmux send-keys 'aichat --serve 127.0.0.1:8081' C-j
+tmux resize-pane -y 3%
 
 # Win2
 tmux new-window -n 'ai'
