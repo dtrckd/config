@@ -174,7 +174,7 @@ _bootstrap:
 
 _install:
 	cd configure/
-	#./configure.sh
+	./configure.sh
 	cd -
 
 BIN_FILES = $(shell cat configure/bin.txt)
@@ -209,7 +209,11 @@ _app:
 	./configure/setup-env.sh npm
 	# APP
 	./configure/setup-app.sh aichat
+	./configure/setup-app.sh nvim
 	./configure/setup-app.sh kitty
+	#./configure/setup-app.sh proton
+	
+	ln -s $(pwd)/snippets/tmux.sh ~/tmux.sh
 
 
 # ================================
@@ -220,9 +224,10 @@ backup: backbin snapshot  #backup_firefox backup_thunderbird
 	# backup dotfiles
 	./diffdot.sh -v -c
 	# backup growing folders
-	cp -vr	~/.config/aichat dotfiles/.config/
-	cp -vr ~/.config/nvim/coq-user-snippets/ dotfiles/.config/nvim/
 	cp -rv ~/.local/share/nvim/session/* dotfiles/.local/share/nvim/session/
+	cp -vr ~/.config/nvim/lua/ dotfiles/.config/nvim/
+	cp -vr ~/.config/nvim/coq-user-snippets/ dotfiles/.config/nvim/
+	cp -vr	~/.config/aichat dotfiles/.config/
 
 backbin:
 # Create bin.txt

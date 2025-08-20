@@ -125,11 +125,11 @@ if [ "$Target" == "aichat" ]; then
     cargo install aichat
 fi
 if [ "$Target" == "nvim" ]; then
-    #wget https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
+    wget https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
     mv nvim-linux-x86_64.appimage nvim.appimage
     chmod +x nvim.appimage
     mv nvim.appimage ~/Downloads/
-    #sudo update-alternatives --install /usr/bin/vim vim ~/Download/nvim.appimage 60
+    sudo update-alternatives --install /usr/bin/vim vim ~/Downloads/nvim.appimage 60
 fi
 if [ "$Target" == "git-bug" ]; then
     wget https://github.com/git-bug/git-bug/releases/latest/download/git-bug_linux_amd64
