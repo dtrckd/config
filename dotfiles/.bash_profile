@@ -882,14 +882,14 @@ function fip() {
     vlc -I curses "https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipjazz/fipjazz_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fiphiphop/fiphiphop_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipelectro/fipelectro_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipreggae/fipreggae_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipgroove/fipgroove_hifi.m3u8?id=radiofrance"
 }
 function fip2 {
-    # FIP                       https://stream.radiofrance.fr/fip
-    # FIP - Electro             https://stream.radiofrance.fr/fipelectro
-    # FIP - Groove              https://stream.radiofrance.fr/fipgroove
-    # FIP - Hip-hop             https://stream.radiofrance.fr/fiphiphop
-    # FIP - Jazz                https://stream.radiofrance.fr/fipjazz
-    # FIP - Metal               https://stream.radiofrance.fr/fipmetal
-    # FIP - Pop                 https://stream.radiofrance.fr/fippop
-    # FIP - Reagea              https://stream.radiofrance.fr/fipreggae
+    #FIP, https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance,
+    #FIP - Electro, https://stream.radiofrance.fr/fipelectro/fipelectro_hifi.m3u8?id=radiofrance,
+    #FIP - Groove, https://stream.radiofrance.fr/fipgroove/fipgroove_hifi.m3u8?id=radiofrance,
+    #FIP - Hip-hop, https://stream.radiofrance.fr/fiphiphop/fiphiphop_hifi.m3u8?id=radiofrance,
+    #FIP - Jazz, https://stream.radiofrance.fr/fipjazz/fipjazz_hifi.m3u8?id=radiofrance,
+    #FIP - Metal, https://stream.radiofrance.fr/fipmetal/fipmetal_hifi.m3u8?id=radiofrance,
+    #FIP - Pop, https://stream.radiofrance.fr/fippop/fippop_hifi.m3u8?id=radiofrance,
+    #FIP - Reagea, https://stream.radiofrance.fr/fipreggae/fipreggae_hifi.m3u8?id=radiofrance
     vlc -I curses "https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance" "http://direct.fipradio.fr/live/fip-webradio1.mp3" "http://direct.fipradio.fr/live/fip-webradio2.mp3" "http://direct.fipradio.fr/live/fip-webradio3.mp3" "http://direct.fipradio.fr/live/fip-webradio4.mp3" "http://direct.fipradio.fr/live/fip-webradio5.mp3" "http://direct.fipradio.fr/live/fip-webradio6.mp3" "http://direct.fipradio.fr/live/fip-webradio7.mp3" "http://direct.fipradio.fr/live/fip-webradio8.mp3"
 }
 
