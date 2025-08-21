@@ -1,0 +1,36 @@
+[Added Associations]
+text/x-python=org.xfce.mousepad.desktop;
+x-scheme-handler/http=firefox.desktop;
+x-scheme-handler/https=firefox.desktop;
+x-scheme-handler/chrome=firefox.desktop;
+application/x-extension-htm=firefox.desktop;
+application/x-extension-html=firefox.desktop;
+application/x-extension-shtml=firefox.desktop;
+application/xhtml+xml=firefox.desktop;
+application/x-extension-xhtml=firefox.desktop;
+application/x-extension-xht=firefox.desktop;
+text/plain=org.xfce.mousepad.desktop;
+audio/vnd.wave=vlc.desktop;
+image/jpeg=org.xfce.ristretto.desktop;
+application/pdf=gimp.desktop;org.inkscape.Inkscape.desktop;com.github.jeromerobert.pdfarranger.desktop;krita_pdf.desktop;userapp-inkscape-QBPOW2.desktop;atril.desktop;
+image/svg+xml=org.xfce.ristretto.desktop;
+video/mp4=vlc.desktop;
+text/html=firefox.desktop;org.xfce.mousepad.desktop;
+audio/x-opus+ogg=vlc.desktop;
+image/png=org.xfce.ristretto.desktop;gimp.desktop;
+text/csv=libreoffice-calc.desktop;org.xfce.mousepad.desktop;
+video/x-matroska=vlc.desktop;
+
+[Default Applications]
+text/html=org.xfce.mousepad.desktop
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
+x-scheme-handler/chrome=firefox.desktop
+application/x-extension-htm=firefox.desktop
+application/x-extension-html=firefox.desktop
+application/x-extension-shtml=firefox.desktop
+application/xhtml+xml=firefox.desktop
+application/x-extension-xhtml=firefox.desktop
+application/x-extension-xht=firefox.desktop
+x-scheme-handler/quodlibet=quodlibet.desktop
+application/pdf=atril.desktop
