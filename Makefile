@@ -160,16 +160,16 @@ _bootstrap:
 	#sudo apt get update && sudo apt install make
 	#sudo apt-get install -y aptitude make ntfs-3g vim sudo aptitude firmware-linux-nonfree
 	# -- Post boostrap
-	# Fish Config
+	# Fish Config:
 	# replace "cd" by "builtin cd" in `sudo vi -p /usr/share/fish/functions/{popd,pushd}.fish`
-	# fish_config prompt
+	# fish_config prompt:
 	#remove fish and thefuck from /root/bash_profile
-	# Root Config
+	# Root Config:
 	#cp dotfiles/.vimshortrc /root/.vimrc
 
-	# SYNC
-	# cp -a /WAVED/main ~/main
-	# cp -a /WAVED/src/config ~/src/config
+	# SYNC:
+	# rsync -rt --partial --progress --exclude 'Blue/measure/instrument/' /media/dtrckd/WAVED/main/ ~/main/
+	# rsync -rt --partial --progress /media/dtrckd/WAVED/src/config/ ~/src/config/
 	# ./snippets/find_and_reset_git_permissions.sh  /home/dtrckd/main/
 
 _install:
