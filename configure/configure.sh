@@ -29,8 +29,8 @@ sudo update-alternatives --config vim
 
 # Optionals (but advised !)
 if [ $AGGRESSIVE_APT == 1 ]; then
-    sudo apt install $OPTS apt-listbugs acpi bmon nmap wireshark fish autossh direnv ca-certificates snapd fzf
-    sudo apt install $OPTS elinks w3m thunderbird firefox gimp libreoffice hunspell-fr pandoc lmodern graphicsmagick-imagemagick-compat  # midori opera
+    sudo apt install $OPTS apt-listbugs acpi bmon nmap wireshark fish autossh direnv ca-certificates snapd fzf acpid
+    sudo apt install $OPTS elinks w3m thunderbird firefox gimp libreoffice hunspell-fr pandoc lmodern graphicsmagick-imagemagick-compat pdftk  # midori opera
     # for protonmail bridge on linux
     sudo apt install $OPTS
     # Build
@@ -43,8 +43,8 @@ fi
 ### Python Dev
 ######################
 if [ $PYTHON == 1 ]; then
-    # Debian dependancies.
-    sudo apt install $OPTS python3 python3-dev python3-pip python3-venv python-is-python3
+    # Debian dependancies and dev utils
+    sudo apt install $OPTS python3 python-is-python3 python3-dev python3-pip python3-venv libxml2-dev libxslt1-dev python3-dev
     # LSP
     pip install python-lsp-server ruff-lsp pylsp-mypy jupyter-lsp cython ipython jupyter matplotlib numpy scipy pandas scikit-learn requests
     # tools and edition

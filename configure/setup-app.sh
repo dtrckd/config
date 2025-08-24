@@ -107,6 +107,7 @@ if [ "$Target" == "kitty" ]; then
     # Install or update kitty.
     # https://sw.kovidgoyal.net/kitty/binary/
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+    sudo apt install kitty-terminfo # allow sudo command to run without 'terminal not full fonctional...'
 fi
 if [ "$Target" == "gdrive" ]; then
     VERSION="3.9.1"

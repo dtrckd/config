@@ -74,7 +74,10 @@ elif [ "$COMMAND" == "edit" ]; then
         | cut -d" " -f2,4)
 
     if [ ! -z "$files" ]; then
-        vimdiff $(echo "$files" | sed -n "${LINE}p")
+        # Puer vim
+        #vimdiff $(echo "$files" | sed -n "${LINE}p")
+        # Neovim
+        vim -d $(echo "$files" | sed -n "${LINE}p")
     fi
 elif [ "$COMMAND" == "copy" ]; then
     # Copy files that differs (first depth), into TAREGT (backup)
