@@ -56,7 +56,7 @@ local servers = {
     'elmls',
     'gopls',
     'golangci_lint_ls',
-    'lua_ls',
+    --'lua_ls',
     'pylsp',
     'ruff',
     --'pyright',

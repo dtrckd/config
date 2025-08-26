@@ -221,7 +221,7 @@ alias ps_python='echo "mem% for python" && ps aux --sort=-%mem | grep -iE "pytho
 alias pstop='ps aux --sort=-%cpu | awk '\''{print "CPU: "$3"%", "MEM: "$4"%", "CMD: "$11}'\'' | head -n 11'
 alias memtop='ps aux --sort=-%mem | awk '\''{print "CPU: "$3"%", "MEM: "$4"%", "CMD: "$11}'\'' | head -n 11'
 alias lsoftop='sudo lsof | awk '\''{print $1 " " $2}'\'' | sort | uniq -c | sort -n -k1'
-alias riprm='shred -zuv -n1'
+alias destruct='shred -zuv -n10'
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
 #alias f='fzf | tr -d "\n" | clipboard' # fuzzy match
@@ -254,8 +254,8 @@ alias agy='ag -i --py'
 alias ago='ag -i --go'
 alias agj='ag -i --js --ignore node_modules/'
 alias sys='systemctl'
-alias locks='systemctl suspend -i'
-alias dodo='systemctl hibernate'
+alias locks='rfkill block wifi && systemctl suspend -i'
+alias hibernate='systemctl hibernate'
 alias halt='systemctl poweroff'
 alias ls-service='systemctl -t service --state running'
 alias ls-masked-unit='systemctl --state masked' # systemctl list-unit-files | grep masked
@@ -490,30 +490,35 @@ function git_config_init
 end
 # Git Permission Reset
 function git_reset_permissions
+    # DEBUG: this work in bash !!!
     # Initialize an empty variable to hold the patch content
     set patch_content ""
 
     # Get the list of files with permission changes
     # output in form of: mode change 100644 => 100755 lambda.js
     set files (git diff --summary --diff-filter=MT | grep 'mode change' | awk '{print $3, $5, substr($0, index($0,$6))}')
-    
+
     for line in $files
+        # Skip empty lines
         if test -z "$line"
             continue
         end
-        # Read the old_mode, new_mode, and file name
-        set -l old_mode (echo $line | awk '{print $1}')
-        set -l new_mode (echo $line | awk '{print $2}')
-        set -l file (echo $line | awk '{substr($0, index($0,$3))}')
 
-        # Append to the patch content
+        # Extract old_mode, new_mode, and file name with awk
+        set old_mode (echo $line | awk '{print $1}')
+        set new_mode (echo $line | awk '{print $2}')
+        set file $(echo "$line" | awk '{print substr($0, index($0,$3))}')
+
+        if test -z "$file"
+            continue
+        end
+
         set patch_content "$patch_content""diff --git a/$file b/$file\n"
         set patch_content "$patch_content""old mode $new_mode\n"
         set patch_content "$patch_content""new mode $old_mode\n"
     end
 
-    # Apply the patch directly from the variable
-    if not test -z "$patch_content"
+    if test -n "$patch_content"
         echo -e "$patch_content" | git apply
     end
 end
@@ -714,7 +719,7 @@ alias d='cd -l'
 alias cd-='cd -'
 
 set PX "$HOME/main"
-set MUSIC_DIR "/music/a"
+set MUSIC_DIR "~/Music/"
 
 alias cdf="cd $HOME/main/missions/fractale/"
 alias iu="cd $PX"
@@ -789,7 +794,8 @@ end
 
 #alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
 #alias xrandr_setup="xrandr --output HDMI-2 --left-of eDP-1"
-alias xrandr_setup="xrandr --output DP-2-1 --left-of eDP-1"
+#alias xrandr_setup="xrandr --output DP-2-1 --left-of eDP-1"
+alias xrandr_setup="xrandr --output HDMI-A-0 --left-of eDP"
 
 alias amatop='elinks http://zombie-dust.imag.fr:8000/'
 #alias amatop='w3m http://zombie-dust.imag.fr:8000/'

@@ -20,6 +20,7 @@ audio/x-opus+ogg=vlc.desktop;
 image/png=org.xfce.ristretto.desktop;gimp.desktop;
 text/csv=libreoffice-calc.desktop;org.xfce.mousepad.desktop;
 video/x-matroska=vlc.desktop;
+application/x-shellscript=org.xfce.mousepad.desktop;
 
 [Default Applications]
 text/html=org.xfce.mousepad.desktop
