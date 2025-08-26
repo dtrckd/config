@@ -27,6 +27,7 @@
       <value type="string" value="nw"/>
       <value type="string" value="org.freedesktop.network-manager-applet"/>
       <value type="string" value="org.xfce.Thunar"/>
+      <value type="string" value="Proton Mail Bridge"/>
       <value type="string" value="Screen Grab"/>
       <value type="string" value="signal"/>
       <value type="string" value="Signal"/>

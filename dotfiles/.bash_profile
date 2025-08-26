@@ -37,14 +37,53 @@ PROMPTL='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\0
 #PROMPTS='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
 # @LOCAL
 PROMPTS='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]$(_PWD)\[\033[00m\]\$ '
-alias prompt_long="PS1='$PROMPTL'"
-alias prompt_short="PS1='$PROMPTS'"
-if [ -x "$PS1" ]; then
-    prompt_short
-    #prompt_long
+
+prompt_short() {
+    PS1="$PROMPTS"
+}
+prompt_long() {
+    PS1="$PROMPTL"
+}
+
+if [[ -n "$PS1" && "$BASH_EXECUTION_STRING" == 1 ]]; then
+    # alternative way to test for interactive shell: 
+    # if [[ $- == *i* ]]; then
+    # --
+    prompt_short 
+
+    ### Shell Global Variable
+    #shopt -s extglob
+    #setterm -blength 0 # Disable console beep
+    stty -ixon # disable <C-s> freeze in vim (who waits a <C-q> signal !)
+
+    # X Keyboard Mapping
+    # @LOCAL
+    setxkbmap -option "nbsp:none" # disable non-breaking space, accidently genrated when typing <ALTGR>+<SPACE>
+    # setxkbmap -option # to reset value
+    # To find such character:
+    #   grep  $'\xc2\xa0' filename
+    # Find all files having such char (except binaries):
+    #   find -type f ! -iname "*.pyc" -and ! -iname "*.pk" -and ! -path "*/.git/*" -exec grep -Il '.' {} \; |xargs -d '\n' grep -l $'\xc2\xa0'
+    # To replace inline all bad spaces:
+    #   xargs sed -i 's/\xc2\xa0/ /g'
+
+    # QWERTY
+    alias to_qwerty='setxkbmap us' # QWERTY
+    alias to_azerty='setxkbmap fr' # AZERTY
+
+    # <C-w> should behave like vim
+    stty werase undef
+    bind '\C-w:unix-filename-rubout'
+
+    # Bind is akin to write in the .inputrc file)
+    # Tab completion features
+    bind "TAB:menu-complete" # auto complete menu TAV
+    bind "set show-all-if-ambiguous on"
+    bind "set menu-complete-display-prefix on" # tape twice to complete on ambiguous
+    bind '"\e[Z": menu-complete-backward' # shift tab cycles backward
+    bind "Control-q: complete" # stop to cycling and seek take the next key
+    bind 'set completion-ignore-case on' # Case insensitive when tab completing
 fi
-prompt_short
-#prompt_long
 
 if command -v fdfind &> /dev/null; then
    alias find='fdfind'
@@ -206,7 +245,7 @@ alias ps_python='echo "mem% for python" && ps aux --sort=-%mem | grep -iE "pytho
 alias lsoftop='sudo lsof | awk '\''{print $1 " " $2}'\'' | sort | uniq -c | sort -n -k1'
 alias pstop='ps aux --sort=-%cpu | awk '\''{print "CPU: "$3"%", "MEM: "$4"%", "CMD: "$11}'\'' | head -n 11'
 alias memtop='ps aux --sort=-%mem | awk '\''{print "CPU: "$3"%", "MEM: "$4"%", "CMD: "$11}'\'' | head -n 11'
-alias riprm='shred -zuv -n1' # find <directory> -depth -type f -exec shred -v -n 1 -z -u {} \;
+alias destruct='shred -zuv -n10' # find <directory> -depth -type f -exec shred -v -n 1 -z -u {} \;
 alias latex2html='latex2html -split 0 -show_section_numbers -local_icons -no_navigation'
 alias eog='ristretto'
 #alias f='fzf | clipboard' # fuzzy match
@@ -274,7 +313,7 @@ alias agj='ag -i --js --ignore node_modules/'
 alias sys='systemctl'
 complete -f sys
 alias locks='systemctl suspend -i'
-alias dodo='systemctl hibernate'
+alias hibernate='systemctl hibernate'
 alias halt='systemctl poweroff'
 ### List utils
 alias ls-service='systemctl -t service --state running'
@@ -559,6 +598,10 @@ function git_reset_permissions() {
         new_mode=$(echo "$line" | awk '{print $2}')
         file=$(echo "$line" | awk '{print substr($0, index($0,$3))}')
 
+        if [ -z "$file" ]; then
+            continue
+        fi
+
         # Append to the patch content
         patch_content="${patch_content}diff --git a/$file b/$file\n"
         patch_content="${patch_content}old mode $new_mode\n"
@@ -721,7 +764,7 @@ alias d='cd -l'
 alias cd-='cd -'
 
 PX="${HOME}/main"
-MUSIC_DIR="/music/a"
+MUSIC_DIR="~/Music"
 
 alias cdf="cd $HOME/main/missions/fractale/"
 alias iu="cd $PX"
@@ -882,14 +925,14 @@ function fip() {
     vlc -I curses "https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipjazz/fipjazz_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fiphiphop/fiphiphop_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipelectro/fipelectro_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipreggae/fipreggae_hifi.m3u8?id=radiofrance" "https://stream.radiofrance.fr/fipgroove/fipgroove_hifi.m3u8?id=radiofrance"
 }
 function fip2 {
-    #FIP, https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance,
-    #FIP - Electro, https://stream.radiofrance.fr/fipelectro/fipelectro_hifi.m3u8?id=radiofrance,
-    #FIP - Groove, https://stream.radiofrance.fr/fipgroove/fipgroove_hifi.m3u8?id=radiofrance,
-    #FIP - Hip-hop, https://stream.radiofrance.fr/fiphiphop/fiphiphop_hifi.m3u8?id=radiofrance,
-    #FIP - Jazz, https://stream.radiofrance.fr/fipjazz/fipjazz_hifi.m3u8?id=radiofrance,
-    #FIP - Metal, https://stream.radiofrance.fr/fipmetal/fipmetal_hifi.m3u8?id=radiofrance,
-    #FIP - Pop, https://stream.radiofrance.fr/fippop/fippop_hifi.m3u8?id=radiofrance,
-    #FIP - Reagea, https://stream.radiofrance.fr/fipreggae/fipreggae_hifi.m3u8?id=radiofrance
+    #FIP           , https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance
+    #FIP - Electro , https://stream.radiofrance.fr/fipelectro/fipelectro_hifi.m3u8?id=radiofrance
+    #FIP - Groove  , https://stream.radiofrance.fr/fipgroove/fipgroove_hifi.m3u8?id=radiofrance
+    #FIP - Hip-hop , https://stream.radiofrance.fr/fiphiphop/fiphiphop_hifi.m3u8?id=radiofrance
+    #FIP - Jazz    , https://stream.radiofrance.fr/fipjazz/fipjazz_hifi.m3u8?id=radiofrance
+    #FIP - Metal   , https://stream.radiofrance.fr/fipmetal/fipmetal_hifi.m3u8?id=radiofrance
+    #FIP - Pop     , https://stream.radiofrance.fr/fippop/fippop_hifi.m3u8?id=radiofrance
+    #FIP - Reagea  , https://stream.radiofrance.fr/fipreggae/fipreggae_hifi.m3u8?id=radiofrance
     vlc -I curses "https://stream.radiofrance.fr/fip/fip_hifi.m3u8?id=radiofrance" "http://direct.fipradio.fr/live/fip-webradio1.mp3" "http://direct.fipradio.fr/live/fip-webradio2.mp3" "http://direct.fipradio.fr/live/fip-webradio3.mp3" "http://direct.fipradio.fr/live/fip-webradio4.mp3" "http://direct.fipradio.fr/live/fip-webradio5.mp3" "http://direct.fipradio.fr/live/fip-webradio6.mp3" "http://direct.fipradio.fr/live/fip-webradio7.mp3" "http://direct.fipradio.fr/live/fip-webradio8.mp3"
 }
 
@@ -901,39 +944,6 @@ alias katai-struct-compiler='kaitai-struct-compiler -no-version-check'
 export TZ="Europe/Paris"
 # Change the sorting behaviour with ls
 export LC_COLLATE=C
-
-### Shell Global Variable
-#shopt -s extglob
-#setterm -blength 0 # Disable console beep
-stty -ixon # disable <C-s> freeze in vim (who waits a <C-q> signal !)
-
-# X Keyboard Mapping
-# @LOCAL
-setxkbmap -option "nbsp:none" # disable non-breaking space, accidently genrated when typing <ALTGR>+<SPACE>
-# setxkbmap -option # to reset value
-# To find such character:
-#   grep  $'\xc2\xa0' filename
-# Find all files having such char (except binaries):
-#   find -type f ! -iname "*.pyc" -and ! -iname "*.pk" -and ! -path "*/.git/*" -exec grep -Il '.' {} \; |xargs -d '\n' grep -l $'\xc2\xa0'
-# To replace inline all bad spaces:
-#   xargs sed -i 's/\xc2\xa0/ /g'
-
-# QWERTY
-alias to_qwerty='setxkbmap us' # QWERTY
-alias to_azerty='setxkbmap fr' # AZERTY
-
-# <C-w> should behave like vim
-stty werase undef
-bind '\C-w:unix-filename-rubout'
-
-# Bind is akin to write in the .inputrc file)
-# Tab completion features
-bind "TAB:menu-complete" # auto complete menu TAV
-bind "set show-all-if-ambiguous on"
-bind "set menu-complete-display-prefix on" # tape twice to complete on ambiguous
-bind '"\e[Z": menu-complete-backward' # shift tab cycles backward
-bind "Control-q: complete" # stop to cycling and seek take the next key
-bind 'set completion-ignore-case on' # Case insensitive when tab completing
 
 export HISTSIZE=10000
 export HISTFILESIZE=10000
@@ -1049,20 +1059,25 @@ if [ -x $(echo $TMUX |cut -d',' -f1 ) ]; then
 fi
 
 
-if [ -d $HOME/.bash_completion.d ]; then
-    if [ ! -z $(ls $HOME/.bash_completion.d) ]; then
-        for bcfile in $HOME/.bash_completion.d/*; do
-            . $bcfile
-        done
+
+if [[ -n "$PS1" && -z "$BASH_EXECUTION_STRING" ]]; then
+    # Completions
+    # --
+    if [ -d $HOME/.bash_completion.d ]; then
+        if [ ! -z $(ls $HOME/.bash_completion.d) ]; then
+            for bcfile in $HOME/.bash_completion.d/*; do
+                . $bcfile
+            done
+        fi
     fi
-fi
 
-if [ -f /etc/profile.d/bash_completion.sh ]; then
-    # Enable systemctl completion notably
-    . /etc/profile.d/bash_completion.sh
-fi
+    if [ -f /etc/profile.d/bash_completion.sh ]; then
+        # Enable systemctl completion notably
+        . /etc/profile.d/bash_completion.sh
+    fi
 
-if [ -z "$BASH_EXECUTION_STRING" ]; then
+    # Fish
+    # --
     which fish 1>/dev/null 2>/dev/null
     if [ $? == 0 ]; then
         exec fish

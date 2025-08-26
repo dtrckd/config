@@ -9,7 +9,7 @@
       <property name="position" type="string" value="p=6;x=683;y=10"/>
       <property name="length" type="uint" value="100"/>
       <property name="nrows" type="uint" value="1"/>
-      <property name="size" type="uint" value="20"/>
+      <property name="size" type="uint" value="22"/>
       <property name="length-adjust" type="bool" value="true"/>
       <property name="plugin-ids" type="array">
         <value type="int" value="1"/>
@@ -21,7 +21,6 @@
         <value type="int" value="21"/>
         <value type="int" value="15"/>
         <value type="int" value="18"/>
-        <value type="int" value="24"/>
         <value type="int" value="35"/>
         <value type="int" value="29"/>
         <value type="int" value="31"/>
@@ -36,6 +35,7 @@
         <value type="int" value="34"/>
         <value type="int" value="6"/>
         <value type="int" value="2"/>
+        <value type="int" value="13"/>
         <value type="int" value="10"/>
         <value type="int" value="36"/>
         <value type="int" value="4"/>
@@ -157,6 +157,7 @@
         <value type="string" value="zoom"/>
       </property>
       <property name="known-legacy-items" type="array">
+        <value type="string" value="polkit-mate-authentication-agent-1"/>
         <value type="string" value="wi-fi network connection “sfr_6d4f” active: sfr_6d4f (57%)"/>
         <value type="string" value="wi-fi network connection “sfr_6d4f” active: sfr_6d4f (56%)"/>
         <value type="string" value="wi-fi network connection “lalilulelo” active: lalilulelo (100%)"/>
@@ -192,6 +193,7 @@
         <value type="string" value="networkmanager applet"/>
       </property>
       <property name="known-items" type="array">
+        <value type="string" value="SimpleScreenRecorder"/>
         <value type="string" value="screengrab"/>
         <value type="string" value="copyq"/>
         <value type="string" value="proton-vpn-app"/>
@@ -226,11 +228,6 @@
     <property name="plugin-22" type="string" value="launcher">
       <property name="items" type="array">
         <value type="string" value="15699689413.desktop"/>
-      </property>
-    </property>
-    <property name="plugin-24" type="string" value="launcher">
-      <property name="items" type="array">
-        <value type="string" value="15796245834.desktop"/>
       </property>
     </property>
     <property name="plugin-25" type="string" value="launcher">
@@ -308,5 +305,6 @@
     </property>
     <property name="plugin-5" type="string" value="separator"/>
     <property name="plugin-15" type="string" value="separator"/>
+    <property name="plugin-13" type="string" value="xfce4-clipman-plugin"/>
   </property>
 </channel>

@@ -876,8 +876,16 @@ command T tabe
 " print the current buffer number
 command Bufno :echo bufnr('%')
 
-cnoremap cc<CR> CodeCompanionChat<CR>
 nnoremap <leader>cb o```<CR><CR>```<Esc>ki
+"cnoremap cc<CR> CodeCompanionChat<CR>
+function! CCCommand()
+  if getcmdtype() == ':' && getcmdpos() == 2 && getcmdline() == 'c'
+    return "\<BS>CodeCompanionChat"
+  endif
+  return 'c'
+endfunction
+
+cnoremap <expr> c CCCommand()
 
 " Insert and jump to newline before the cursor, in insert mode
 inoremap <A-Enter> <Esc>O

@@ -595,6 +595,16 @@
           <property name="last-image" type="string" value="/usr/share/images/desktop-base/default"/>
         </property>
       </property>
+      <property name="monitoreDP" type="empty">
+        <property name="workspace0" type="empty">
+          <property name="last-image" type="string" value="/usr/share/images/desktop-base/default"/>
+        </property>
+      </property>
+      <property name="monitorHDMI-A-0" type="empty">
+        <property name="workspace0" type="empty">
+          <property name="last-image" type="string" value="/usr/share/images/desktop-base/login-background.svg"/>
+        </property>
+      </property>
     </property>
   </property>
   <property name="desktop-icons" type="empty">
@@ -611,8 +621,10 @@
       <property name="migrated-4.19" type="array">
         <value type="string" value="0f5a8989fa3de9190ce928779f448be095d82a63"/>
         <value type="string" value="b741746c623a3ae74f838b8a4cc78bcbb81c1617"/>
+        <value type="string" value="77e35f76c4b68fc9440c6d9bb21805a091196ff4"/>
       </property>
     </property>
+    <property name="font-size" type="double" value="12"/>
   </property>
   <property name="last" type="empty">
     <property name="window-width" type="int" value="653"/>
