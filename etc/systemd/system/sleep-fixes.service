@@ -1,0 +1,14 @@
+[Unit]
+Description=Disable WiFi before suspend
+Before=sleep.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/nmcli radio wifi off
+ExecStartPost=/usr/bin/sleep 1
+# To re-enable it
+#sudo systemctl enable wifi-suspend.service
+
+
+[Install]
+WantedBy=sleep.target
