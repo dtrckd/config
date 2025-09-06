@@ -10,33 +10,34 @@ tags
 *.byobu
 
 # tmp
-/dotfiles/.config/xmms2/bindata/
+dotfiles/.config/xmms2/bindata/
 *.sqlite
 
 # Private
-/.free
-/.coin
-/.logins
-/logins.csv
-/addr
+.free
+.coin
+.logins
+logins.csv
+addr
 # --
-/dotfiles/.ssh/
-/dotfiles/.gethubconfig
-/dotfiles/.bash_aliases
-/dotfiles/.mutt
-/dotfiles/.muttrc
-/dotfiles/.config/xfce4/desktop/
-/dotfiles/.config/aichat/
-/dotfiles/.local/share/
+dotfiles/.ssh/
+dotfiles/.gethubconfig
+dotfiles/.bash_aliases
+dotfiles/.mutt
+dotfiles/.muttrc
+dotfiles/.config/xfce4/desktop/
+dotfiles/.config/aichat/
+dotfiles/.local/share/
+dotfiles/.tabby-client/
 # --
-/etc/fstab
-/etc/wpa_supplicant/
+etc/fstab
+etc/wpa_supplicant/
 # --
-/configure/snapshots/
-/configure/blue/
-/configure/bin.txt
-/configure/nodeslist
-/credentials/
+configure/snapshots/
+configure/blue/
+configure/bin.txt
+configure/nodeslist
+credentials/
 # --
-/app/
+app/
 
