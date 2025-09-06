@@ -47,7 +47,7 @@ Plugin 'tpope/vim-fugitive'
 
 " Linting / LSP / Code completion
 Plugin 'neovim/nvim-lspconfig'
-"Plugin 'TabbyML/vim-tabby' " PENDING activation waiting for https://github.com/TabbyML/vim-tabby/issues/35
+Plugin 'TabbyML/vim-tabby' " PENDING activation waiting for https://github.com/TabbyML/vim-tabby/issues/35
 Plugin 'olimorris/codecompanion.nvim'
 " Blink is install trough Minideps. see .nvim/lua/minideps.lua:
 Plugin 'saghen/blink.cmp'  " still needed here to avoid vim error ?!
@@ -876,12 +876,25 @@ command T tabe
 " print the current buffer number
 command Bufno :echo bufnr('%')
 
-nnoremap <leader>cb o```<CR><CR>```<Esc>ki
+" add code block
+nnoremap <leader>xx o```<CR><CR>```<Esc>ki
+
 "cnoremap cc<CR> CodeCompanionChat<CR>
 function! CCCommand()
-  if getcmdtype() == ':' && getcmdpos() == 2 && getcmdline() == 'c'
+  let cmdline = getcmdline()
+  let cmdpos = getcmdpos()
+  
+  " Handle normal command mode
+  if getcmdtype() == ':' && cmdpos == 2 && cmdline == 'c'
     return "\<BS>CodeCompanionChat"
   endif
+  
+  " Handle visual mode - check if we're right after '<,'> and typing 'c'
+  if getcmdtype() == ':' && cmdline =~# "^'<,'>c$" && cmdpos == strlen(cmdline) + 1
+    " Remove the 'c' and replace with CodeCompanionChat
+    return "\<BS>CodeCompanionChat"
+  endif
+
   return 'c'
 endfunction
 

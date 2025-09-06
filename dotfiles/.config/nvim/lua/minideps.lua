@@ -52,7 +52,22 @@ later(function()
             --implementation = "lua", -- Rust implementation crash !!!
             prebuilt_binaries = {
                 force_version = "v1.6.0",
-            }
+            },
+
+            sorts = {
+              function(a, b)
+                if (a.client_name == nil or b.client_name == nil) or (a.client_name == b.client_name) then
+                  return
+                end
+                if (b.client_name == 'Tabby') then
+                  return false
+                end
+              end,
+              -- default sorts
+              'score',
+              'sort_text',
+            },
+
         },
         -- Filetype to work on
         enabled = function() return not vim.tbl_contains({ "markdown", "text" }, vim.bo.filetype) end,
@@ -131,7 +146,7 @@ later(function()
                 auto_show_delay_ms = 10000,
                 window = { border = 'double' }
             },
-            ghost_text = { enabled = true },
+            ghost_text = { enabled = false },
         },
 
         -- Signature config

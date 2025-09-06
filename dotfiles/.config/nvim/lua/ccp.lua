@@ -73,45 +73,47 @@ local ccp = require("codecompanion").setup({
         },
     },
     adapters = {
-        openai = function()
-            return require("codecompanion.adapters").extend("openai", {
-                schema = {
-                    model = { default = "gpt-4.1" },
-                },
-            })
-        end,
-        anthropic = function()
-            return require("codecompanion.adapters").extend("anthropic", {
-                schema = {
-                    model = { default = "claude-3-7-sonnet-20250219" },
-                    extended_thinking = { default = false },
-                },
-            })
-        end,
-        anthropic_thinking = function()
-            return require("codecompanion.adapters").extend("anthropic", {
-                schema = {
-                    model = { default = "claude-3-7-sonnet-20250219" },
-                    extended_thinking = { default = true },
-                },
-            })
-        end,
-        anthropic4 = function()
-            return require("codecompanion.adapters").extend("anthropic", {
-                schema = {
-                    model = { default = "claude-opus-4-20250514" },
-                    extended_thinking = { default = false },
-                },
-            })
-        end,
-        anthropic_thinking4 = function()
-            return require("codecompanion.adapters").extend("anthropic", {
-                schema = {
-                    model = { default = "claude-opus-4-20250514" },
-                    extended_thinking = { default = true },
-                },
-            })
-        end,
+        http = {
+            openai = function()
+                return require("codecompanion.adapters").extend("openai", {
+                    schema = {
+                        model = { default = "gpt-4.1" },
+                    },
+                })
+            end,
+            anthropic = function()
+                return require("codecompanion.adapters").extend("anthropic", {
+                    schema = {
+                        model = { default = "claude-3-7-sonnet-20250219" },
+                        extended_thinking = { default = false },
+                    },
+                })
+            end,
+            anthropic_thinking = function()
+                return require("codecompanion.adapters").extend("anthropic", {
+                    schema = {
+                        model = { default = "claude-3-7-sonnet-20250219" },
+                        extended_thinking = { default = true },
+                    },
+                })
+            end,
+            anthropic4 = function()
+                return require("codecompanion.adapters").extend("anthropic", {
+                    schema = {
+                        model = { default = "claude-opus-4-20250514" },
+                        extended_thinking = { default = false },
+                    },
+                })
+            end,
+            anthropic_thinking4 = function()
+                return require("codecompanion.adapters").extend("anthropic", {
+                    schema = {
+                        model = { default = "claude-opus-4-20250514" },
+                        extended_thinking = { default = true },
+                    },
+                })
+            end,
+        }
     },
 
     extensions = {
