@@ -14,9 +14,11 @@ local blink = require('blink.cmp')
 
 --
 -- Tabby configuration
+--  @DEBUG: To workaround the self-certificate issue: sudo cp /home/dtrckd/main/missions/fractale/src/ansible-fractale/roles/endpoints/ai/tabby.crt /usr/local/share/ca-certificates/tabby.crt
+--  @DEBUG: activation waiting for https://github.com/TabbyML/vim-tabby/issues/35 and https://github.com/Saghen/blink.cmp/issues/2093
 --
 --vim.g.tabby_agent_start_command = { "npx", "tabby-agent", "--lsp", "--stdio" }
-vim.g.tabby_agent_start_command = { "npx", "tabby-agent", "--stdio" }
+--vim.g.tabby_agent_start_command = { "npx", "tabby-agent", "--stdio" }
 vim.g.tabby_inline_completion_trigger = "manual"
 vim.g.tabby_inline_completion_keybinding_accept = "<C-p>" -- overwrite the initial mapping :/ (C-Enter, C-*, do not work; workaround ?)
 vim.g.tabby_inline_completion_keybinding_trigger_or_dismiss = "<C-^>"
