@@ -83,10 +83,10 @@ ln -s /usr/share/icons/hicolor/24x24/actions/xfpm-hibernate.png ${icontheme}/24x
 ln -s /usr/share/icons/hicolor/48x48/actions/xfpm-suspend.png   ${icontheme}/48x48/actions/system-suspend.png
 ln -s /usr/share/icons/hicolor/48x48/actions/xfpm-hibernate.png ${icontheme}/48x48/actions/system-hibernate.png
 
-# Windows buttons stop working and just blinking:
+# Windows buttons stop working and just blinking
 xfwm4 --replace &
 
-# Panel with windows and worspace don't respond:
+# Reset panel: Panel with windows and worspace don't respond
 xfce4-panel -r
 
 # SIOCSIFFLAGS: Operation not possible due to RF-kil
