@@ -42,11 +42,12 @@ Plugin 'junegunn/fzf.vim'
 Plugin 'rmagatti/goto-preview'
 
 " Git
-Plugin 'airblade/vim-gitgutter'
+"Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 
 " Linting / LSP / Code completion
-Plugin 'neovim/nvim-lspconfig'
+Plugin 'neovim/nvim-lspconfig'  " (vim 0.11 suppoort native lsp)
+"Plugin 'hinell/lsp-timeout.nvim'  " only solution so far to limit lsp memory usage growing too much (do no work with vim.lsp 0.11) !
 Plugin 'TabbyML/vim-tabby' " PENDING activation waiting for https://github.com/TabbyML/vim-tabby/issues/35
 Plugin 'olimorris/codecompanion.nvim'
 " Blink is install trough Minideps. see .nvim/lua/minideps.lua:
@@ -464,9 +465,8 @@ nnoremap <leader>G :tabnew<CR>:G<CR>:only<CR>
 let g:gitgutter_enabled = 0
 let g:gitgutter_map_keys = 1
 set updatetime=4000 " 4 sec
-nnoremap <leader>g :GitGutterToggle<CR>
-nnoremap <leader>n :set invnumber<CR>
 let g:gitgutter_override_sign_column_highlight = 0
+"nnoremap <leader>g :GitGutterToggle<CR>
 
 
 "--
@@ -623,11 +623,43 @@ set nohidden                       " Do not keep a buffer open (swp file) if the
 set splitright                     " default vertical split focus
 set splitbelow                     " default horizontal split focus
 
-nnoremap X :split<cr>
+""" Refresh options
+set ttyfast
+"set lazyredraw " weird behavious (statuslines is black...)
+
+""" Tabulations / Indentation
+set softtabstop=4
+set shiftwidth=4
+set tabstop=4
+set expandtab
+"set preserveindent " ?
+set smarttab " trivial
+set autoindent "keep indentation over line
+" Replacement
+"set smartindent " <= mess up indent !
+set cindent
+set cinkeys-=0#
+set indentkeys-=0#
+
+""" Folding
+set foldmethod=syntax " use indent for broader fold...
+"set nofoldenable
+set nofen               " open all folds. see z[mn] command
+
 
 " Fix for color syntax highlighting breaks for big file after jump or search
 " https://github.com/vim/vim/issues/2790
 syntax sync minlines=2000
+
+nnoremap X :split<cr>
+nnoremap <leader>n :set invnumber<CR>
+nnoremap <space> za   " toggle fold on space
+
+""" Magic pasting
+"" Toggle paste/nopaste automatically when copy/paste with right click in insert mode:
+"let &t_SI .= "\<Esc>[?2004h"
+"let &t_EI .= "\<Esc>[?2004l"
+set t_BE=  " disable bracketed paste mode.  https://gitlab.com/gnachman/iterm2/issues/5698
 
 """ Go to previsous position when opening vim
 if has("autocmd")
@@ -646,31 +678,6 @@ augroup FugitiveDiffCursorFix
         \ endif
 augroup END
 
-
-""" Refresh options
-set ttyfast
-"set lazyredraw " weird behavious (statuslines is black...)
-
-""" Tabulations / Indentation
-set softtabstop=4
-set shiftwidth=4
-set tabstop=4
-set expandtab
-"set preserveindent " ?
-set smarttab " trivial
-set autoindent "keep indentation over line
-
-"set smartindent " <= mess up indent !
-" replacement:
-set cindent
-set cinkeys-=0#
-set indentkeys-=0#
-
-set foldmethod=syntax " use indent for broader fold...
-"set nofoldenable
-set nofen               " open all folds. see z[mn] command
-" toggle fold on space
-nnoremap <space> za
 
 """ Multi-line string (triple quote)
 function! TripleQuoteFold(lnum)
@@ -724,12 +731,6 @@ endfunction
 
 " @warning: this is fuckin long to load big filed. Avoid, too complex!
 "autocmd FileType toml setlocal foldmethod=expr foldexpr=TripleQuoteFold(v:lnum)
-
-""" Magic pasting
-"" Toggle paste/nopaste automatically when copy/paste with right click in insert mode:
-"let &t_SI .= "\<Esc>[?2004h"
-"let &t_EI .= "\<Esc>[?2004l"
-set t_BE=  " disable bracketed paste mode.  https://gitlab.com/gnachman/iterm2/issues/5698
 
 
 """ Unindent
@@ -785,8 +786,9 @@ nnoremap <silent> <Esc> :noh<cr>
 " Decrease: still C-x
 map <S-k> <Nop>
 nnoremap <C-w><C-w> <C-a>
-nnoremap <C-y> <C-a>  "remap to increment number before remaping it
+"remap to increment number before remaping it
 nnoremap <C-a> ggVG
+nnoremap <silent> <C-y> :<C-u>execute "normal! \<C-a>"<CR>
 
 """ Window moves
 nnoremap <S-UP>    <C-W>k
@@ -876,7 +878,7 @@ command T tabe
 " print the current buffer number
 command Bufno :echo bufnr('%')
 
-" add code block
+" add code block/backtick/triple quote.
 nnoremap <leader>xx o```<CR><CR>```<Esc>ki
 
 "cnoremap cc<CR> CodeCompanionChat<CR>
@@ -986,7 +988,7 @@ au BufNewFile,BufRead *.elm set filetype=elm
 au BufNewFile,BufRead *.vue set filetype=vue
 au BufNewFile,BufRead *.cr set filetype=crystal
 au BufNewFile,BufRead *.plt,*.gnuplot,*.gnu set filetype=gnuplot
-au BufWritePost *.sh,*.py,*.m,*.gnu,*.nse silent !chmod u+x "<afile>"
+au BufWritePost * if getline(1) =~ "^#!" | silent !chmod u+x "<afile>" | endif
 
 " prevent changing the indentation when commenting
 autocmd FileType yaml,yaml.ansible setlocal indentkeys-=0#

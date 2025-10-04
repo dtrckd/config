@@ -9,7 +9,6 @@ local function map(mode, lhs, rhs, opts)
 end
 
 
-local lspconfig = require('lspconfig')
 local blink = require('blink.cmp')
 
 --
@@ -69,7 +68,7 @@ local servers = {
     --'tabby_ml',
 }
 
-local configs = {
+local server_configs = {
     -- Bash
     bashls = {
         filetypes = { 'zsh', 'bash', 'sh' },
@@ -81,20 +80,20 @@ local configs = {
             elmAnalyseTrigger = "save",
             onlyUpdateDiagnosticsOnSave = true,
         },
-        handlers = {
-            -- See https://github.com/elm-tooling/elm-language-server/discussions/961
-            -- See https://github.com/joakin/nvim/blob/be72c11ff2d2c3ee6d6350f2221aabcca373adae/lua/plugins/lspconfig.lua#L148-L157
-            ["window/showMessageRequest"] = function(whatever, result)
-                -- For some reason, the showMessageRequest handler doesn't work with
-                -- the format failed error. It just hangs on the screen and can't
-                -- interact with the vim.ui.select thingy. So skip it.
-                if result.message:find("Running elm-format failed", 1, true) then
-                    print(result.message)
-                    return vim.NIL
-                end
-                return vim.lsp.handlers["window/showMessageRequest"](whatever, result)
-            end,
-        },
+        --handlers = {
+        --    -- See https://github.com/elm-tooling/elm-language-server/discussions/961
+        --    -- See https://github.com/joakin/nvim/blob/be72c11ff2d2c3ee6d6350f2221aabcca373adae/lua/plugins/lspconfig.lua#L148-L157
+        --    ["window/showMessageRequest"] = function(whatever, result)
+        --        -- For some reason, the showMessageRequest handler doesn't work with
+        --        -- the format failed error. It just hangs on the screen and can't
+        --        -- interact with the vim.ui.select thingy. So skip it.
+        --        if result.message:find("Running elm-format failed", 1, true) then
+        --            print(result.message)
+        --            return vim.NIL
+        --        end
+        --        return vim.lsp.handlers["window/showMessageRequest"](whatever, result)
+        --    end,
+        --},
         --
         on_attach = function(client, bufnr)
             --vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -153,7 +152,7 @@ local configs = {
     golangci_lint_ls = {
         cmd = { "golangci-lint-langserver" },
         init_options = { command = { "golangci-lint", "run", "--enable-all", "--disable", "lll", "--out-format", "json", "--issues-exit-code=1" } },
-        root_dir = lspconfig.util.root_pattern('.golangci.yml', '.golangci.yaml', '.golangci.toml', '.golangci.json', 'go.work', 'go.mod', '.git'),
+        root_markers = {'.golangci.yml', '.golangci.yaml', '.golangci.toml', '.golangci.json', 'go.work', 'go.mod', '.git'},
     },
     -- Lualang
     lua_ls = {
@@ -280,10 +279,13 @@ local configs = {
 }
 
 for _, lsp in ipairs(servers) do
-    lspconfig[lsp].setup(configs[lsp])
-    local config = configs[lsp]
-    config.capabilities = blink.get_lsp_capabilities({})
-    blink.get_lsp_capabilities(config)
+    vim.lsp.config(lsp, server_configs[lsp])
+    vim.lsp.enable(lsp)
+    -- Prior nvim v0.11
+    --vim.lsp.config(server_configs[lsp])
+    --local config = server_configs[lsp]
+    --config.capabilities = blink.get_lsp_capabilities({})
+    --blink.get_lsp_capabilities(config)
 end
 
 --

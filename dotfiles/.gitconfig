@@ -10,7 +10,7 @@
 [diff]
 	tool = vimdiff
 [pull]
-	rebase = true
+	rebase = false
 [core]
 	excludesfile = /home/dtrckd/.gitignore
     pager = delta --wrap-max-lines=5  --dark --syntax-theme="Dracula" --file-style='bold 201' --plus-style='syntax 17'

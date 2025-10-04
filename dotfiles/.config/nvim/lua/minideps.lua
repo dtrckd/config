@@ -44,14 +44,14 @@ later(function()
         source = "saghen/blink.cmp",
         depends = { "rafamadriz/friendly-snippets" },
         --depends = { "rafamadriz/friendly-snippets", "bydlw98/blink-cmp-env" },
-        checkout = "v1.6.0", -- check releases for latest tag
+        checkout = "v1.7.0", -- check releases for latest tag
     })
 
     require('blink.cmp').setup({
         fuzzy = {
-            --implementation = "lua", -- Rust implementation crash !!!
+            implementation = "lua", -- Rust implementation crash !!!
             prebuilt_binaries = {
-                force_version = "v1.6.0",
+                force_version = "v1.7.0",
             },
 
             sorts = {
@@ -60,7 +60,7 @@ later(function()
                   return
                 end
                 if (b.client_name == 'Tabby') then
-                  return false
+                  return true
                 end
               end,
               -- default sorts
@@ -111,7 +111,7 @@ later(function()
             end,
             providers = {
                 lsp = {
-                    async = True,
+                    async = true,
                 },
                 buffer = {
                     opts = {
