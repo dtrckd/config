@@ -29,7 +29,7 @@ sudo update-alternatives --config vim
 
 # Optionals (but advised !)
 if [ $AGGRESSIVE_APT == 1 ]; then
-    sudo apt install $OPTS apt-listbugs acpi bmon nmap wireshark fish autossh direnv ca-certificates snapd fzf acpid
+    sudo apt install $OPTS apt-listbugs acpi bmon nmap wireshark fish autossh direnv ca-certificates snapd fzf acpid bolt thunderbolt-tools
     sudo apt install $OPTS elinks w3m thunderbird firefox gimp libreoffice hunspell-fr pandoc lmodern graphicsmagick-imagemagick-compat pdftk  # midori opera
     sudo apt install $OPTS wireguard resolvconf
     # resolvconf -u  # If DNS issues
