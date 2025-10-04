@@ -39,9 +39,14 @@ require("mcphub").setup({
 --
 local ccp = require("codecompanion").setup({
     -- Default config in: https://github.com/olimorris/codecompanion.nvim/blob/main/lua/codecompanion/config.lua
+    memory = {
+        opts = {
+            chat = { enabled = true, },
+        },
+    },
     strategies = {
         chat = {
-            adapter = "anthropic",
+            adapter = "anthropic_sonnet",
             tools = {
                 groups = {
                     ["context7"] = {
@@ -63,13 +68,13 @@ local ccp = require("codecompanion").setup({
             },
         },
         inline = {
-            adapter = "openai",
+            adapter = "anthropic_haiku",
         },
         cmd = {
-            adapter = "openai",
+            adapter = "anthropic_haiku",
         },
         agent = {
-            adapter = "anthropic",
+            adapter = "anthropic_sonnet",
         },
     },
     adapters = {
@@ -81,34 +86,42 @@ local ccp = require("codecompanion").setup({
                     },
                 })
             end,
-            anthropic = function()
+            anthropic_haiku = function()
                 return require("codecompanion.adapters").extend("anthropic", {
                     schema = {
-                        model = { default = "claude-3-7-sonnet-20250219" },
+                        model = { default = "claude-3-5-haiku-20241022" },
                         extended_thinking = { default = false },
                     },
                 })
             end,
-            anthropic_thinking = function()
+            anthropic_sonnet = function()
                 return require("codecompanion.adapters").extend("anthropic", {
                     schema = {
-                        model = { default = "claude-3-7-sonnet-20250219" },
+                        model = { default = "claude-sonnet-4-5-20250929" },
+                        extended_thinking = { default = false },
+                    },
+                })
+            end,
+            anthropic_sonnet_thinking = function()
+                return require("codecompanion.adapters").extend("anthropic", {
+                    schema = {
+                        model = { default = "claude-sonnet-4-5-20250929" },
                         extended_thinking = { default = true },
                     },
                 })
             end,
-            anthropic4 = function()
+            anthropic_opus = function()
                 return require("codecompanion.adapters").extend("anthropic", {
                     schema = {
-                        model = { default = "claude-opus-4-20250514" },
+                        model = { default = "claude-opus-4-1-20250805" },
                         extended_thinking = { default = false },
                     },
                 })
             end,
-            anthropic_thinking4 = function()
+            anthropic_opus_thinking = function()
                 return require("codecompanion.adapters").extend("anthropic", {
                     schema = {
-                        model = { default = "claude-opus-4-20250514" },
+                        model = { default = "claude-opus-4-1-20250805" },
                         extended_thinking = { default = true },
                     },
                 })

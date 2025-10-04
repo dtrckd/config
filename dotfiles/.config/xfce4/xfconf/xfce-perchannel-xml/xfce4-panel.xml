@@ -157,6 +157,8 @@
         <value type="string" value="zoom"/>
       </property>
       <property name="known-legacy-items" type="array">
+        <value type="string" value="wi-fi network connection “lalilulelo” active: lalilulelo (59%)"/>
+        <value type="string" value="wi-fi network connection “sfr_6d4f” active: sfr_6d4f (65%)"/>
         <value type="string" value="polkit-mate-authentication-agent-1"/>
         <value type="string" value="wi-fi network connection “sfr_6d4f” active: sfr_6d4f (57%)"/>
         <value type="string" value="wi-fi network connection “sfr_6d4f” active: sfr_6d4f (56%)"/>

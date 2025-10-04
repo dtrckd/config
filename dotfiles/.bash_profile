@@ -865,9 +865,9 @@ function pdfcompress {
 
 
 # Music player
-#alias mute='amixer set Master mute'
-#alias unmute='amixer set Master unmute'
-#alias mute_toggle='amixer set Master toggle'
+alias mute='amixer set Master mute'
+alias unmute='amixer set Master unmute'
+alias mute_toggle='amixer set Master toggle'
 alias x='xmms2'
 alias xl='xmms2 list'
 alias xls='xmms2 list | command grep --color -C 15 "\->"'
