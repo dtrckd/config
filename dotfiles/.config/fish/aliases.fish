@@ -350,29 +350,29 @@ alias glt="git log --pretty='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cd)%
 alias gla="git log --format='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%Creset %C(magenta)%an%Creset' --graph --date=relative --abbrev-commit --all"
 alias gsl="git stash list"
 alias ggk="git checkout"
-alias gi="git bug"
-alias gil="git bug bug -s open"
-alias gilc="git bug bug -s closed"
-alias gilb="git bug label"
-alias gilid="git bug user"
-alias gir="gi bridge auth"
-alias gis="git bug bug show"
+alias gi="git-bug"
+alias gil="git-bug bug -s open"
+alias gilc="git-bug bug -s closed"
+alias gilb="git-bug label"
+alias gilid="git-bug user"
+alias gir="git-bug bridge auth"
+alias gis="git-bug bug show"
 function gip
     for f in (string split ' ' 'status labels authorEmail participants')
-        echo "$f:"  (git bug show -f $f $argv[1] )
+        echo "$f:"  (git-bug show -f $f $argv[1] )
     end
 end
-alias gia="git bug add"
+alias gia="git-bug add"
 function girm
-    set bugid  (git bug ls-id $argv[1])
+    set bugid (git-bug ls-id $argv[1])
     rm .git/refs/bugs/$bugid
     rm .git/git-bug/bug-cache
 end
-alias gila="git bug label add"
-alias gilrm="git bug label rm"
-alias gic="git bug comment add"
-alias gibo="git bug status open"
-alias gibc="git bug status close"
+alias gilba="git-bug label new"
+alias gilbrm="git-bug label rm"
+alias gic="git-bug bug comment new"
+alias gibo="git-bug status open"
+alias gibc="git-bug status close"
 function gi_clean_local_bugs
     git for-each-ref refs/bugs/ | cut -f 2 | xargs -r -n 1 git update-ref -d
     git for-each-ref refs/remotes/origin/bugs/ | cut -f 2 | xargs -r -n 1 git update-ref -d
