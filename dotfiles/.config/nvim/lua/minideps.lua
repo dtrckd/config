@@ -134,6 +134,8 @@ later(function()
 
         -- Completion config
         completion = {
+            trigger = {
+            },
             list = { max_items = 20, },
             menu = {
                 border = 'single',

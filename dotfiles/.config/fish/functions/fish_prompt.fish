@@ -2,38 +2,22 @@ function fish_prompt --description 'Write out the prompt'
     set laststatus $status
 
     if set -l git_branch (command git symbolic-ref HEAD 2>/dev/null | string replace refs/heads/ '')
-        set git_status ""
         set git_branch (set_color -o purple)"$git_branch"
-        if command git diff-index --quiet HEAD --
-            if set -l count (command git rev-list --count --left-right $upstream...HEAD 2>/dev/null)
-                echo $count | read -l ahead behind
-                if test "$ahead" -gt 0
-                    set git_status "$git_status"(set_color red)⬆
-                end
-                if test "$behind" -gt 0
-                    set git_status "$git_status"(set_color red)⬇
-                end
-            end
-            for i in (git status --porcelain | string sub -l 2 | uniq)
-                switch $i
-                    case "."
-                        set git_status "$git_status"(set_color green)✚
-                    case " D"
-                        set git_status "$git_status"(set_color red)✖
-                    case "*M*"
-                        set git_status "$git_status"(set_color green)✱
-                    case "*R*"
-                        set git_status "$git_status"(set_color purple)➜
-                    case "*U*"
-                        set git_status "$git_status"(set_color brown)═
-                    case "??"
-                        set git_status "$git_status"(set_color red)≠
-                end
-            end
-        else
-            set git_status (set_color green):
+        set git_status ""
+        
+        # Check for any modifications (excluding untracked files)
+        if git status --porcelain | string match -qvr '^\?\?'
+            set git_status (set_color yellow)≠
         end
-        set git_info " (" $git_branch$git_status(set_color white) ")"
+        
+        # Check for ahead/behind
+        if set -l count (command git rev-list --count --left-right $upstream...HEAD 2>/dev/null)
+            echo $count | read -l ahead behind
+            test "$ahead" -gt 0; and set git_status "$git_status"(set_color red)⬆
+            test "$behind" -gt 0; and set git_status "$git_status"(set_color red)⬇
+        end
+        
+        set git_info " ($git_branch$git_status"(set_color white)")"
     end
 
     # Disable PWD shortening by default.
@@ -46,6 +30,7 @@ function fish_prompt --description 'Write out the prompt'
         #printf "%s✔%s≻%s " (set_color -o green) (set_color white) (set_color normal)
         printf "%s%s>%s " (set_color -o green) (set_color white) (set_color normal)
     else
-        printf "%s✘%s>%s " (set_color -o red) (set_color white) (set_color normal)
+        #printf "%s✘%s>%s " (set_color -o red) (set_color white) (set_color normal)
+        printf "%s%s>%s " (set_color -o green) (set_color white) (set_color normal)
     end
 end

@@ -45,9 +45,6 @@ prompt_long() {
     PS1="$PROMPTL"
 }
 
-# @SERVER
-#prompt_short
-
 if [[ -n "$PS1" && "$BASH_EXECUTION_STRING" == 1 ]]; then
     # alternative way to test for interactive shell: 
     # if [[ $- == *i* ]]; then
