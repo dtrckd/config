@@ -1,5 +1,5 @@
 -- Minideps dependencies...
-require("minideps")
+require("minideps-blink")
 
 -- Base Plugin initialization
 require("goto-preview").setup {}

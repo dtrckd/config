@@ -102,7 +102,7 @@ later(function()
                 -- see https://cmp.saghen.dev/recipes.html#sources
                 local success, node = pcall(vim.treesitter.get_node)
                 if vim.tbl_contains({ "markdown", "text", "conf", "json", "yaml", "codecompanion" }, vim.bo.filetype) then
-                    return { 'buffer', 'path', 'omni', 'lsp' }
+                    return { 'buffer', 'path', 'omni', 'lsp', 'env' }
                 elseif success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
                     return { 'buffer', 'path', 'omni', 'lsp', 'env' }
                 else

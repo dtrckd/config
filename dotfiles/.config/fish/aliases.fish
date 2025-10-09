@@ -362,7 +362,7 @@ function gip
         echo "$f:"  (git-bug show -f $f $argv[1] )
     end
 end
-alias gia="git-bug add"
+alias gia="git-bug bug add"
 function girm
     set bugid (git-bug ls-id $argv[1])
     rm .git/refs/bugs/$bugid
@@ -371,8 +371,6 @@ end
 alias gilba="git-bug label new"
 alias gilbrm="git-bug label rm"
 alias gic="git-bug bug comment new"
-alias gibo="git-bug status open"
-alias gibc="git-bug status close"
 function gi_clean_local_bugs
     git for-each-ref refs/bugs/ | cut -f 2 | xargs -r -n 1 git update-ref -d
     git for-each-ref refs/remotes/origin/bugs/ | cut -f 2 | xargs -r -n 1 git update-ref -d
