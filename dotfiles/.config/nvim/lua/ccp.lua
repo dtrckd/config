@@ -143,7 +143,7 @@ local ccp = require("codecompanion").setup({
             opts = {
                 expiration_days = 45,
                 delete_on_clearing_chat = true,
-                picker = "telescope", --- ("telescope", "snacks", "fzf-lua", or "default")
+                --picker = "telescope", --- ("telescope", "snacks", "fzf-lua", or "default")
             }
         },
     },
