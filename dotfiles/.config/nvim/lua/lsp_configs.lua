@@ -57,7 +57,7 @@ local servers = {
     'elmls',
     'gopls',
     'golangci_lint_ls',
-    --'lua_ls',
+    'lua_ls',
     'pylsp',
     'ruff',
     --'pyright',
@@ -152,7 +152,7 @@ local server_configs = {
     golangci_lint_ls = {
         cmd = { "golangci-lint-langserver" },
         init_options = { command = { "golangci-lint", "run", "--enable-all", "--disable", "lll", "--out-format", "json", "--issues-exit-code=1" } },
-        root_markers = {'.golangci.yml', '.golangci.yaml', '.golangci.toml', '.golangci.json', 'go.work', 'go.mod', '.git'},
+        root_markers = { '.golangci.yml', '.golangci.yaml', '.golangci.toml', '.golangci.json', 'go.work', 'go.mod', '.git' },
     },
     -- Lualang
     lua_ls = {
@@ -182,11 +182,11 @@ local server_configs = {
                 },
             },
         },
-        --
-        on_attach = function(client, bufnr)
-            -- Auto format on save
-            vim.cmd [[autocmd BufWritePre *.lua lua vim.lsp.buf.format()]]
-        end
+
+        --on_attach = function(client, bufnr)
+        --    -- Auto format on save
+        --    vim.cmd [[autocmd BufWritePre *.lua lua vim.lsp.buf.format()]]
+        --end
     },
     -- Python
     ruff = {
@@ -196,7 +196,7 @@ local server_configs = {
                 args = { '--ignore-noqa' },
             }
         },
-        --
+
         -- This is grave Bugged. Sometimes remove lines. Do not respect isort.sections...
         --on_attach = function(client, bufnr)
         --    -- Auto import sort on save
