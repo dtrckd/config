@@ -231,11 +231,18 @@ alias vk="vim Makefile"
 
 _PWD="/home/ama/adulac/main/thesis/repo/ml/"
 _NDL="$HOME/src/config/configure/nodeslist"
-alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
 
-alias jerr='journalctl -r -p err -b'
 clipboard() { command cat "$0" | xsel -bi; }
 lineat() { sed -n "${1}p" "${2}"; }
+
+# Copy a long page into the clipboard ?
+# 1. stich the multiple screenshot
+#convert shot1.png shot2.png shot3.png -append combined.png
+# 2. copy the img to clipboard
+# xclip -selection clipboard -t image/png -i combined.png
+
+alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
+alias jerr='journalctl -r -p err -b'
 alias psa="ps -aux --sort=-start_time | grep -i --color"
 alias pstree='pstree -h'
 alias ps_vi='echo "mem% for vim+lsp" && ps aux --sort=-%mem | grep -iE "copilot|vim|lsp|gopls" | sort -nrk4 | awk '\''NR<=100 {print $0}'\''  | awk '\''{sum+=$4} END {print sum}'\''' 

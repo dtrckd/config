@@ -45,7 +45,7 @@ def compare_excel(file1, file2, sheet_name=None, show_only_differences=False):
     if isinstance(_df1, dict) or isinstance(_df2, dict):
         sheet_names = list(set(list(_df1) + list(_df2)))
     else:
-        sheet_names = [sheert_name]
+        sheet_names = [sheet_name]
 
     for sheet_name in sheet_names:
         # Load Excel files

@@ -9,12 +9,17 @@ function fish_prompt --description 'Write out the prompt'
         if git status --porcelain | string match -qvr '^\?\?'
             set git_status (set_color yellow)≠
         end
+
+        # Check if git stash is not empty
+        if git stash list | string match -qv '^stash@'
+            set git_status $git_status(set_color cyan)≡
+        end
         
         # Check for ahead/behind
         if set -l count (command git rev-list --count --left-right $upstream...HEAD 2>/dev/null)
             echo $count | read -l ahead behind
-            test "$ahead" -gt 0; and set git_status "$git_status"(set_color red)⬆
-            test "$behind" -gt 0; and set git_status "$git_status"(set_color red)⬇
+            test "$ahead" -gt 0; and set git_status $git_status(set_color red)⬆
+            test "$behind" -gt 0; and set git_status $git_status(set_color red)⬇
         end
         
         set git_info " ($git_branch$git_status"(set_color white)")"

@@ -11,17 +11,48 @@ end
 
 local blink = require('blink.cmp')
 
+-- Get base capabilities from blink.cmp and add position encoding support
+local base_capabilities = blink.get_lsp_capabilities()
+base_capabilities.general = base_capabilities.general or {}
+base_capabilities.general.positionEncodings = { 'utf-16' }  -- Force UTF-16 for all clients
+
 --
 -- Tabby configuration
 --  @DEBUG: To workaround the self-certificate issue: sudo cp /home/dtrckd/main/missions/fractale/src/ansible-fractale/roles/endpoints/ai/tabby.crt /usr/local/share/ca-certificates/tabby.crt
---  @DEBUG: activation waiting for https://github.com/TabbyML/vim-tabby/issues/35 and https://github.com/Saghen/blink.cmp/issues/2093
 --
---vim.g.tabby_agent_start_command = { "npx", "tabby-agent", "--lsp", "--stdio" }
---vim.g.tabby_agent_start_command = { "npx", "tabby-agent", "--stdio" }
+vim.g.tabby_agent_start_command = { "npx", "tabby-agent", "--stdio" }
 vim.g.tabby_inline_completion_trigger = "manual"
 vim.g.tabby_inline_completion_keybinding_accept = "<C-p>" -- overwrite the initial mapping :/ (C-Enter, C-*, do not work; workaround ?)
 vim.g.tabby_inline_completion_keybinding_trigger_or_dismiss = "<C-^>"
 --vim.g.tabby_inline_completion_insertion_leading_key = "<C-R><C-O>="
+
+-- Disable vim-tabby's automatic LSP setup (we manage it ourselves below)
+-- @DEBUG: vim-tabby overwritten
+vim.g.tabby_disable_lsp_setup = true
+
+vim.api.nvim_create_user_command('TabbyToggle', function()
+    local clients = vim.lsp.get_clients({ name = 'tabby' })
+    if #clients > 0 then
+        vim.lsp.stop_client(clients[1].id)
+        print("Tabby disabled")
+    else
+        vim.cmd('LspStart tabby')
+        print("Tabby enabled")
+    end
+end, {})
+
+-- Stop Tabby LSP after Vim finishes starting
+-- @DEUBG: fix for for https://github.com/TabbyML/vim-tabby/issues/35 and https://github.com/Saghen/blink.cmp/issues/2093
+--vim.api.nvim_create_autocmd("VimEnter", {
+--    callback = function()
+--        vim.defer_fn(function()
+--            local clients = vim.lsp.get_clients({ name = 'tabby' })
+--            for _, client in ipairs(clients) do
+--                vim.lsp.stop_client(client.id)
+--            end
+--        end, 1000) -- Delay to ensure LSP has started
+--    end
+--})
 
 -- Make the LSP client use FZF instead of the quickfix list
 --local lspfuzzy = require('lspfuzzy')
@@ -65,7 +96,7 @@ local servers = {
     'yamlls',
     'dockerls',
     'rust_analyzer',
-    --'tabby_ml',
+    'tabby',
 }
 
 local server_configs = {
@@ -270,16 +301,30 @@ local server_configs = {
             ['rust-analyzer'] = {},
         },
     },
-    -- Typescript/Javascript
-    tabby_ml =
-    {
-        cmd = { "tabby-agent", "--lsp", "--stdio" },
-    }
+    -- Tabby AI Completion
+    tabby = {
+        cmd = { "npx", "tabby-agent", "--stdio" },
+        --filetypes = { "*" },
+        single_file_support = true,
+        init_options = {
+            clientCapabilities = {
+                textDocument = {
+                    inlineCompletion = true
+                }
+            }
+        },
+        root_dir = vim.env.HOME,
+        on_attach = function(client, buf)
+            vim.api.nvim_command("doautocmd <nomodeline> User tabby_lsp_on_buffer_attached")
+        end
+    },
 
 }
 
 for _, lsp in ipairs(servers) do
-    vim.lsp.config(lsp, server_configs[lsp])
+    local config = server_configs[lsp] or {}
+    config.capabilities = base_capabilities -- Apply capabilities with position encoding to all servers
+    vim.lsp.config(lsp, config)
     vim.lsp.enable(lsp)
     -- Prior nvim v0.11
     --vim.lsp.config(server_configs[lsp])

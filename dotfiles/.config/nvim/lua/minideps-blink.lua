@@ -55,22 +55,22 @@ later(function()
             },
 
             sorts = {
-              function(a, b)
-                if (a.client_name == nil or b.client_name == nil) or (a.client_name == b.client_name) then
-                  return
-                end
-                if (b.client_name == 'Tabby') then
-                  return true
-                end
-              end,
-              -- default sorts
-              'score',
-              'sort_text',
+                function(a, b)
+                    if (a.client_name == nil or b.client_name == nil) or (a.client_name == b.client_name) then
+                        return
+                    end
+                    if (b.client_name == 'Tabby') then
+                        return true
+                    end
+                end,
+                -- default sorts
+                'score',
+                'sort_text',
             },
 
         },
         -- Filetype to work on
-        enabled = function() return not vim.tbl_contains({ "markdown", "text" }, vim.bo.filetype) end,
+        --enabled = function() return not vim.tbl_contains({ "markdown", "text" }, vim.bo.filetype) end,
 
         -- default mappings: https://cmp.saghen.dev/configuration/keymap#presets
         keymap = {
@@ -117,6 +117,12 @@ later(function()
                     opts = {
                         -- Default to all visible buffers
                     }
+                },
+                path = {
+                    opts = {
+                        -- https://cmp.saghen.dev/recipes#path-completion-from-cwd-instead-of-current-buffer-s-directory
+                        get_cwd = function(_) return vim.fn.getcwd() end,
+                    },
                 },
                 env = {
                     name = "Env",

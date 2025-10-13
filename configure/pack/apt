@@ -29,6 +29,7 @@ atop
 tldr
 fzf 
 silversearcher-ag
+glances
 
 # encryption
 ccrypt
