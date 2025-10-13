@@ -203,12 +203,18 @@ alias vitodo='vim -p (find -iname todo -type f)'
 
 set _PWD "/home/ama/adulac/main/thesis/repo/ml/"
 set _NDL "$HOME/src/config/configure/nodeslist"
-alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
 
-
-alias jerr='journalctl -r -p err -b'
 function clipboard; command cat $argv[1] |string trim -c "\n" | xsel -bi; end
 function lineat; sed -n "$argv[1]p" "$argv[2]" ; end
+
+# Copy a long page into the clipboard ?
+# 1. stich the multiple screenshot
+#convert shot1.png shot2.png shot3.png -append combined.png
+# 2. copy the img to clipboard
+# xclip -selection clipboard -t image/png -i combined.png
+
+alias para="parallel -u --sshloginfile $_NDL --workdir $_PWD -C ' ' --eta --progress --env OMP_NUM_THREADS {}"
+alias jerr='journalctl -r -p err -b'
 alias curlH='curl -I'
 alias myip='curl https://tools.aquilenet.fr/ip/ && echo'
 alias s="s-search"

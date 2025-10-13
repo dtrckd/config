@@ -1,10 +1,10 @@
 delay=0
 region=3
 show_mouse=0
-screenshot_dir=file:/home/dtrckd/Desktop/main/missions/fractale/src/ansible-fractale/_backup
+screenshot_dir=file:/home/dtrckd/Desktop
 app=gimp-3.0
 last_user=
-action=2
+action=1
 custom_action_command=/usr/libexec/xfce4/screenshooter/scripts/imgur-upload.sh %f %imgur_client_id
 last_extension=png
 show_in_folder=false
