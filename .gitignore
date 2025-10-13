@@ -9,16 +9,15 @@ tags
 .session.vim
 *.byobu
 
-# tmp
+# cache/data
 dotfiles/.config/xmms2/bindata/
 *.sqlite
 
+#
 # Private
-.free
-.coin
-.logins
-logins.csv
-addr
+#
+
+# dotfiles
 # --
 dotfiles/.ssh/
 dotfiles/.gethubconfig
@@ -29,15 +28,24 @@ dotfiles/.config/xfce4/desktop/
 dotfiles/.config/aichat/
 dotfiles/.local/share/
 dotfiles/.tabby-client/
+
+# etc/
 # --
 etc/fstab
 etc/wpa_supplicant/
+etc/wireguard/
+
+# Perso
 # --
+.free
+.coin
+.logins
+logins.csv
+addr
+app/
+credentials/
 configure/snapshots/
 configure/blue/
 configure/bin.txt
 configure/nodeslist
-credentials/
-# --
-app/
 
