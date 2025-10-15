@@ -343,8 +343,6 @@ alias gm='git commit -m'
 alias gr='git remote -v'
 alias gb='git branch -v'
 alias gp='git push'
-alias gpush='git push origin $(git rev-parse --abbrev-ref HEAD)'
-alias gpull='git pull origin $(git rev-parse --abbrev-ref HEAD)'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias gs='git status -sb'
@@ -356,6 +354,20 @@ alias glt="git log --pretty='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cd)%
 alias gla="git log --format='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%Creset %C(magenta)%an%Creset' --graph --date=relative --abbrev-commit --all"
 alias gsl="git stash list"
 alias ggk="git checkout"
+
+function gpush
+    set branch (git rev-parse --abbrev-ref HEAD)
+    set remote (git config branch.$branch.remote; or echo origin)
+    git push $remote $branch
+end
+
+function gpull
+    set branch (git rev-parse --abbrev-ref HEAD)
+    set remote (git config branch.$branch.remote; or echo origin)
+    git pull $remote $branch
+end
+
+
 alias gi="git-bug"
 alias gil="git-bug bug -s open"
 alias gilc="git-bug bug -s closed"
@@ -739,6 +751,7 @@ alias iub="cd $PX/Blue/"
 alias iup="cd $PX/papers"
 alias iud="cd $PX/planD/"
 alias iudoc="cd $PX/planD/doc"
+alias cddoc="cd $PX/planD/doc"
 alias iuw="cd $PX/webmain/"
 alias iumd="cd $PX/webmain/mixtures/md"
 alias cdmd="cd $PX/webmain/mixtures/md"

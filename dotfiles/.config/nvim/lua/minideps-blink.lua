@@ -60,10 +60,11 @@ later(function()
                         return
                     end
                     if (b.client_name == 'Tabby') then
-                        return true
+                        return false
                     end
                 end,
                 -- default sorts
+                'exact',
                 'score',
                 'sort_text',
             },
