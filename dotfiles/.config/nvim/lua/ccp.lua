@@ -49,7 +49,7 @@ local ccp = require("codecompanion").setup({
             adapter = "anthropic_sonnet",
             tools = {
                 groups = {
-                    ["context7"] = {
+                    ["Context7"] = {
                         description = "Search in official api and lib documentation and snippets",
                         tools = {
                             "context7__get-library-docs",
@@ -135,18 +135,18 @@ local ccp = require("codecompanion").setup({
             description = "Modify selected code with custom prompt",
             opts = {
                 mapping = "<LocalLeader>ih", -- Optional: add a keybinding
-                modes = { "v" }, -- Only show in visual mode
-                user_prompt = true, -- This will ask for input before submitting
-                auto_submit = true, -- Auto-submit after getting user input
-                placement = "replace", -- Replace the selected text with the response
+                modes = { "v" },             -- Only show in visual mode
+                user_prompt = true,          -- This will ask for input before submitting
+                auto_submit = true,          -- Auto-submit after getting user input
+                placement = "replace",       -- Replace the selected text with the response
             },
             prompts = {
                 {
                     role = "system",
                     content = function(context)
-                        return "You are an expert " 
-                        .. context.filetype 
-                        .. " developer. Modify the code according to the user's request. Return only the modified code without markdown codeblocks or explanations."
+                        return "You are an expert "
+                            .. context.filetype
+                            .. " developer. Modify the code according to the user's request. Return only the modified code without markdown codeblocks or explanations."
                     end,
                 },
                 {
@@ -154,11 +154,11 @@ local ccp = require("codecompanion").setup({
                     content = function(context)
                         local text = require("codecompanion.helpers.actions").get_code(context.start_line, context.end_line)
 
-                        return "I have the following code:\n\n```" 
-                        .. context.filetype 
-                        .. "\n" 
-                        .. text 
-                        .. "\n```\n\n<user_prompt></user_prompt>"
+                        return "I have the following code:\n\n```"
+                            .. context.filetype
+                            .. "\n"
+                            .. text
+                            .. "\n```\n\n<user_prompt></user_prompt>"
                     end,
                     opts = {
                         contains_code = true,
