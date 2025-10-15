@@ -19,15 +19,16 @@ dotfiles/.config/xmms2/bindata/
 
 # dotfiles
 # --
-dotfiles/.ssh/
 dotfiles/.gethubconfig
 dotfiles/.bash_aliases
 dotfiles/.mutt
 dotfiles/.muttrc
-dotfiles/.config/xfce4/desktop/
-dotfiles/.config/aichat/
+dotfiles/.ssh/
 dotfiles/.local/share/
 dotfiles/.tabby-client/
+dotfiles/.config/xfce4/desktop/
+dotfiles/.config/aichat/
+dotfiles/.config/mcphub/
 
 # etc/
 # --
