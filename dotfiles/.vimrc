@@ -162,6 +162,7 @@ let g:NERDDefaultAlign = "left"
 " ```
 nnoremap <C-p> <cmd>CHADopen<cr>
 nnoremap <C-t> <cmd>CHADopen --always-focus<cr>
+nnoremap <C-k> <cmd>CHADopen --always-focus<cr>
 autocmd bufenter * if (winnr("$") == 1 && &buftype == "nofile" && &filetype == "CHADTree") | q! | endif
 let g:chadtree_settings = {
       \  'options.polling_rate': 1900,
@@ -661,7 +662,7 @@ nnoremap <space> za   " toggle fold on space
 "let &t_EI .= "\<Esc>[?2004l"
 set t_BE=  " disable bracketed paste mode.  https://gitlab.com/gnachman/iterm2/issues/5698
 
-""" Go to previsous position when opening vim
+""" Go to previous position when opening vim
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
@@ -800,7 +801,7 @@ nnoremap ù <C-W>W
 " Do not work !
 "nnoremap <backspace> <C-w>W
 nnoremap <C-\|> <C-\|>0
-"nnoremap <Tab> <C-w>p  " go to last active window
+"nnoremap <Tab> <C-w>p  " go to last active window -> <C-w>p
 " nnoremap <C-i> <C-I>  " won't work  because <C-i> is the same as <Tab>...
 """ Window Zoom
 nnoremap <C-W>z :call zoom#toggle()<cr>
