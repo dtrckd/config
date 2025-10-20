@@ -9,6 +9,7 @@ github.com/nametake/golangci-lint-langserver@latest
 github.com/jesseduffield/lazydocker@latest 
 github.com/jesseduffield/lazygit@latest
 github.com/MichaelMure/git-bug
+github.com/sinclairtarget/git-who
 
 
 # Misc

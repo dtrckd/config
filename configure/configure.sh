@@ -37,6 +37,11 @@ if [ $AGGRESSIVE_APT == 1 ]; then
     # Build
     sudo apt install $OPTS build-essential autoconf cmake libtool pkg-config exuberant-ctags universal-ctags parallel debsig-verify debian-keyring gnome-keyring # cargo
     sudo update-alternatives --config ctags
+
+    # To install Logitech unifying system (being able to use several wireless devices with a single usb emetter)
+    # sudo apt install solaar
+    # solaar # restart the device and add it
+    # https://linuxvox.com/blog/logitech-unifying-linux/
 fi
 
 
