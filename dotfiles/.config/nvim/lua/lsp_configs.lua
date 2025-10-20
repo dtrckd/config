@@ -84,15 +84,15 @@ vim.lsp.set_log_level("error")
 -- * https://microsoft.github.io/language-server-protocol/implementors/servers/
 -- * https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 local servers = {
-    'bashls',
+    --'bashls',
     'elmls',
     'gopls',
     'golangci_lint_ls',
     'lua_ls',
+    --'ts_ls',
+    --'pyright',
     'pylsp',
     'ruff',
-    --'pyright',
-    --'ts_ls',
     'yamlls',
     'dockerls',
     'rust_analyzer',
