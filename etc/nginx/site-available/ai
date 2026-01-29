@@ -21,16 +21,16 @@ server {
         set $num 1;
         if ($host ~* ^ai(\d+)$) {
             set $num $1;
-            return 302 http://127.0.0.1:8880/arena?num=$num;
+            return 302 http://127.0.0.1:8881/arena?num=$num;
         }
 
         # Redirect to the determined path if the request URI is "/"
         if ($request_uri = "/") {
-            return 302 http://127.0.0.1:8880/playground;
+            return 302 http://127.0.0.1:8881/playground;
         }
 
         # Otherwise, pass the request URI to the proxy
-        proxy_pass http://127.0.0.1:8880$request_uri;
+        proxy_pass http://127.0.0.1:8881$request_uri;
     }
 }
 
