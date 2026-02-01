@@ -27,6 +27,7 @@ Plugin 'nvim-treesitter/nvim-treesitter' " for codecompanion...
 Plugin 'HakonHarnes/img-clip.nvim' " for codecompanion
 Plugin 'ravitemer/mcphub.nvim' " for codecompanion
 Plugin 'ravitemer/codecompanion-history.nvim' " for codecompanion
+Plugin 'OXY2DEV/markview.nvim' " for codecompanion
 
 " Session
 Plugin 'mhinz/vim-startify'
@@ -77,6 +78,8 @@ Plugin 'karb94/neoscroll.nvim'
 " Theme
 Plugin 'uguu-org/vim-matrix-screensaver'
 Plugin 'dracula/vim'
+Plugin 'ghifarit53/tokyonight-vim'
+Plugin 'navarasu/onedark.nvim'
 "Plugin 'darkburn'
 "Plugin 'jnurmine/zenburn'
 "Plugin 'rakr/vim-one'
@@ -160,9 +163,9 @@ let g:NERDDefaultAlign = "left"
 " curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/DroidSansMNerdFont-Regular.otf
 " fc-cache -fv # try opening a new terminal if you don't see anything
 " ```
-nnoremap <C-p> <cmd>CHADopen<cr>
-nnoremap <C-t> <cmd>CHADopen --always-focus<cr>
-nnoremap <C-k> <cmd>CHADopen --always-focus<cr>
+nnoremap <C-p> <cmd>CHADopen --always-focus<cr>
+"nnoremap <C-t> <cmd>CHADopen --always-focus<cr>
+"nnoremap <C-k> <cmd>CHADopen --always-focus<cr>
 autocmd bufenter * if (winnr("$") == 1 && &buftype == "nofile" && &filetype == "CHADTree") | q! | endif
 let g:chadtree_settings = {
       \  'options.polling_rate': 1900,
@@ -377,6 +380,8 @@ let g:tagbar_type_markdown = {
     \ 'sort': 0,
 \ }
 
+" Toggle Markview
+noremap <C-h> :Markview<CR>
 
 " Elm tagbar (old)
 "let g:tagbar_type_elm = {
@@ -394,26 +399,35 @@ let g:tagbar_type_markdown = {
 " Elm tagbar
 " see https://github.com/preservim/tagbar/wiki#elm
 " for the script elmtags.py (WARN: It has been customized)
+" (removed i:import from tagbar
 let g:tagbar_type_elm = {
       \ 'ctagstype':'elm',
-      \ 'kinds':['h:header', 'i:import', 't:type', 'f:function', 'e:exposed'],
+      \ 'kinds':['h:header', 't:type', 'f:function', 'e:exposed'],
+      \ 'kind2scope':{'h':'header', 't':'type', 'f':'function'},
       \ 'sro':'&&&',
-      \ 'kind2scope':{'h':'header', 'i':'import', 't':'type', 'f':'function'},
       \ 'sort':0,
       \ 'ctagsbin':$HOME.'/.local/bin/elmtags.py',
       \ 'ctagsargs': '',
       \ }
 
 " CSS tagbar
-let g:tagbar_type_scss = {
+" Only top level items, not nested.
+let g:tagbar_type_css = {
+      \ 'ctagstype' : 'cssext',
       \ 'kinds' : [
-      \ 'f:function:0:0',
-      \ 'm:mixin:0:0',
-      \ 't:tag:0:0',
-      \ 'i:id:0:0',
-      \ 'c:class:0:0',
+      \ 'f:functions:0:1',
+      \ 'm:mixins:0:1',
+      \ 'c:classes:0:1',
+      \ 'b:before pseudo-elements:0:1',
+      \ 'a:after pseudo-elements:0:1',
+      \ 'i:ids:0:1',
       \ ]
       \}
+
+" Link other filetypes to the same definition
+let g:tagbar_type_scss = g:tagbar_type_css
+let g:tagbar_type_sass = g:tagbar_type_css
+let g:tagbar_type_less = g:tagbar_type_css
 
 " Yaml tagbar
 let g:tagbar_type_yaml = {
@@ -614,7 +628,7 @@ set report=0                       " Show number of modification if they are
 set cursorline                     " Hilight current line - cul
 set mouse=a                        " Enable mouse usage (all modes) in terminals
 set fo+=1ro fo-=tc tw=0            " Break comment at tw $size
-set scrolloff=5                   " Line of context: mininum visible lines at the top or bottom of the screen.
+set scrolloff=5                    " Line of context: mininum visible lines at the top or bottom of the screen.
 set sidescrolloff=8                " Columns of context
 set linebreak                      " Don't wrap word
 set nowrap                         " Don't wrap line too long
@@ -848,15 +862,11 @@ inoremap <C-v> <C-[>"+pa
 
 " Word delete
 nnoremap <silent> dw ciw
-" remap C-w to cut the word before the cursor
-"inoremap <C-w> <C-[>bdiwi
-inoremap <C-w> <C-[>dawi
+" remap C-w to cut the word before the cursor 
+" default works better !
+"inoremap <C-w> <C-[>diwi
 " remap C-s to cut the after the cursor
-inoremap <C-x> <C-[>diwi
-" Prevent delay when using <C-w> in normal mode
-"tno <c-w><c-w> <c-w><c-w>
-" breaks window movement
-"nmap <C-w> daw
+"inoremap <C-x> <C-[>diwi
 
 """ Surround
 nnoremap <Leader>" ysiw"  " why it does not work ?
@@ -900,6 +910,10 @@ function! CCCommand()
 
   return 'c'
 endfunction
+
+nnoremap <Leader>c <cmd>CodeCompanionChat Toggle<cr>
+vnoremap <Leader>c <cmd>CodeCompanionChat Toggle<cr>
+
 
 cnoremap <expr> c CCCommand()
 
@@ -998,6 +1012,14 @@ autocmd FileType yaml,yaml.ansible setlocal indentkeys-=0#
 """ Makefile Files
 """"""""""""""""""""""""""""""
 au filetype make set noexpandtab softtabstop=0
+" Fix comment continuation for markdown - preserve indentation
+autocmd FileType markdown setlocal comments=nb:*,nb:-,nb:+,n:> commentstring=<!--%s-->
+autocmd FileType markdown setlocal formatoptions+=r formatoptions-=o
+autocmd FileType markdown setlocal autoindent
+
+autocmd FileType codecompanion setlocal comments=nb:*,nb:-,nb:+,n:> commentstring=<!--%s-->
+autocmd FileType codecompanion setlocal formatoptions+=r formatoptions-=o
+autocmd FileType codecompanion setlocal autoindent
 
 """"""""""""""""""""""""""""""
 """ Conf Files
@@ -1294,9 +1316,12 @@ endif
 " Colorscheme
 " since version 0.10 it activated by default and change the colorsscheme
 " https://neovim.io/doc/user/news-0.10.html
-set notermguicolors
+"set notermguicolors
+set termguicolors
 
-colo dracula
+"colo dracula
+"colo tokyonight
+colo onedark
 "colo vim
 "colo zenburn
 "colo darkburn
@@ -1308,9 +1333,13 @@ fu! SetHi()
   """ Custom Colors & Highlights
   hi Title ctermfg=39 guifg=#5fd7ff " affect the number of windows in the tabline and filename in nerdtab
   hi Normal ctermbg=233 guibg=#181818
+  hi NonText ctermbg=233 guibg=#181818
+  hi EndOfBuffer ctermbg=233 guibg=#181818
   "hi Comment ctermfg=blue guifg=#4682B4
   "hi Comment ctermfg=blue guifg=#6495ED
-  hi Comment ctermfg=blue guifg=#1E90FF
+  "hi Comment ctermfg=blue guifg=#1E90FF
+  hi Comment guifg=#6272a4 gui=NONE
+  hi! link @comment Comment  " change color for nvim-treesitter
   hi CursorLine cterm=none term=underline ctermbg=235 guibg=#303030
   hi Search ctermfg=white ctermbg=105 cterm=none guifg=#ffffff guibg=#0369D2
   hi CurSearch ctermfg=0 ctermbg=11 guifg=#414144 guibg=#86ECB4
@@ -1353,12 +1382,11 @@ fu! SetHi()
 endfunction
 
 call SetHi()
-set termguicolors
 
 " Column viewer
 "highlight ColorColumn ctermbg=gray
-nnoremap <silent> <leader>c :execute "set colorcolumn="
-      \ . (&colorcolumn == "" ? "80" : "")<CR>
+command! ToggleShowColumn execute "set colorcolumn="
+      \ . (&colorcolumn == "" ? "80" : "")
 
 
 " Fix color regression when unzooming with vim-zoom.

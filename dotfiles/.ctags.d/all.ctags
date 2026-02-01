@@ -17,3 +17,11 @@
 --regex-graphql=/^[ \t]*mutation[ \t]+([_A-Za-z][_0-9A-Za-z]*)/\1/m,mutation/
 
 
+--langdef=cssext
+--langmap=cssext:.css.scss.sass.less
+--regex-cssext=/^[ \t]*\.([A-Za-z0-9_-]+)/.\1/c,class/
+--regex-cssext=/^[ \t]*\.([A-Za-z0-9_-]+)::before/.\1::before/b,before/
+--regex-cssext=/^[ \t]*\.([A-Za-z0-9_-]+)::after/.\1::after/a,after/
+--regex-cssext=/^[ \t]*#([A-Za-z0-9_-]+)/#\1/i,id/
+--regex-cssext=/^@mixin[ \t]+([A-Za-z0-9_-]+)/\1/m,mixin/
+--regex-cssext=/^@function[ \t]+([A-Za-z0-9_-]+)/\1/f,function/

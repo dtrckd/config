@@ -2,6 +2,10 @@
 .env
 .envrc
 
+.plans
+.claude
+CLAUDE.md
+
 # Builds
 .~lock*
 *.swp

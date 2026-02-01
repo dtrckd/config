@@ -92,7 +92,7 @@ fi
 alias t="thunar"
 alias gf="fg"
 alias diff='diff -u'
-alias tree='tree -C'
+alias tree='tree -C --dirsfirst'
 alias less='less -S -R'
 alias df='df -TH'
 alias dff='df -TH | grep -vE "loop|squashfs"'
@@ -469,7 +469,6 @@ alias gl="git log --oneline --decorate --color"
 alias gll="git log --pretty='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%Creset %C(magenta)%an%Creset' --graph --date=relative --abbrev-commit"
 alias gla="git log --format='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%Creset %C(magenta)%an%Creset' --graph --date=relative --abbrev-commit --all"
 alias gsl="git stash list"
-alias ggk="git checkout"
 alias gi="git bug"
 alias gil="git bug ls -s open"
 alias gilc="git bug ls -s closed"
@@ -911,11 +910,11 @@ xshuff () {
         Path="$HOME/MUSIC/"
     fi
 
-    fls=$(find "$Path" -type f -iname "*.ogg" -o -iname "*.mp4" -o -iname "*.mp3" -o -iname "*.flac")
+    fls=$(command find "$Path" -type f -iname "*.ogg" -o -iname "*.mp4" -o -iname "*.mp3" -o -iname "*.flac")
     NB=$(echo "$fls" | wc -l)
 
     RANDL=`python -c "import sys, random, time;\
-        random.seed(int(time.time()));\
+        random.seed(int(time.time_ns()));\
         nbf = min($NB, $NBF);\
         sys.stdout.write(' '.join(map(str, random.sample(range(1,$NB+1), nbf))))"`
     RANDN=""
@@ -1044,6 +1043,11 @@ export PATH="$HOME/.poetry/bin:$PATH"
 if [ -x "$HOME/.local/kitty.app/bin/kitty" ]; then
     export PATH=$PATH:$HOME/.local/kitty.app/bin
 	export TERM='xterm-kitty'
+fi
+
+# Flutter
+if [ -x "$HOME/flutter/bin" ]; then
+    export PATH="$HOME/flutter/bin:$PATH"
 fi
 
 # Thefuck

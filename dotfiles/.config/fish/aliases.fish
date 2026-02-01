@@ -84,7 +84,7 @@ end
 # basic
 alias gf="fg"
 alias diff='diff -u'
-alias tree='tree -C'
+alias tree='tree -C --dirsfirst'
 alias less='less -S -R'
 alias df='df -Th'
 alias dff='df -TH | grep -vE "loop|squashfs"'
@@ -266,7 +266,7 @@ alias halt='systemctl poweroff'
 alias ls-service='systemctl -t service --state running'
 alias ls-masked-unit='systemctl --state masked' # systemctl list-unit-files | grep masked
 alias ls-failed-unit='systemctl --state failed' # systemctl --failed
-alias ls-ssd='lsblk  -d -o name,rota'
+alias ls-ssd='lsblk -d -o name,rota'
 alias ls-marked="apt-mark showhold"
 alias ls-ppa="apt-cache policy | grep http | awk '{print $2 $3}' | sort -u"
 alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Update}}{{.}}{{end}}{{end}}' all"
@@ -353,7 +353,6 @@ alias gll="git log --pretty='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%
 alias glt="git log --pretty='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cd)%Creset %C(magenta)%an%Creset' --graph --date=format:'%d-%m-%Y' --abbrev-commit"
 alias gla="git log --format='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%Creset %C(magenta)%an%Creset' --graph --date=relative --abbrev-commit --all"
 alias gsl="git stash list"
-alias ggk="git checkout"
 
 function gpush
     set branch (git rev-parse --abbrev-ref HEAD)
@@ -365,6 +364,44 @@ function gpull
     set branch (git rev-parse --abbrev-ref HEAD)
     set remote (git config branch.$branch.remote; or echo origin)
     git pull $remote $branch
+end
+
+function git_history
+    # Show a pretty history of the given branch for the given users on the given date
+    # Usage: git_history <date> [branch] [--show-date]
+    # Example: git_history "2025-10-3" or git_history "2025-10-3" develop --show-date
+    
+    # Check if date argument is provided
+    if test (count $argv) -lt 1
+        echo "Error: Date argument is required"
+        echo "Usage: git_history <date> [branch] [--show-date]"
+        echo "Example: git_history '2025-10-3' or git_history '2025-10-3' develop --show-date"
+        return 1
+    end
+    
+    # Set variables
+    set date $argv[1]
+    set branch "main"
+    set pretty_format '%s'
+    
+    # Override branch if provided (and it's not a flag)
+    if test (count $argv) -ge 2; and not string match -q -- '--*' $argv[2]
+        set branch $argv[2]
+    end
+    
+    # Check for --show-date flag
+    if contains -- --show-date $argv
+        set pretty_format '%s (%ad)'
+    end
+    
+    # Execute git log
+    git log $branch \
+        --pretty="$pretty_format" \
+        --graph \
+        --date=format:'%d-%m-%Y' \
+        --since="$date" \
+        --author="dtrckd|Adrien D" \
+        --perl-regexp | uniq
 end
 
 

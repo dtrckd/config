@@ -186,6 +186,8 @@ _bin:
 _dotfiles:
 	# Warning: Junk file will stay on target (cp don't remove files)
 	ls -A dotfiles/ | xargs -I{} cp -a dotfiles/{}  ~/
+	echo "dotfiles copied"
+	./configure/claude.sh
 
 _etc:
 	sudo cp etc/rc.local /etc

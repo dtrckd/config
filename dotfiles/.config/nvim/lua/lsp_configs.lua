@@ -14,7 +14,7 @@ local blink = require('blink.cmp')
 -- Get base capabilities from blink.cmp and add position encoding support
 local base_capabilities = blink.get_lsp_capabilities()
 base_capabilities.general = base_capabilities.general or {}
-base_capabilities.general.positionEncodings = { 'utf-16' }  -- Force UTF-16 for all clients
+base_capabilities.general.positionEncodings = { 'utf-16' } -- Force UTF-16 for all clients
 
 --
 -- Tabby configuration
@@ -81,8 +81,9 @@ vim.lsp.set_log_level("error")
 --
 -- Enable some language servers
 --
--- * https://microsoft.github.io/language-server-protocol/implementors/servers/
--- * https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+-- To add new servers see:
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+-- https://microsoft.github.io/language-server-protocol/implementors/servers/
 local servers = {
     --'bashls',
     'elmls',
@@ -96,6 +97,7 @@ local servers = {
     'yamlls',
     'dockerls',
     'rust_analyzer',
+    'dartls',
     'tabby',
 }
 
@@ -111,53 +113,49 @@ local server_configs = {
             elmAnalyseTrigger = "save",
             onlyUpdateDiagnosticsOnSave = true,
         },
-        --handlers = {
-        --    -- See https://github.com/elm-tooling/elm-language-server/discussions/961
-        --    -- See https://github.com/joakin/nvim/blob/be72c11ff2d2c3ee6d6350f2221aabcca373adae/lua/plugins/lspconfig.lua#L148-L157
-        --    ["window/showMessageRequest"] = function(whatever, result)
-        --        -- For some reason, the showMessageRequest handler doesn't work with
-        --        -- the format failed error. It just hangs on the screen and can't
-        --        -- interact with the vim.ui.select thingy. So skip it.
-        --        if result.message:find("Running elm-format failed", 1, true) then
-        --            print(result.message)
-        --            return vim.NIL
-        --        end
-        --        return vim.lsp.handlers["window/showMessageRequest"](whatever, result)
-        --    end,
-        --},
-        --
+        -- Custom handler to intercept LSP message popups.
+        -- When elm-format fails, the LSP sends repeated "showMessageRequest" which
+        -- triggers telescope/UI popups requiring multiple Enter presses to dismiss.
+        -- This handler catches format-related errors and shows them as a single
+        -- notification instead.
+        -- See https://github.com/elm-tooling/elm-language-server/discussions/961
+        handlers = {
+            ["window/showMessageRequest"] = function(err, result, ctx, config)
+                if result and result.message and
+                   (result.message:find("elm-format", 1, true) or result.message:find("Running", 1, true)) then
+                    -- Show as warning notification instead of interactive popup
+                    vim.notify(result.message, vim.log.levels.WARN)
+                    return vim.NIL
+                end
+                -- Fallback to default handler for other messages
+                return vim.lsp.handlers["window/showMessageRequest"](err, result, ctx, config)
+            end,
+        },
         on_attach = function(client, bufnr)
-            --vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-            -- Language specific LSP client config
-            --vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-            --    vim.lsp.diagnostic.on_publish_diagnostics, {
-            --    }
-            --)
-
-            -- Trying to fix erratic behavior with elm-format, on save...
+            -- Enable incremental sync for better performance with elm-format
             if client.config.flags then
                 client.config.flags.allow_incremental_sync = true
             end
 
-            -- Function to check if there are any diagnostics with non-zero severity
-            -- TODO: trying to solve the elm-format error log when there is a LSP error !!!
-            local function should_format()
-                local diagnostics = vim.diagnostic.get(bufnr)
-                for _, diagnostic in ipairs(diagnostics) do
-                    if diagnostic.severity == vim.diagnostic.severity.ERROR then
-                        return false
-                    end
+            -- Check if buffer has any LSP errors
+            local function has_errors()
+                for _, d in ipairs(vim.diagnostic.get(bufnr)) do
+                    if d.severity == vim.diagnostic.severity.ERROR then return true end
                 end
-                return true
+                return false
             end
 
-            -- Auto format on save
-            vim.cmd [[autocmd BufWritePre *.elm lua vim.lsp.buf.format()]]
-            -- Auto format on save if no errors are present (Debug Me)
-            --vim.cmd(string.format("autocmd BufWritePre <buffer=%d> lua if should_format() then vim.lsp.buf.format() end", bufnr))
-
-            -- Tame diagnostics (https://github.com/neovim/nvim-lspconfig/issues/127)
-            --vim.api.nvim_command [[autocmd InsertLeave <buffer> lua publish_diagnostics()]]
+            -- Auto format on save, but only when there are no LSP errors.
+            -- This prevents elm-format from running on invalid code, which would
+            -- trigger the error popups we're trying to avoid.
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                buffer = bufnr,
+                callback = function()
+                    if not has_errors() then
+                        vim.lsp.buf.format({ async = false })
+                    end
+                end,
+            })
         end
     },
     -- Golang
@@ -300,6 +298,24 @@ local server_configs = {
         settings = {
             ['rust-analyzer'] = {},
         },
+    },
+    dartls = {
+        cmd = { "/home/dtrckd/flutter/bin/dart", "language-server" , "--protocol=lsp"},
+        filetypes = { "dart" },
+        init_options = {
+            closingLabels = true,
+            flutterOutline = true,
+            onlyAnalyzeProjectsWithOpenFiles = false,
+            outline = true,
+            suggestFromUnimportedLibraries = true
+        },
+        root_dir = require('lspconfig').util.root_pattern("pubspec.yaml"),
+        settings = {
+            dart = {
+                completeFunctionCalls = true,
+                showTodos = true
+            }
+        }
     },
     -- Tabby AI Completion
     tabby = {
