@@ -44,14 +44,14 @@ later(function()
         source = "saghen/blink.cmp",
         depends = { "rafamadriz/friendly-snippets" },
         --depends = { "rafamadriz/friendly-snippets", "bydlw98/blink-cmp-env" },
-        checkout = "v1.7.0", -- check releases for latest tag
+        checkout = "v1.8.0", -- check releases for latest tag
     })
 
     require('blink.cmp').setup({
         fuzzy = {
             implementation = "lua", -- Rust implementation crash !!!
             prebuilt_binaries = {
-                force_version = "v1.7.0",
+                force_version = "v1.8.0",
             },
 
             sorts = {
