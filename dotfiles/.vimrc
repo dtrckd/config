@@ -383,6 +383,9 @@ let g:tagbar_type_markdown = {
 " Toggle Markview
 noremap <C-h> :Markview<CR>
 
+" Disable Markview's gx mapping for codecompanion filetype (let codecompanion use its own)
+autocmd FileType codecompanion silent! nunmap <buffer> gx " DO NOT work (see Markview map_gx option)
+
 " Elm tagbar (old)
 "let g:tagbar_type_elm = {
 "      \ 'kinds' : [
@@ -628,6 +631,9 @@ set report=0                       " Show number of modification if they are
 set cursorline                     " Hilight current line - cul
 set mouse=a                        " Enable mouse usage (all modes) in terminals
 set fo+=1ro fo-=tc tw=0            " Break comment at tw $size
+" Default comment/format settings (good for markdown-like editing)
+set comments=nb:*,nb:-,nb:+,n:>
+set formatoptions+=r formatoptions-=o
 set scrolloff=5                    " Line of context: mininum visible lines at the top or bottom of the screen.
 set sidescrolloff=8                " Columns of context
 set linebreak                      " Don't wrap word
@@ -1012,14 +1018,10 @@ autocmd FileType yaml,yaml.ansible setlocal indentkeys-=0#
 """ Makefile Files
 """"""""""""""""""""""""""""""
 au filetype make set noexpandtab softtabstop=0
-" Fix comment continuation for markdown - preserve indentation
-autocmd FileType markdown setlocal comments=nb:*,nb:-,nb:+,n:> commentstring=<!--%s-->
-autocmd FileType markdown setlocal formatoptions+=r formatoptions-=o
-autocmd FileType markdown setlocal autoindent
 
-autocmd FileType codecompanion setlocal comments=nb:*,nb:-,nb:+,n:> commentstring=<!--%s-->
-autocmd FileType codecompanion setlocal formatoptions+=r formatoptions-=o
-autocmd FileType codecompanion setlocal autoindent
+" Markdown-specific settings (comments/formatoptions/autoindent inherited from global defaults)
+autocmd FileType markdown setlocal commentstring=<!--%s-->
+autocmd FileType codecompanion setlocal commentstring=<!--%s-->
 
 """"""""""""""""""""""""""""""
 """ Conf Files
@@ -1351,6 +1353,13 @@ fu! SetHi()
   "hi TabLineFill ctermfg=black
 
   hi ErrorMsg ctermfg=red ctermbg=none guifg=#ff0000 guibg=#000000
+
+  """ Diff colors with better contrast
+  hi DiffAdd ctermfg=white ctermbg=22 guifg=#ffffff guibg=#005f00 gui=none
+  hi DiffDelete ctermfg=white ctermbg=52 guifg=#ffffff guibg=#5f0000 gui=none
+  hi DiffChange ctermfg=white ctermbg=58 guibg=#5f5f00
+  hi DiffText ctermfg=black ctermbg=226 guifg=#000000 guibg=#ffff00 gui=bold
+
 
   """ Gutter
   hi SignColumn ctermbg=235 guibg=#303030

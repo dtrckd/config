@@ -38,6 +38,7 @@ require("markview").setup({
         filetypes = { "markdown", "codecompanion" },
         icon_provider = "internal", -- "internal", "mini" or "devicons"
         ignore_buftypes = {},
+        map_gx = false,
     },
     markdown = {
         list_items = {
