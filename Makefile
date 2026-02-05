@@ -222,7 +222,7 @@ _app:
 # Backup
 # ================================
 
-backup: backbin snapshot  #backup_firefox backup_thunderbird
+backup: backbin snapshot backup_data #backup_firefox backup_thunderbird
 	# backup dotfiles
 	./diffdot.sh -v -c
 	# backup growing folders
@@ -246,6 +246,8 @@ snapshot:
 	cargo install --list > configure/snapshots/cargo
 	ls $(go env GOPATH)/bin > configure/snapshots/go
 
+backup_data:
+	cp ~/.local/share/dict/dict.db ./app/home/some_data/
 
 backup_firefox:
 	find ${HOME}/.mozilla/firefox/snctzemu.default-esr -name "logins.json" -o -name "key[34].db" -o -name "search.json*" | xargs -I{} rsync --progress -R {} ./app/home/firefox
