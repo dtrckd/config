@@ -405,7 +405,7 @@ autocmd FileType codecompanion silent! nunmap <buffer> gx " DO NOT work (see Mar
 " (removed i:import from tagbar
 let g:tagbar_type_elm = {
       \ 'ctagstype':'elm',
-      \ 'kinds':['h:header', 't:type', 'f:function', 'e:exposed'],
+      \ 'kinds':['h:header', 't:type', 'f:function'],
       \ 'kind2scope':{'h':'header', 't':'type', 'f':'function'},
       \ 'sro':'&&&',
       \ 'sort':0,
@@ -1368,6 +1368,9 @@ fu! SetHi()
   hi ErrColor ctermfg=red ctermbg=25 guifg=#ff0000 guibg=#005f87
   hi WarnColor ctermfg=226 ctermbg=25 guifg=#ffff00 guibg=#005f87
 
+  """ Plugins
+  hi ZoomColor ctermfg=black ctermbg=226 guifg=#000000 guibg=#ffff00 gui=bold
+
   """ Language Keywords
   "hi Keyword ctermfg=208 guifg=#ff8700
   "hi Statement ctermfg=208 guifg=#ff8700
@@ -1387,7 +1390,7 @@ fu! SetHi()
   "set statusline+=\ %#ErrColor#%{g:error_len}%*
   "set statusline+=\ %#WarnColor#%{g:warning_len}%*
   set statusline+=%=%l/%L:%c\ %05(%p%%%)
-  set statusline+=\ %{\zoom#statusline()}
+  set statusline+=\ %#ZoomColor#%{zoom#statusline()}%*
 endfunction
 
 call SetHi()

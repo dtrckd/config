@@ -80,8 +80,8 @@ vim.api.nvim_set_hl(0, "MarkviewHeading3", { bg = "#2a3d4d", fg = "#8be9fd", bol
 vim.api.nvim_set_hl(0, "MarkviewHeading4", { bg = "#2a4d3d", fg = "#50fa7b", bold = true }) -- Green
 vim.api.nvim_set_hl(0, "MarkviewHeading5", { bg = "#2a3d2d", fg = "#f1fa8c", bold = true }) -- Yellow
 vim.api.nvim_set_hl(0, "MarkviewHeading6", { bg = "#2d2d2d", fg = "#6272a4", bold = true }) -- Muted Gray
-vim.api.nvim_set_hl(0, "MarkviewHyperlink", { fg = "#8be9fd", underline = true })  -- blue like
-vim.api.nvim_set_hl(0, "MarkviewCode", { bg = "#1f2128" }) -- stealther background
+vim.api.nvim_set_hl(0, "MarkviewHyperlink", { fg = "#8be9fd", underline = true })           -- blue like
+vim.api.nvim_set_hl(0, "MarkviewCode", { bg = "#1f2128" })                                  -- stealther background
 
 --
 -- Enable Code-Companion
@@ -98,8 +98,32 @@ local ccp = require("codecompanion").setup({
         chat = {
             adapter = "anthropic_sonnet",
             tools = {
+                groups = {
+                    ["dev"] = {
+                        description = "Edit files with access to current buffer context",
+                        prompt = "I'm giving you access to ${tools} to help you edit files. You also have access to the current buffer content via #buffer.",
+                        system_prompt = "When editing files, always use the insert_edit_into_file tool. The user's current buffer content is available via #buffer variable.",
+                        tools = {
+                            "insert_edit_into_file",
+                            "read_file",
+                            "grep_search",
+
+                        },
+                        vars = {
+                            "buffer",
+                        },
+                        opts = {
+                            collapse_tools = false,
+                            require_approval_before = false,
+                        },
+                    },
+                },
                 opts = {
                     wait_timeout = 300000, -- How long to wait for user input before timing out (milliseconds)
+                    default_tools = {
+                        "file_search",
+                        "fetch_webpage",
+                    },
                 }
             },
             opts = {
@@ -257,6 +281,12 @@ local ccp = require("codecompanion").setup({
                 expiration_days = 45,
                 delete_on_clearing_chat = true,
                 --picker = "telescope", --- ("telescope", "snacks", "fzf-lua", or "default")
+                title_generation_opts = {
+                    ---Number of user prompts after which to refresh the title (0 to disable)
+                    refresh_every_n_prompts = 2, -- e.g., 3 to refresh after every 3rd user prompt
+                    ---Maximum number of times to refresh the title (default: 3)
+                    max_refreshes = 1,
+                }
             }
         },
     },

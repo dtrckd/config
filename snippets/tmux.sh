@@ -15,11 +15,11 @@ tmux rename-window -t system:0 htop
 tmux send-keys 'htop' C-j
 tmux split-window -v
 tmux send-keys 'aichat --serve 127.0.0.1:8881' C-j
-tmux resize-pane -t 2 -y 10%
+tmux resize-pane -t 2 -y '10%'
 
 # Win2
 tmux new-window -n 'ai'
-tmux send-keys 'ai' C-j
+#tmux send-keys 'ai' C-j
 
 tmux select-window -t system:ai
 tmux attach -t system
