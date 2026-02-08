@@ -147,8 +147,8 @@ alias xback='xbacklight'
 alias octave='octave --silent'
 alias ai="aichat -s"
 alias air='aichat -s -r'
-alias aic="aichat -c"
 alias aie="aichat -e"
+alias aic="vim -c CodeCompanionChat"
 alias mongoshell="docker exec -it mongodb mongo"
 alias docker_inspect_cmd="docker inspect --format '{{.Config.Cmd}}'"
 alias docker_inspect_env="docker inspect --format '{{ json .Config.Env }}'"
@@ -813,6 +813,7 @@ alias cdai="cd ~/.config/aichat/sessions"
 alias cdia="cd ~/.config/aichat/sessions"
 alias iuai="cd ~/.config/aichat/sessions"
 alias cdm="cd $PX/missions" # mission / kaggle / etc
+alias cdeval="cd $PX/missions/etalab/src/evalap"
 function cdlk;  cd (dirname (readlink $argv[1])); end
 function grepurl; sed -e  's/.*[hH][rR][eE][fF]=['\"''\'']\([^'\"''\'']*\)['\"''\''].*/\1/' $argv[1]; end
 alias mean="awk '{s+=$argv}END{print \"ave:\",s/NR}' RS=\" \""

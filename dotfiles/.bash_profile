@@ -350,8 +350,8 @@ alias vitodo='vim -p $(find -iname todo -type f)'
 alias octave='octave --silent'
 alias ai="aichat -s"
 alias air='aichat -s -r'
-alias aic="aichat -c"
 alias aie="aichat -e"
+alias aic="vim -c CodeCompanionChat"
 
 function vims() {
     # VIM
@@ -810,6 +810,7 @@ alias cdp="cd $PX/perso/Papiers/"
 alias cdai="cd ~/.config/aichat/sessions"
 alias cdia="cd ~/.config/aichat/sessions"
 alias cdm="cd $PX/missions" # mission / kaggle / etc
+alias cdeval="cd $PX/missions/etalab/src/evalap"
 cdlk () { cd $(dirname $(readlink $1)); }
 grepurl () { sed -e  's/.*[hH][rR][eE][fF]=['\"''\'']\([^'\"''\'']*\)['\"''\''].*/\1/' $1; }
 alias mean="awk '{s+=$1}END{print \"ave:\",s/NR}' RS=\" \""
