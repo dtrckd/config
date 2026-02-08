@@ -74,12 +74,12 @@ require("markview").setup({
     },
 })
 
-vim.api.nvim_set_hl(0, "MarkviewHeading1", { bg = "#3d2a4d", fg = "#ff79c6", bold = true }) -- Purple/Pink
-vim.api.nvim_set_hl(0, "MarkviewHeading2", { bg = "#2d3a4d", fg = "#bd93f9", bold = true }) -- Light Purple
-vim.api.nvim_set_hl(0, "MarkviewHeading3", { bg = "#2a3d4d", fg = "#8be9fd", bold = true }) -- Cyan
-vim.api.nvim_set_hl(0, "MarkviewHeading4", { bg = "#2a4d3d", fg = "#50fa7b", bold = true }) -- Green
-vim.api.nvim_set_hl(0, "MarkviewHeading5", { bg = "#2a3d2d", fg = "#f1fa8c", bold = true }) -- Yellow
-vim.api.nvim_set_hl(0, "MarkviewHeading6", { bg = "#2d2d2d", fg = "#6272a4", bold = true }) -- Muted Gray
+vim.api.nvim_set_hl(0, "MarkviewHeading1", { bg = "#251e2a", fg = "#ff79c6", bold = true }) -- Purple/Pink
+vim.api.nvim_set_hl(0, "MarkviewHeading2", { bg = "#1e2229", fg = "#bd93f9", bold = true }) -- Light Purple
+vim.api.nvim_set_hl(0, "MarkviewHeading3", { bg = "#1c2328", fg = "#8be9fd", bold = true }) -- Cyan
+vim.api.nvim_set_hl(0, "MarkviewHeading4", { bg = "#1c2820", fg = "#50fa7b", bold = true }) -- Green
+vim.api.nvim_set_hl(0, "MarkviewHeading5", { bg = "#1e221c", fg = "#f1fa8c", bold = true }) -- Yellow
+vim.api.nvim_set_hl(0, "MarkviewHeading6", { bg = "#1e1e1e", fg = "#6272a4", bold = true }) -- Muted Gray
 vim.api.nvim_set_hl(0, "MarkviewHyperlink", { fg = "#8be9fd", underline = true })           -- blue like
 vim.api.nvim_set_hl(0, "MarkviewCode", { bg = "#1f2128" })                                  -- stealther background
 
@@ -95,25 +95,43 @@ local ccp = require("codecompanion").setup({
     --    },
     --},
     interactions = {
+        diff = {
+            providers = "split",  -- inline|split|mini_diff
+        },
         chat = {
             adapter = "anthropic_sonnet",
             tools = {
                 groups = {
                     ["dev"] = {
                         description = "Edit files with access to current buffer context",
-                        prompt = "I'm giving you access to ${tools} to help you edit files. You also have access to the current buffer content via #buffer.",
-                        system_prompt = "When editing files, always use the insert_edit_into_file tool. The user's current buffer content is available via #buffer variable.",
+                        prompt = "I'm giving you access to ${tools} to help you edit files.",
+                        system_prompt = "When editing files, always use the insert_edit_into_file tool.",
                         tools = {
                             "insert_edit_into_file",
                             "read_file",
-                            "grep_search",
+                            "walker",
 
                         },
-                        vars = {
+                        vars = { -- does not work/exist ? possible ?
                             "buffer",
                         },
                         opts = {
                             collapse_tools = false,
+                            require_approval_before = true,
+                        },
+                    },
+                    ["walker"] = {
+                        description = "Search files, fetch webpages, and grep through codebase",
+                        prompt = "I'm giving you access to ${tools} to help you search and explore the codebase.",
+                        system_prompt = "Use file_search to find files by name, grep_search to search file contents, and fetch_webpage to retrieve web content.",
+                        tools = {
+                            "file_search",
+                            "fetch_webpage",
+                            "grep_search",
+
+                        },
+                        opts = {
+                            collapse_tools = yes,
                             require_approval_before = false,
                         },
                     },
@@ -121,8 +139,7 @@ local ccp = require("codecompanion").setup({
                 opts = {
                     wait_timeout = 300000, -- How long to wait for user input before timing out (milliseconds)
                     default_tools = {
-                        "file_search",
-                        "fetch_webpage",
+                        "walker",
                     },
                 }
             },

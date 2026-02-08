@@ -163,12 +163,13 @@ let g:NERDDefaultAlign = "left"
 " curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/DroidSansMNerdFont-Regular.otf
 " fc-cache -fv # try opening a new terminal if you don't see anything
 " ```
-nnoremap <C-p> <cmd>CHADopen --always-focus<cr>
+nnoremap <C-p> <cmd>CHADopen<cr>
 "nnoremap <C-t> <cmd>CHADopen --always-focus<cr>
 "nnoremap <C-k> <cmd>CHADopen --always-focus<cr>
 autocmd bufenter * if (winnr("$") == 1 && &buftype == "nofile" && &filetype == "CHADTree") | q! | endif
 let g:chadtree_settings = {
       \  'options.polling_rate': 1900,
+      \  'options.follow': v:true,
       \  'view': {'width': 26},
       \  'keymap': {
       \    'v_split': ["v"],
@@ -629,7 +630,8 @@ set fileignorecase                 " See also wildignorecase
 set smartcase                      " Sensitive if capital letter
 set report=0                       " Show number of modification if they are
 set cursorline                     " Hilight current line - cul
-set mouse=a                        " Enable mouse usage (all modes) in terminals
+"set mouse=a                        " Enable mouse usage (all modes) in terminals (ok in Desktop mode)
+set mouse=                         " Disable (on laptop mode, the pad is annoying !!!)
 set fo+=1ro fo-=tc tw=0            " Break comment at tw $size
 " Default comment/format settings (good for markdown-like editing)
 set comments=nb:*,nb:-,nb:+,n:>
@@ -644,7 +646,7 @@ set nohidden                       " Do not keep a buffer open (swp file) if the
 set splitright                     " default vertical split focus
 set splitbelow                     " default horizontal split focus
 
-""" Refresh options
+""" Refresh optionson
 set ttyfast
 "set lazyredraw " weird behavious (statuslines is black...)
 
