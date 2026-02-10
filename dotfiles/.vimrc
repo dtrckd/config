@@ -1272,6 +1272,7 @@ fu! RedrawTab()
 endfunction
 com! RedrawTab :call RedrawTab()
 
+" store in ~/.local/share/nvim/
 fu! MkSession()
     "execute 'SaveSession '. Last2Dir()
     execute 'SSave! '. Last2Dir()
@@ -1323,14 +1324,19 @@ endif
 "set notermguicolors
 set termguicolors
 
-"colo dracula
-"colo tokyonight
-colo onedark
-"colo vim
-"colo zenburn
-"colo darkburn
-"colo one
-"colo onehalfdark
+
+if has('nvim')
+  "colo dracula
+  "colo tokyonight
+  colo onedark
+  "colo vim
+  "colo zenburn
+  "colo darkburn
+  "colo one
+  "colo onehalfdark
+else
+  colo dracula
+endif
 
 
 fu! SetHi()
@@ -1343,7 +1349,9 @@ fu! SetHi()
   "hi Comment ctermfg=blue guifg=#6495ED
   "hi Comment ctermfg=blue guifg=#1E90FF
   hi Comment guifg=#6272a4 gui=NONE
-  hi! link @comment Comment  " change color for nvim-treesitter
+  if exists('g:colors_name') && g:colors_name == 'onedark'
+    hi! link @comment Comment  " change color for nvim-treesitter
+  endif
   hi CursorLine cterm=none term=underline ctermbg=235 guibg=#303030
   hi Search ctermfg=white ctermbg=105 cterm=none guifg=#ffffff guibg=#0369D2
   hi CurSearch ctermfg=0 ctermbg=11 guifg=#414144 guibg=#86ECB4

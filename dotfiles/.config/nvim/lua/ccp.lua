@@ -104,16 +104,10 @@ local ccp = require("codecompanion").setup({
                 groups = {
                     ["dev"] = {
                         description = "Edit files with access to current buffer context",
-                        prompt = "I'm giving you access to ${tools} to help you edit files.",
+                        prompt = "I'm giving you access to ${tools} to help you edit file, and in particular the current buffer #{buffer}.",
                         system_prompt = "When editing files, always use the insert_edit_into_file tool.",
                         tools = {
                             "insert_edit_into_file",
-                            "read_file",
-                            "walker",
-
-                        },
-                        vars = { -- does not work/exist ? possible ?
-                            "buffer",
                         },
                         opts = {
                             collapse_tools = false,
@@ -125,8 +119,9 @@ local ccp = require("codecompanion").setup({
                         prompt = "I'm giving you access to ${tools} to help you search and explore the codebase.",
                         system_prompt = "Use file_search to find files by name, grep_search to search file contents, and fetch_webpage to retrieve web content.",
                         tools = {
-                            "file_search",
                             "fetch_webpage",
+                            "read_file",
+                            "file_search",
                             "grep_search",
 
                         },
@@ -139,7 +134,8 @@ local ccp = require("codecompanion").setup({
                 opts = {
                     wait_timeout = 300000, -- How long to wait for user input before timing out (milliseconds)
                     default_tools = {
-                        "walker",
+                        "fetch_webpage",
+                        "read_file",
                     },
                 }
             },
