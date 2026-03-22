@@ -32,6 +32,7 @@
       <value type="string" value="signal"/>
       <value type="string" value="Signal"/>
       <value type="string" value="signal-desktop_signal"/>
+      <value type="string" value="signal-desktop_signal-desktop"/>
       <value type="string" value="Slack"/>
       <value type="string" value="SoftU2F"/>
       <value type="string" value="solaar"/>

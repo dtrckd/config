@@ -67,7 +67,6 @@
       <property name="&lt;Alt&gt;p" type="string" value="xmms2 seek -20"/>
       <property name="&lt;Super&gt;o" type="string" value="quodlibet --toggle-window"/>
       <property name="&lt;Super&gt;s" type="string" value="quodlibet --seek=+20"/>
-      <property name="&lt;Super&gt;p" type="string" value="quodlibet --seek=-20"/>
       <property name="&lt;Super&gt;m" type="string" value="quodlibet --prev"/>
       <property name="&lt;Super&gt;space" type="string" value="quodlibet --play-pause"/>
       <property name="&lt;Super&gt;BackSpace" type="string" value="quodlibet --toggle-window"/>

@@ -8,8 +8,8 @@
   <property name="misc-single-click" type="bool" value="false"/>
   <property name="last-side-pane" type="string" value="ThunarShortcutsPane"/>
   <property name="last-location-bar" type="string" value="ThunarLocationEntry"/>
-  <property name="last-window-width" type="int" value="1741"/>
-  <property name="last-window-height" type="int" value="960"/>
+  <property name="last-window-width" type="int" value="1112"/>
+  <property name="last-window-height" type="int" value="796"/>
   <property name="last-show-hidden" type="bool" value="false"/>
   <property name="last-details-view-zoom-level" type="string" value="THUNAR_ZOOM_LEVEL_75_PERCENT"/>
   <property name="last-details-view-column-widths" type="string" value="50,136,123,50,1099,93,50,73,987,220,50,69,50,140"/>

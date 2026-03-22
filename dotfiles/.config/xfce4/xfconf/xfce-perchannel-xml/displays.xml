@@ -78,27 +78,29 @@
     <property name="eDP" type="string" value="Laptop">
       <property name="Active" type="bool" value="true"/>
       <property name="EDID" type="string" value="9bbd2decc9b97add4db09eab90baa9b1b3c835a9"/>
+      <property name="DuplicateEDID" type="bool" value="false"/>
       <property name="Resolution" type="string" value="1920x1200"/>
       <property name="RefreshRate" type="double" value="60.002800597460791"/>
       <property name="ModeFlags" type="uint64" value="9"/>
       <property name="Rotation" type="int" value="0"/>
       <property name="Reflection" type="string" value="0"/>
-      <property name="Primary" type="bool" value="false"/>
+      <property name="Primary" type="bool" value="true"/>
       <property name="Scale" type="double" value="1"/>
       <property name="Position" type="empty">
         <property name="X" type="int" value="1920"/>
         <property name="Y" type="int" value="0"/>
       </property>
     </property>
-    <property name="HDMI-A-0" type="string" value="Samsung 24&quot;">
+    <property name="DisplayPort-0" type="string" value="Lenovo 27&quot;">
       <property name="Active" type="bool" value="true"/>
-      <property name="EDID" type="string" value="a857317eb60125e5a60c80bbcdba2b61b50dbfe3"/>
+      <property name="EDID" type="string" value="95361d59fdf4a36cbaecde1460b52607838b09fe"/>
+      <property name="DuplicateEDID" type="bool" value="false"/>
       <property name="Resolution" type="string" value="1920x1080"/>
-      <property name="RefreshRate" type="double" value="120"/>
+      <property name="RefreshRate" type="double" value="60"/>
       <property name="ModeFlags" type="uint64" value="5"/>
       <property name="Rotation" type="int" value="0"/>
       <property name="Reflection" type="string" value="0"/>
-      <property name="Primary" type="bool" value="true"/>
+      <property name="Primary" type="bool" value="false"/>
       <property name="Scale" type="double" value="1"/>
       <property name="Position" type="empty">
         <property name="X" type="int" value="0"/>

@@ -106,7 +106,7 @@ function lla
     if test (count $argv) -ge 1
         pushd $argv[1]
     end
-    find -maxdepth 2 -mindepth 1  -not -name "." | cut -d/ -f2 | uniq -c | sort -nr | awk  '{rc=system("ls --color -pldh " $2 " | tr -d \"\n\""); print  " \t "  $1-1 }'
+    command find -maxdepth 2 -mindepth 1  -not -name "." | cut -d/ -f2 | uniq -c | sort -nr | awk  '{rc=system("ls --color -pldh " $2 " | tr -d \"\n\""); print  " \t "  $1-1 }'
     if test (count $argv) -ge 1
         popd
     end
@@ -188,7 +188,7 @@ alias vimtmux="vim ~/.tmux.conf"
 alias vig="vim ~/.gitconfig"
 alias vign="vim .gitignore"
 alias vikitty="vim ~/.config/kitty/kitty.conf"
-alias t="thunar"
+function t; thunar &; disown; end
 alias vimake="vim Makefile"
 alias vimk="vim Makefile"
 alias vk="vim Makefile"
@@ -199,7 +199,7 @@ alias vu='vim'
 alias ci='vim'
 alias bi='vim'
 alias vcal='vim -c "Calendar -view=month"' # get calendar
-alias vitodo='vim -p (find -iname todo -type f)'
+alias vitodo='vim -p (command find -iname todo -type f)'
 
 set _PWD "/home/ama/adulac/main/thesis/repo/ml/"
 set _NDL "$HOME/src/config/configure/nodeslist"
@@ -452,7 +452,7 @@ alias gitcount_line='git diff --shortstat (git hash-object -t tree /dev/null)'
 alias gitcount_commit='git rev-list --count'
 function gitcpush; git commit -am $argv[1] && git push; end
 function lsgit 
-    for d in (find -maxdepth 2 -type d -name ".git" | sed 's/\.git$//' );
+    for d in (command find -maxdepth 2 -type d -name ".git" | sed 's/\.git$//' );
         echo $d
         if [ "$argv[1]" = "-r" ]
             git -C "$d" remote -v
@@ -466,7 +466,7 @@ function lsgit
     end
 end
 function lsissues
-    for d in (find -maxdepth 2 -type d -name ".git" | sed 's/\.git$//' );
+    for d in (command find -maxdepth 2 -type d -name ".git" | sed 's/\.git$//' );
         echo $d
         git -C "$d" bug ls
         echo
@@ -926,7 +926,7 @@ function xshuff
         set Path "$MUSIC_DIR"
     end
 
-    set fls (find "$Path" -type f -iname "*.ogg" -o -iname "*.mp4" -o -iname "*.mp3" -o -iname "*.flac")
+    set fls (command find "$Path" -type f -iname "*.ogg" -o -iname "*.mp4" -o -iname "*.mp3" -o -iname "*.flac")
     set NB (string split "\n" -- $fls | count)
 
     set RANDL (python3 -c "import sys, random, time;\
