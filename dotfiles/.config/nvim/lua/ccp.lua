@@ -96,10 +96,11 @@ local ccp = require("codecompanion").setup({
     --},
     interactions = {
         diff = {
-            providers = "split",  -- inline|split|mini_diff
+            providers = "split", -- inline|split|mini_diff
         },
         chat = {
-            adapter = "anthropic_sonnet",
+            --adapter = "anthropic_sonnet",
+            adapter = "claude_code",
             tools = {
                 groups = {
                     ["dev"] = {
@@ -110,11 +111,11 @@ local ccp = require("codecompanion").setup({
                             "insert_edit_into_file",
                         },
                         opts = {
-                            collapse_tools = false,
+                            collapse_tools = true,
                             require_approval_before = true,
                         },
                     },
-                    ["walker"] = {
+                    ["reader"] = {
                         description = "Search files, fetch webpages, and grep through codebase",
                         prompt = "I'm giving you access to ${tools} to help you search and explore the codebase.",
                         system_prompt = "Use file_search to find files by name, grep_search to search file contents, and fetch_webpage to retrieve web content.",
@@ -134,8 +135,8 @@ local ccp = require("codecompanion").setup({
                 opts = {
                     wait_timeout = 300000, -- How long to wait for user input before timing out (milliseconds)
                     default_tools = {
-                        "fetch_webpage",
-                        "read_file",
+                        --"fetch_webpage",
+                        --"read_file",
                     },
                 }
             },
@@ -152,16 +153,28 @@ local ccp = require("codecompanion").setup({
             }
         },
         inline = {
-            adapter = "anthropic_haiku",
+            --adapter = "anthropic_haiku",
+            adapter = "claude_code",
         },
         cmd = {
-            adapter = "anthropic_haiku",
+            --adapter = "anthropic_haiku",
+            adapter = "claude_code",
         },
         agent = {
-            adapter = "anthropic_sonnet",
+            --adapter = "anthropic_sonnet",
+            adapter = "claude_code",
         },
     },
     adapters = {
+        acp = {
+            claude_code = function()
+                return require("codecompanion.adapters").extend("claude_code", {
+                    env = {
+                        CLAUDE_CODE_OAUTH_TOKEN = "CLAUDE_CODE_OAUTH_TOKEN",
+                    },
+                })
+            end,
+        },
         http = {
             opts = {
                 show_model_choices = false,
@@ -176,7 +189,7 @@ local ccp = require("codecompanion").setup({
             anthropic_haiku = function()
                 return require("codecompanion.adapters").extend("anthropic", {
                     schema = {
-                        model = { default = "claude-haiku-4-5-20251001" },
+                        model = { default = "claude-haiku-4-5" },
                         extended_thinking = { default = false },
                     },
                 })
@@ -184,7 +197,7 @@ local ccp = require("codecompanion").setup({
             anthropic_sonnet = function()
                 return require("codecompanion.adapters").extend("anthropic", {
                     schema = {
-                        model = { default = "claude-sonnet-4-5-20250929" },
+                        model = { default = "claude-sonnet-4-6" },
                         extended_thinking = { default = false },
                     },
                 })
@@ -192,7 +205,7 @@ local ccp = require("codecompanion").setup({
             anthropic_sonnet_thinking = function()
                 return require("codecompanion.adapters").extend("anthropic", {
                     schema = {
-                        model = { default = "claude-sonnet-4-5-20250929" },
+                        model = { default = "claude-sonnet-4-6" },
                         extended_thinking = { default = true },
                     },
                 })
@@ -200,7 +213,7 @@ local ccp = require("codecompanion").setup({
             anthropic_opus = function()
                 return require("codecompanion.adapters").extend("anthropic", {
                     schema = {
-                        model = { default = "claude-opus-4-5-20251101" },
+                        model = { default = "claude-opus-4-6" },
                         extended_thinking = { default = false },
                     },
                 })
@@ -208,7 +221,7 @@ local ccp = require("codecompanion").setup({
             anthropic_opus_thinking = function()
                 return require("codecompanion.adapters").extend("anthropic", {
                     schema = {
-                        model = { default = "claude-opus-4-5-20251101" },
+                        model = { default = "claude-opus-4-6" },
                         extended_thinking = { default = true },
                     },
                 })
@@ -248,7 +261,8 @@ local ccp = require("codecompanion").setup({
                 auto_submit = true,          -- Auto-submit after getting user input
                 placement = "replace",       -- Replace the selected text with the response
                 adapter = {
-                    name = "anthropic_opus",
+                    --name = "anthropic_opus",
+                    name = "claude_code",
                 },
             },
             prompts = {
@@ -299,9 +313,21 @@ local ccp = require("codecompanion").setup({
                     refresh_every_n_prompts = 2, -- e.g., 3 to refresh after every 3rd user prompt
                     ---Maximum number of times to refresh the title (default: 3)
                     max_refreshes = 1,
+                    adapter = "anthropic_haiku";
                 }
             }
         },
     },
 
 })
+
+-- mcphub's variables.lua calls `config.interactions.chat.variables` which no longer exists:
+--   v19:  interactions.chat.variables      → interactions.chat.editor_context
+--   v20+: interactions.chat.editor_context → interactions.shared.editor_context
+-- Alias the current location back to the old key so mcphub doesn't blow up with nil pairs().
+local ok, cc_config = pcall(require, "codecompanion.config")
+if ok and cc_config.interactions and cc_config.interactions.chat
+    and not cc_config.interactions.chat.variables then
+  cc_config.interactions.chat.variables =
+    (cc_config.interactions.shared or {}).editor_context or {}
+end

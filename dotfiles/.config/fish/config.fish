@@ -9,6 +9,7 @@ fundle init
 set -x EDITOR "vim"
 set -x VISUAL "vim"
 set -x TERM xterm-256color
+set -x SHELL /usr/bin/fish
 
 # colors
 set fish_color_command 005fd7 --bold

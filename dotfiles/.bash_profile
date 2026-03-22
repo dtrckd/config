@@ -89,7 +89,7 @@ if command -v fdfind &> /dev/null; then
    alias find='fdfind'
 fi
 
-alias t="thunar"
+alias t="thunar &"
 alias gf="fg"
 alias diff='diff -u'
 alias tree='tree -C --dirsfirst'
@@ -761,12 +761,12 @@ function _cd() {
 }
 
 # replace standard `cd` with enhanced version, ensure tab-completion works
-alias cd=_cd
-complete -f cd
+#alias cd=_cd
+#complete -f cd
 
 alias xs='cd'
 alias cdl='cd -l'
-alias d='cd -l'
+#alias d='cd -l'
 alias cd-='cd -'
 
 PX="${HOME}/main"

@@ -2,32 +2,25 @@ runtime! debian.vim
 
 let mapleader = ','
 
-""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""
 """ Vundle
-""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'  " Updated repo name
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-""" Plugin
+""" Common Plugins (Vim & Neovim)
 "Plugin 'a.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'luochen1990/rainbow'
 Plugin 'godlygeek/tabular'
 Plugin 'preservim/nerdcommenter'
 Plugin 'preservim/tagbar'
-Plugin 'MunifTanjim/nui.nvim'
-Plugin 'nvim-lua/plenary.nvim'
-Plugin 'nvim-treesitter/nvim-treesitter' " for codecompanion...
-Plugin 'HakonHarnes/img-clip.nvim' " for codecompanion
-Plugin 'ravitemer/mcphub.nvim' " for codecompanion
-Plugin 'ravitemer/codecompanion-history.nvim' " for codecompanion
-Plugin 'OXY2DEV/markview.nvim' " for codecompanion
 
 " Session
 Plugin 'mhinz/vim-startify'
@@ -37,24 +30,14 @@ Plugin 'mhinz/vim-startify'
 Plugin 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 
 " File and code Search
-" @«arning: if systeme-wide fzf is installed before, the 'junegunn/fzf' won't be installed and there might be a version clash.
+" @warning: if system-wide fzf is installed before, the 'junegunn/fzf' won't be installed and there might be a version clash.
 Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'junegunn/fzf.vim'
 Plugin 'rmagatti/goto-preview'
 
 " Git
-"Plugin 'airblade/vim-gitgutter'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
-
-" Linting / LSP / Code completion
-Plugin 'neovim/nvim-lspconfig'  " (vim 0.11 suppoort native lsp)
-"Plugin 'hinell/lsp-timeout.nvim'  " only solution so far to limit lsp memory usage growing too much (do no work with vim.lsp 0.11) !
-Plugin 'TabbyML/vim-tabby' " PENDING activation waiting for https://github.com/TabbyML/vim-tabby/issues/35
-Plugin 'olimorris/codecompanion.nvim'
-" Blink is install trough Minideps. see .nvim/lua/minideps.lua:
-Plugin 'saghen/blink.cmp'  " still needed here to avoid vim error ?!
-Plugin 'bydlw98/blink-cmp-env'
-
 
 " File Format / Extra Language
 Plugin 'rhysd/vim-crystal'
@@ -70,9 +53,8 @@ Plugin 'dhruvasagar/vim-zoom'
 Plugin 'rstacruz/vim-closer'
 Plugin 'ciaranm/detectindent'
 Plugin 'editorconfig/editorconfig-vim'
-Plugin 'karb94/neoscroll.nvim'
 "Plugin 'psliwka/vim-smoothie'
-"Plugin 'rstacruz/sparkup'  # Zn writing HTLM
+"Plugin 'rstacruz/sparkup'  " For writing HTML
 "Plugin 'jceb/vim-orgmode'
 
 " Theme
@@ -86,6 +68,33 @@ Plugin 'navarasu/onedark.nvim'
 "Plugin 'sonph/onehalf', { 'rtp': 'vim' }
 
 Plugin 'ryanoasis/vim-devicons'
+
+""" Neovim-only Plugins (Lua-based)
+if has('nvim')
+  " Core Lua libraries
+  Plugin 'MunifTanjim/nui.nvim'
+  Plugin 'nvim-lua/plenary.nvim'
+  Plugin 'nvim-treesitter/nvim-treesitter'
+
+  " LSP / Code completion
+  Plugin 'neovim/nvim-lspconfig'  " (nvim 0.11 supports native lsp)
+  "Plugin 'hinell/lsp-timeout.nvim'  " only solution so far to limit lsp memory usage growing too much (does not work with vim.lsp 0.11) !
+  Plugin 'TabbyML/vim-tabby' " PENDING activation waiting for https://github.com/TabbyML/vim-tabby/issues/35
+  " Blink is installed through Minideps. see .nvim/lua/minideps.lua:
+  Plugin 'saghen/blink.cmp'  " still needed here to avoid vim error ?!
+  Plugin 'bydlw98/blink-cmp-env'
+
+  " AI / CodeCompanion
+  Plugin 'olimorris/codecompanion.nvim'
+  Plugin 'HakonHarnes/img-clip.nvim'
+  Plugin 'ravitemer/mcphub.nvim'
+  Plugin 'ravitemer/codecompanion-history.nvim'
+  Plugin 'OXY2DEV/markview.nvim'
+
+  " UI enhancements
+  Plugin 'karb94/neoscroll.nvim'  " Smooth scrolling
+endif
+
 """""""""""""""""""""""""""
 """ Plugin conf
 """""""""""""""""""""""""""
@@ -95,7 +104,7 @@ Plugin 'ryanoasis/vim-devicons'
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
 """ go-vim
-" intall dependancuse with (if not it stucks!)  :GoInstallBinaries
+" Install dependencies with (if not it stucks!)  :GoInstallBinaries
 let g:go_fmt_command = "goimports"
 
 """ YCM Autocompletion
@@ -136,7 +145,7 @@ let NERDTreeIgnore = ['\.pyc$', '\.pyo$', '\.swp$']
 "let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
 "autocmd FileType nerdtree setlocal signcolumn=no
 
-""" Similar behaviour than ToggleTagBar
+""" Similar behavior to ToggleTagBar
 function! NERDTreeToggleFind()
     if g:NERDTree.IsOpen()
         execute ':NERDTreeClose'
@@ -232,8 +241,8 @@ let g:coq_settings = {
 """ FZF configuration
 """
 
-""" Fuzzy search > fzf, ack, ag, ripgrep familly !
-let $FZF_DEFAULT_COMMAND = exists('$FZF_DEFAULT_COMMAND') ? $FZF_DEFAULT_COMMAND : 'rg --files --hidden --ignore .git'
+""" Fuzzy search > fzf, ack, ag, ripgrep family!
+let $FZF_DEFAULT_COMMAND = exists('$FZF_DEFAULT_COMMAND') ? $FZF_DEFAULT_COMMAND : 'rg --files --hidden --glob "!.git"'
 "noremap F :FZF<cr>
 noremap ! :Files<cr>
 noremap § :Files %:p:h<cr>
@@ -485,7 +494,7 @@ let g:gitgutter_enabled = 0
 let g:gitgutter_map_keys = 1
 set updatetime=4000 " 4 sec
 let g:gitgutter_override_sign_column_highlight = 0
-"nnoremap <leader>g :GitGutterToggle<CR>
+nnoremap <leader>gg :GitGutterToggle<CR>
 
 
 "--
@@ -544,19 +553,19 @@ let g:gitgutter_override_sign_column_highlight = 0
 "nnoremap <leader>ep :ALEPrevious<CR>
 
 
-""" Mardown Preview
+""" Markdown Preview
 nmap <leader>m <Plug>MarkdownPreviewToggle
 
 
 " #######################################
-" #### PLugin ends
+" #### Plugin ends
 " #######################################
 
 """""""""""""""""""""""""""
 """ Helper Functions
 """""""""""""""""""""""""""
 
-" remove trainling newline ans spaces
+" Remove trailing newline and spaces
 function! Chomp(string)
   if strlen(a:string) > 0
     return substitute(a:string, '[\n\s]\+$', '', '')
@@ -623,20 +632,20 @@ set novb                           " No beep, visualbell
 set showcmd                        " Show (partial) command in status line.
 set showmatch                      " Show matching brackets
 set wildmenu                       " Show list instead of just completing
-set hlsearch                       " Hilighting resarch matches
+set hlsearch                       " Highlighting search matches
 set incsearch                      " Incremental search
 set ignorecase                     " Do case insensitive matching
 set fileignorecase                 " See also wildignorecase
 set smartcase                      " Sensitive if capital letter
 set report=0                       " Show number of modification if they are
-set cursorline                     " Hilight current line - cul
+set cursorline                     " Highlight current line - cul
 "set mouse=a                        " Enable mouse usage (all modes) in terminals (ok in Desktop mode)
-set mouse=                         " Disable (on laptop mode, the pad is annoying !!!)
+set mouse=                         " Disable mouse (on laptop mode, the touchpad is annoying !!!)
 set fo+=1ro fo-=tc tw=0            " Break comment at tw $size
 " Default comment/format settings (good for markdown-like editing)
 set comments=nb:*,nb:-,nb:+,n:>
 set formatoptions+=r formatoptions-=o
-set scrolloff=5                    " Line of context: mininum visible lines at the top or bottom of the screen.
+set scrolloff=5                    " Line of context: minimum visible lines at the top or bottom of the screen.
 set sidescrolloff=8                " Columns of context
 set linebreak                      " Don't wrap word
 set nowrap                         " Don't wrap line too long
@@ -646,9 +655,9 @@ set nohidden                       " Do not keep a buffer open (swp file) if the
 set splitright                     " default vertical split focus
 set splitbelow                     " default horizontal split focus
 
-""" Refresh optionson
+""" Refresh options
 set ttyfast
-"set lazyredraw " weird behavious (statuslines is black...)
+"set lazyredraw " weird behavior (statusline is black...)
 
 """ Tabulations / Indentation
 set softtabstop=4
@@ -682,7 +691,7 @@ nnoremap <space> za   " toggle fold on space
 "" Toggle paste/nopaste automatically when copy/paste with right click in insert mode:
 "let &t_SI .= "\<Esc>[?2004h"
 "let &t_EI .= "\<Esc>[?2004l"
-set t_BE=  " disable bracketed paste mode.  https://gitlab.com/gnachman/iterm2/issues/5698
+" Note: t_BE setting is in the Vim-only section (Theme/Colors)
 
 """ Go to previous position when opening vim
 if has("autocmd")
@@ -752,7 +761,7 @@ function! TripleQuoteFold(lnum)
     return 0
 endfunction
 
-" @warning: this is fuckin long to load big filed. Avoid, too complex!
+" @warning: this is very slow to load big files. Avoid, too complex!
 "autocmd FileType toml setlocal foldmethod=expr foldexpr=TripleQuoteFold(v:lnum)
 
 
@@ -805,12 +814,13 @@ nnoremap <silent> <Esc> :noh<cr>
 "autocmd FileType qf nnoremap <buffer> q :cclose<cr>
 " unmap K
 
-" Increase number:  C-a is remap to C-y and 
+" Increase number:  C-a is remapped to C-y
 " Decrease: still C-x
 map <S-k> <Nop>
 nnoremap <C-w><C-w> <C-a>
-"remap to increment number before remaping it
+" Remap C-a to select all (before remapping increment)
 nnoremap <C-a> ggVG
+" Use C-y for increment (original C-a behavior)
 nnoremap <silent> <C-y> :<C-u>execute "normal! \<C-a>"<CR>
 
 """ Window moves
@@ -1284,10 +1294,29 @@ com! MkSession :source ~/.vimrc | call MkSession()
 """ Theme/Colors
 """"""""""""""""""""""""""""""
 
-" Make Vim recognize XTerm escape sequences for Page and Arrow
-" keys combined with modifiers such as Shift, Control, and Alt.
-" See http://www.reddit.com/r/vim/comments/1a29vk/_/c8tze8p
-if &term =~ '^screen'
+" Colorscheme (common)
+" Since nvim 0.10 termguicolors is activated by default
+" https://neovim.io/doc/user/news-0.10.html
+set termguicolors  " Enable 24-bit RGB colors
+
+""" Vim-only terminal settings (Neovim handles these automatically)
+if !has('nvim')
+  " Bracketed paste mode
+  set t_BE=  " disable bracketed paste mode. https://gitlab.com/gnachman/iterm2/issues/5698
+
+  " Unbind <TAB> and <C-O> for better key handling
+  let &t_TI = "\<Esc>[>4;2m"
+  let &t_TE = "\<Esc>[>4;m"
+
+  " Fix highlight error with vimdiff
+  if &diff
+    set t_Co=256
+  endif
+
+  " Make Vim recognize XTerm escape sequences for Page and Arrow
+  " keys combined with modifiers such as Shift, Control, and Alt.
+  " See http://www.reddit.com/r/vim/comments/1a29vk/_/c8tze8p
+  if &term =~ '^screen'
     " Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
     execute "set t_kP=\e[5;*~"
     execute "set t_kN=\e[6;*~"
@@ -1297,35 +1326,29 @@ if &term =~ '^screen'
     execute "set <xDown>=\e[1;*B"
     execute "set <xRight>=\e[1;*C"
     execute "set <xLeft>=\e[1;*D"
-endif
-if &term =~ '256color'
-    "disable Background Color Erase (BCE) so that color schemes
+  endif
+
+  if &term =~ '256color'
+    " Disable Background Color Erase (BCE) so that color schemes
     " render properly when inside 256-color tmux and GNU screen.
     " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
     set t_ut=
+  endif
+
+  " https://sw.kovidgoyal.net/kitty/faq/#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim
+  let &t_ut=''
+
+  " Vim colorscheme
+  colo dracula
 endif
 
-" https://sw.kovidgoyal.net/kitty/faq/#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim
-let &t_ut=''
-
-" Unbind <TAB> and <C-O
-let &t_TI = "\<Esc>[>4;2m"
-let &t_TE = "\<Esc>[>4;m"
-
-
-" Fix highligh error with vimdiff
-if &diff
-  set t_Co=256
-endif
-
-" Colorscheme
-" since version 0.10 it activated by default and change the colorsscheme
-" https://neovim.io/doc/user/news-0.10.html
-"set notermguicolors
-set termguicolors
-
-
+""" Neovim-only settings
 if has('nvim')
+  " Performance
+  set lazyredraw       " Redraw only when needed (works better in nvim)
+  set mousemoveevent   " Enable mouse move events for better plugin support (nvim 0.8+)
+
+  " Neovim colorscheme
   "colo dracula
   "colo tokyonight
   colo onedark
@@ -1334,8 +1357,6 @@ if has('nvim')
   "colo darkburn
   "colo one
   "colo onehalfdark
-else
-  colo dracula
 endif
 
 

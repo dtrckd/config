@@ -98,7 +98,7 @@ local servers = {
     'dockerls',
     'rust_analyzer',
     'dartls',
-    'tabby',
+    --'tabby',
 }
 
 local server_configs = {
@@ -122,7 +122,7 @@ local server_configs = {
         handlers = {
             ["window/showMessageRequest"] = function(err, result, ctx, config)
                 if result and result.message and
-                   (result.message:find("elm-format", 1, true) or result.message:find("Running", 1, true)) then
+                    (result.message:find("elm-format", 1, true) or result.message:find("Running", 1, true)) then
                     -- Show as warning notification instead of interactive popup
                     vim.notify(result.message, vim.log.levels.WARN)
                     return vim.NIL
@@ -180,7 +180,9 @@ local server_configs = {
     },
     golangci_lint_ls = {
         cmd = { "golangci-lint-langserver" },
-        init_options = { command = { "golangci-lint", "run", "--enable-all", "--disable", "lll", "--out-format", "json", "--issues-exit-code=1" } },
+        init_options = {
+            command = { "golangci-lint", "run", "--output.text.path=", "--output.tab.path=", "--output.html.path=", "--output.checkstyle.path=", "--output.junit-xml.path=", "--output.teamcity.path=", "--output.sarif.path=", "--show-stats=false", "--output.json.path=stdout" }
+        },
         root_markers = { '.golangci.yml', '.golangci.yaml', '.golangci.toml', '.golangci.json', 'go.work', 'go.mod', '.git' },
     },
     -- Lualang
@@ -240,7 +242,7 @@ local server_configs = {
                     -- Linting
                     pycodestyle = {
                         enabled = false,
-                        ignore = { 'W391', "E401", "E124", "E26", "E265", "E731", "E226", "E402", "E501", "E303" },
+                        ignore = { 'W391', "E401", "E124", "E26", "E265", "E731", "E226", "E402", "E501" },
                         maxlinelength = 125
                     },
                     flake8 = { enabled = false, maxLineLength = 125 },
@@ -300,7 +302,7 @@ local server_configs = {
         },
     },
     dartls = {
-        cmd = { "/home/dtrckd/flutter/bin/dart", "language-server" , "--protocol=lsp"},
+        cmd = { "/home/dtrckd/flutter/bin/dart", "language-server", "--protocol=lsp" },
         filetypes = { "dart" },
         init_options = {
             closingLabels = true,
@@ -424,7 +426,9 @@ function _G.toggle_diagnostics(severity)
     -- Update just the severity settings in the current config
     current_config.signs.severity.min = new_min_severity
     --current_config.virtual_text.severity.min = new_min_severity
-    current_config.virtual_lines.severity.min = new_min_severity
+    if type(current_config.virtual_lines) == "table" then
+        current_config.virtual_lines.severity = { min = new_min_severity }
+    end
 
     -- Apply the updated config
     vim.diagnostic.config(current_config)

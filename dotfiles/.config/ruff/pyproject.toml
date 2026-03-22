@@ -1,5 +1,5 @@
 [tool.ruff]
-line-length = 111
+line-length = 125
 fix = false
 
 [tool.ruff.lint]
@@ -18,6 +18,8 @@ ignore = [
     "E731", # I like  lambda assigement
     "E262", # do not work !? 
     "E265", # do not work !?
+    "E303", # doctring length:
+
 ]
 ignore-init-module-imports = true
 
