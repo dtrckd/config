@@ -133,6 +133,37 @@ end
 vim.api.nvim_set_keymap('n', '_', ':lua move_cursor_up_to_regex()<CR>', { noremap = true, silent = true })
 
 
+-- Memory self-monitor: restart LSP at WARN_MB, quit nvim at KILL_MB
+do
+    local WARN_MB       = 4000   -- restart all LSP servers
+    local KILL_MB       = 7000   -- hard quit nvim (adjust to your RAM)
+    local INTERVAL_MS   = 600000 -- check interval in ms (default: 10 min)
+    local warned  = false
+
+    local timer = vim.uv.new_timer()
+    timer:start(INTERVAL_MS, INTERVAL_MS, vim.schedule_wrap(function()
+        local f = io.open("/proc/self/status", "r")
+        if not f then return end
+        local rss_kb = 0
+        for line in f:lines() do
+            local v = line:match("^VmRSS:%s+(%d+)")
+            if v then rss_kb = tonumber(v) break end
+        end
+        f:close()
+
+        local mb = math.floor(rss_kb / 1024)
+        if mb >= KILL_MB then
+            vim.notify(("nvim using %dMB — force quitting!"):format(mb), vim.log.levels.ERROR)
+            vim.defer_fn(function() vim.cmd("qa!") end, 2000)
+        elseif mb >= WARN_MB and not warned then
+            warned = true
+            vim.notify(("nvim using %dMB — restarting LSP servers"):format(mb), vim.log.levels.WARN)
+            vim.cmd("LspRestart")
+            vim.defer_fn(function() warned = false end, 300000) -- re-arm after 5min
+        end
+    end))
+end
+
 -- Scrolling
 --
 local neoscroll = require('neoscroll')
