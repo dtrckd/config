@@ -4,8 +4,10 @@
 
 # Env variables variable are got from bash definition
 
-stty -ixon # disable <C-s> freeze in vim (who waits a <C-q> signal !)
-setxkbmap -option "nbsp:none" # disable non-breaking space, accidently genrated when typing <ALTGR>+<SPACE>
+if status is-interactive
+    stty -ixon # disable <C-s> freeze in vim (who waits a <C-q> signal !)
+    setxkbmap -option "nbsp:none" # disable non-breaking space, accidently genrated when typing <ALTGR>+<SPACE>
+end
 alias to_qwerty='setxkbmap us' # QWERTY
 alias to_azerty='setxkbmap fr' # AZERTY
 
