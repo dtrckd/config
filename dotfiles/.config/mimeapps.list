@@ -39,3 +39,4 @@ application/pdf=atril.desktop
 image/jpeg=org.xfce.ristretto.desktop
 application/vnd.ms-publisher=org.xfce.mousepad.desktop
 image/svg+xml=org.xfce.ristretto.desktop
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop

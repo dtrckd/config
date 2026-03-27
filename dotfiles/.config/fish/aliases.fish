@@ -203,6 +203,10 @@ alias bi='vim'
 alias vcal='vim -c "Calendar -view=month"' # get calendar
 alias vitodo='vim -p (command find -iname todo -type f)'
 
+function claude
+    CLAUDE_CODE_OAUTH_TOKEN="" command claude $argv
+end
+
 set _PWD "/home/ama/adulac/main/thesis/repo/ml/"
 set _NDL "$HOME/src/config/configure/nodeslist"
 
