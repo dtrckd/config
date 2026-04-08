@@ -608,6 +608,16 @@ function! StatuslineGit()
   let g:gitstatus = strlen(status) > 0 ? '('.status.')' : ''
 endfunction
 
+" Debounced version: coalesces rapid BufEnter bursts (e.g. session load)
+" into a single deferred call, avoiding N shell forks for N buffers.
+let g:_statusline_git_timer = -1
+function! StatuslineGitDebounced()
+  if g:_statusline_git_timer != -1
+    call timer_stop(g:_statusline_git_timer)
+  endif
+  let g:_statusline_git_timer = timer_start(150, {-> StatuslineGit()})
+endfunction
+
 function! AleStatus()
   " https://github.com/benknoble/Dotfiles/blob/3a55b757e4eafb8b33a00c0336f6ddf20ce463a7/links/vim/vimrc#L198
   let ale = ale#statusline#Count(bufnr('%'))
@@ -674,14 +684,15 @@ set cinkeys-=0#
 set indentkeys-=0#
 
 """ Folding
-set foldmethod=syntax " use indent for broader fold...
+set foldmethod=indent  " use indent for broader fold...
 "set nofoldenable
 set nofen               " open all folds. see z[mn] command
 
 
 " Fix for color syntax highlighting breaks for big file after jump or search
 " https://github.com/vim/vim/issues/2790
-syntax sync minlines=2000
+" @PEFORMANCE cost.
+"syntax sync minlines=2000
 
 nnoremap X :split<cr>
 nnoremap <leader>n :set invnumber<CR>
@@ -1346,7 +1357,7 @@ endif
 if has('nvim')
   " Performance
   set lazyredraw       " Redraw only when needed (works better in nvim)
-  set mousemoveevent   " Enable mouse move events for better plugin support (nvim 0.8+)
+  "set mousemoveevent   " Enable mouse move events for better plugin support (nvim 0.8+)
 
   " Neovim colorscheme
   "colo dracula
@@ -1361,6 +1372,9 @@ endif
 
 
 fu! SetHi()
+  " Initialize git statusline vars with actual values on startup
+  call StatuslineGit()
+
   """ Custom Colors & Highlights
   hi Title ctermfg=39 guifg=#5fd7ff " affect the number of windows in the tabline and filename in nerdtab
   hi Normal ctermbg=233 guibg=#181818
@@ -1407,7 +1421,7 @@ fu! SetHi()
   "hi Statement ctermfg=208 guifg=#ff8700
 
   """ StatusLine
-  au BufEnter,BufRead,BufWritePost * call StatuslineGit()
+  au BufWritePost,BufEnter * call StatuslineGitDebounced()
   " @DEBUG: how to run this after ale status change ?
   "au BufEnter,BufRead,BufWritePost * call AleStatus()
 

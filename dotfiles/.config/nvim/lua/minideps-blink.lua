@@ -1,8 +1,6 @@
 -- Clone 'mini.nvim' manually in a way that it gets managed by 'mini.deps'
 local path_package = vim.fn.stdpath('data') .. '/site/'
 local mini_path = path_package .. 'pack/deps/start/mini.nvim'
-vim.g.gitbranch = "@DEBUGME not defined yet ?!"
-vim.g.gitstatus = "@DEBUGME not defnined yet !?"
 if not vim.loop.fs_stat(mini_path) then
     vim.cmd('echo "Installing `mini.nvim`" | redraw')
     local clone_cmd = {
