@@ -117,6 +117,17 @@ if [ "$Target" == "gdrive" ]; then
     rm $(basename $URL)
     mv gdrive ~/bin/gdrive
 fi
+if [ "$Target" == "obsidian" ]; then
+    URL=$(curl -s https://api.github.com/repos/obsidianmd/obsidian-releases/releases/latest \
+        | grep "browser_download_url.*AppImage" \
+        | grep -v arm64 \
+        | head -1 \
+        | cut -d '"' -f 4)
+
+    wget -O Obsidian.AppImage "$URL"
+    chmod +x Obsidian.AppImage
+    mv Obsidian.AppImage ~/bin/obsidian
+fi
 if [ "$Target" == "aichat" ]; then
     #URL="https://github.com/sigoden/aichat/releases/download/v0.13.0/aichat-v0.13.0-x86_64-unknown-linux-musl.tar.gz"
     #wget $URL

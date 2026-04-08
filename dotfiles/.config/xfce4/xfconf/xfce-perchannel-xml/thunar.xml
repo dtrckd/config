@@ -6,16 +6,18 @@
   <property name="last-separator-position" type="int" value="172"/>
   <property name="last-window-maximized" type="bool" value="false"/>
   <property name="misc-single-click" type="bool" value="false"/>
-  <property name="last-side-pane" type="string" value="ThunarShortcutsPane"/>
+  <property name="last-side-pane" type="string" value="THUNAR_SIDEPANE_TYPE_SHORTCUTS"/>
   <property name="last-location-bar" type="string" value="ThunarLocationEntry"/>
-  <property name="last-window-width" type="int" value="1112"/>
-  <property name="last-window-height" type="int" value="796"/>
+  <property name="last-window-width" type="int" value="1290"/>
+  <property name="last-window-height" type="int" value="895"/>
   <property name="last-show-hidden" type="bool" value="false"/>
   <property name="last-details-view-zoom-level" type="string" value="THUNAR_ZOOM_LEVEL_75_PERCENT"/>
-  <property name="last-details-view-column-widths" type="string" value="50,136,123,50,1099,93,50,73,987,220,50,69,50,140"/>
-  <property name="last-sort-column" type="string" value="THUNAR_COLUMN_NAME"/>
-  <property name="last-sort-order" type="string" value="GTK_SORT_ASCENDING"/>
+  <property name="last-details-view-column-widths" type="string" value="50,136,118,50,1099,93,50,73,751,220,50,64,50,184"/>
+  <property name="last-sort-column" type="string" value="THUNAR_COLUMN_DATE_MODIFIED"/>
+  <property name="last-sort-order" type="string" value="GTK_SORT_DESCENDING"/>
   <property name="last-compact-view-zoom-level" type="string" value="THUNAR_ZOOM_LEVEL_100_PERCENT"/>
   <property name="misc-confirm-close-multiple-tabs" type="bool" value="false"/>
   <property name="last-details-view-visible-columns" type="string" value="THUNAR_COLUMN_DATE_MODIFIED,THUNAR_COLUMN_NAME,THUNAR_COLUMN_SIZE,THUNAR_COLUMN_TYPE"/>
+  <property name="last-toolbar-items" type="string" value="menu:0,back:1,forward:1,open-parent:1,open-home:1,new-tab:0,new-window:0,toggle-split-view:0,undo:0,redo:0,zoom-out:0,zoom-in:0,zoom-reset:0,view-as-icons:0,view-as-detailed-list:0,view-as-compact-list:0,view-switcher:1,location-bar:1,reload:0,search:1,uca-action-1755626724627969-1:0"/>
+  <property name="last-image-preview-visible" type="bool" value="true"/>
 </channel>

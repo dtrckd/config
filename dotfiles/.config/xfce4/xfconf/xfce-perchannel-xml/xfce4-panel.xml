@@ -27,6 +27,7 @@
         <value type="int" value="25"/>
         <value type="int" value="26"/>
         <value type="int" value="17"/>
+        <value type="int" value="19"/>
         <value type="int" value="37"/>
         <value type="int" value="20"/>
         <value type="int" value="28"/>
@@ -313,5 +314,10 @@
     <property name="plugin-5" type="string" value="separator"/>
     <property name="plugin-15" type="string" value="separator"/>
     <property name="plugin-13" type="string" value="xfce4-clipman-plugin"/>
+    <property name="plugin-19" type="string" value="launcher">
+      <property name="items" type="array">
+        <value type="string" value="17754025633.desktop"/>
+      </property>
+    </property>
   </property>
 </channel>
