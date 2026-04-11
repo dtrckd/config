@@ -16,7 +16,8 @@ if [ "$Target" == "go" ]; then
     ## Go update approach
     #release=$(curl --silent https://golang.org/doc/devel/release.html | grep -Eo 'go[0-9]+(\.[0-9]+)+' | sort -V | uniq | tail -1)
     #echo "lastet found release: $release"
-    release="go1.22.0"
+    #release="go1.22.0"
+    release="go1.26.0"
 
     VER="$release.$os-$arch"
     sudo mkdir -p "/usr/local/lib/$VER"
