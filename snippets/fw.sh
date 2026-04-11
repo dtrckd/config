@@ -39,6 +39,13 @@ function fw_rules {
   /sbin/iptables -t filter -A INPUT -i lo -j ACCEPT
   /sbin/iptables -t filter -A OUTPUT -o lo -j ACCEPT
 
+  # Docker bridges — allow host→container traffic so docker-proxy can
+  # forward 127.0.0.1:<published-port> to the container's backend socket.
+  # Without this, OUTPUT DROP kills docker-proxy's upstream connection and
+  # clients see "read: connection reset by peer" after a timeout.
+  /sbin/iptables -t filter -A OUTPUT -o docker0 -j ACCEPT
+  /sbin/iptables -t filter -A OUTPUT -o 'br+' -j ACCEPT
+
   # ICMP (ping)
   /sbin/iptables -t filter -A INPUT -p icmp -j ACCEPT
   /sbin/iptables -t filter -A OUTPUT -p icmp -j ACCEPT
