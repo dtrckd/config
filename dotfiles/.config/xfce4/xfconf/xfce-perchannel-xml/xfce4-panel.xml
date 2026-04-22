@@ -199,6 +199,7 @@
         <value type="string" value="networkmanager applet"/>
       </property>
       <property name="known-items" type="array">
+        <value type="string" value="droidcam"/>
         <value type="string" value="deluge"/>
         <value type="string" value="indicator-solaar"/>
         <value type="string" value="SimpleScreenRecorder"/>

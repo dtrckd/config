@@ -23,3 +23,5 @@ __pycache__/
 vendor/
 node_modules/
 elm-stuff/
+# Added by code-review-graph
+.code-review-graph/

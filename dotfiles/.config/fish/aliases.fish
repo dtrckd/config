@@ -166,6 +166,7 @@ alias lzd="lazydocker"
 alias station="ferdi &"
 alias bb="tmux ls 1>/dev/null 2>/dev/null && tmux attach || tmux"
 alias j=just
+complete -c j -w just  # do not work :(
 alias tu="htop -u $USER"
 alias iotop="sudo TERM=xterm iotop -o -a -d 2 -h"
 alias diffd="diff -rq $argv[1] $argv[2]" # show difference files between dir$1 and dir$2
@@ -851,7 +852,7 @@ function r
     set -e argv[-1]
 
     # Build the rsync command with optional parameters
-    rsync -avz --delete --exclude-from=".gitignore" --exclude="*.swp" --exclude "venv/**" --exclude "data/**" --exclude "results/**" $argv (pwd) $destination
+    rsync -avz --delete --exclude-from=".gitignore" --exclude-from="$HOME/.gitignore" $argv (pwd) $destination
 end
 
 #alias xrandr_setup="xrandr --output LVDS-1 --right-of VGA-1"
