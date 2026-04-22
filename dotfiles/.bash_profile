@@ -45,7 +45,7 @@ prompt_long() {
     PS1="$PROMPTL"
 }
 
-if [[ -n "$PS1" && -z "$BASH_EXECUTION_STRING" ]]; then
+if [[ -n "$PS1" && "$BASH_EXECUTION_STRING" == 1 ]]; then
     # alternative way to test for interactive shell: 
     # if [[ $- == *i* ]]; then
     # --
@@ -950,7 +950,6 @@ alias katai-struct-compiler='kaitai-struct-compiler -no-version-check'
 ### ENV
 #############
 export TZ="Europe/Paris"
-export LANG=C.UTF-8
 # Change the sorting behaviour with ls
 export LC_COLLATE=C
 
