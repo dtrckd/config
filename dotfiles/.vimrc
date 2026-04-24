@@ -81,6 +81,7 @@ if has('nvim')
   "Plugin 'hinell/lsp-timeout.nvim'  " only solution so far to limit lsp memory usage growing too much (does not work with vim.lsp 0.11) !
   Plugin 'TabbyML/vim-tabby' " PENDING activation waiting for https://github.com/TabbyML/vim-tabby/issues/35
   " Blink is installed through Minideps. see .nvim/lua/minideps.lua:
+  Plugin 'saghen/blink.lib' 
   Plugin 'saghen/blink.cmp'  " still needed here to avoid vim error ?!
   Plugin 'bydlw98/blink-cmp-env'
 

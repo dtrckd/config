@@ -42,15 +42,16 @@ later(function()
         source = "saghen/blink.cmp",
         depends = { "rafamadriz/friendly-snippets" },
         --depends = { "rafamadriz/friendly-snippets", "bydlw98/blink-cmp-env" },
-        checkout = "v1.10.1", -- check releases for latest tag
+        checkout = "v1.10.2", -- check releases for latest tag
     })
 
     require('blink.cmp').setup({
         fuzzy = {
             implementation = "lua", -- Rust implementation crash !!!
-            prebuilt_binaries = {
-                force_version = "v1.10.1",
-            },
+            -- removed in blink.cmp v2 (binary mgmt moved to blink.lib); also no-op when implementation = "lua"
+            -- prebuilt_binaries = {
+            --     force_version = "v1.10.2",
+            -- },
 
             sorts = {
                 function(a, b)
@@ -94,23 +95,47 @@ later(function()
         -- Provider sources
         sources = {
             min_keyword_length = 3,
-            default = function(ctx)
-                --return { 'buffer', 'path', 'omni', 'lsp', 'env',  'snippets' }
-                --
-                -- Dynamically picking providers by treesitter node/filetype
-                -- see https://cmp.saghen.dev/recipes.html#sources
-                local success, node = pcall(vim.treesitter.get_node)
-                if vim.tbl_contains({ "markdown", "text", "conf", "json", "yaml", "codecompanion" }, vim.bo.filetype) then
-                    return { 'buffer', 'path', 'omni', 'lsp', 'env' }
-                elseif success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
-                    return { 'buffer', 'path', 'omni', 'lsp', 'env' }
-                else
-                    return { 'buffer', 'path', 'lsp', 'env', 'snippets' }
-                end
-            end,
+            -- v2: `default` must be a list(string). Dynamic selection is done via
+            -- per-provider `enabled` functions on `snippets` and `omni` below.
+            -- v1 function (kept for reference):
+            -- default = function(ctx)
+            --     local success, node = pcall(vim.treesitter.get_node)
+            --     if vim.tbl_contains({ "markdown", "text", "conf", "json", "yaml", "codecompanion" }, vim.bo.filetype) then
+            --         return { 'buffer', 'path', 'omni', 'lsp', 'env' }
+            --     elseif success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
+            --         return { 'buffer', 'path', 'omni', 'lsp', 'env' }
+            --     else
+            --         return { 'buffer', 'path', 'lsp', 'env', 'snippets' }
+            --     end
+            -- end,
+            default = { 'buffer', 'path', 'lsp', 'env', 'snippets', 'omni' },
             providers = {
                 lsp = {
                     async = true,
+                },
+                snippets = {
+                    enabled = function()
+                        if vim.tbl_contains({ "markdown", "text", "conf", "json", "yaml", "codecompanion" }, vim.bo.filetype) then
+                            return false
+                        end
+                        local ok, node = pcall(vim.treesitter.get_node)
+                        if ok and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
+                            return false
+                        end
+                        return true
+                    end,
+                },
+                omni = {
+                    enabled = function()
+                        if vim.tbl_contains({ "markdown", "text", "conf", "json", "yaml", "codecompanion" }, vim.bo.filetype) then
+                            return true
+                        end
+                        local ok, node = pcall(vim.treesitter.get_node)
+                        if ok and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
+                            return true
+                        end
+                        return false
+                    end,
                 },
                 buffer = {
                     opts = {
