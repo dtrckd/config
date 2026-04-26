@@ -74,15 +74,15 @@ if has('nvim')
   " Core Lua libraries
   Plugin 'MunifTanjim/nui.nvim'
   Plugin 'nvim-lua/plenary.nvim'
-  Plugin 'nvim-treesitter/nvim-treesitter'
+  Plugin 'nvim-treesitter/nvim-treesitter', {'branch': 'main'}
 
   " LSP / Code completion
   Plugin 'neovim/nvim-lspconfig'  " (nvim 0.11 supports native lsp)
   "Plugin 'hinell/lsp-timeout.nvim'  " only solution so far to limit lsp memory usage growing too much (does not work with vim.lsp 0.11) !
   Plugin 'TabbyML/vim-tabby' " PENDING activation waiting for https://github.com/TabbyML/vim-tabby/issues/35
-  " Blink is installed through Minideps. see .nvim/lua/minideps.lua:
-  Plugin 'saghen/blink.lib' 
-  Plugin 'saghen/blink.cmp'  " still needed here to avoid vim error ?!
+  " Blink (blink.cmp + blink.lib) is installed through mini.deps, see nvim/lua/minideps-blink.lua.
+  " Do NOT list blink.cmp or blink.lib here — Vundle auto-tracks `master`, which upgrades to v2
+  " and collides on runtimepath with the v1.10.2 pinned by mini.deps.
   Plugin 'bydlw98/blink-cmp-env'
 
   " AI / CodeCompanion
@@ -1330,6 +1330,18 @@ endfunction
 com! MkSession :source ~/.vimrc | call MkSession()
 "execute 'mksession! ' . getcwd() . '/.session.vim'
 
+"
+" Tmux colocation
+"
+
+" Disable tmux mouse when entering vim
+autocmd VimEnter * silent !tmux set mouse off
+autocmd FocusGained * silent !tmux set mouse off
+
+" Re-enable tmux mouse when leaving vim
+autocmd VimLeave * silent !tmux set mouse on
+autocmd FocusLost * silent !tmux set mouse on
+
 """"""""""""""""""""""""""""""
 """ Theme/Colors
 """"""""""""""""""""""""""""""
@@ -1454,17 +1466,23 @@ fu! SetHi()
   " @DEBUG: how to run this after ale status change ?
   "au BufEnter,BufRead,BufWritePost * call AleStatus()
 
-  set statusline=""
-  set statusline+=%#GitColor#%{g:gitbranch}%*
-  set statusline+=\ %<%f\ %{g:gitstatus}
-  set statusline+=%m
-  set statusline+=\ %r
-  set statusline+=\ %h
-  set statusline+=\ %w
-  "set statusline+=\ %#ErrColor#%{g:error_len}%*
-  "set statusline+=\ %#WarnColor#%{g:warning_len}%*
-  set statusline+=%=%l/%L:%c\ %05(%p%%%)
-  set statusline+=\ %#ZoomColor#%{zoom#statusline()}%*
+  " NOTE: do NOT use `set statusline=""` then `+=` to build this — in
+  " Neovim 0.12, setting statusline to empty reverts to the new dynamic
+  " default (filename, vim.diagnostic.status(), ruler, %P), and the
+  " subsequent `+=` lines append on top, duplicating the statusline.
+  " Build the full string in one assignment instead.
+  "
+  " (disabled segments you can re-inline if needed:
+  "     %#ErrColor#%{g:error_len}%*
+  "     %#WarnColor#%{g:warning_len}%* )
+  let &statusline = '%#GitColor#%{g:gitbranch}%*'
+    \ . ' %<%f %{g:gitstatus}'
+    \ . '%m'
+    \ . ' %r'
+    \ . ' %h'
+    \ . ' %w'
+    \ . '%=%l/%L:%c %05(%p%%%)'
+    \ . ' %#ZoomColor#%{zoom#statusline()}%*'
 endfunction
 
 call SetHi()

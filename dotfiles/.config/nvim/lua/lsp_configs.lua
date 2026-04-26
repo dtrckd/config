@@ -1,6 +1,18 @@
 --
 -- LSP / codecompanion config
 --
+-- Usage cheatsheet (Neovim 0.11+ native API — replaces :LspInfo / :LspStart / :LspStop):
+--   :checkhealth vim.lsp                      -- active clients, attached buffers, config
+--   :lua =vim.lsp.get_clients()               -- inspect running clients (all)
+--   :lua =vim.lsp.get_clients({bufnr=0})      -- inspect clients attached to current buffer
+--   :lua =vim.lsp.config[name]                -- inspect configured server 'name'
+--   :lua =vim.lsp.is_enabled('name')          -- is server 'name' enabled?
+--   :lua vim.lsp.enable('name')               -- start / attach server 'name'
+--   :lua vim.lsp.enable('name', false)        -- stop / detach server 'name'
+--   :lua vim.cmd.edit(vim.lsp.log.get_filename())  -- open LSP log file (replaces :LspLog)
+-- Project-specific commands (defined below):
+--   :TabbyToggle                              -- start/stop the Tabby LSP client
+--   :ToggleMypy                               -- toggle pylsp_mypy plugin for active pylsp
 
 local function map(mode, lhs, rhs, opts)
     local options = { noremap = true }
@@ -9,10 +21,15 @@ local function map(mode, lhs, rhs, opts)
 end
 
 
-local blink = require('blink.cmp')
-
--- Get base capabilities from blink.cmp and add position encoding support
-local base_capabilities = blink.get_lsp_capabilities()
+-- Guard blink.cmp require: if it fails to load, LSP should still start.
+local ok_blink, blink = pcall(require, 'blink.cmp')
+local base_capabilities = ok_blink
+    and blink.get_lsp_capabilities()
+    or vim.lsp.protocol.make_client_capabilities()
+if not ok_blink then
+    vim.notify('blink.cmp unavailable — LSP starting without completion capabilities',
+        vim.log.levels.WARN)
+end
 base_capabilities.general = base_capabilities.general or {}
 base_capabilities.general.positionEncodings = { 'utf-16' } -- Force UTF-16 for all clients
 
@@ -33,10 +50,10 @@ vim.g.tabby_disable_lsp_setup = true
 vim.api.nvim_create_user_command('TabbyToggle', function()
     local clients = vim.lsp.get_clients({ name = 'tabby' })
     if #clients > 0 then
-        vim.lsp.stop_client(clients[1].id)
+        clients[1]:stop()
         print("Tabby disabled")
     else
-        vim.cmd('LspStart tabby')
+        vim.lsp.enable('tabby')
         print("Tabby enabled")
     end
 end, {})
@@ -53,10 +70,6 @@ end, {})
 --        end, 1000) -- Delay to ensure LSP has started
 --    end
 --})
-
--- Make the LSP client use FZF instead of the quickfix list
---local lspfuzzy = require('lspfuzzy')
---lspfuzzy.setup {}
 
 
 --
@@ -75,7 +88,50 @@ vim.diagnostic.config({
 })
 
 -- Log level in :LspLog
-vim.lsp.set_log_level("error")
+vim.lsp.log.set_level("error")
+
+--
+-- User-command aliases for the classic nvim-lspconfig commands
+-- (they're deprecated / removed in the native API; these are native replacements).
+--
+vim.api.nvim_create_user_command('LspInfo', function()
+    vim.cmd('checkhealth vim.lsp')
+end, { desc = 'Show LSP health (replaces nvim-lspconfig :LspInfo)' })
+
+vim.api.nvim_create_user_command('LspLog', function()
+    vim.cmd.edit(vim.lsp.log.get_filename())
+end, { desc = 'Open the LSP log file' })
+
+vim.api.nvim_create_user_command('LspRestart', function(opts)
+    local names = opts.fargs
+    local targets = #names > 0 and vim.lsp.get_clients({ name = names[1] })
+        or vim.lsp.get_clients()
+    if #names > 1 then
+        targets = {}
+        for _, n in ipairs(names) do
+            vim.list_extend(targets, vim.lsp.get_clients({ name = n }))
+        end
+    end
+    for _, c in ipairs(targets) do
+        local name = c.name
+        c:stop()
+        vim.defer_fn(function() vim.lsp.enable(name) end, 200)
+    end
+end, { nargs = '*', desc = 'Restart LSP clients (all, or by name)' })
+
+vim.api.nvim_create_user_command('LspStop', function(opts)
+    local names = opts.fargs
+    local targets
+    if #names == 0 then
+        targets = vim.lsp.get_clients()
+    else
+        targets = {}
+        for _, n in ipairs(names) do
+            vim.list_extend(targets, vim.lsp.get_clients({ name = n }))
+        end
+    end
+    for _, c in ipairs(targets) do c:stop() end
+end, { nargs = '*', desc = 'Stop LSP clients (all, or by name)' })
 
 
 --
@@ -171,11 +227,10 @@ local server_configs = {
         },
         --
         on_attach = function(client, bufnr)
-            -- Auto format on save
-            vim.cmd [[autocmd BufWritePre *.go lua vim.lsp.buf.format()]]
-            -- Auto import sort on save
-            --vim.api.nvim_create_autocmd('BufWritePre',
-            --    { pattern = '*.go', callback = function() vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true }) end })
+            vim.api.nvim_create_autocmd('BufWritePre', {
+                buffer = bufnr,
+                callback = function() vim.lsp.buf.format({ async = false }) end,
+            })
         end
     },
     golangci_lint_ls = {
@@ -311,7 +366,7 @@ local server_configs = {
             outline = true,
             suggestFromUnimportedLibraries = true
         },
-        root_dir = require('lspconfig').util.root_pattern("pubspec.yaml"),
+        root_dir = function(fname) return vim.fs.root(fname, { 'pubspec.yaml' }) end,
         settings = {
             dart = {
                 completeFunctionCalls = true,
@@ -452,14 +507,14 @@ end
 
 -- LSP Diagnostics navigation
 map('n', '<leader>e', "<cmd>lua vim.diagnostic.enable()<CR>")
-map('n', '<leader>q', "<cmd>lua vim.diagnostic.disable()<CR>")
+map('n', '<leader>q', "<cmd>lua vim.diagnostic.enable(false)<CR>")
 map('n', '<leader>el', "<cmd>lua vim.diagnostic.setloclist()<CR>")
 map('n', '<leader>et', "<cmd>lua toggle_virtual_lines()<CR>")
 map('n', '<leader>ew', '<cmd>lua toggle_diagnostics(vim.diagnostic.severity.WARN)<CR>')
 map('n', '<leader>ez', '<cmd>lua toggle_diagnostics(vim.diagnostic.severity.HINT)<CR>')
-map('n', '<leader>en', '<cmd>lua vim.diagnostic.goto_next({severity={min=vim.diagnostic.config().signs.severity.min}})<CR>')
-map('n', '<leader>ep', '<cmd>lua vim.diagnostic.goto_prev({severity={min=vim.diagnostic.config().signs.severity.min}})<CR>')
-map('n', '<leader>eN', '<cmd>lua vim.diagnostic.goto_prev({severity={min=vim.diagnostic.config().signs.severity.min}})<CR>')
+map('n', '<leader>en', '<cmd>lua vim.diagnostic.jump({count=1, float=true, severity={min=vim.diagnostic.config().signs.severity.min}})<CR>')
+map('n', '<leader>ep', '<cmd>lua vim.diagnostic.jump({count=-1, float=true, severity={min=vim.diagnostic.config().signs.severity.min}})<CR>')
+map('n', '<leader>eN', '<cmd>lua vim.diagnostic.jump({count=-1, float=true, severity={min=vim.diagnostic.config().signs.severity.min}})<CR>')
 map('n', '<leader>eh', '<cmd>lua vim.diagnostic.open_float()<CR>')
 -- LSP Code navigation
 map('n', '<leader>x', '<cmd>lua vim.lsp.buf.code_action()<CR>')

@@ -164,7 +164,11 @@ do
     elseif mb >= WARN_MB and not warned then
       warned = true
       vim.notify(("nvim using %dMB — restarting LSP servers"):format(mb), vim.log.levels.WARN)
-      vim.cmd("LspRestart")
+      for _, c in ipairs(vim.lsp.get_clients()) do
+        local name = c.name
+        c:stop()
+        vim.defer_fn(function() vim.lsp.enable(name) end, 200)
+      end
       vim.defer_fn(function() warned = false end, 300000)       -- re-arm after 5min
     end
   end))

@@ -1,22 +1,49 @@
 --
--- Enable tree-sitter
+-- Enable tree-sitter (nvim-treesitter `main` branch, Neovim 0.12+)
 --
----@diagnostic disable
-require("nvim-treesitter.configs").setup({
-    -- graphql is unmaintained
-    ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline", "python", "cpp", "json", "toml", "yaml", "go", "rust", "tsx", "typescript", "elm", "css", "html" },
-    -- Install parsers synchronously (only applied to `ensure_installed`)
-    sync_install = false,
-
-    -- Automatically install missing parsers when entering buffer
-    auto_install = false,
-
-    highlight = {
-        enable = true, -- `false` will disable the whole extension
-        additional_vim_regex_highlighting = false,
-    },
+-- Usage cheatsheet:
+--   :checkhealth nvim-treesitter   -- verify CLI + parser status
+--   :Inspect                        -- show TS node + highlight under cursor
+--   :InspectTree                    -- open the parse tree for the buffer
+--   :TSInstall <lang>               -- install a parser
+--   :TSUpdate                       -- rebuild all installed parsers
+--   :TSUninstall <lang>             -- remove a parser
+-- Toggle highlighting for current buffer:
+--   :lua vim.treesitter.stop()      -- disable TS on current buffer
+--   :lua vim.treesitter.start()     -- re-enable TS on current buffer
+require("nvim-treesitter").setup({
+    install_dir = vim.fn.stdpath("data") .. "/site",
 })
----@diagnostic enable
+
+-- Neovim 0.12 ships bundled parsers for: bash, c, diff, html, lua, markdown,
+-- query, vim, vimdoc. The list below covers the rest.
+-- `markdown_inline` is an injection parser (not a filetype) — install it,
+-- but do NOT add it to any FileType autocmd pattern.
+local ts_parsers = {
+    "c", "lua", "vim", "vimdoc", "query",
+    "markdown", "markdown_inline",
+    "python", "cpp", "json", "toml", "yaml",
+    "go", "rust", "tsx", "typescript",
+    "elm", "css", "html",
+}
+
+local have = require("nvim-treesitter.config").get_installed()
+local missing = vim.tbl_filter(function(p)
+    return not vim.tbl_contains(have, p)
+end, ts_parsers)
+if #missing > 0 then
+    require("nvim-treesitter").install(missing)
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+    callback = function(args) pcall(vim.treesitter.start, args.buf) end,
+})
+
+-- Re-start TS on BufEnter so injections (fenced markdown blocks, etc.) survive
+-- `:e` and buffer reloads. See neovim/neovim#37552.
+vim.api.nvim_create_autocmd("BufEnter", {
+    callback = function(args) pcall(vim.treesitter.start, args.buf) end,
+})
 
 require("img-clip").setup({
     filetypes = {
@@ -52,6 +79,10 @@ require("markview").setup({
             heading_4 = { sign = "" },
             heading_5 = { sign = "" },
             heading_6 = { sign = "" },
+            setext_1 = { sign = "" },
+            setext_2 = { sign = "" },
+            setext_3 = { sign = "" },
+            setext_4 = { sign = "" },
         },
         code_blocks = { sign = false },
     },

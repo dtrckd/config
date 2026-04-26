@@ -397,6 +397,7 @@ function upgrademe() {
         select-pane -t 3 \; send-keys 'npm outdated -g' C-m \; \
         select-pane -t 4 \; send-keys 'cd && pip install -U (pip freeze | rgi "(lsp|server|ruff|note|jupy|pip|uv|mypy)" | cut -d= -f1)' C-m
     #rustup update   # cargo install <package> to upgrade one package
+    #cargo install (cargo install --list | grep -v '^\s' | awk '{print $1}')
     #pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U
     #brew update && brew upgrade
 }
