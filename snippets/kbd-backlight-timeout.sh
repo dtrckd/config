@@ -7,6 +7,8 @@ KBD_LED="/sys/class/leds/platform::kbd_backlight"
 
 MAX_BRIGHTNESS=1
 IS_ON=1
+DAEMON_OFF_FLAG="/tmp/kbd-backlight-daemon-off"
+rm -f "$DAEMON_OFF_FLAG"
 
 get_active_user() {
     # Try multiple methods to find the active graphical user
@@ -38,12 +40,26 @@ while true; do
 
     IDLE_MS=$(sudo -u "$CURRENT_USER" env DISPLAY=:0 XAUTHORITY=/home/"$CURRENT_USER"/.Xauthority xprintidle 2>/dev/null || echo 0)
 
+    # Detect external brightness changes (e.g. manual toggle via keyboard shortcut)
+    ACTUAL=$(cat "$KBD_LED/brightness")
+    if [[ $ACTUAL -eq 0 && $IS_ON -eq 1 ]]; then
+        # User manually turned it off — clear daemon flag so we don't restore it
+        IS_ON=0
+        rm -f "$DAEMON_OFF_FLAG"
+    elif [[ $ACTUAL -gt 0 && $IS_ON -eq 0 ]]; then
+        # User manually turned it on — daemon resumes control
+        IS_ON=1
+        rm -f "$DAEMON_OFF_FLAG"
+    fi
+
     if [[ $IS_ON -eq 1 && $IDLE_MS -gt $TIMEOUT_MS ]]; then
         echo 0 > "$KBD_LED/brightness"
         IS_ON=0
-    elif [[ $IS_ON -eq 0 && $IDLE_MS -lt $TIMEOUT_MS ]]; then
+        touch "$DAEMON_OFF_FLAG"
+    elif [[ $IS_ON -eq 0 && $IDLE_MS -lt $TIMEOUT_MS && -f "$DAEMON_OFF_FLAG" ]]; then
         echo "$MAX_BRIGHTNESS" > "$KBD_LED/brightness"
         IS_ON=1
+        rm -f "$DAEMON_OFF_FLAG"
     fi
 
     sleep 2
