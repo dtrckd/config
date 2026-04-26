@@ -34,7 +34,9 @@ end)
 
 
 
-later(function()
+-- blink.cmp is loaded via `now()` (synchronous) because lsp_configs.lua
+-- requires it at startup; `later()` would defer past that require and crash.
+now(function()
     --
     -- Blink.cmp
     --
@@ -47,11 +49,15 @@ later(function()
 
     require('blink.cmp').setup({
         fuzzy = {
-            implementation = "lua", -- Rust implementation crash !!!
-            -- removed in blink.cmp v2 (binary mgmt moved to blink.lib); also no-op when implementation = "lua"
-            -- prebuilt_binaries = {
-            --     force_version = "v1.10.2",
-            -- },
+            -- Rust fuzzy backend: the stock prebuilt binary crashes nvim 0.12 on
+            -- first keystroke for all blink.cmp releases beyond v1.6.0 — upstream
+            -- bug https://github.com/Saghen/blink.cmp/issues/2429 (unresolved).
+            -- Workaround: pin the prebuilt binary to the last known-good v1.6.0.
+            -- If this ever breaks, flip `implementation` back to "lua".
+            implementation = "prefer_rust",
+            prebuilt_binaries = {
+                force_version = "v1.6.0",
+            },
 
             sorts = {
                 function(a, b)
