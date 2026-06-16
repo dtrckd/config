@@ -136,10 +136,12 @@ now(function()
                         if vim.tbl_contains({ "markdown", "text", "conf", "json", "yaml", "codecompanion" }, vim.bo.filetype) then
                             return true
                         end
-                        local ok, node = pcall(vim.treesitter.get_node)
-                        if ok and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
-                            return true
-                        end
+                        -- Don't enable omni in comments — it calls omnifunc (gopls) which
+                        -- inserts buffer-local identifiers without explicit user validation.
+                        --local ok, node = pcall(vim.treesitter.get_node)
+                        --if ok and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
+                        --    return true
+                        --end
                         return false
                     end,
                 },
@@ -172,7 +174,10 @@ now(function()
         completion = {
             trigger = {
             },
-            list = { max_items = 20, },
+            list = {
+                max_items = 20,
+                selection = { },
+            },
             menu = {
                 border = 'single',
                 draw = {

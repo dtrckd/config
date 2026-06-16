@@ -888,7 +888,8 @@ alias xrm='xmms2 remove $(xmms2 list | grep --color=never "\->"| grep --color=ne
 alias xp='xmms2 toggle'
 alias xn='xmms2 next'
 alias xj='xmms2 jump'
-alias xpl='xmms2 playlist list'
+alias xpl='xmms2 playlist list | rg "^ *\*" -C 10'
+alias xpla='xmms2 playlist list'
 xplc () { xmms2 playlist create $1 && xmms2 playlist switch $1; }
 xpll () { xmms2 playlist switch $1 && xj 1; }
 alias xseek='xmms2 seek'
