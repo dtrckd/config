@@ -243,7 +243,7 @@ let g:coq_settings = {
 """
 
 """ Fuzzy search > fzf, ack, ag, ripgrep family!
-let $FZF_DEFAULT_COMMAND = exists('$FZF_DEFAULT_COMMAND') ? $FZF_DEFAULT_COMMAND : 'rg --files --hidden --glob "!.git"'
+let $FZF_DEFAULT_COMMAND = exists('$FZF_DEFAULT_COMMAND') ? $FZF_DEFAULT_COMMAND : 'rg --files --hidden --follow --glob "!.git"'
 "noremap F :FZF<cr>
 noremap ! :Files<cr>
 noremap § :Files %:p:h<cr>
@@ -269,15 +269,17 @@ nnoremap B :Buffers<cr>
 " --smart-case -> Search case insensitive if all lowercase pattern, Search case sensitively otherwise
 command! -bang -nargs=* Rg 
       \ call fzf#vim#grep(
-      \   'rg -d 10 --vimgrep --type-not sql --smart-case '.shellescape(<q-args>), 
+      \   'rg --vimgrep --smart-case --hidden --glob "!.git" --type-not sql '.shellescape(<q-args>),
       \   1,
-      \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
+      \   fzf#vim#with_preview({'options': '--delimiter : --nth 1,4..'}), <bang>0)
 
-" Map <leader>s to search for the word under the cursor using fzf and ripgrep
+" Word under cursor (normal mode)
 nnoremap <silent> <leader>s :Rg <C-r><C-w><CR>
-
-" Map <leader>/ to start an interactive search with fzf and ripgrep
-nnoremap <Leader>/ :Rg<Space>
+" Selected text (visual mode)
+xnoremap <silent> <leader>s y:Rg <C-r>"<CR>
+" Interactive search
+nnoremap <leader>/ :Rg<Space>
+nnoremap <leader><space> :Rg<Space>
 
 
 
@@ -353,8 +355,16 @@ nnoremap tc :TagbarShowTag<CR>
 " Alt+] - Open the definition in a vertical split
 map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
-" automatically closes the quickfix window if it's the last window open
-autocmd WinEnter * if winnr('$') == 1 && &buftype == 'tagbar' | q | endif
+" Close tagbar preemptively when quitting the last non-tagbar window (prevents E1312)
+function! s:CloseTagbarBeforeQuit()
+    if &filetype == 'tagbar' | return | endif
+    if !tagbar#IsOpen() | return | endif
+    let l:tagbar_wins = filter(range(1, winnr('$')), {_, w -> getwinvar(w, '&filetype') == 'tagbar'})
+    if !empty(l:tagbar_wins) && winnr('$') - len(l:tagbar_wins) == 1
+        noautocmd execute l:tagbar_wins[0] . 'wincmd c'
+    endif
+endfunction
+autocmd QuitPre * call s:CloseTagbarBeforeQuit()
 
 augroup TagBar
     autocmd!
@@ -659,6 +669,7 @@ endfunction
 """ General configuration
 """"""""""""""""""""""""""""""
 syntax on
+set shell=/bin/bash
 set encoding=UTF-8
 set backspace=indent,eol,start
 set tabpagemax=50                  " Maximum of opened tab

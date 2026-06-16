@@ -28,13 +28,15 @@ if type -q zoxide
 end
 
 # Direnv
-if type -q direnv
-    direnv hook fish | source
-    if [ -f .envrc ]
-        set A $DIRENV_LOG_FORMAT
-        set -x DIRENV_LOG_FORMAT ""
-        direnv reload
-        set -x DIRENV_LOG_FORMAT $A
+if status is-interactive
+    if type -q direnv
+        direnv hook fish | source
+        if [ -f .envrc ]
+            set A $DIRENV_LOG_FORMAT
+            set -x DIRENV_LOG_FORMAT ""
+            direnv reload
+            set -x DIRENV_LOG_FORMAT $A
+        end
     end
 end
 
@@ -362,6 +364,7 @@ alias gll="git log --pretty='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%
 alias glt="git log --pretty='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cd)%Creset %C(magenta)%an%Creset' --graph --date=format:'%d-%m-%Y' --abbrev-commit"
 alias gla="git log --format='%C(blue)%h%Creset%C(auto)%d%Creset %s %Cgreen(%cr)%Creset %C(magenta)%an%Creset' --graph --date=relative --abbrev-commit --all"
 alias gsl="git stash list"
+alias gall="git commit -a"
 
 function gpush
     set branch (git rev-parse --abbrev-ref HEAD)
@@ -910,7 +913,8 @@ alias xrm='xmms2 remove (xmms2 list | grep --color=never "\->"| grep --color=nev
 alias xp='xmms2 toggle'
 alias xn='xmms2 next'
 alias xj='xmms2 jump'
-alias xpl='xmms2 playlist list'
+alias xpl='xmms2 playlist list | rg "^ *\*" -C 10'
+alias xpla='xmms2 playlist list'
 function xplc;  xmms2 playlist create $argv[1] && xmms2 playlist switch $argv[1]; end
 alias xpll='xmms2 playlist switch'
 alias xseek='xmms2 seek'

@@ -91,9 +91,9 @@
         <property name="Y" type="int" value="0"/>
       </property>
     </property>
-    <property name="DisplayPort-0" type="string" value="Lenovo 27&quot;">
+    <property name="DisplayPort-0" type="string" value="Samsung 24&quot;">
       <property name="Active" type="bool" value="true"/>
-      <property name="EDID" type="string" value="95361d59fdf4a36cbaecde1460b52607838b09fe"/>
+      <property name="EDID" type="string" value="a5c1ec586f359b8a0dac6b234ace7e7bb5d19323"/>
       <property name="DuplicateEDID" type="bool" value="false"/>
       <property name="Resolution" type="string" value="1920x1080"/>
       <property name="RefreshRate" type="double" value="60"/>
