@@ -11,6 +11,27 @@
 #
 # By default this script does nothing.
 
+
+# Fix non wanted sleep wakeup
+#for dev in XHC0 XHC1 XHC3 XHC4 NHI0 NHI1; do
+#    echo $dev > /proc/acpi/wakeup
+#done
+
+
+# Fix Amd Gpu causing linux app freeze in Lenovo Yoga laptop
+# GPU Power Management
+#echo "manual" > /sys/class/drm/card0/device/power_dpm_force_performance_level
+# VPE fix
+# echo "options amdgpu ip_block_mask=0xFFFFF7FF" | sudo tee /etc/modprobe.d/amdgpu.conf
+# sudo update-initramfs -u
+# # lsinitramfs /boot/initrd.img-$(uname -r) | grep -i amdgpu
+#
+# # IOMMU fix (try passthrough first - least aggressive)
+# sudo sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 iommu=pt"/' /etc/default/grub
+# sudo update-grub
+# sudo reboot
+
+
 # Set Firewall
 /home/dtrckd/bin/firewall-strict
 
