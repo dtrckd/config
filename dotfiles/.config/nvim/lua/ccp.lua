@@ -213,7 +213,7 @@ local ccp = require("codecompanion").setup({
             openai = function()
                 return require("codecompanion.adapters").extend("openai", {
                     schema = {
-                        model = { default = "gpt-4.1" },
+                        model = { default = "gpt-5.5" },
                     },
                 })
             end,
@@ -228,7 +228,7 @@ local ccp = require("codecompanion").setup({
             anthropic_sonnet = function()
                 return require("codecompanion.adapters").extend("anthropic", {
                     schema = {
-                        model = { default = "claude-sonnet-4-6" },
+                        model = { default = "claude-sonnet-5" },
                         extended_thinking = { default = false },
                     },
                 })
@@ -236,7 +236,7 @@ local ccp = require("codecompanion").setup({
             anthropic_sonnet_thinking = function()
                 return require("codecompanion.adapters").extend("anthropic", {
                     schema = {
-                        model = { default = "claude-sonnet-4-6" },
+                        model = { default = "claude-sonnet-5" },
                         extended_thinking = { default = true },
                     },
                 })
@@ -244,7 +244,7 @@ local ccp = require("codecompanion").setup({
             anthropic_opus = function()
                 return require("codecompanion.adapters").extend("anthropic", {
                     schema = {
-                        model = { default = "claude-opus-4-6" },
+                        model = { default = "claude-opus-4-8" },
                         extended_thinking = { default = false },
                     },
                 })
@@ -252,7 +252,7 @@ local ccp = require("codecompanion").setup({
             anthropic_opus_thinking = function()
                 return require("codecompanion.adapters").extend("anthropic", {
                     schema = {
-                        model = { default = "claude-opus-4-6" },
+                        model = { default = "claude-opus-4-8" },
                         extended_thinking = { default = true },
                     },
                 })

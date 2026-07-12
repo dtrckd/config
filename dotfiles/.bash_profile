@@ -810,6 +810,7 @@ alias cdme="cd $PX/perso/Papiers/me/"
 alias cdp="cd $PX/perso/Papiers/"
 alias cdai="cd ~/.config/aichat/sessions"
 alias cdia="cd ~/.config/aichat/sessions"
+alias cdpi="cd ~/.pi/"
 alias cdm="cd $PX/missions" # mission / kaggle / etc
 alias cdeval="cd $PX/missions/etalab/src/evalap"
 cdlk () { cd $(dirname $(readlink $1)); }

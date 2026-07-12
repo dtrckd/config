@@ -84,7 +84,7 @@
       <property name="ModeFlags" type="uint64" value="9"/>
       <property name="Rotation" type="int" value="0"/>
       <property name="Reflection" type="string" value="0"/>
-      <property name="Primary" type="bool" value="true"/>
+      <property name="Primary" type="bool" value="false"/>
       <property name="Scale" type="double" value="1"/>
       <property name="Position" type="empty">
         <property name="X" type="int" value="1920"/>
@@ -93,14 +93,14 @@
     </property>
     <property name="DisplayPort-0" type="string" value="Samsung 24&quot;">
       <property name="Active" type="bool" value="true"/>
-      <property name="EDID" type="string" value="a5c1ec586f359b8a0dac6b234ace7e7bb5d19323"/>
+      <property name="EDID" type="string" value="42e48537d189702ca29bbee4c29af4a60f29d012"/>
       <property name="DuplicateEDID" type="bool" value="false"/>
       <property name="Resolution" type="string" value="1920x1080"/>
       <property name="RefreshRate" type="double" value="60"/>
       <property name="ModeFlags" type="uint64" value="5"/>
       <property name="Rotation" type="int" value="0"/>
       <property name="Reflection" type="string" value="0"/>
-      <property name="Primary" type="bool" value="false"/>
+      <property name="Primary" type="bool" value="true"/>
       <property name="Scale" type="double" value="1"/>
       <property name="Position" type="empty">
         <property name="X" type="int" value="0"/>

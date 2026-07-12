@@ -146,7 +146,6 @@ local servers = {
     'gopls',
     'golangci_lint_ls',
     'lua_ls',
-    --'ts_ls',
     --'pyright',
     'pylsp',
     'ruff',
@@ -154,6 +153,7 @@ local servers = {
     'dockerls',
     'rust_analyzer',
     'dartls',
+    'tsgo', -- TypeScript 7 native (Go) language server; install: npm i -g @typescript/native-preview
     --'tabby',
 }
 
@@ -328,8 +328,17 @@ local server_configs = {
     --        }
     --    }
     --},
-    -- Typescript/Javascript
-    ts_ls = {},
+    -- TypeScript 7 native server (Go port of tsc + language service).
+    -- Binary from `npm i -g @typescript/native-preview` (provides `tsgo`).
+    -- Defined explicitly so it does not depend on nvim-lspconfig shipping lsp/tsgo.lua.
+    tsgo = {
+        cmd = { 'tsgo', '--lsp', '--stdio' },
+        filetypes = {
+            'javascript', 'javascriptreact', 'javascript.jsx',
+            'typescript', 'typescriptreact', 'typescript.tsx',
+        },
+        root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
+    },
     yamlls = {
         settings = {
             schemas = {
