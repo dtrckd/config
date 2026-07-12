@@ -136,38 +136,52 @@ end
 vim.api.nvim_set_keymap('n', '_', ':lua move_cursor_up_to_regex()<CR>', { noremap = true, silent = true })
 
 
--- Memory self-monitor: restart LSP at WARN_MB, quit nvim at KILL_MB
+-- Memory self-monitor: nvim + descendants (LSP servers, etc.).
+-- Restart LSP at WARN_MB, quit nvim at KILL_MB.
 do
   local WARN_MB     = 4000       -- restart all LSP servers
   local KILL_MB     = 7000       -- hard quit nvim (adjust to your RAM)
-  local INTERVAL_MS = 600000     -- check interval in ms (default: 10 min)
+  local INTERVAL_MS = 120000      -- check interval in ms
   local warned      = false
 
-  local timer       = vim.uv.new_timer()
-  timer:start(INTERVAL_MS, INTERVAL_MS, vim.schedule_wrap(function()
-    local f = io.open("/proc/self/status", "r")
-    if not f then return end
-    local rss_kb = 0
+  local function rss_kb(pid)
+    local f = io.open(("/proc/%d/status"):format(pid))
+    if not f then return 0 end
+    local kb = 0
     for line in f:lines() do
       local v = line:match("^VmRSS:%s+(%d+)")
       if v then
-        rss_kb = tonumber(v)
+        kb = tonumber(v)
         break
       end
     end
     f:close()
+    return kb
+  end
 
-    local mb = math.floor(rss_kb / 1024)
+  -- Total RSS of pid plus all its descendants (LSP servers run as children)
+  local function tree_rss_kb(pid)
+    local total = rss_kb(pid)
+    for _, child in ipairs(vim.api.nvim_get_proc_children(pid)) do
+      total = total + tree_rss_kb(child)
+    end
+    return total
+  end
+
+  local timer = vim.uv.new_timer()
+  timer:start(INTERVAL_MS, INTERVAL_MS, vim.schedule_wrap(function()
+    local mb = math.floor(tree_rss_kb(vim.fn.getpid()) / 1024)
     if mb >= KILL_MB then
-      vim.notify(("nvim using %dMB — force quitting!"):format(mb), vim.log.levels.ERROR)
+      vim.notify(("nvim tree using %dMB — force quitting!"):format(mb), vim.log.levels.ERROR)
+      vim.cmd("silent! wall")
       vim.defer_fn(function() vim.cmd("qa!") end, 2000)
     elseif mb >= WARN_MB and not warned then
       warned = true
-      vim.notify(("nvim using %dMB — restarting LSP servers"):format(mb), vim.log.levels.WARN)
+      vim.notify(("nvim tree using %dMB — restarting LSP servers"):format(mb), vim.log.levels.WARN)
       for _, c in ipairs(vim.lsp.get_clients()) do
         local name = c.name
-        c:stop()
-        vim.defer_fn(function() vim.lsp.enable(name) end, 200)
+        c:stop(true) -- force: a leaking server may ignore graceful shutdown
+        vim.defer_fn(function() vim.lsp.enable(name) end, 500)
       end
       vim.defer_fn(function() warned = false end, 300000)       -- re-arm after 5min
     end

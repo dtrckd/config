@@ -210,6 +210,10 @@ function claude
     CLAUDE_CODE_OAUTH_TOKEN="" command claude $argv
 end
 
+function pi
+    CLAUDE_CODE_OAUTH_TOKEN="" command pi $argv
+end
+
 set _PWD "/home/ama/adulac/main/thesis/repo/ml/"
 set _NDL "$HOME/src/config/configure/nodeslist"
 
@@ -217,6 +221,9 @@ function clipboard; command cat $argv[1] |string trim -c "\n" | xsel -bi; end
 function lineat; sed -n "$argv[1]p" "$argv[2]" ; end
 
 # Copy a long page into the clipboard ?
+# Use silicon: 
+#   silicon  webpack.config.js --to-clipboard --pad-horiz 0 --pad-vert 0 --no-round-corner --no-window-controls
+# -- OR
 # 1. stich the multiple screenshot
 #convert shot1.png shot2.png shot3.png -append combined.png
 # 2. copy the img to clipboard
@@ -335,7 +342,7 @@ function upgrademe
         select-pane -t 1 \; send-keys 'upgradeapt' C-m \; \
         select-pane -t 2 \; send-keys 'upgradevim' C-m \; \
         select-pane -t 3 \; send-keys 'npm outdated -g' C-m \; \
-        select-pane -t 4 \; send-keys 'cd && pip freeze | rgi "(lsp|server|ruff|note|jupy|pip|uv|mypy)" | cut -d= -f1 | pip install -U -r /dev/stdin' C-m
+        select-pane -t 4 \; send-keys 'cd && pip freeze | rgi "(lsp|server|ruff|note|jupy|pip|uv|mypy|yt-dlp|markitdown)" | cut -d= -f1 | pip install -U -r /dev/stdin' C-m
         
     #rustup update   # cargo install <package> to upgrade one package
     #cargo install (cargo install --list | grep -v '^\s' | awk '{print $1}')
@@ -824,6 +831,7 @@ alias cdp="cd $PX/perso/Papiers/"
 alias cdai="cd ~/.config/aichat/sessions"
 alias cdia="cd ~/.config/aichat/sessions"
 alias iuai="cd ~/.config/aichat/sessions"
+alias cdpi="cd ~/.pi/"
 alias cdm="cd $PX/missions" # mission / kaggle / etc
 alias cdeval="cd $PX/missions/etalab/src/evalap"
 function cdlk;  cd (dirname (readlink $argv[1])); end
