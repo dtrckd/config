@@ -143,6 +143,7 @@ do
   local KILL_MB     = 7000       -- hard quit nvim (adjust to your RAM)
   local INTERVAL_MS = 120000      -- check interval in ms
   local warned      = false
+  local restarts    = 0          -- consecutive restarts without dropping below WARN_MB
 
   local function rss_kb(pid)
     local f = io.open(("/proc/%d/status"):format(pid))
@@ -172,18 +173,25 @@ do
   timer:start(INTERVAL_MS, INTERVAL_MS, vim.schedule_wrap(function()
     local mb = math.floor(tree_rss_kb(vim.fn.getpid()) / 1024)
     if mb >= KILL_MB then
+      timer:stop()
       vim.notify(("nvim tree using %dMB — force quitting!"):format(mb), vim.log.levels.ERROR)
-      vim.cmd("silent! wall")
+      vim.cmd("silent! noautocmd wall") -- noautocmd: skip BufWritePre format-on-save
       vim.defer_fn(function() vim.cmd("qa!") end, 2000)
-    elseif mb >= WARN_MB and not warned then
-      warned = true
-      vim.notify(("nvim tree using %dMB — restarting LSP servers"):format(mb), vim.log.levels.WARN)
-      for _, c in ipairs(vim.lsp.get_clients()) do
-        local name = c.name
-        c:stop(true) -- force: a leaking server may ignore graceful shutdown
-        vim.defer_fn(function() vim.lsp.enable(name) end, 500)
+    elseif mb >= WARN_MB then
+      if not warned then
+        warned = true
+        restarts = restarts + 1
+        if restarts > 1 then
+          vim.notify(("nvim tree still using %dMB after LSP restart — leak may be in nvim itself"):format(mb),
+            vim.log.levels.ERROR)
+        else
+          vim.notify(("nvim tree using %dMB — restarting LSP servers"):format(mb), vim.log.levels.WARN)
+        end
+        vim.cmd("LspRestart") -- defined in lsp_configs.lua
+        vim.defer_fn(function() warned = false end, 300000) -- re-arm after 5min
       end
-      vim.defer_fn(function() warned = false end, 300000)       -- re-arm after 5min
+    else
+      restarts = 0
     end
   end))
 end

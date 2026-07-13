@@ -45,6 +45,15 @@ vim.api.nvim_create_autocmd("BufEnter", {
     callback = function(args) pcall(vim.treesitter.start, args.buf) end,
 })
 
+-- This module is loaded via MiniDeps.later(): buffers opened during startup
+-- fired their FileType event before the autocmds above existed, so start
+-- treesitter on them now.
+for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(buf) then
+        pcall(vim.treesitter.start, buf)
+    end
+end
+
 require("img-clip").setup({
     filetypes = {
         codecompanion = {
@@ -59,60 +68,6 @@ require("mcphub").setup({
     config = vim.fn.expand("~/.config/mcphub/servers.json"),
     auto_approve = false,
 })
-
-require("markview").setup({
-    preview = {
-        filetypes = { "markdown", "codecompanion" },
-        icon_provider = "internal", -- "internal", "mini" or "devicons"
-        ignore_buftypes = {},
-        map_gx = false,
-    },
-    markdown = {
-        list_items = {
-            indent_size = 1,
-            shift_width = 1,
-        },
-        headings = {
-            heading_1 = { sign = "" },
-            heading_2 = { sign = "" },
-            heading_3 = { sign = "" },
-            heading_4 = { sign = "" },
-            heading_5 = { sign = "" },
-            heading_6 = { sign = "" },
-            setext_1 = { sign = "" },
-            setext_2 = { sign = "" },
-            setext_3 = { sign = "" },
-            setext_4 = { sign = "" },
-        },
-        code_blocks = { sign = false },
-    },
-    markdown_inline = {
-        hyperlinks = {
-            default = {
-                icon = "",
-            },
-        },
-        internal_links = {
-            default = {
-                icon = "",
-            },
-        },
-        uri_autolinks = {
-            default = {
-                icon = "",
-            },
-        },
-    },
-})
-
-vim.api.nvim_set_hl(0, "MarkviewHeading1", { bg = "#251e2a", fg = "#ff79c6", bold = true }) -- Purple/Pink
-vim.api.nvim_set_hl(0, "MarkviewHeading2", { bg = "#1e2229", fg = "#bd93f9", bold = true }) -- Light Purple
-vim.api.nvim_set_hl(0, "MarkviewHeading3", { bg = "#1c2328", fg = "#8be9fd", bold = true }) -- Cyan
-vim.api.nvim_set_hl(0, "MarkviewHeading4", { bg = "#1c2820", fg = "#50fa7b", bold = true }) -- Green
-vim.api.nvim_set_hl(0, "MarkviewHeading5", { bg = "#1e221c", fg = "#f1fa8c", bold = true }) -- Yellow
-vim.api.nvim_set_hl(0, "MarkviewHeading6", { bg = "#1e1e1e", fg = "#6272a4", bold = true }) -- Muted Gray
-vim.api.nvim_set_hl(0, "MarkviewHyperlink", { fg = "#8be9fd", underline = true })           -- blue like
-vim.api.nvim_set_hl(0, "MarkviewCode", { bg = "#1f2128" })                                  -- stealther background
 
 --
 -- Enable Code-Companion
@@ -158,7 +113,7 @@ local ccp = require("codecompanion").setup({
 
                         },
                         opts = {
-                            collapse_tools = yes,
+                            collapse_tools = true,
                             require_approval_before = false,
                         },
                     },
