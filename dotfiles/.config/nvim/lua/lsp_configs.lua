@@ -11,14 +11,42 @@
 --   :lua vim.lsp.enable('name', false)        -- stop / detach server 'name'
 --   :lua vim.cmd.edit(vim.lsp.log.get_filename())  -- open LSP log file (replaces :LspLog)
 -- Project-specific commands (defined below):
+--   :LspRestart [name...]                     -- restart LSP clients (all, or by name)
+--   :LspStop [name...]                        -- stop LSP clients (all, or by name)
 --   :TabbyToggle                              -- start/stop the Tabby LSP client
 --   :ToggleMypy                               -- toggle pylsp_mypy plugin for active pylsp
+-- Memory self-monitor (lua/basics.lua): checks RSS of nvim + children every 2min;
+-- runs :LspRestart above 4000MB, saves all and force-quits above 7000MB.
 
 local function map(mode, lhs, rhs, opts)
     local options = { noremap = true }
     if opts then options = vim.tbl_extend('force', options, opts) end
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
+
+
+--
+-- Enable some language servers
+--
+-- To add new servers see:
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+-- https://microsoft.github.io/language-server-protocol/implementors/servers/
+local servers = {
+    --'bashls',
+    'elmls',
+    'gopls',
+    'golangci_lint_ls',
+    'lua_ls',
+    --'pyright',
+    'pylsp',
+    'ruff',
+    'yamlls',
+    'dockerls',
+    'rust_analyzer',
+    'dartls',
+    'tsgo', -- TypeScript 7 native (Go) language server; install: npm i -g @typescript/native-preview
+    'tabby',
+}
 
 
 -- Guard blink.cmp require: if it fails to load, LSP should still start.
@@ -104,19 +132,43 @@ end, { desc = 'Open the LSP log file' })
 
 vim.api.nvim_create_user_command('LspRestart', function(opts)
     local names = opts.fargs
-    local targets = #names > 0 and vim.lsp.get_clients({ name = names[1] })
-        or vim.lsp.get_clients()
-    if #names > 1 then
-        targets = {}
-        for _, n in ipairs(names) do
-            vim.list_extend(targets, vim.lsp.get_clients({ name = n }))
+    if #names == 0 then
+        local seen = {}
+        for _, c in ipairs(vim.lsp.get_clients()) do
+            if not seen[c.name] then
+                seen[c.name] = true
+                names[#names + 1] = c.name
+            end
         end
     end
-    for _, c in ipairs(targets) do
-        local name = c.name
-        c:stop()
-        vim.defer_fn(function() vim.lsp.enable(name) end, 200)
+    if #names == 0 then return end
+
+    -- Graceful shutdown, force-killed after 2s (a leaking server may ignore it).
+    local stopping = {}
+    for _, n in ipairs(names) do
+        for _, c in ipairs(vim.lsp.get_clients({ name = n })) do
+            c:stop(2000)
+            stopping[#stopping + 1] = c
+        end
     end
+
+    -- Re-enable only once all targeted clients have exited: vim.lsp.start()
+    -- reuses a client that is stopping but not yet stopped, which would
+    -- silently turn the restart into a no-op.
+    local tries = 0
+    local function enable_when_stopped()
+        tries = tries + 1
+        if tries < 30 then
+            for _, c in ipairs(stopping) do
+                if not c:is_stopped() then
+                    vim.defer_fn(enable_when_stopped, 100)
+                    return
+                end
+            end
+        end
+        vim.lsp.enable(names)
+    end
+    vim.defer_fn(enable_when_stopped, 100)
 end, { nargs = '*', desc = 'Restart LSP clients (all, or by name)' })
 
 vim.api.nvim_create_user_command('LspStop', function(opts)
@@ -133,29 +185,6 @@ vim.api.nvim_create_user_command('LspStop', function(opts)
     for _, c in ipairs(targets) do c:stop() end
 end, { nargs = '*', desc = 'Stop LSP clients (all, or by name)' })
 
-
---
--- Enable some language servers
---
--- To add new servers see:
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
--- https://microsoft.github.io/language-server-protocol/implementors/servers/
-local servers = {
-    --'bashls',
-    'elmls',
-    'gopls',
-    'golangci_lint_ls',
-    'lua_ls',
-    --'pyright',
-    'pylsp',
-    'ruff',
-    'yamlls',
-    'dockerls',
-    'rust_analyzer',
-    'dartls',
-    'tsgo', -- TypeScript 7 native (Go) language server; install: npm i -g @typescript/native-preview
-    --'tabby',
-}
 
 local server_configs = {
     -- Bash
@@ -217,6 +246,9 @@ local server_configs = {
     -- Golang
     -- https://github.com/golang/tools/blob/master/gopls/doc/settings.md
     gopls = {
+        -- Default list also has 'gotmpl', which core nvim never detects
+        -- (checkhealth warning); re-add with vim.filetype.add if needed.
+        filetypes = { 'go', 'gomod', 'gowork' },
         settings = {
             gopls = {
                 analyses = { unusedparams = true, },
@@ -253,7 +285,9 @@ local server_configs = {
                     globals = { 'vim', 'require' },
                 },
                 workspace = { -- Make the server aware of Neovim runtime files
-                    library = vim.api.nvim_get_runtime_file("", true),
+                    -- Only the bundled runtime: nvim_get_runtime_file("", true)
+                    -- indexes every plugin and makes lua_ls a RAM hog.
+                    library = { vim.env.VIMRUNTIME },
                 },
                 format = {
                     enable = true,
@@ -334,12 +368,16 @@ local server_configs = {
     tsgo = {
         cmd = { 'tsgo', '--lsp', '--stdio' },
         filetypes = {
-            'javascript', 'javascriptreact', 'javascript.jsx',
-            'typescript', 'typescriptreact', 'typescript.tsx',
+            'javascript', 'javascriptreact',
+            'typescript', 'typescriptreact',
         },
         root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
     },
     yamlls = {
+        -- Default list also has yaml.docker-compose/gitlab/helm-values, which
+        -- core nvim never detects (checkhealth warning); schemas below map by
+        -- filename, so plain yaml covers everything.
+        filetypes = { 'yaml' },
         settings = {
             schemas = {
                 ["http://json.schemastore.org/github-workflow"] = ".github/workflows/*.{yml,yaml}",
@@ -386,6 +424,7 @@ local server_configs = {
     -- Tabby AI Completion
     tabby = {
         cmd = { "npx", "tabby-agent", "--stdio" },
+        cmd_env = { NODE_NO_WARNINGS = "1" }, -- silence node MaxListeners/UNDICI spam in lsp.log
         --filetypes = { "*" },
         single_file_support = true,
         init_options = {
