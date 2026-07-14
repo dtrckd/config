@@ -45,7 +45,7 @@ local servers = {
     'rust_analyzer',
     'dartls',
     'tsgo', -- TypeScript 7 native (Go) language server; install: npm i -g @typescript/native-preview
-    'tabby',
+    --'tabby',
 }
 
 
