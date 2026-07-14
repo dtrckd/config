@@ -16,6 +16,7 @@ require("neoscroll").setup({
 -- Custom Plugins
 require("basics")
 require("lsp_configs")
+require("ai-completion").setup({ enabled = true })
 -- Markview config must apply BEFORE its autocmds attach to startup buffers,
 -- otherwise the first render uses the default config (see markview-conf.lua).
 -- Its setup() is a cheap table merge, so it stays synchronous.

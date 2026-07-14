@@ -79,7 +79,7 @@ if has('nvim')
   " LSP / Code completion
   Plugin 'neovim/nvim-lspconfig'  " (nvim 0.11 supports native lsp)
   "Plugin 'hinell/lsp-timeout.nvim'  " only solution so far to limit lsp memory usage growing too much (does not work with vim.lsp 0.11) !
-  Plugin 'TabbyML/vim-tabby' " PENDING activation waiting for https://github.com/TabbyML/vim-tabby/issues/35
+  " Plugin 'TabbyML/vim-tabby' " PENDING activation waiting for https://github.com/TabbyML/vim-tabby/issues/35
   " Blink (blink.cmp + blink.lib) is installed through mini.deps, see nvim/lua/minideps-blink.lua.
   " Do NOT list blink.cmp or blink.lib here — Vundle auto-tracks `master`, which upgrades to v2
   " and collides on runtimepath with the v1.10.2 pinned by mini.deps.

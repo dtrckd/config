@@ -60,14 +60,6 @@ now(function()
             },
 
             sorts = {
-                function(a, b)
-                    if (a.client_name == nil or b.client_name == nil) or (a.client_name == b.client_name) then
-                        return
-                    end
-                    if (b.client_name == 'Tabby') then
-                        return false
-                    end
-                end,
                 -- default sorts
                 'exact',
                 'score',
