@@ -27,7 +27,8 @@ Plugin 'mhinz/vim-startify'
 
 " File navigation
 "Plugin 'preservim/nerdtree'
-Plugin 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+"Plugin 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
+Plugin 'nvim-tree/nvim-tree.lua'
 
 " File and code Search
 " @warning: if system-wide fzf is installed before, the 'junegunn/fzf' won't be installed and there might be a version clash.
@@ -66,8 +67,6 @@ Plugin 'navarasu/onedark.nvim'
 "Plugin 'jnurmine/zenburn'
 "Plugin 'rakr/vim-one'
 "Plugin 'sonph/onehalf', { 'rtp': 'vim' }
-
-Plugin 'ryanoasis/vim-devicons'
 
 """ Neovim-only Plugins (Lua-based)
 if has('nvim')
@@ -173,10 +172,6 @@ let g:NERDDefaultAlign = "left"
 " curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/DroidSansMNerdFont-Regular.otf
 " fc-cache -fv # try opening a new terminal if you don't see anything
 " ```
-nnoremap <C-p> <cmd>CHADopen<cr>
-"nnoremap <C-t> <cmd>CHADopen --always-focus<cr>
-"nnoremap <C-k> <cmd>CHADopen --always-focus<cr>
-autocmd bufenter * if (winnr("$") == 1 && &buftype == "nofile" && &filetype == "CHADTree") | q! | endif
 let g:chadtree_settings = {
       \  'options.polling_rate': 1900,
       \  'options.follow': v:true,
@@ -208,6 +203,10 @@ let g:chadtree_settings = {
       \  },
       "\ 'theme.icon_glyph_set': 'ascii',
       \}
+
+nnoremap <C-p> <cmd>NvimTreeToggle<cr>
+autocmd bufenter * if (winnr("$") == 1 && &buftype == "nofile" && &filetype == "CHADTree") | q! | endif
+autocmd BufEnter * if winnr('$') == 1 && &filetype == 'NvimTree' | call timer_start(0, {-> execute('silent! quit')}) | endif
 
 """
 """ COQ coq_nvim

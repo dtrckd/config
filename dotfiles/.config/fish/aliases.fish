@@ -82,7 +82,7 @@ end
 #set LS_COLORS dxfxcxdxbxegedabagacad
 
 if type -q fdfind
-   alias find='fdfind'
+   alias find='fdfind --no-ignore'
 end
 
 # basic
@@ -149,6 +149,7 @@ alias py='python'
 alias py3='python3'
 alias xback='xbacklight'
 alias octave='octave --silent'
+alias piai="pi --model anthropic/claude-sonnet:medium"
 alias ai="aichat -s"
 alias air='aichat -s -r'
 alias aie="aichat -e"
@@ -877,7 +878,7 @@ alias amatop='elinks http://zombie-dust.imag.fr:8000/'
 alias grid='elinks http://localhost/grid.html'
 alias gg="grid"
 
-function pdfcut
+function pdfcut_old
     # this function uses 3 arguments:
     #     $1 is the first page of the range to extract
     #     $2 is the last page of the range to extract

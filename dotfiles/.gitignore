@@ -1,11 +1,13 @@
 # Secrets
 .env
 .envrc
+*.secret
 
 .plans
 .claude
 CLAUDE.md
 .pi
+.pi/worktrees
 
 # Builds
 .~lock*

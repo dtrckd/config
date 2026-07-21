@@ -86,7 +86,7 @@ if [[ -n "$PS1" && "$BASH_EXECUTION_STRING" == 1 ]]; then
 fi
 
 if command -v fdfind &> /dev/null; then
-   alias find='fdfind'
+   alias find='fdfind --no-ignore'
 fi
 
 alias t="thunar &"
