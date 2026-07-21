@@ -33,11 +33,13 @@ end
 ---@field private icon nvim_tree.api.highlighted_string
 local FocusedBufferDecorator = api.Decorator:extend()
 
+vim.api.nvim_set_hl(0, "NvimTreeFocusedBuffer", { fg = "#0aca56" })
+
 function FocusedBufferDecorator:new()
   self.enabled = true
   self.highlight_range = "none"
   self.icon_placement = "before"
-  self.icon = { str = "➜", hl = { "NvimTreeOpenedHL" } }
+  self.icon = { str = "➜", hl = { "NvimTreeFocusedBuffer" } }
 end
 
 ---@param node nvim_tree.api.Node
