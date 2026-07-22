@@ -833,6 +833,8 @@ alias cdai="cd ~/.config/aichat/sessions"
 alias cdia="cd ~/.config/aichat/sessions"
 alias iuai="cd ~/.config/aichat/sessions"
 alias cdpi="cd ~/.pi/"
+alias cdagents="cd ~/.pi/agent/extensions/todos/agents"
+alias cdvim="cd ~/.config/nvim"
 alias cdm="cd $PX/missions" # mission / kaggle / etc
 alias cdeval="cd $PX/missions/etalab/src/evalap"
 function cdlk;  cd (dirname (readlink $argv[1])); end
