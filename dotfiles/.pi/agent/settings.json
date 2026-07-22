@@ -1,9 +1,9 @@
 {
-  "lastChangelogVersion": "0.81.0",
+  "lastChangelogVersion": "0.81.1",
   "defaultProvider": "moonshotai",
   "defaultModel": "kimi-k3",
   "theme": "dark",
-  "defaultThinkingLevel": "max",
+  "defaultThinkingLevel": "high",
   "compaction": {
     "enabled": false
   },

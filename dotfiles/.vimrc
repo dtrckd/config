@@ -204,7 +204,7 @@ let g:chadtree_settings = {
       "\ 'theme.icon_glyph_set': 'ascii',
       \}
 
-nnoremap <C-p> <cmd>NvimTreeToggle<cr>
+" <C-p> tree toggle mapped in ~/.config/nvim/lua/file-tree.lua
 autocmd bufenter * if (winnr("$") == 1 && &buftype == "nofile" && &filetype == "CHADTree") | q! | endif
 autocmd BufEnter * if winnr('$') == 1 && &filetype == 'NvimTree' | call timer_start(0, {-> execute('silent! quit')}) | endif
 
@@ -1073,9 +1073,15 @@ au BufNewFile,BufRead *.cr set filetype=crystal
 au BufNewFile,BufRead *.plt,*.gnuplot,*.gnu set filetype=gnuplot
 au BufWritePost * if getline(1) =~ "^#!" | silent !chmod u+x "<afile>" | endif
 
+
+" jinja template
+au BufRead,BufNewFile *.conf.j2  set ft=nginx.jinja2
+au BufRead,BufNewFile *.yml.j2   set ft=yaml.jinja2
+au BufRead,BufNewFile *.json.j2  set ft=json.jinja2
+au BufRead,BufNewFile *.toml.j2  set ft=toml.jinja2
+
 " prevent changing the indentation when commenting
 autocmd FileType yaml,yaml.ansible setlocal indentkeys-=0#
-
 """"""""""""""""""""""""""""""
 """ Makefile Files
 """"""""""""""""""""""""""""""
