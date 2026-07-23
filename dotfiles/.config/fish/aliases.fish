@@ -471,7 +471,7 @@ alias git_excludf='git update-index --assume-unchanged'
 alias gitcount_line='git diff --shortstat (git hash-object -t tree /dev/null)'
 alias gitcount_commit='git rev-list --count'
 function gitcpush; git commit -am $argv[1] && git push; end
-function lsgit 
+function ls-git 
     for d in (command find -maxdepth 2 -type d -name ".git" | sed 's/\.git$//' );
         echo $d
         if [ "$argv[1]" = "-r" ]
@@ -485,7 +485,7 @@ function lsgit
         echo
     end
 end
-function lsissues
+function ls-issues
     for d in (command find -maxdepth 2 -type d -name ".git" | sed 's/\.git$//' );
         echo $d
         git -C "$d" bug ls

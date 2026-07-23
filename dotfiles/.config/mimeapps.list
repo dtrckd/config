@@ -22,6 +22,7 @@ text/csv=org.xfce.mousepad.desktop;libreoffice-calc.desktop;
 video/x-matroska=vlc.desktop;
 application/x-shellscript=org.xfce.mousepad.desktop;
 application/vnd.ms-publisher=org.xfce.mousepad.desktop;
+text/markdown=nvim.desktop;
 
 [Default Applications]
 text/html=firefox.desktop
