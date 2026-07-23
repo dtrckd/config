@@ -451,8 +451,8 @@ alias unindentpaste="xsel -bo | unindent_text | xsel -bi"
 alias gitupdate='git remote update'
 alias gitg='gitg --all 1>/dev/null &'
 alias gitk='gitk &'
-alias lsgit='for d in $(find -maxdepth 2 -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" status -svb; echo; done'
-alias lsissues='for d in $(find -maxdepth 2 -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" bug ls; echo; done'
+alias ls-git='for d in $(find -maxdepth 2 -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" status -svb; echo; done'
+alias ls-issues='for d in $(find -maxdepth 2 -type d -name ".git" | sed "s/\.git$//" );do  echo $d; git -C "$d" bug ls; echo; done'
 alias gitamend='git commit --amend'
 alias git-ls-tag="git tag -l --sort=-creatordate --format='%(creatordate:short): %(objectname:short) - %(refname:short)'"
 alias gtl='git-ls-tag'
