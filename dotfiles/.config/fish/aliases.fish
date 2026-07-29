@@ -212,7 +212,7 @@ function claude
 end
 
 function pi
-    CLAUDE_CODE_OAUTH_TOKEN="" command pi $argv
+    CLAUDE_CODE_OAUTH_TOKEN="" command pi --model anthropic/claude-opus-5:high $argv
 end
 
 set _PWD "/home/ama/adulac/main/thesis/repo/ml/"

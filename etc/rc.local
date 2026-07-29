@@ -11,7 +11,6 @@
 #
 # By default this script does nothing.
 
-
 # Fix non wanted sleep wakeup
 #for dev in XHC0 XHC1 XHC3 XHC4 NHI0 NHI1; do
 #    echo $dev > /proc/acpi/wakeup
