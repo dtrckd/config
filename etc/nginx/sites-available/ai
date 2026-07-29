@@ -34,3 +34,24 @@ server {
     }
 }
 
+server {
+    listen 80;
+    server_name localhost piai;
+
+    # Redirect all HTTP requests to HTTPS
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+server {
+    listen 443 ssl;
+    server_name ~^(piai)$;
+
+    ssl_certificate /etc/nginx/ssl/my_certificate.crt;
+    ssl_certificate_key /etc/nginx/ssl/my_private.key;
+
+    location / {
+        proxy_pass http://127.0.0.1:30141$request_uri;
+    }
+}
+
