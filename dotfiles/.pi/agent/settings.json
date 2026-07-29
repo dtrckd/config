@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.81.1",
-  "defaultProvider": "anthropic",
-  "defaultModel": "claude-fable-5",
+  "lastChangelogVersion": "0.82.1",
+  "defaultProvider": "openai",
+  "defaultModel": "gpt-5.6-sol",
   "theme": "dark",
   "defaultThinkingLevel": "high",
   "compaction": {
@@ -13,10 +13,10 @@
     "-skills/pi-skills/gmcli/SKILL.md",
     "-skills/pi-skills/gdcli/SKILL.md",
     "-skills/pi-skills/gccli/SKILL.md",
-    "-skills/pi-skills/browser-tools/SKILL.md",
     "-skills/pi-skills/brave-search/SKILL.md",
     "-skills/pi-skills/transcribe/SKILL.md",
-    "-skills/pi-skills/vscode/SKILL.md"
+    "-skills/pi-skills/vscode/SKILL.md",
+    "+skills/pi-skills/browser-tools/SKILL.md"
   ],
   "packages": [
     "npm:@gotgenes/pi-anthropic-auth",
