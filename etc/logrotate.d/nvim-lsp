@@ -1,7 +1,6 @@
-~/.local/state/nvim/lsp.log {
-    size 1M
+/home/*/.local/state/nvim/lsp.log /root/.local/state/nvim/lsp.log {
+    size 2M
     rotate 4
-    compress
     missingok
     notifempty
     copytruncate
