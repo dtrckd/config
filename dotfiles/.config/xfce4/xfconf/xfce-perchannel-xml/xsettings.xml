@@ -43,5 +43,6 @@
   </property>
   <property name="Xfce" type="empty">
     <property name="LastCustomDPI" type="int" value="92"/>
+    <property name="SyncThemes" type="bool" value="false"/>
   </property>
 </channel>

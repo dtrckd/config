@@ -478,7 +478,9 @@ function ls-git
             git -C "$d" remote -v
         else if [ "$argv[1]" = "-b" ]
             git -C "$d" branch
-        else if [ "$argv[1]" = "-b" ]
+        else if [ "$argv[1]" = "-d" ]
+            git -C "$d" status -svb
+            git -C "$d" diff
         else
             git -C "$d" status -svb
         end

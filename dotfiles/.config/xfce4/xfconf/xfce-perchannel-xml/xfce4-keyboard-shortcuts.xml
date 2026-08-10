@@ -73,8 +73,8 @@
       <property name="&lt;Super&gt;q" type="string" value="quodlibet --toggle-window"/>
       <property name="&lt;Super&gt;a" type="string" value="quodlibet --toggle-window"/>
       <property name="&lt;Super&gt;d" type="string" value="xfce4-dict"/>
-      <property name="&lt;Super&gt;x" type="string" value="galculator"/>
       <property name="HomePage" type="string" value="true"/>
+      <property name="&lt;Super&gt;x" type="string" value="deepin-calculator"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
