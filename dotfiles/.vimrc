@@ -1091,6 +1091,14 @@ au filetype make set noexpandtab softtabstop=0
 autocmd FileType markdown setlocal commentstring=<!--%s-->
 autocmd FileType codecompanion setlocal commentstring=<!--%s-->
 
+" markdown-preview: real GitHub styling instead of the stock 2018 theme
+" CSS lives in ~/.config/nvim/css/ (github-markdown-css + highlight.js github themes)
+let g:mkdp_markdown_css = expand('~/.config/nvim/css/markdown.css')
+let g:mkdp_highlight_css = expand('~/.config/nvim/css/highlight.css')
+let g:mkdp_theme = 'dark'
+let g:mkdp_page_title = '${name}'
+let g:mkdp_preview_options = { 'disable_filename': 1, 'sync_scroll_type': 'relative' }
+
 """"""""""""""""""""""""""""""
 """ Conf Files
 """"""""""""""""""""""""""""""

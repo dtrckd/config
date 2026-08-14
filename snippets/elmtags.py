@@ -3,7 +3,7 @@
 
 from __future__ import print_function
 
-help_text = """
+help_text = r"""
 Extracts tags from Elm files. Useful for the Tagbar plugin.
 
 Usage:
@@ -64,17 +64,8 @@ for lnum, line in enumerate(file_content):
         cur_searchterm = "^-- " + cur_tag + "$"
         cur_kind = "h"
     elif match_import:
-        cur_tag = match_import.group(1)
-        cur_searchterm = "^import " + cur_tag
-        cur_kind = "i"
-        args = "\theader:" + cur_head
-        if match_import.group(3):
-            args = args + "\tsignature:(" + cur_tag + ")"
-            cur_tag = match_import.group(3)
-        if match_import.group(5):
-            exposing = match_import.group(5).strip("()").replace(" ", "").split(",")
-            for exposed in exposing:
-                lines = lines + '\n{0}\t{1}\t/{2}/;"\t{3}\tline:{4}{5}'.format(exposed, filename, cur_searchterm, "e", str(lnum+1), "\taccess:public\timport:" + cur_head + "&&&" + cur_tag)
+        # imports skipped: no 'i'/'e' kind declared in g:tagbar_type_elm
+        continue
     elif match_type:
         cur_tag = match_type.group(2)
         if match_type.group(1) == " alias":
