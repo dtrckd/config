@@ -514,6 +514,8 @@ let g:tagbar_type_go = {
 " Git/Fugitive
 set diffopt+=vertical
 nnoremap <leader>gd :Gdiff<CR>
+" close the diff panes, keep the focused file (fugitive maps this in its own buffers only)
+nnoremap <silent> dq :call fugitive#DiffClose()<CR>
 nnoremap <leader>ga :Git add %<CR><CR>
 " log of the current file
 nnoremap <leader>gl :Git log %<CR><CR>
