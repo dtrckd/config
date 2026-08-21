@@ -8,6 +8,7 @@
 
 require("markview").setup({
     preview = {
+        enable = false, -- start disabled, toggle with :Markview
         filetypes = { "markdown", "codecompanion" },
         icon_provider = "internal", -- "internal", "mini" or "devicons"
         ignore_buftypes = {},

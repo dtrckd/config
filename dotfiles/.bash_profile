@@ -821,13 +821,6 @@ alias mean="awk '{s+=$1}END{print \"ave:\",s/NR}' RS=\" \""
 #alias xrandr_setup="xrandr --output HDMI-2 --left-of eDP-1"
 alias xrandr_setup="xrandr --output DP-2-1 --left-of eDP-1"
 
-#alias grepurl='xidel --extract "//a/@href"'
-
-alias amatop='elinks http://zombie-dust.imag.fr:8000/'
-#alias amatop='w3m http://zombie-dust.imag.fr:8000/'
-alias grid='elinks http://localhost/grid.html'
-alias gg="grid"
-
 # PDF Cut
 function pdfcut() {
     # this function uses 3 arguments:

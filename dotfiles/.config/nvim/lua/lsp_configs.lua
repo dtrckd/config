@@ -44,7 +44,7 @@ local servers = {
     'dockerls',
     'rust_analyzer',
     'dartls',
-    'tsgo', -- TypeScript 7 native (Go) language server; install: npm i -g @typescript/native-preview
+    'tsc', -- TypeScript LS; picks tsc or tsgo (npm i -g typescript / @typescript/native-preview)
     --'tabby',
 }
 
@@ -362,17 +362,15 @@ local server_configs = {
     --        }
     --    }
     --},
-    -- TypeScript 7 native server (Go port of tsc + language service).
-    -- Binary from `npm i -g @typescript/native-preview` (provides `tsgo`).
-    -- Defined explicitly so it does not depend on nvim-lspconfig shipping lsp/tsgo.lua.
-    tsgo = {
-        cmd = { 'tsgo', '--lsp', '--stdio' },
-        filetypes = {
-            'javascript', 'javascriptreact',
-            'typescript', 'typescriptreact',
-        },
-        root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
-    },
+    -- TypeScript/JavaScript: config comes from nvim-lspconfig's lsp/tsc.lua (binary
+    -- resolution tsc/tsgo, monorepo-aware root, inlay hints), nothing to override here.
+    -- Its root_dir only matches lockfiles then .git, else cwd. Uncomment to root on
+    -- tsconfig.json instead (root_markers would be ignored: root_dir wins when set).
+    --tsc = {
+    --    root_dir = function(bufnr, on_dir)
+    --        on_dir(vim.fs.root(bufnr, { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' }))
+    --    end,
+    --},
     yamlls = {
         -- Default list also has yaml.docker-compose/gitlab/helm-values, which
         -- core nvim never detects (checkhealth warning); schemas below map by
