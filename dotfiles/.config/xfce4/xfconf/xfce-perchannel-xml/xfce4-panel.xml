@@ -27,10 +27,12 @@
         <value type="int" value="25"/>
         <value type="int" value="26"/>
         <value type="int" value="17"/>
+        <value type="int" value="38"/>
         <value type="int" value="19"/>
         <value type="int" value="37"/>
         <value type="int" value="20"/>
         <value type="int" value="28"/>
+        <value type="int" value="30"/>
         <value type="int" value="32"/>
         <value type="int" value="33"/>
         <value type="int" value="34"/>
@@ -200,6 +202,9 @@
         <value type="string" value="networkmanager applet"/>
       </property>
       <property name="known-items" type="array">
+        <value type="string" value="discord_status_icon_1"/>
+        <value type="string" value="tray-icon tray app 3388840-1"/>
+        <value type="string" value="tray-icon tray app 2971568-1"/>
         <value type="string" value="Signal_status_icon_1"/>
         <value type="string" value="droidcam"/>
         <value type="string" value="deluge"/>
@@ -323,5 +328,15 @@
       </property>
     </property>
     <property name="plugin-16" type="string" value="power-manager-plugin"/>
+    <property name="plugin-30" type="string" value="launcher">
+      <property name="items" type="array">
+        <value type="string" value="17868281893.desktop"/>
+      </property>
+    </property>
+    <property name="plugin-38" type="string" value="launcher">
+      <property name="items" type="array">
+        <value type="string" value="17868278412.desktop"/>
+      </property>
+    </property>
   </property>
 </channel>

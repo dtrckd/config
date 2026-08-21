@@ -1,14 +1,13 @@
 {
   "lastChangelogVersion": "0.84.2",
-  "defaultProvider": "moonshotai",
-  "defaultModel": "kimi-k3",
+  "defaultProvider": "openai",
+  "defaultModel": "gpt-5.6-sol",
   "theme": "dark",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "medium",
   "compaction": {
     "enabled": false
   },
   "skills": [
-    "~/.claude/skills",
     "-skills/pi-skills/youtube-transcript/SKILL.md",
     "-skills/pi-skills/gmcli/SKILL.md",
     "-skills/pi-skills/gdcli/SKILL.md",
@@ -20,12 +19,6 @@
   ],
   "packages": [
     "npm:@gotgenes/pi-anthropic-auth",
-    {
-      "source": "git:github.com/v2nic/pi-caveman",
-      "skills": [
-        "-skills/caveman/SKILL.md"
-      ]
-    },
     "https://github.com/dtrckd/ponytail"
   ],
   "enableInstallTelemetry": false,

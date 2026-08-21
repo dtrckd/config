@@ -212,7 +212,11 @@ function claude
 end
 
 function pi
-    CLAUDE_CODE_OAUTH_TOKEN="" command pi --model anthropic/claude-opus-5:high $argv
+    if test (count $argv) -eq 0
+        CLAUDE_CODE_OAUTH_TOKEN="" command pi --model anthropic/claude-opus-5:high
+    else
+        CLAUDE_CODE_OAUTH_TOKEN="" command pi $argv
+    end
 end
 
 set _PWD "/home/ama/adulac/main/thesis/repo/ml/"
@@ -352,8 +356,13 @@ function upgrademe
 end
 
 alias gitupdate='git remote update'
-alias gitg="gitg --all 1>/dev/null &"
-alias gitk='gitk &'
+function gitg
+    command gitg --all >/dev/null 2>/dev/null &
+end
+alias gg=gitg
+function gitk
+    command gitk &
+end
 alias gitamend='git commit --amend'
 alias gitcommit='git commit'
 alias git-ls-tag="git tag -l --sort=-creatordate --format='%(creatordate:short): %(objectname:short) - %(refname:short)'"
@@ -876,11 +885,6 @@ end
 #alias xrandr_setup="xrandr --output HDMI-2 --left-of eDP-1"
 #alias xrandr_setup="xrandr --output DP-2-1 --left-of eDP-1"
 alias xrandr_setup="xrandr --output HDMI-A-0 --left-of eDP"
-
-alias amatop='elinks http://zombie-dust.imag.fr:8000/'
-#alias amatop='w3m http://zombie-dust.imag.fr:8000/'
-alias grid='elinks http://localhost/grid.html'
-alias gg="grid"
 
 function pdfcut_old
     # this function uses 3 arguments:

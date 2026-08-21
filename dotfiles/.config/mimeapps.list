@@ -14,7 +14,7 @@ audio/vnd.wave=vlc.desktop;
 image/jpeg=gimp.desktop;org.xfce.ristretto.desktop;
 application/pdf=gimp.desktop;libreoffice-draw.desktop;firefox.desktop;org.inkscape.Inkscape.desktop;com.github.jeromerobert.pdfarranger.desktop;krita_pdf.desktop;userapp-inkscape-QBPOW2.desktop;atril.desktop;
 image/svg+xml=org.xfce.mousepad.desktop;firefox.desktop;org.xfce.ristretto.desktop;
-video/mp4=vlc.desktop;
+video/mp4=userapp-vlc-KAX1T3.desktop;vlc.desktop;
 text/html=firefox.desktop;org.xfce.mousepad.desktop;
 audio/x-opus+ogg=vlc.desktop;
 image/png=org.xfce.ristretto.desktop;firefox.desktop;gimp.desktop;
@@ -22,7 +22,7 @@ text/csv=org.xfce.mousepad.desktop;libreoffice-calc.desktop;
 video/x-matroska=userapp-vlc-KAX1T3.desktop;vlc.desktop;
 application/x-shellscript=org.xfce.mousepad.desktop;
 application/vnd.ms-publisher=org.xfce.mousepad.desktop;
-text/markdown=nvim.desktop;
+text/markdown=org.xfce.mousepad.desktop;nvim.desktop;
 
 [Default Applications]
 text/html=firefox.desktop

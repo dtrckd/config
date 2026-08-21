@@ -74,12 +74,17 @@ require("mcphub").setup({
 --
 local ccp = require("codecompanion").setup({
     -- Default config in: https://github.com/olimorris/codecompanion.nvim/blob/main/lua/codecompanion/config.lua
-    --rules = {
-    -- Check examples at https://github.com/olimorris/codecompanion.nvim/tree/main/.codecompanion
-    --    opts = {
-    --        chat = { enabled = true, },
-    --    },
-    --},
+    rules = {
+        -- Check examples at https://github.com/olimorris/codecompanion.nvim/tree/main/.codecompanion
+        default = {
+            files = {
+                "AGENTS.md",
+                { path = "CLAUDE.md",       parser = "claude" },
+                { path = "CLAUDE.local.md", parser = "claude" },
+                { path = "~/AGENTS.md" },
+            },
+        },
+    },
     interactions = {
         diff = {
             providers = "split", -- inline|split|mini_diff
@@ -168,7 +173,7 @@ local ccp = require("codecompanion").setup({
             openai = function()
                 return require("codecompanion.adapters").extend("openai", {
                     schema = {
-                        model = { default = "gpt-5.5" },
+                        model = { default = "gpt-5.6-sol" },
                     },
                 })
             end,
@@ -199,7 +204,7 @@ local ccp = require("codecompanion").setup({
             anthropic_opus = function()
                 return require("codecompanion.adapters").extend("anthropic", {
                     schema = {
-                        model = { default = "claude-opus-4-8" },
+                        model = { default = "claude-opus-5" },
                         extended_thinking = { default = false },
                     },
                 })
@@ -207,7 +212,7 @@ local ccp = require("codecompanion").setup({
             anthropic_opus_thinking = function()
                 return require("codecompanion.adapters").extend("anthropic", {
                     schema = {
-                        model = { default = "claude-opus-4-8" },
+                        model = { default = "claude-opus-5" },
                         extended_thinking = { default = true },
                     },
                 })
@@ -299,7 +304,7 @@ local ccp = require("codecompanion").setup({
                     refresh_every_n_prompts = 2, -- e.g., 3 to refresh after every 3rd user prompt
                     ---Maximum number of times to refresh the title (default: 3)
                     max_refreshes = 1,
-                    adapter = "anthropic_haiku";
+                    adapter = "anthropic_haiku",
                 }
             }
         },
@@ -314,6 +319,6 @@ local ccp = require("codecompanion").setup({
 local ok, cc_config = pcall(require, "codecompanion.config")
 if ok and cc_config.interactions and cc_config.interactions.chat
     and not cc_config.interactions.chat.variables then
-  cc_config.interactions.chat.variables =
-    (cc_config.interactions.shared or {}).editor_context or {}
+    cc_config.interactions.chat.variables =
+        (cc_config.interactions.shared or {}).editor_context or {}
 end

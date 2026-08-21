@@ -110,6 +110,7 @@ now(function()
             providers = {
                 lsp = {
                     async = true,
+                    fallbacks = {}, -- always show buffer; default hides it whenever LSP returns anything
                 },
                 snippets = {
                     enabled = function()
@@ -167,7 +168,7 @@ now(function()
             trigger = {
             },
             list = {
-                max_items = 20,
+                max_items = 200,
                 selection = { },
             },
             menu = {

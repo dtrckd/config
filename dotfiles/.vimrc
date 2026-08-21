@@ -370,6 +370,7 @@ augroup TagBar
     " When entering a quickfix window, map ESC to :cclose
     autocmd WinEnter * if &filetype == 'tagbar' | set timeoutlen=0 | endif
     autocmd FileType tagbar nnoremap <buffer> <ESC> :q<CR>:wincmd p<CR>
+    autocmd CursorMoved * if &filetype !=# 'tagbar' && tagbar#IsOpen() | call tagbar#highlighttag(0, 0) | endif
     autocmd WinLeave * if &filetype == 'tagbar' | set timeoutlen=750 | endif
 augroup END
 
@@ -486,16 +487,16 @@ let g:tagbar_type_graphql = { 'kinds':[ 't:Types', 'e:Enums' ] }
 let g:tagbar_type_go = {
 	\ 'ctagstype' : 'go',
 	\ 'kinds'     : [
-		\ 'p:package',
+		\ 'p:package:1',
 		\ 'i:imports:1',
-		\ 'c:constants',
+		\ 'c:constants:1',
 		\ 'v:variables',
-		\ 't:types',
-		\ 'n:interfaces',
-		\ 'w:fields',
-		\ 'e:embedded',
-		\ 'm:methods',
-		\ 'r:constructor',
+		\ 't:types:1',
+		\ 'n:interfaces:1',
+		\ 'w:fields:1',
+		\ 'e:embedded:1',
+		\ 'm:methods:1',
+		\ 'r:constructor:1',
 		\ 'f:functions'
 	\ ],
 	\ 'sro' : '.',
@@ -534,6 +535,7 @@ let g:gitgutter_enabled = 0
 let g:gitgutter_map_keys = 1
 set updatetime=4000 " 4 sec
 let g:gitgutter_override_sign_column_highlight = 0
+let g:gitgutter_diff_base = 'HEAD'  " diffs working tree vs HEAD, so you see staged + unstaged changes lumped together
 nnoremap <leader>gg :GitGutterToggle<CR>
 
 
