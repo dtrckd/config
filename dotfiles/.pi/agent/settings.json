@@ -1,9 +1,9 @@
 {
-  "lastChangelogVersion": "0.84.2",
-  "defaultProvider": "openai",
-  "defaultModel": "gpt-5.6-sol",
+  "lastChangelogVersion": "0.84.3",
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-fable-5",
   "theme": "dark",
-  "defaultThinkingLevel": "medium",
+  "defaultThinkingLevel": "max",
   "compaction": {
     "enabled": false
   },

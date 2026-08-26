@@ -202,6 +202,7 @@
         <value type="string" value="networkmanager applet"/>
       </property>
       <property name="known-items" type="array">
+        <value type="string" value="tray-icon tray app 3073229-1"/>
         <value type="string" value="discord_status_icon_1"/>
         <value type="string" value="tray-icon tray app 3388840-1"/>
         <value type="string" value="tray-icon tray app 2971568-1"/>

@@ -162,6 +162,9 @@ local ccp = require("codecompanion").setup({
                 return require("codecompanion.adapters").extend("claude_code", {
                     env = {
                         CLAUDE_CODE_OAUTH_TOKEN = "CLAUDE_CODE_OAUTH_TOKEN",
+                        -- blank the key so claude-agent-acp falls back to OAuth
+                        -- (function form: a plain "" resolves to the whole adapter table)
+                        ANTHROPIC_API_KEY = function() return "" end,
                     },
                 })
             end,
@@ -294,7 +297,7 @@ local ccp = require("codecompanion").setup({
             }
         },
         history = {
-            enabled = true,
+            enabled = false, -- wiring it to claude-acp is not supported
             opts = {
                 expiration_days = 45,
                 delete_on_clearing_chat = true,
