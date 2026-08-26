@@ -692,8 +692,8 @@ set fileignorecase                 " See also wildignorecase
 set smartcase                      " Sensitive if capital letter
 set report=0                       " Show number of modification if they are
 set cursorline                     " Highlight current line - cul
-"set mouse=a                        " Enable mouse usage (all modes) in terminals (ok in Desktop mode)
-set mouse=                         " Disable mouse (on laptop mode, the touchpad is annoying !!!)
+set mouse=a                        " Enable mouse usage (all modes) in terminals (ok in Desktop mode)
+"set mouse=                         " Disable mouse (on laptop mode, the touchpad is annoying !!!)
 set fo+=1ro fo-=tc tw=0            " Break comment at tw $size
 " Default comment/format settings (good for markdown-like editing)
 set comments=nb:*,nb:-,nb:+,n:>

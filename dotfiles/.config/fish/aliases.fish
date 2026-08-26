@@ -150,6 +150,7 @@ alias py3='python3'
 alias xback='xbacklight'
 alias octave='octave --silent'
 alias piai="pi --model anthropic/claude-sonnet:medium"
+alias diffx="crit" # crit is just better
 alias ai="aichat -s"
 alias air='aichat -s -r'
 alias aie="aichat -e"
@@ -158,8 +159,9 @@ alias mongoshell="docker exec -it mongodb mongo"
 alias docker_inspect_cmd="docker inspect --format '{{.Config.Cmd}}'"
 alias docker_inspect_env="docker inspect --format '{{ json .Config.Env }}'"
 alias docker_host_ip="ip route | grep (docker network ls | awk '/default/ {print $1}' | head -n 1) | awk '{print $9}'"
-alias dps='docker ps --format "{{.ID}}  {{.Names}}\n\t\t\t\t\t\t{{.Ports}}\n\t\t\t\t\t\t{{.Status}}"'
-function dps_net
+alias dps='docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Image}}"'
+alias dpss='docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Image}}\t{{.Ports}}"'
+function dps-net
     docker ps -q | while read container_id
         docker inspect --format='{{.Name}}: {{range $key, $value := .NetworkSettings.Networks}}{{$key}} {{end}}' $container_id | sed 's:/::'
     end
@@ -309,7 +311,7 @@ function vims
     # NEOVIM
     set CONFDIR "$HOME/.local/share/nvim/session"
 
-    set SessionID (string lower -- (basename (dirname $PWD)))-(string lower -- (basename $PWD))
+    set SessionID (basename (dirname $PWD))-(basename $PWD)
     #### vim-session way
     #if [ -f "$CONFDIR/$SessionID.vim" ]
     #    vim -c "OpenSession $SessionID"
@@ -842,7 +844,6 @@ alias cdme="cd $PX/perso/Papiers/me/"
 alias cdp="cd $PX/perso/Papiers/"
 alias cdai="cd ~/.config/aichat/sessions"
 alias cdia="cd ~/.config/aichat/sessions"
-alias iuai="cd ~/.config/aichat/sessions"
 alias cdpi="cd ~/.pi/"
 alias cdagents="cd ~/.pi/agent/extensions/todos/agents"
 alias cdvim="cd ~/.config/nvim"
