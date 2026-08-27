@@ -1,4 +1,4 @@
-# Automatif fundle install
+# Automatic fundle install
 if not functions -q fundle; eval (curl -sfL https://git.io/fundle-install); end
 
 fundle plugin 'edc/bass'
@@ -23,6 +23,10 @@ if test -e ~/.bash_aliases
 end
 
 . ~/.config/fish/aliases.fish
+
+# ctrl-w: backward-kill-path-component no longer merges consecutive kills in fish 4.x,
+# so ctrl-y only yanked the last one. backward-kill-word still merges.
+bind ctrl-w backward-kill-word
 
 #stty -ixon # disable <C-s> freeze in vim (who waits a <C-q> signal !)
 #setxkbmap -option "nbsp:none" # disable non-breaking space, accidently genrated when typing <ALTGR>+<SPACE>

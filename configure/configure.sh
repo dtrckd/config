@@ -54,7 +54,8 @@ if [ $PYTHON == 1 ]; then
     # LSP
     pip install python-lsp-server ruff-lsp pylsp-mypy jupyter-lsp cython ipython jupyter matplotlib numpy scipy pandas scikit-learn requests
     # tools and edition
-    pip install pip_search pipdeptree pypandoc pandoc-shortcaption pandoc-eqnos pandoc-fignos pandoc-xnos pandocfilters markitdown[all]
+    pip install pip_search pipdeptree markitdown[all]
+    #pip install pypandoc pandoc-shortcaption pandoc-eqnos pandoc-fignos pandoc-xnos pandocfilters
     # For tagbar ctags support
     pip install markdown2ctags
     cp ~/src/config/snippets/elmtags.py ~/.local/bin/
