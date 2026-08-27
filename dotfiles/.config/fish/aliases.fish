@@ -150,6 +150,7 @@ alias py3='python3'
 alias xback='xbacklight'
 alias octave='octave --silent'
 alias piai="pi --model anthropic/claude-sonnet:medium"
+alias commit-title='pi --no-session -p --model anthropic/claude-sonnet-5:low "/skill:commit-title diff" '
 alias diffx="crit" # crit is just better
 alias ai="aichat -s"
 alias air='aichat -s -r'
