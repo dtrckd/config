@@ -15,6 +15,7 @@ require("neoscroll").setup({
 
 -- Custom Plugins
 require("basics")
+require("memory") -- GC tuning, LSP idle stop, RSS monitor
 require("file-tree")
 require("lsp_configs")
 require("ai-completion").setup({ enabled = true })
@@ -23,6 +24,9 @@ require("ai-completion").setup({ enabled = true })
 -- Its setup() is a cheap table merge, so it stays synchronous.
 require("markview-conf")
 
--- Heavy plugins (treesitter setup, codecompanion, mcphub, img-clip)
--- are deferred past startup for a faster launch.
-MiniDeps.later(function() require("ccp") end)
+-- Heavy plugins are deferred past startup for a faster launch.
+MiniDeps.later(function() require("treesitter") end)
+
+-- CodeCompanion stack (codecompanion, mcphub, img-clip config) is disabled;
+-- its plugins are commented out in ~/.vimrc.
+--MiniDeps.later(function() require("ccp") end)

@@ -1,9 +1,9 @@
 {
-  "lastChangelogVersion": "0.84.3",
+  "lastChangelogVersion": "0.85.1",
   "defaultProvider": "anthropic",
-  "defaultModel": "claude-fable-5",
+  "defaultModel": "claude-opus-5",
   "theme": "dark",
-  "defaultThinkingLevel": "max",
+  "defaultThinkingLevel": "xhigh",
   "compaction": {
     "enabled": false
   },
@@ -19,7 +19,8 @@
   ],
   "packages": [
     "npm:@gotgenes/pi-anthropic-auth",
-    "https://github.com/dtrckd/ponytail"
+    "https://github.com/dtrckd/ponytail",
+    "npm:pi-usage-meters"
   ],
   "enableInstallTelemetry": false,
   "warnings": {

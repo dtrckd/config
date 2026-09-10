@@ -163,6 +163,10 @@ local config = {
   update_focused_file = {
     enable = true,
   },
+  actions = {
+    -- don't snap the tree back to view.width when opening a file
+    open_file = { resize_window = false },
+  },
   filters = {
     dotfiles = true,
     git_ignored = false,

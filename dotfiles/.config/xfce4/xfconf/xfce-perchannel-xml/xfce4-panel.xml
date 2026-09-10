@@ -161,6 +161,10 @@
         <value type="string" value="zoom"/>
       </property>
       <property name="known-legacy-items" type="array">
+        <value type="string" value="solaar"/>
+        <value type="string" value="handy"/>
+        <value type="string" value="wi-fi network connection “sfr_6d4f” active: sfr_6d4f (63%)"/>
+        <value type="string" value="signal-desktop"/>
         <value type="string" value="wi-fi network connection “lalilulelo” active: lalilulelo (69%)"/>
         <value type="string" value="wi-fi network connection “lalilulelo” active: lalilulelo (61%)"/>
         <value type="string" value="wi-fi network connection “sfr_6d4f” active: sfr_6d4f (74%)&#xA;vpn connection active"/>
