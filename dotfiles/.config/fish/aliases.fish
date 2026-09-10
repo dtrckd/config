@@ -149,8 +149,10 @@ alias py='python'
 alias py3='python3'
 alias xback='xbacklight'
 alias octave='octave --silent'
-alias piai="pi --model anthropic/claude-sonnet:medium"
+alias pil="pi --model anthropic/claude-sonnet:medium --no-session" # pi-light
+alias lspi="tree -D -t .pi/plans && tree -D -t .pi/handoff"
 alias commit-title='pi --no-session -p --model anthropic/claude-sonnet-5:low "/skill:commit-title diff" '
+alias usage='pi --no-session --model anthropic/claude-sonnet-5:low "/usage" '
 alias diffx="crit" # crit is just better
 alias ai="aichat -s"
 alias air='aichat -s -r'
@@ -260,6 +262,30 @@ alias !='fzf | tr -d "\n" | clipboard' # fuzzy match
 function ff; find -iname "*$argv[1]*" ; end # wide match
 function fff; find -iname "$argv[1]" ; end # exact match
 alias pvpn="protonvpn-cli"
+function vpn -d "switch wireguard tunnel: vpn ca|jp|nl|down|status"                                                  
+   set -l up (wg show interfaces)                                                                                   
+   if test (count $argv) -eq 0                                                                                      
+       echo "usage: vpn ca|jp|nl|down|status"                                                                       
+       if test -n "$up"                                                                                             
+           echo "$up up"
+           sudo wg show $up  # peer, endpoint, handshake, transfer                                                       
+       else                                                                                                         
+           echo "no tunnel up"                                                                                      
+       end                                                                                                          
+       return                                                                                                       
+   end                                                                                                              
+                                                                                                                    
+   for i in $up                                                                                                     
+       wg-quick down $i                                                                                             
+   end                                                                                                              
+   switch "$argv[1]"                                                                                                
+       case ca; wg-quick up pvpn-CA-13                                                                              
+       case jp; wg-quick up pvpn-JP-18                                                                              
+       case nl; wg-quick up pvpn-NL-282                                                                             
+       case down; # nothing left to do                                                                              
+       case '*'; echo "usage: vpn ca|jp|nl|down" >&2; return 1                                                      
+   end                                                                                                              
+end                                                                                                                  
 alias nmapw='nmap -sT -P0 -sV -p80,443 --script=http-headers'
 alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
 alias ntop="/home/dtrckd/.linuxbrew/bin/bandwhich" 
@@ -297,6 +323,8 @@ alias go-outdated="go list -mod=readonly -u -m -f '{{if not .Indirect}}{{if .Upd
 alias fmake="fzf-make"
 alias ranger="yazi"
 alias dictx="xfce4-dict"
+alias dx="xfce4-dict"
+alias d="dict"
 
 function show
     functions $argv[1] | grep "^ "
@@ -802,7 +830,6 @@ complete -c _cd -w cd
 
 alias xs='cd'
 alias cdl='cd -l'
-alias d='cd -l'
 alias cd-='cd -'
 
 set PX "$HOME/main"

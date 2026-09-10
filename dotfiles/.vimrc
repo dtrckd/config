@@ -84,14 +84,14 @@ if has('nvim')
   " and collides on runtimepath with the v1.10.2 pinned by mini.deps.
   Plugin 'bydlw98/blink-cmp-env'
 
-  " AI / CodeCompanion
-  Plugin 'olimorris/codecompanion.nvim'
+  " AI / CodeCompanion (disabled, see nvim/lua/ccp.lua)
+  "Plugin 'olimorris/codecompanion.nvim'
   Plugin 'HakonHarnes/img-clip.nvim'
-  Plugin 'ravitemer/mcphub.nvim'
-  Plugin 'ravitemer/codecompanion-history.nvim'
-  Plugin 'OXY2DEV/markview.nvim'
+  "Plugin 'ravitemer/mcphub.nvim'
+  "Plugin 'ravitemer/codecompanion-history.nvim'
 
   " UI enhancements
+  Plugin 'OXY2DEV/markview.nvim'
   Plugin 'karb94/neoscroll.nvim'  " Smooth scrolling
 endif
 
@@ -266,18 +266,45 @@ nnoremap B :Buffers<cr>
 " --vimgrep -> Needed to parse the rg response properly for ack.vim
 " --type-not sql -> Avoid huge sql file dumps as it slows down the search
 " --smart-case -> Search case insensitive if all lowercase pattern, Search case sensitively otherwise
-command! -bang -nargs=* Rg 
-      \ call fzf#vim#grep(
-      \   'rg --vimgrep --smart-case --hidden --glob "!.git" --type-not sql '.shellescape(<q-args>),
-      \   1,
-      \   fzf#vim#with_preview({'options': '--delimiter : --nth 1,4..'}), <bang>0)
+" Test/spec/fixture files skipped by default. Tweak this list, it is the only
+" thing that needs to change to adapt the strategy to a new language.
+let g:rg_test_globs = [
+      \ '!*_test.go', '!**/testdata/**',
+      \ '!test_*.py', '!*_test.py', '!conftest.py',
+      \ '!*.test.*', '!*.spec.*',
+      \ '!**/__tests__/**', '!**/__mocks__/**', '!**/__snapshots__/**',
+      \ '!*Test.elm', '!*Tests.elm',
+      \ '!**/test/**', '!**/tests/**', '!**/fixtures/**',
+      \]
+
+let s:rg_base = 'rg --vimgrep --smart-case --hidden --glob "!.git" --type-not sql '
+
+" a:tests -> 0 = skip test files, 1 = search everything
+function! s:Rg(query, tests, bang) abort
+  let l:cmd = s:rg_base
+  if !a:tests
+    let l:cmd .= join(map(copy(g:rg_test_globs), '"--glob ".shellescape(v:val)'), ' ').' '
+  endif
+  call fzf#vim#grep(
+        \   l:cmd.'-- '.shellescape(a:query),
+        \   1,
+        \   fzf#vim#with_preview({'options': '--delimiter : --nth 1,4..'}), a:bang)
+endfunction
+
+" :Rg -> production code only ; :Rga -> all, tests included
+command! -bang -nargs=* Rg  call s:Rg(<q-args>, 0, <bang>0)
+command! -bang -nargs=* Rga call s:Rg(<q-args>, 1, <bang>0)
 
 " Word under cursor (normal mode)
 nnoremap <silent> <leader>s :Rg <C-r><C-w><CR>
 " Selected text (visual mode)
 xnoremap <silent> <leader>s y:Rg <C-r>"<CR>
+" Same, but including test files ('*' = the unrestricted star search)
+nnoremap <silent> <leader>* :Rga <C-r><C-w><CR>
+xnoremap <silent> <leader>* y:Rga <C-r>"<CR>
 " Interactive search
 nnoremap <leader>/ :Rg<Space>
+nnoremap <leader>? :Rga<Space>
 nnoremap <leader><space> :Rg<Space>
 
 
@@ -367,10 +394,11 @@ autocmd QuitPre * call s:CloseTagbarBeforeQuit()
 
 augroup TagBar
     autocmd!
-    " When entering a quickfix window, map ESC to :cclose
+    " In the tagbar window, drop timeoutlen so ESC (mapped to :q) reacts instantly
     autocmd WinEnter * if &filetype == 'tagbar' | set timeoutlen=0 | endif
     autocmd FileType tagbar nnoremap <buffer> <ESC> :q<CR>:wincmd p<CR>
-    autocmd CursorMoved * if &filetype !=# 'tagbar' && tagbar#IsOpen() | call tagbar#highlighttag(0, 0) | endif
+    " Follow the cursor in tagbar; normal mode + real file buffers only (buftype guard also skips tagbar itself)
+    autocmd CursorMoved * if mode() ==# 'n' && &buftype ==# '' && tagbar#IsOpen() | call tagbar#highlighttag(0, 0) | endif
     autocmd WinLeave * if &filetype == 'tagbar' | set timeoutlen=750 | endif
 augroup END
 
@@ -508,7 +536,7 @@ let g:tagbar_type_go = {
 		\ 'ctype' : 't',
 		\ 'ntype' : 'n'
 	\ },
-	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsbin'  : $HOME.'/.go/bin/gotags',
 	\ 'ctagsargs' : '-sort -silent'
 \ }
 

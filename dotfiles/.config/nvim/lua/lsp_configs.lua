@@ -15,8 +15,8 @@
 --   :LspStop [name...]                        -- stop LSP clients (all, or by name)
 --   :TabbyToggle                              -- start/stop the Tabby LSP client
 --   :ToggleMypy                               -- toggle pylsp_mypy plugin for active pylsp
--- Memory self-monitor (lua/basics.lua): checks RSS of nvim + children every 2min;
--- runs :LspRestart above 4000MB, saves all and force-quits above 7000MB.
+-- Memory self-monitor + LSP idle stop (lua/memory.lua): GC + RSS checks every 2min,
+-- stops idle clients, saves all and force-quits above 7000MB.
 
 local function map(mode, lhs, rhs, opts)
     local options = { noremap = true }

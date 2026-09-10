@@ -40,6 +40,8 @@ local function trigger()
         local now = vim.api.nvim_win_get_cursor(0)
         if now[1] ~= cursor[1] or now[2] ~= cursor[2] then return end
 
+        -- blink's menu would otherwise eat <C-p> (its hide is deferred, ours wins the race).
+        pcall(function() require("blink.cmp").hide() end)
         ghost.show(bufnr, cursor[1] - 1, cursor[2], text)
     end)
 end
