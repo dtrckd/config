@@ -905,11 +905,18 @@ nnoremap <C-a> ggVG
 " Use C-y for increment (original C-a behavior)
 nnoremap <silent> <C-y> :<C-u>execute "normal! \<C-a>"<CR>
 
-""" Window moves
-nnoremap <S-UP>    <C-W>k
-nnoremap <S-DOWN>  <C-W>j
-nnoremap <S-LEFT>  <C-W>h
-nnoremap <S-RIGHT> <C-W>l
+""" Window moves (falls through to the adjacent tmux pane at the edge)
+function! s:WinMove(vimdir, tmuxdir) abort
+  let l:cur = winnr()
+  execute 'wincmd ' . a:vimdir
+  if winnr() == l:cur && !empty($TMUX)
+    call system('tmux select-pane -' . a:tmuxdir)
+  endif
+endfunction
+nnoremap <silent> <S-UP>    :call <SID>WinMove('k', 'U')<CR>
+nnoremap <silent> <S-DOWN>  :call <SID>WinMove('j', 'D')<CR>
+nnoremap <silent> <S-LEFT>  :call <SID>WinMove('h', 'L')<CR>
+nnoremap <silent> <S-RIGHT> :call <SID>WinMove('l', 'R')<CR>
 nnoremap à <C-W>w
 nnoremap ù <C-W>W
 " Do not work !
