@@ -186,6 +186,8 @@ vim.api.nvim_create_user_command('LspStop', function(opts)
 end, { nargs = '*', desc = 'Stop LSP clients (all, or by name)' })
 
 
+local format_group = vim.api.nvim_create_augroup('LspFormatOnSave', { clear = false })
+
 local server_configs = {
     -- Bash
     bashls = {
@@ -233,7 +235,9 @@ local server_configs = {
             -- Auto format on save, but only when there are no LSP errors.
             -- This prevents elm-format from running on invalid code, which would
             -- trigger the error popups we're trying to avoid.
+            vim.api.nvim_clear_autocmds({ group = format_group, event = 'BufWritePre', buffer = bufnr })
             vim.api.nvim_create_autocmd("BufWritePre", {
+                group = format_group,
                 buffer = bufnr,
                 callback = function()
                     if not has_errors() then
@@ -259,7 +263,9 @@ local server_configs = {
         },
         --
         on_attach = function(client, bufnr)
+            vim.api.nvim_clear_autocmds({ group = format_group, event = 'BufWritePre', buffer = bufnr })
             vim.api.nvim_create_autocmd('BufWritePre', {
+                group = format_group,
                 buffer = bufnr,
                 callback = function() vim.lsp.buf.format({ async = false }) end,
             })
