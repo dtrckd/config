@@ -506,7 +506,6 @@ end
 #alias gil='git issue list -l "%i | %T| %D"'
 #alias gis='git issue show'
 alias gitfilelog="git log --pretty=oneline -u dotfiles/.vimrc"
-alias gitstash="git stash list"
 alias git_excludf='git update-index --assume-unchanged'
 alias gitcount_line='git diff --shortstat (git hash-object -t tree /dev/null)'
 alias gitcount_commit='git rev-list --count'
