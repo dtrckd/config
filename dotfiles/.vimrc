@@ -999,30 +999,60 @@ command Bufno :echo bufnr('%')
 " add code block/backtick/triple quote.
 nnoremap <leader>xx o```<CR><CR>```<Esc>ki
 
+" CodeCompanion has been disabled
 "cnoremap cc<CR> CodeCompanionChat<CR>
-function! CCCommand()
-  let cmdline = getcmdline()
-  let cmdpos = getcmdpos()
-  
-  " Handle normal command mode
-  if getcmdtype() == ':' && cmdpos == 2 && cmdline == 'c'
-    return "\<BS>CodeCompanionChat"
-  endif
-  
-  " Handle visual mode - check if we're right after '<,'> and typing 'c'
-  if getcmdtype() == ':' && cmdline =~# "^'<,'>c$" && cmdpos == strlen(cmdline) + 1
-    " Remove the 'c' and replace with CodeCompanionChat
-    return "\<BS>CodeCompanionChat"
-  endif
+"function! CCCommand()
+"  let cmdline = getcmdline()
+"  let cmdpos = getcmdpos()
+"  
+"  " Handle normal command mode
+"  if getcmdtype() == ':' && cmdpos == 2 && cmdline == 'c'
+"    return "\<BS>CodeCompanionChat"
+"  endif
+"  
+"  " Handle visual mode - check if we're right after '<,'> and typing 'c'
+"  if getcmdtype() == ':' && cmdline =~# "^'<,'>c$" && cmdpos == strlen(cmdline) + 1
+"    " Remove the 'c' and replace with CodeCompanionChat
+"    return "\<BS>CodeCompanionChat"
+"  endif
+"
+"  return 'c'
+"endfunction
+"
+"nnoremap <Leader>c <cmd>CodeCompanionChat Toggle<cr>
+"vnoremap <Leader>c <cmd>CodeCompanionChat Toggle<cr>
+"cnoremap <expr> c CCCommand()
 
-  return 'c'
+""" cc: open a pi pane in tmux at the nearest AGENTS.md root, about the current file
+" First dir holding AGENTS.md, from the file dir up to $HOME (file dir if none).
+function! s:CcRoot() abort
+  let l:found = findfile('AGENTS.md', expand('%:p:h') . ';' . $HOME)
+  return empty(l:found) ? expand('%:p:h') : fnamemodify(fnamemodify(l:found, ':p'), ':h')
 endfunction
 
-nnoremap <Leader>c <cmd>CodeCompanionChat Toggle<cr>
-vnoremap <Leader>c <cmd>CodeCompanionChat Toggle<cr>
+function! s:CcMsg(selected) abort
+  let l:root = s:CcRoot()
+  let l:msg = 'Regarding the following file ' . strpart(expand('%:p'), len(l:root) + 1)
+  if a:selected
+    let l:msg .= "\n" . join(getregion(getpos("'<"), getpos("'>"), {'type': visualmode()}), "\n")
+  endif
+  return [l:root, l:msg]
+endfunction
 
+function! s:Cc(selected) abort
+  if empty($TMUX)
+    echohl WarningMsg | echo 'cc: not inside tmux' | echohl None
+    return
+  endif
+  let [l:root, l:msg] = s:CcMsg(a:selected)
+  " pi submits an argv message on startup, so no waiting for its prompt
+  call system(['tmux', 'split-window', '-h', '-c', l:root, 'pi', '--', l:msg])
+endfunction
 
-cnoremap <expr> c CCCommand()
+command! -range Cc call s:Cc(<range> != 0)
+cnoreabbrev <expr> cc (getcmdtype() ==# ':' && getcmdline() =~# "^\\('<,'>\\)\\?cc$") ? 'Cc' : 'cc'
+nnoremap <Leader>c :Cc<CR>
+xnoremap <Leader>c :Cc<CR>
 
 " Insert and jump to newline before the cursor, in insert mode
 inoremap <A-Enter> <Esc>O

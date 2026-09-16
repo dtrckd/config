@@ -27,7 +27,9 @@ vim.keymap.set("c", "<cr>", function()
   if vim.fn.pumvisible() == 1 then
     return '<c-y>'
   end
-  return '<cr>'
+  -- A mapped <cr> skips abbreviation expansion, so trigger it with <c-]>. Only on ':',
+  -- because cabbrevs also apply to '/' and '?', where expanding would rewrite the pattern.
+  return (vim.fn.getcmdtype() == ':' and '<c-]>' or '') .. '<cr>'
 end, { expr = true })
 
 --
