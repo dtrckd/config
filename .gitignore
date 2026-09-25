@@ -17,6 +17,8 @@ dotfiles/.config/xmms2/bindata/
 # Private
 #
 
+wireproxy.conf
+
 # dotfiles
 # --
 dotfiles/.gethubconfig
