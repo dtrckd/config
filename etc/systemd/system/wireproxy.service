@@ -1,0 +1,13 @@
+[Unit]
+Description=wireproxy: WireGuard (Proton) as a local SOCKS5 proxy for botx
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=dtrckd
+ExecStart=/home/dtrckd/.go/bin/wireproxy -c /home/dtrckd/src/config/wireproxy.conf
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
