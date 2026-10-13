@@ -1,9 +1,10 @@
 {
-  "lastChangelogVersion": "0.85.1",
+  "$schema": "https://pi.dev/schemas/settings.schema.json",
+  "lastChangelogVersion": "1.2.0",
   "defaultProvider": "anthropic",
-  "defaultModel": "claude-opus-5",
-  "theme": "dark",
-  "defaultThinkingLevel": "xhigh",
+  "defaultModel": "claude-opus-5-5",
+  "theme": "my-dark",
+  "defaultThinkingLevel": "high",
   "compaction": {
     "enabled": false
   },
@@ -26,5 +27,6 @@
   "warnings": {
     "anthropicExtraUsage": false
   },
-  "hideThinkingBlock": false
+  "hideThinkingBlock": false,
+  "tuiMode": "regular"
 }

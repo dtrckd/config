@@ -137,6 +137,34 @@ if test -x /bin/batcat
     alias mdcat="mdcat -p"
 end
 
+function treel -d "tree -D -t with line count next to each file"
+    # --sort=size to sort by size (yagni: sort by line count)
+    set -l commit (contains -- --commit $argv; and echo 1)
+    set -l args (string match -v -- --commit $argv)
+    test (count $args) -eq 0; and set args -D -t
+    set -l colored (tree $args -C)
+    set -l plain (tree $args -f -n)
+    for i in (seq (count $colored))
+        set -l p (string replace -r '^[│├└─\s\x{a0}]*(\[[^\]]*\]  )?' '' -- $plain[$i])
+        if test -f "$p"
+            printf '%s  \e[2m%s\e[0m' $colored[$i] (wc -l < "$p")
+            if test -n "$commit"
+                set -l c (git log -1 --format='%h%n%s' -- "$p")
+                # same commit, same color: hash picks one of 12 ANSI colors
+                set -l pal 31 32 33 34 35 36 91 92 93 94 95 96
+                if test (count $c) -ge 2
+                    set -l k (math "0x$(string sub -l 2 $c[1]) % 12 + 1")
+                    printf '  \e[%sm%s\e[0m \e[2m%s\e[0m' $pal[$k] $c[1] $c[2]
+                end
+            end
+            echo
+        else
+            printf '%s\n' $colored[$i]
+        end
+    end
+end
+alias tl="treel"
+
 ### Utility commands
 alias c="cat"
 alias fuk='fuck'
@@ -149,9 +177,9 @@ alias py='python'
 alias py3='python3'
 alias xback='xbacklight'
 alias octave='octave --silent'
-alias pil="pi --model anthropic/claude-sonnet:medium --no-session" # pi-light
-alias lspi="tree -D -t .pi/plans && tree -D -t .pi/handoff"
-alias commit-title='pi --no-session -p --model anthropic/claude-sonnet-5:low "/skill:commit-title diff" '
+alias pil="env -C $PX/webmain/mixtures/md pi --model anthropic/claude-sonnet:medium" # pi-light
+alias lspi="treel -D -t --sort=s .pi/plans && treel -D -t --sort=s .pi/handoff"
+alias commit-title='pi --no-session -p --model anthropic/claude-sonnet-5:low "read: /home/dtrckd/.pi/agent/extensions/todos/agents/commit-title.md. (git diff HEAD)" '
 alias usage='pi --no-session --model anthropic/claude-sonnet-5:low "/usage" '
 alias diffx="crit" # crit is just better
 alias ai="aichat -s"
@@ -211,6 +239,7 @@ alias ci='vim'
 alias bi='vim'
 alias vcal='vim -c "Calendar -view=month"' # get calendar
 alias vitodo='vim -p (command find -iname todo -type f)'
+alias bx="botx"
 
 function claude
     CLAUDE_CODE_OAUTH_TOKEN="" command claude $argv
@@ -218,7 +247,7 @@ end
 
 function pi
     if test (count $argv) -eq 0
-        CLAUDE_CODE_OAUTH_TOKEN="" command pi --model anthropic/claude-opus-5:high
+        CLAUDE_CODE_OAUTH_TOKEN="" command pi --model anthropic/claude-opus-5-5:high
     else
         CLAUDE_CODE_OAUTH_TOKEN="" command pi $argv
     end
@@ -229,6 +258,7 @@ set _NDL "$HOME/src/config/configure/nodeslist"
 
 function clipboard; command cat $argv[1] |string trim -c "\n" | xsel -bi; end
 function lineat; sed -n "$argv[1]p" "$argv[2]" ; end
+alias qrdecode="xclip -selection clipboard -t image/png -o | zbarimg -"
 
 # Copy a long page into the clipboard ?
 # Use silicon: 
@@ -262,6 +292,24 @@ alias !='fzf | tr -d "\n" | clipboard' # fuzzy match
 function ff; find -iname "*$argv[1]*" ; end # wide match
 function fff; find -iname "$argv[1]" ; end # exact match
 alias pvpn="protonvpn-cli"
+# Lets TCP 5432 (Postgres / Supabase session pooler) and 6543 (Supabase
+# transaction pooler) skip the tunnel: Proton exits drop 5432, so the supabase
+# CLI and psql time out while the VPN is up (443, so the app itself, is fine).
+# Two routing rules at priority 100: they are consulted before wg-quick's own
+# rules (priority ~32764), and send those ports to table main, which still holds
+# the LAN default route (wg puts its default in table 51820). Rules only, no
+# route or firewall change. Downside: the DB sees your real IP.
+function __vpn_bypass -d "Postgres ports out of the tunnel: __vpn_bypass [up]"
+    for port in 5432 6543
+        # delete first, so calling this twice cannot stack duplicates
+        sudo ip -4 rule del ipproto tcp dport $port table main priority 100 2>/dev/null
+
+        if test "$argv[1]" = up
+            sudo ip -4 rule add ipproto tcp dport $port table main priority 100
+        end
+    end
+end
+
 function vpn -d "switch wireguard tunnel: vpn ca|jp|nl|down|status"                                                  
    set -l up (wg show interfaces)                                                                                   
    if test (count $argv) -eq 0                                                                                      
@@ -285,6 +333,14 @@ function vpn -d "switch wireguard tunnel: vpn ca|jp|nl|down|status"
        case down; # nothing left to do                                                                              
        case '*'; echo "usage: vpn ca|jp|nl|down" >&2; return 1                                                      
    end                                                                                                              
+
+   # after wg-quick: it installs the fwmark rule the bypass piggybacks on
+   set -l now (wg show interfaces)
+   if test -n "$now"
+       __vpn_bypass up
+   else
+       __vpn_bypass
+   end
 end                                                                                                                  
 alias nmapw='nmap -sT -P0 -sV -p80,443 --script=http-headers'
 alias nmapRdWeb='nmap -Pn -sS -p 80 -T2 -iR 0 --open'
@@ -297,7 +353,7 @@ alias ip4="ip -4 -br a"
 alias ip6="ip -6 -br a"
 alias fail2ban-ls='sudo fail2ban-client status | sed -n "s/,//g;s/.*Jail list://p" | xargs -n1 sudo fail2ban-client status'
 alias xagrep='find -type f -print0 | xargs -0  grep --color'
-alias cloc='cloc --fullpath --exclude-dir=node_modules,elm-stuff,vendor,.direnv,.mypy_cache,venv --exclude-list-file=.gitignore'
+alias cloc='cloc --fullpath --exclude-dir=node_modules,elm-stuff,vendor,.direnv,.mypy_cache,venv,.git --exclude-list-file=.gitignore'
 alias grepr='grep -R --exclude-dir={.git,node_modules,elm-stuff,vendor,.direnv,.mypy_cache}'
 alias rg="rg --hidden -g '!.git/' -g '!vendor/' -g '!node_modules/' -g '!elm-stuff/' -g '!venv/' -g '!.direnv/' -g '!.mypy_cache/' -g '!.tags'"
 alias rgi="rg -i"
@@ -872,6 +928,7 @@ alias cdp="cd $PX/perso/Papiers/"
 alias cdai="cd ~/.config/aichat/sessions"
 alias cdia="cd ~/.config/aichat/sessions"
 alias cdpi="cd ~/.pi/"
+alias cdhunk="cd ~/.config/hunk"
 alias cdagents="cd ~/.pi/agent/extensions/todos/agents"
 alias cdvim="cd ~/.config/nvim"
 alias cdm="cd $PX/missions" # mission / kaggle / etc
@@ -1052,4 +1109,5 @@ setxkbmap -option "nbsp:none"
 alias nerd_dictation="cd ~/src/gpt/nerd-dictation && ./nerd-dictation begin --vosk-model-dir=./model"
 abbr -a vic "vim ~/src/config/"
 abbr -a cdc "cd ~/.config/"
+
 

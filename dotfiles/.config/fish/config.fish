@@ -57,3 +57,6 @@ bind ctrl-w backward-kill-word
 #export PATH="/snap/bin:$PATH"
 
 #thefuck --alias | source
+
+# Added by the Hunk installer (https://hunk.dev)
+fish_add_path '/home/dtrckd/.hunk/bin'

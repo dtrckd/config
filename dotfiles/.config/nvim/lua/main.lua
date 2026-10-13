@@ -24,6 +24,12 @@ require("ai-completion").setup({ enabled = true })
 -- Its setup() is a cheap table merge, so it stays synchronous.
 require("markview-conf")
 
+-- @FUTURE
+-- Improve gitgutter with navigation and minimap
+-- https://github.com/lewis6991/gitsigns.nvim
+-- https://github.com/petertriho/nvim-scrollbar
+--
+
 -- Heavy plugins are deferred past startup for a faster launch.
 MiniDeps.later(function() require("treesitter") end)
 
