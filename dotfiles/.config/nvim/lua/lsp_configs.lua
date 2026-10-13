@@ -41,6 +41,7 @@ local servers = {
     'pylsp',
     'ruff',
     'yamlls',
+    'jsonls',
     'dockerls',
     'rust_analyzer',
     'dartls',

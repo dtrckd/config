@@ -23,6 +23,7 @@ video/x-matroska=userapp-vlc-KAX1T3.desktop;vlc.desktop;
 application/x-shellscript=org.xfce.mousepad.desktop;
 application/vnd.ms-publisher=org.xfce.mousepad.desktop;
 text/markdown=org.xfce.mousepad.desktop;nvim.desktop;
+application/zip=libreoffice-startcenter.desktop;
 
 [Default Applications]
 text/html=firefox.desktop
