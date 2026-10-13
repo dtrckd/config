@@ -31,6 +31,8 @@ dotfiles/.tabby-client/
 dotfiles/.config/xfce4/desktop/
 dotfiles/.config/aichat/
 dotfiles/.config/mcphub/
+dotfiles/.config/nvim/.git/
+dotfiles/.config/hunk/.git/
 
 # etc/
 # --

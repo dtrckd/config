@@ -12,10 +12,11 @@
 [pull]
 	rebase = false
 [core]
-	excludesfile = /home/dtrckd/.gitignore
-    pager = delta --wrap-max-lines=5  --dark --syntax-theme="Dracula" --file-style='bold 201' --plus-style='syntax 17'
 	editor = /usr/bin/vim.nox
+	excludesfile = /home/dtrckd/.gitignore
     #pager = delta --wrap-max-lines=0 --dark --syntax-theme="Dracula" --file-style='bold 201' --plus-style='syntax 17'
+    pager = delta --wrap-max-lines=5  --dark --syntax-theme="Dracula" --file-style='bold 201' --plus-style='syntax 17'
+    #pager = hunk pager
 [delta]
     side-by-side = true
 [init]

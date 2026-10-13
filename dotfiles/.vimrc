@@ -509,7 +509,7 @@ let g:tagbar_type_just = {
       \ }
 
 " Graphql tagbar
-let g:tagbar_type_graphql = { 'kinds':[ 't:Types', 'e:Enums' ] }
+let g:tagbar_type_graphql = { 'kinds':['a:Interfaces', 't:Types', 'e:Enums'] }
 
 " Go tagbar
 let g:tagbar_type_go = {
@@ -718,6 +718,9 @@ set incsearch                      " Incremental search
 set ignorecase                     " Do case insensitive matching
 set fileignorecase                 " See also wildignorecase
 set smartcase                      " Sensitive if capital letter
+" Make * and # respect smartcase (native ones only use ignorecase)
+nnoremap * /\<<C-r><C-w>\><CR>
+nnoremap # ?\<<C-r><C-w>\><CR>
 set report=0                       " Show number of modification if they are
 set cursorline                     " Highlight current line - cul
 set mouse=a                        " Enable mouse usage (all modes) in terminals (ok in Desktop mode)
@@ -1036,6 +1039,7 @@ function! s:CcMsg(selected) abort
   if a:selected
     let l:msg .= "\n" . join(getregion(getpos("'<"), getpos("'>"), {'type': visualmode()}), "\n")
   endif
+  let l:msg .= "\n\n---\n\n" . "Wait for further instruction, do nothing now, don't even anwser here." 
   return [l:root, l:msg]
 endfunction
 
