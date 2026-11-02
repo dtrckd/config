@@ -28,7 +28,7 @@ dotfiles/.muttrc
 dotfiles/.ssh/
 dotfiles/.local/share/
 dotfiles/.tabby-client/
-dotfiles/.config/xfce4/desktop/
+dotfiles/.config/xfce4/
 dotfiles/.config/aichat/
 dotfiles/.config/mcphub/
 dotfiles/.config/nvim/.git/
