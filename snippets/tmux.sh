@@ -18,9 +18,9 @@ tmux send-keys 'aichat --serve 127.0.0.1:8881' C-j
 tmux resize-pane -t 2 -y '10%'
 
 # Win2
-tmux new-window -n 'ai'
+tmux new-window -n
 #tmux send-keys 'ai' C-j
 
-tmux select-window -t system:ai
+tmux select-window -t system:1
 tmux attach -t system
 

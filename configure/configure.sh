@@ -29,7 +29,7 @@ sudo update-alternatives --config vim
 
 # Optionals (but advised !)
 if [ $AGGRESSIVE_APT == 1 ]; then
-    sudo apt install $OPTS apt-listbugs acpi bmon nmap wireshark sniffnet fish autossh direnv ca-certificates snapd fzf acpid bolt thunderbolt-tools
+    sudo apt install $OPTS apt-listbugs acpi bmon nmap wireshark sniffnet fish autossh direnv ca-certificates snapd fzf acpid bolt thunderbolt-tools gvfs-backends
     sudo apt install $OPTS elinks w3m thunderbird firefox gimp libreoffice hunspell-fr pandoc lmodern graphicsmagick-imagemagick-compat pdftk galculator  # midori opera
     sudo apt install $OPTS wireguard resolvconf
     # resolvconf -u  # If DNS issues
@@ -54,7 +54,7 @@ if [ $PYTHON == 1 ]; then
     # LSP
     pip install python-lsp-server ruff-lsp pylsp-mypy jupyter-lsp cython ipython jupyter matplotlib numpy scipy pandas scikit-learn requests
     # tools and edition
-    pip install pip_search pipdeptree markitdown[all]
+    pip install pip_search pipdeptree markitdown[all] yt-dlp[default,curl-cffi]
     #pip install pypandoc pandoc-shortcaption pandoc-eqnos pandoc-fignos pandoc-xnos pandocfilters
     # For tagbar ctags support
     pip install markdown2ctags
