@@ -177,7 +177,7 @@ alias py='python'
 alias py3='python3'
 alias xback='xbacklight'
 alias octave='octave --silent'
-alias pil="env -C $PX/webmain/mixtures/md pi --model anthropic/claude-sonnet:medium" # pi-light
+alias pil="env -C $HOME/main/webmain/mixtures/md pi --model anthropic/claude-sonnet:medium" # pi-light
 alias lspi="treel -D -t --sort=s .pi/plans && treel -D -t --sort=s .pi/handoff"
 alias commit-title='pi --no-session -p --model anthropic/claude-sonnet-5:low "read: /home/dtrckd/.pi/agent/extensions/todos/agents/commit-title.md. (git diff HEAD)" '
 alias usage='pi --no-session --model anthropic/claude-sonnet-5:low "/usage" '
@@ -215,7 +215,6 @@ alias vls="vim" # use when using with "C-A" and quicly change ls to vls for open
 alias vcd="vim" # use when using with "C-A" and quicly change cd to vcd for openin vim
 alias vimdiff='vimdiff --noplugin'
 alias vdiff='vimdiff'
-alias vd='vimdiff'
 alias vip='vim -p'
 alias vio='vim -O'  
 alias vib="vim ~/.bash_profile"

@@ -17,13 +17,14 @@ image/svg+xml=org.xfce.mousepad.desktop;firefox.desktop;org.xfce.ristretto.deskt
 video/mp4=userapp-vlc-KAX1T3.desktop;vlc.desktop;
 text/html=firefox.desktop;org.xfce.mousepad.desktop;
 audio/x-opus+ogg=vlc.desktop;
-image/png=org.xfce.ristretto.desktop;firefox.desktop;gimp.desktop;
+image/png=org.xfce.ristretto.desktop;gimp.desktop;firefox.desktop;
 text/csv=org.xfce.mousepad.desktop;libreoffice-calc.desktop;
 video/x-matroska=userapp-vlc-KAX1T3.desktop;vlc.desktop;
 application/x-shellscript=org.xfce.mousepad.desktop;
 application/vnd.ms-publisher=org.xfce.mousepad.desktop;
 text/markdown=org.xfce.mousepad.desktop;nvim.desktop;
 application/zip=libreoffice-startcenter.desktop;
+x-scheme-handler/net.thunderbird=userapp-Thunderbird-ZREGX3.desktop;
 
 [Default Applications]
 text/html=firefox.desktop
@@ -42,3 +43,4 @@ image/jpeg=org.xfce.ristretto.desktop
 application/vnd.ms-publisher=org.xfce.mousepad.desktop
 image/svg+xml=org.xfce.ristretto.desktop
 x-scheme-handler/claude-cli=claude-code-url-handler.desktop
+x-scheme-handler/net.thunderbird=userapp-Thunderbird-ZREGX3.desktop
