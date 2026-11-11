@@ -26,6 +26,7 @@ dotfiles/.bash_aliases
 dotfiles/.mutt
 dotfiles/.muttrc
 dotfiles/.ssh/
+dotfiles/.memory
 dotfiles/.local/share/
 dotfiles/.tabby-client/
 dotfiles/.config/xfce4/

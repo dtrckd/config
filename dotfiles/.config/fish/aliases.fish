@@ -180,7 +180,7 @@ alias octave='octave --silent'
 alias pil="env -C $HOME/main/webmain/mixtures/md pi --model anthropic/claude-sonnet:medium" # pi-light
 alias lspi="treel -D -t --sort=s .pi/plans && treel -D -t --sort=s .pi/handoff"
 alias commit-title='pi --no-session -p --model anthropic/claude-sonnet-5:low "read: /home/dtrckd/.pi/agent/extensions/todos/agents/commit-title.md. (git diff HEAD)" '
-alias usage='pi --no-session --model anthropic/claude-sonnet-5:low "/usage" '
+alias pi-usage='pi --no-session --model anthropic/claude-sonnet-5:low "/usage" '
 alias diffx="crit" # crit is just better
 alias ai="aichat -s"
 alias air='aichat -s -r'
