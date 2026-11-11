@@ -25,6 +25,9 @@ application/vnd.ms-publisher=org.xfce.mousepad.desktop;
 text/markdown=org.xfce.mousepad.desktop;nvim.desktop;
 application/zip=libreoffice-startcenter.desktop;
 x-scheme-handler/net.thunderbird=userapp-Thunderbird-ZREGX3.desktop;
+x-scheme-handler/mailto=userapp-Thunderbird-Q1RUX3.desktop;
+x-scheme-handler/mid=userapp-Thunderbird-Q1RUX3.desktop;
+message/rfc822=userapp-Thunderbird-Q1RUX3.desktop;
 
 [Default Applications]
 text/html=firefox.desktop
@@ -44,3 +47,6 @@ application/vnd.ms-publisher=org.xfce.mousepad.desktop
 image/svg+xml=org.xfce.ristretto.desktop
 x-scheme-handler/claude-cli=claude-code-url-handler.desktop
 x-scheme-handler/net.thunderbird=userapp-Thunderbird-ZREGX3.desktop
+x-scheme-handler/mailto=userapp-Thunderbird-Q1RUX3.desktop
+x-scheme-handler/mid=userapp-Thunderbird-Q1RUX3.desktop
+message/rfc822=userapp-Thunderbird-Q1RUX3.desktop
