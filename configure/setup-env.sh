@@ -33,7 +33,7 @@ if [ "$Target" == "go" ]; then
 fi
 if [ "$Target" == "npm" ]; then
     # NPM
-    git clone https://github.com/creationix/nvm.git $HOME/.nvm
+    git clone https://github.com/nvm-sh/nvm.git $HOME/.nvm
     . $HOME/.nvm/nvm.sh
     nvm install node
 fi
