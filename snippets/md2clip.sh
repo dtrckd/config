@@ -68,7 +68,10 @@ if [[ -z $md ]]; then
 fi
 
 if [[ -z $out ]]; then
-    pandoc -f gfm -t html <<<"$md" | xclip -selection clipboard -t text/html
+    # Borders go on the tag itself: a pasted fragment carries no stylesheet
+    pandoc -f gfm -t html <<<"$md" |
+        sed 's/<table>/<table border="1" cellspacing="0" cellpadding="4" style="border-collapse:collapse">/' |
+        xclip -selection clipboard -t text/html
     cat >&2 <<'EOF'
 md2clip: rich text (HTML) copied to the clipboard.
   Paste with Ctrl+V into a rich-text editor (Thunderbird, LibreOffice, webmail).
@@ -78,9 +81,9 @@ EOF
     exit 0
 fi
 
-# Print CSS: pandoc's screen layout (36em column, block tables) clips wide tables on paper
+# Cell borders, plus print CSS: pandoc's screen layout (36em column, block tables) clips wide tables on paper
 pandoc -f gfm -s --metadata pagetitle="$(basename "${out%.*}")" \
     --pdf-engine=weasyprint --pdf-engine-opt=--quiet \
-    -V 'header-includes=<style>@media print{@page{margin:1.5cm}html{font-size:10pt}body{max-width:none;padding:0}table{display:table}}</style>' \
+    -V 'header-includes=<style>th,td{border:1px solid #ccc;padding:.3em .6em}@media print{@page{margin:1.5cm}html{font-size:10pt}body{max-width:none;padding:0}table{display:table}}</style>' \
     -o "$out" <<<"$md"
 echo "md2clip: wrote $out" >&2
