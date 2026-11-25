@@ -14,6 +14,7 @@ keras
 # Formating & Edition
 pandoc 
 pandocfilters 
+weasyprint # HTML to PDF (snippets/md2clip.sh -o x.pdf)
 termcolor
 
 # Data visualization
